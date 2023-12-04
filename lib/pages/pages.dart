@@ -1,8 +1,10 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:templat_project/buttons/buttons.dart';
+import 'package:templat_project/data/periodic_table.dart';
 import 'package:templat_project/widgets/widgets.dart';
 import 'package:templat_project/utils/utils.dart';
 part 'home_page.dart';

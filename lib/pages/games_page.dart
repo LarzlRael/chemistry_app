@@ -1,6 +1,6 @@
 part of 'pages.dart';
 
-class GamesPage extends StatelessWidget {
+class GamesPage extends HookWidget {
   const GamesPage({super.key});
 
   List<String> separarElementos(String texto) {
@@ -23,16 +23,79 @@ class GamesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(color: Colors.white, fontSize: 75);
-    final compound = separarElementos('Li2O');
-
+    final currentIndex = useState(0);
+    final listSuffle = shuffleList(listPeriodic);
+    final firstElement = listSuffle[currentIndex.value];
+    final compound = separarElementos(firstElement.symbol);
     print(compound);
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Juegos'),
+        actions: [
+          TextButton.icon(
+            label: Text('Siguiente'),
+            onPressed: () {
+              currentIndex.value++;
+              if (currentIndex.value == listSuffle.length) {
+                currentIndex.value = 0;
+              }
+            },
+            icon: Icon(
+              Icons.chevron_right_rounded,
+              size: 40,
+            ),
+          ),
+        ],
+      ),
       body: Center(
         child: FlipCard(
           fill: Fill
               .fillBack, // Fill the back side of the card to make in the same size as the front.
           direction: FlipDirection.HORIZONTAL, // default
           side: CardSide.FRONT, // The side to initially display.
+          back: cardFlipable(
+            Colors.blue,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    style: textStyle,
+                    children: compound.map((e) {
+                      if (e.contains(RegExp(r'[a-zA-Z]'))) {
+                        return TextSpan(
+                          text: e,
+                          style: textStyle,
+                        );
+                      } else {
+                        return WidgetSpan(
+                          child: Transform.translate(
+                            offset: const Offset(0.0, 4.0),
+                            child: Text(
+                              '2',
+                              style: TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    }).toList(),
+                  ),
+                ),
+                firstElement.atomicNumber.isEmpty
+                    ? SizedBox()
+                    : SimpleText(
+                        text: firstElement.atomicNumber,
+                        color: Colors.white,
+                        fontSize: 30,
+                      ),
+              ],
+            ),
+          ),
           front: cardFlipable(
             Colors.green,
             Center(
@@ -40,7 +103,7 @@ class GamesPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Que fue munu 🐒',
+                    firstElement.name,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -48,38 +111,6 @@ class GamesPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ],
-              ),
-            ),
-          ),
-          back: cardFlipable(
-            Colors.blue,
-            Center(
-              child: RichText(
-                text: TextSpan(
-                  style: textStyle,
-                  children: compound.map((e) {
-                    if (e.contains(RegExp(r'[a-zA-Z]'))) {
-                      return TextSpan(
-                        text: e,
-                        style: textStyle,
-                      );
-                    } else {
-                      return WidgetSpan(
-                        child: Transform.translate(
-                          offset: const Offset(0.0, 4.0),
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                  }).toList(),
-                ),
               ),
             ),
           ),
