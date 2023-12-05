@@ -51,7 +51,9 @@ class HomePage extends StatelessWidget {
               ButtonCategory(
                 icon: FontAwesomeIcons.atom,
                 text: 'Elementos',
-                onPress: () {},
+                onPress: () {
+                  context.push('/elements_page');
+                },
                 color1: Colors.green,
                 color2: Colors.greenAccent,
               ),

@@ -1,13 +1,20 @@
 part of 'pages.dart';
 
 class CompoundsPage extends StatelessWidget {
-  static const String routeName = 'compounds_page';
   const CompoundsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final element = listPeriodic.first;
     return Scaffold(
-      body: Center(
-        child: Text('CompoundsPage'),
+      body: ListTile(
+        title: Text(element.name),
+        subtitle: Text(element.group.toString()),
+        leading: Text(element.symbol),
+        trailing: Text(element.value!),
+        onTap: () {
+          /* context.goNamed(CompoundsPage.routeName); */
+        },
       ),
     );
   }
