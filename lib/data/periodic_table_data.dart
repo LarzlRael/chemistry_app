@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 enum Group {
+  nullGroup,
   monovalente,
   bivalente,
   trivalente,
@@ -259,8 +260,8 @@ List<PeriodicTableElement> shuffleList(
   return shuffledList;
 }
 
-List<PeriodicTableElement> filterByGroup(Group? group) {
-  if (group == null) {
+List<PeriodicTableElement> filterByGroup(Group group) {
+  if (group == Group.nullGroup) {
     return listPeriodic;
   }
   return listPeriodic.where((element) => element.group == group).toList();
@@ -271,15 +272,17 @@ Color colorByGroup(Group group) {
     case Group.monovalente:
       return Colors.red;
     case Group.bivalente:
-      return Colors.green;
+      return Colors.orange;
     case Group.trivalente:
       return Colors.blue;
     case Group.monotrivalente:
-      return Colors.yellow;
-    case Group.bitetravalente:
       return Colors.purple;
+    case Group.bitetravalente:
+      return Colors.pink;
     case Group.bitrivalente:
       return Colors.orange;
+    case Group.nullGroup:
+      return Colors.grey;
     default:
       return Colors.black;
   }
