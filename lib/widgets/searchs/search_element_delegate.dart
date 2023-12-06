@@ -45,6 +45,9 @@ class SearchElementDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    /*   if (query.isEmpty) {
+      return Container();
+    } */
     _onQueryChanged(context, query);
     return Consumer<CompoundsProvider>(builder: (context, state, child) {
       final elements = state.compoundState.searched;

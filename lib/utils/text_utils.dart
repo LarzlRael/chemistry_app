@@ -7,6 +7,21 @@ extension StringCasingExtension on String {
       .split(' ')
       .map((str) => str.toCapitalize())
       .join(' ');
+  String toCamelCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalize())
+      .join('');
+
+  String snakeCaseToWords() {
+    List<String> parts = split('_');
+    List<String> words = [];
+
+    for (String part in parts) {
+      words.add(part);
+    }
+
+    return words.join(' ');
+  }
 }
 
 String removeAllHtmlTags(String htmlText) {

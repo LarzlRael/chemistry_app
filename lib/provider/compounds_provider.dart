@@ -7,6 +7,16 @@ class CompoundsProvider with ChangeNotifier {
     compoundState = compoundState.copyWith(searched: elements);
     notifyListeners();
   }
+
+  void filterByGroup(Group group) {
+    if (group == Group.nullGroup) {
+      setSearched(listPeriodic);
+    }
+    compoundState = compoundState.copyWith(
+      compounds:
+          listPeriodic.where((element) => element.group == group).toList(),
+    );
+  }
 }
 
 class CompoundState {

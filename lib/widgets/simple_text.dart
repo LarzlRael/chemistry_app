@@ -8,6 +8,7 @@ class SimpleText extends StatelessWidget {
   final Color? color;
   final TextStyle? style;
   final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
 
   final TextAlign? textAlign;
   final double? lineHeight;
@@ -22,11 +23,13 @@ class SimpleText extends StatelessWidget {
     this.textAlign,
     this.lineHeight,
     this.color,
+    this.margin,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      margin: margin ?? const EdgeInsets.all(0),
       padding: padding ?? const EdgeInsets.all(0),
       child: Text(
         text,

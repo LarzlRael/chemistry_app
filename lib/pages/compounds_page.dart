@@ -5,17 +5,8 @@ class CompoundsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final element = listPeriodic.first;
     return Scaffold(
-      body: ListTile(
-        title: Text(element.name),
-        subtitle: Text(element.group.toString()),
-        leading: Text(element.symbol),
-        trailing: Text(element.value!),
-        onTap: () {
-          /* context.goNamed(CompoundsPage.routeName); */
-        },
-      ),
+      body: Placeholder(),
     );
   }
 }

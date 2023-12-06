@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:templat_project/data/periodic_table_data.dart';
+import 'package:templat_project/models/models.dart';
 import '../pages/pages.dart';
 
 final appRouter = GoRouter(
@@ -21,6 +23,15 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/compounds_page',
       builder: (_, __) => const CompoundsPage(),
+    ),
+    GoRoute(
+      path: '/elements_detail_page',
+      builder: (_, state) {
+        PeriodicTableElement element = state.extra as PeriodicTableElement;
+        return ElementsDetail(
+          periodicTableElement: element,
+        );
+      },
     ),
   ],
 );

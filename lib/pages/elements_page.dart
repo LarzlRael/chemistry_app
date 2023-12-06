@@ -1,7 +1,6 @@
 part of 'pages.dart';
 
 class ElementsPage extends HookWidget {
-  static const String routeName = 'elements_page';
   const ElementsPage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -62,17 +61,17 @@ class ElementsPage extends HookWidget {
             ),
             Expanded(
                 /* FIX THI */
-                child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              child: ElementListCards(
-                elements: elements,
-                key: ValueKey<Group>(
-                  selectedGroup.value,
-                ),
-                onSelected: ((element) => {
-                      inspect(element),
-                    }),
+                child: ElementListCards(
+              elements: elements,
+              key: ValueKey<Group>(
+                selectedGroup.value,
               ),
+              onSelected: ((element) => {
+                    context.push(
+                      '/elements_detail_page',
+                      extra: element,
+                    )
+                  }),
             )),
           ],
         ),

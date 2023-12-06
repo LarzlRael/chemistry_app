@@ -149,11 +149,15 @@ class CardFlipablePeriodicElement extends StatelessWidget {
             Positioned(
               top: 20,
               right: 20,
-              child: SimpleText(
-                text: firstElement.value.toString(),
-                color: Colors.white,
-                fontSize: 30,
-              ),
+              child: Wrap(
+                  children: firstElement.valencias.map((e) {
+                return SimpleText(
+                  text: e.value.toString(),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                );
+              }).toList()),
             ),
           ],
         ),
