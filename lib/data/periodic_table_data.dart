@@ -801,7 +801,7 @@ Color colorByGroup(Group group) {
     Group.bitrivalente: Colors.orange,
     Group.monoBivalente: Colors.green,
     Group.anfotero: Colors.teal,
-    Group.halogeno: Colors.yellow,
+    Group.halogeno: Colors.pinkAccent,
     Group.anfigenos: Colors.lightGreen,
     Group.nitrogeniodes: Colors.indigo,
     Group.carbonoides: Colors.brown,

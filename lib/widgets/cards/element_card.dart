@@ -91,7 +91,7 @@ class ElementCard extends StatelessWidget {
             ),
             Positioned(
                 top: 30,
-                right: 20,
+                right: 5,
                 child: element.valencias.length > 1
                     ? Wrap(
                         children: element.valencias.map((e) {
