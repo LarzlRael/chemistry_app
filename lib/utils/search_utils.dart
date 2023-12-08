@@ -9,7 +9,7 @@ List<PeriodicTableElement> searchElements(
       .where(
         (element) =>
             element.name.toLowerCase().contains(query.toLowerCase()) ||
-            /* element.value!.toLowerCase().contains(query.toLowerCase())  ||*/
+            /* element.value!.toLowerCaNse().contains(query.toLowerCase())  ||*/
             element.symbol.toLowerCase().contains(query.toLowerCase()),
       )
       .toList();

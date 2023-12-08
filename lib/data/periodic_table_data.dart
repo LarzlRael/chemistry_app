@@ -553,7 +553,7 @@ final List<PeriodicTableElement> listPeriodic = [
         suffix: TypeValencia.ico,
       ),
       Valencia(
-        value: 5,
+        value: 7,
         suffix: TypeValencia.per_ico,
       ),
     ],
@@ -578,7 +578,7 @@ final List<PeriodicTableElement> listPeriodic = [
         suffix: TypeValencia.ico,
       ),
       Valencia(
-        value: 5,
+        value: 7,
         suffix: TypeValencia.per_ico,
       ),
     ],

@@ -98,9 +98,30 @@ class CirclesRow extends StatelessWidget {
             customBorder: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            child: CircleAvatar(
-              radius: 20,
-              backgroundColor: colorByGroup(group),
+            child: Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 1,
+                vertical: 2,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: colorByGroup(group),
+              ),
+              /* backgroundColor: colorByGroup(group), */
+              child: Text(
+                group.name == Group.nullGroup.name
+                    ? 'Todos'
+                    : group.name.toCapitalize(),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
             ),
           );
         }).toList(),

@@ -69,24 +69,27 @@ class ElementCard extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SimpleText(
-                    text: element.symbol,
-                    fontSize: 45,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    lineHeight: 1,
-                  ),
-                  SimpleText(
-                    text: element.name,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                    lineHeight: 1,
-                  ),
-                ],
+              child: Container(
+                margin: EdgeInsets.only(top: 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SimpleText(
+                      text: element.symbol,
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      lineHeight: 1,
+                    ),
+                    SimpleText(
+                      text: element.name,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                      lineHeight: 1,
+                    ),
+                  ],
+                ),
               ),
             ),
             Positioned(
@@ -139,14 +142,14 @@ class ElementCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 10,
-              left: 10,
+              top: 5,
+              left: 5,
               child: SimpleText(
                 text:
                     element.typeElement.name.snakeCaseToWords().toCapitalize(),
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
+                fontWeight: FontWeight.w900,
+                fontSize: 16,
               ),
             ),
           ],
