@@ -35,7 +35,9 @@ class HomePage extends StatelessWidget {
               ButtonCategory(
                 icon: FontAwesomeIcons.flask,
                 text: 'Compuestos',
-                onPress: () {},
+                onPress: () {
+                  context.push('/compounds_page');
+                },
                 color1: Colors.red,
                 color2: Colors.redAccent,
               ),

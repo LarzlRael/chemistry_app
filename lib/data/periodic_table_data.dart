@@ -90,6 +90,19 @@ final List<PeriodicTableElement> listPeriodic = [
         suffix: TypeValencia.oso,
       ),
     ],
+    name: 'Plata',
+    symbol: 'Ag',
+    atomicNumber: '47',
+    group: Group.monovalente,
+  ),
+  PeriodicTableElement(
+    typeElement: TypeElement.metal,
+    valencias: [
+      Valencia(
+        value: 1,
+        suffix: TypeValencia.oso,
+      ),
+    ],
     name: 'Francio',
     symbol: 'Fr',
     atomicNumber: '87',
@@ -810,4 +823,4 @@ Color colorByGroup(Group group) {
 
   return groupColors[group] ??
       Colors.black; // Devuelve el color asignado o negro si no hay coincidencia
-}
+} /* ADD PLATA */

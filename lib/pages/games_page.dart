@@ -73,23 +73,6 @@ class CardFlipablePeriodicElement extends StatelessWidget {
   final Widget child;
   final PeriodicTableElement firstElement;
 
-  List<String> separarElementos(String texto) {
-    RegExp regExp = RegExp(r'([a-zA-Z]+|\d+)');
-    Iterable<RegExpMatch> matches = regExp.allMatches(texto);
-    int counter = 0;
-    List<String> elementos = [];
-    for (RegExpMatch match in matches) {
-      /* if (counter == 0) {
-        elementos.add(match.group(0)!.toUpperCase());
-      } else {
-      } */
-      elementos.add(match.group(0)!);
-      counter++;
-    }
-
-    return elementos;
-  }
-
   @override
   Widget build(BuildContext context) {
     final compound = separarElementos(firstElement.symbol);

@@ -93,42 +93,43 @@ class ElementCard extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 30,
-                right: 5,
-                child: element.valencias.length > 1
-                    ? Wrap(
-                        children: element.valencias.map((e) {
-                        return Container(
-                          margin: EdgeInsets.only(left: 5),
-                          child: Column(
-                            children: [
-                              SimpleText(
-                                text: e.value.toString(),
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                lineHeight: 1,
-                              ),
-                              SimpleText(
-                                text: e.suffix.name
-                                    .snakeCaseToWords()
-                                    .toCapitalize(),
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 12,
-                                lineHeight: 1,
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList())
-                    : SimpleText(
-                        text: element.valencias.first.value.toString(),
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      )),
+              top: 30,
+              right: 5,
+              child: element.valencias.length > 1
+                  ? Wrap(
+                      children: element.valencias.map((e) {
+                      return Container(
+                        margin: EdgeInsets.only(left: 5),
+                        child: Column(
+                          children: [
+                            SimpleText(
+                              text: e.value.toString(),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              lineHeight: 1,
+                            ),
+                            SimpleText(
+                              text: e.suffix.name
+                                  .snakeCaseToWords()
+                                  .toCapitalize(),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12,
+                              lineHeight: 1,
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList())
+                  : SimpleText(
+                      text: element.valencias.first.value.toString(),
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20,
+                    ),
+            ),
             Container(
               margin: EdgeInsets.only(bottom: 10),
               child: Align(

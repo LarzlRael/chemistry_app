@@ -16,5 +16,7 @@ import 'package:templat_project/utils/utils.dart';
 part 'home_page.dart';
 part 'games_page.dart';
 part 'elements_page.dart';
-part 'compounds_page.dart';
 part 'elements/elements_detail.dart';
+
+part 'compounds/compounds_page.dart';
+part 'compounds/compounds_page_by_type.dart';

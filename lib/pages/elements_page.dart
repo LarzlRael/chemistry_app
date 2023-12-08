@@ -60,19 +60,20 @@ class ElementsPage extends HookWidget {
               },
             ),
             Expanded(
-                /* FIX THI */
-                child: ElementListCards(
-              elements: elements,
-              key: ValueKey<Group>(
-                selectedGroup.value,
+              /* FIX THI */
+              child: ElementListCards(
+                elements: elements,
+                key: ValueKey<Group>(
+                  selectedGroup.value,
+                ),
+                onSelected: ((element) => {
+                      context.push(
+                        '/elements_detail_page',
+                        extra: element,
+                      )
+                    }),
               ),
-              onSelected: ((element) => {
-                    context.push(
-                      '/elements_detail_page',
-                      extra: element,
-                    )
-                  }),
-            )),
+            ),
           ],
         ),
       ),
