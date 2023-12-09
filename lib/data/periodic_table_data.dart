@@ -6,19 +6,6 @@ import 'package:templat_project/models/models.dart';
 final List<PeriodicTableElement> listPeriodic = [
   PeriodicTableElement(
     typeElement: TypeElement.metal,
-    name: 'Hidrógeno',
-    symbol: 'H',
-    atomicNumber: '1',
-    group: Group.monovalente,
-    valencias: [
-      Valencia(
-        value: 1,
-        suffix: TypeValencia.oso,
-      ),
-    ],
-  ),
-  PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -303,7 +290,7 @@ final List<PeriodicTableElement> listPeriodic = [
     typeElement: TypeElement.metal,
     valencias: [
       Valencia(
-        value: 2,
+        value: 1,
         suffix: TypeValencia.oso,
       ),
       Valencia(
@@ -504,6 +491,19 @@ final List<PeriodicTableElement> listPeriodic = [
     ],
   ),
   PeriodicTableElement(
+    name: 'Bismuto',
+    symbol: 'Bi',
+    atomicNumber: '',
+    group: Group.anfotero,
+    typeElement: TypeElement.metal,
+    valencias: [
+      Valencia(
+        value: 3,
+        suffix: TypeValencia.ico,
+      ),
+    ],
+  ),
+  PeriodicTableElement(
     name: 'Titanio',
     symbol: 'Ti',
     atomicNumber: '',
@@ -661,7 +661,7 @@ final List<PeriodicTableElement> listPeriodic = [
   ),
   PeriodicTableElement(
     name: 'Nitrogéno',
-    symbol: 'Te',
+    symbol: 'N',
     atomicNumber: '',
     group: Group.nitrogeniodes,
     typeElement: TypeElement.no_metal,

@@ -1,29 +1,31 @@
 part of '../widgets.dart';
 
+const fontSizeCard = 75.0;
+
 class CompoundtListCards extends StatelessWidget {
-  final List<PeriodicTableElement> elements;
-  final Function(PeriodicTableElement element)? onSelected;
+  final List<Compound> compoundsList;
+  final Function(Compound compound)? onSelected;
   const CompoundtListCards({
     super.key,
     this.onSelected,
-    required this.elements,
+    required this.compoundsList,
   });
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 500),
       child: AlignedGridView.count(
-        itemCount: elements.length,
+        itemCount: compoundsList.length,
         crossAxisCount: 2,
         mainAxisSpacing: 1,
         crossAxisSpacing: 1,
         itemBuilder: (context, index) {
-          final element = elements[index];
+          final compound = compoundsList[index];
           return Hero(
-            tag: element.symbol,
+            tag: compound.formula,
             child: CompoundCard(
-              element: element,
-              key: ValueKey<String>(element.symbol),
+              compound: compound,
+              key: ValueKey<String>(compound.formula),
               onTap: onSelected,
             ),
           );
@@ -34,23 +36,22 @@ class CompoundtListCards extends StatelessWidget {
 }
 
 class CompoundCard extends StatelessWidget {
+  final Compound compound;
+  final Function(Compound element)? onTap;
   const CompoundCard({
     super.key,
-    required this.element,
     this.onTap,
+    required this.compound,
   });
-
-  final PeriodicTableElement element;
-  final Function(PeriodicTableElement element)? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final compound = separarElementos(element.symbol);
-    final textStyle = TextStyle(color: Colors.white, fontSize: 75);
+    final compoundSeparate = separarElementos(compound.formula);
+    final textStyle = TextStyle(color: Colors.white, fontSize: fontSizeCard);
     return InkWell(
       onTap: () {
         if (onTap != null) {
-          onTap!(element);
+          onTap!(compound);
         }
       },
       child: Container(
@@ -60,8 +61,8 @@ class CompoundCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              colorByGroup(element.group),
-              colorByGroup(element.group).withOpacity(0.6),
+              colorByGroup(Group.monovalente),
+              colorByGroup(Group.monovalente).withOpacity(0.6),
             ],
           ),
         ),
@@ -79,7 +80,7 @@ class CompoundCard extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         style: textStyle,
-                        children: compound.map((e) {
+                        children: compoundSeparate.map((e) {
                           if (e.contains(RegExp(r'[a-zA-Z]'))) {
                             return TextSpan(
                               text: e,
@@ -90,9 +91,9 @@ class CompoundCard extends StatelessWidget {
                               child: Transform.translate(
                                 offset: const Offset(0.0, 4.0),
                                 child: Text(
-                                  '2',
+                                  e,
                                   style: TextStyle(
-                                    fontSize: 30,
+                                    fontSize: fontSizeCard * 0.50,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
@@ -104,7 +105,7 @@ class CompoundCard extends StatelessWidget {
                       ),
                     ),
                     SimpleText(
-                      text: element.name,
+                      text: compound.name,
                       textAlign: TextAlign.center,
                       fontSize: 25,
                       fontWeight: FontWeight.w400,

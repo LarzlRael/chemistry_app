@@ -36,7 +36,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/compounds_by_type_page/:type_compound',
       builder: (_, state) {
-        return CompoundsPageByType(
+        return CompoundsByTypePage(
           compoundType: state.params['type_compound']!,
         );
       },
