@@ -1,45 +1,48 @@
 part of 'providers.dart';
 
-class CompoundsProvider with ChangeNotifier {
-  CompoundState compoundState = CompoundState.initial();
+final compoundProvider =
+    StateNotifierProvider<CompoundNotifier, CompoundStateProvider>(
+        (ref) => CompoundNotifier());
 
-  void setSearched(List<PeriodicTableElement> elements) {
-    compoundState = compoundState.copyWith(searched: elements);
-    notifyListeners();
+class CompoundNotifier extends StateNotifier<CompoundStateProvider> {
+  CompoundNotifier() : super(CompoundStateProvider.initial());
+
+  void setSearched(List<PeriodicTableElement> listPeriodic) {
+    state = state.copyWith(searched: listPeriodic);
   }
 
   void filterByGroup(Group group) {
     if (group == Group.nullGroup) {
       setSearched(listPeriodic);
     }
-    compoundState = compoundState.copyWith(
+    state = state.copyWith(
       compounds:
           listPeriodic.where((element) => element.group == group).toList(),
     );
   }
 }
 
-class CompoundState {
+class CompoundStateProvider {
   final bool isLoading;
   final List<PeriodicTableElement> compounds;
   final List<PeriodicTableElement> searched;
   final String errorMessage;
 
-  CompoundState({
+  CompoundStateProvider({
     this.isLoading = true,
     this.compounds = const [],
     this.errorMessage = '',
     this.searched = const [],
   });
-  factory CompoundState.initial() => CompoundState();
+  factory CompoundStateProvider.initial() => CompoundStateProvider();
 
-  CompoundState copyWith({
+  CompoundStateProvider copyWith({
     bool? isLoading,
     List<PeriodicTableElement>? compounds,
     String? errorMessage,
     List<PeriodicTableElement>? searched,
   }) =>
-      CompoundState(
+      CompoundStateProvider(
         isLoading: isLoading ?? this.isLoading,
         compounds: compounds ?? this.compounds,
         errorMessage: errorMessage ?? this.errorMessage,

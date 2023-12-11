@@ -75,104 +75,111 @@ class CardFlipablePeriodicElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final compound = separarElementos(firstElement.symbol);
-    final textStyle = TextStyle(color: Colors.white, fontSize: 75);
-    return FlipCard(
-      fill: Fill
-          .fillBack, // Fill the back side of the card to make in the same size as the front.
-      direction: FlipDirection.HORIZONTAL, // default
-      side: CardSide.FRONT, // The side to initially display.
-      back: cardFlipable(
-        Colors.blue,
-        Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+    /* final compound = separarElementos(firstElement.symbol); */
+    final textStyle = TextStyle(color: Colors.black, fontSize: 75);
+    return PageView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: listPeriodic.length,
+        itemBuilder: (context, index) {
+          final compoundSeparate = separarElementos(listPeriodic[index].symbol);
+          final compound = listPeriodic[index];
+          return FlipCard(
+            fill: Fill
+                .fillBack, // Fill the back side of the card to make in the same size as the front.
+            direction: FlipDirection.HORIZONTAL, // default
+            side: CardSide.FRONT, // The side to initially display.
+            back: cardFlipable(
+              Colors.blue,
+              Stack(
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      style: textStyle,
-                      children: compound.map((e) {
-                        if (e.contains(RegExp(r'[a-zA-Z]'))) {
-                          return TextSpan(
-                            text: e,
+                  Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        RichText(
+                          text: TextSpan(
                             style: textStyle,
-                          );
-                        } else {
-                          return WidgetSpan(
-                            child: Transform.translate(
-                              offset: const Offset(0.0, 4.0),
-                              child: Text(
-                                '2',
-                                style: TextStyle(
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                            children: compoundSeparate.map((e) {
+                              if (e.contains(RegExp(r'[a-zA-Z]'))) {
+                                return TextSpan(
+                                  text: e,
+                                  style: textStyle,
+                                );
+                              } else {
+                                return WidgetSpan(
+                                  child: Transform.translate(
+                                    offset: const Offset(0.0, 4.0),
+                                    child: Text(
+                                      e,
+                                      style: TextStyle(
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                            }).toList(),
+                          ),
+                        ),
+                        compound.atomicNumber.isEmpty
+                            ? SizedBox()
+                            : SimpleText(
+                                text: compound.atomicNumber,
+                                color: Colors.black,
+                                fontSize: 30,
                               ),
-                            ),
-                          );
-                        }
-                      }).toList(),
+                      ],
                     ),
                   ),
-                  firstElement.atomicNumber.isEmpty
-                      ? SizedBox()
-                      : SimpleText(
-                          text: firstElement.atomicNumber,
-                          color: Colors.white,
-                          fontSize: 30,
-                        ),
+                  Positioned(
+                    top: 20,
+                    right: 20,
+                    child: Wrap(
+                        children: compound.valencias.map((e) {
+                      return SimpleText(
+                        text: e.value.toString(),
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      );
+                    }).toList()),
+                  ),
                 ],
               ),
             ),
-            Positioned(
-              top: 20,
-              right: 20,
-              child: Wrap(
-                  children: firstElement.valencias.map((e) {
-                return SimpleText(
-                  text: e.value.toString(),
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
-                );
-              }).toList()),
-            ),
-          ],
-        ),
-      ),
-      front: cardFlipable(
-        Colors.green,
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                firstElement.name,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
+            front: cardFlipable(
+              Colors.green,
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      compound.name,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.center,
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 }
 
 Widget cardFlipable(Color color, Widget child) {
   return Container(
-    width: 200,
-    height: 300,
+    width: double.infinity,
+    height: double.infinity,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(15),
+      /* borderRadius: BorderRadius.circular(15), */
       color: color,
       boxShadow: const [
         BoxShadow(
@@ -182,6 +189,8 @@ Widget cardFlipable(Color color, Widget child) {
         ),
       ],
     ),
+    /* width: 200,
+    height: 300, */
     child: child,
   );
 }

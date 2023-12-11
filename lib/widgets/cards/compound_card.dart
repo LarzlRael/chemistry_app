@@ -1,6 +1,6 @@
 part of '../widgets.dart';
 
-const fontSizeCard = 75.0;
+const fontSizeCard = 60.0;
 
 class CompoundtListCards extends StatelessWidget {
   final List<Compound> compoundsList;

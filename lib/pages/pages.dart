@@ -6,7 +6,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:templat_project/buttons/buttons.dart';
 import 'package:templat_project/data/periodic_table_data.dart';
 import 'package:templat_project/models/models.dart';
@@ -19,4 +20,4 @@ part 'elements_page.dart';
 part 'elements/elements_detail.dart';
 
 part 'compounds/compounds_page.dart';
-part 'compounds/compounds_page_by_type.dart';
+part 'compounds/compounds_by_type_page.dart';

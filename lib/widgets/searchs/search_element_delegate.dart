@@ -1,7 +1,7 @@
 part of '../widgets.dart';
 
 class SearchElementDelegate extends SearchDelegate {
-  final CompoundsProvider compoundsProvider;
+  final CompoundNotifier compoundsProvider;
   Timer? debouncerTimer;
 
   SearchElementDelegate({
@@ -35,12 +35,9 @@ class SearchElementDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     _onQueryChanged(context, query);
-    return Consumer<CompoundsProvider>(builder: (context, state, child) {
-      final elements = state.compoundState.searched;
-      return ElementListCards(
-        elements: elements,
-      );
-    });
+    return ElementListCards(
+      elements: compoundsProvider.state.searched,
+    );
   }
 
   @override
@@ -49,13 +46,10 @@ class SearchElementDelegate extends SearchDelegate {
       return Container();
     } */
     _onQueryChanged(context, query);
-    return Consumer<CompoundsProvider>(builder: (context, state, child) {
-      final elements = state.compoundState.searched;
-      return ElementListCards(
-        elements: elements,
-        onSelected: ((element) => {inspect(element)}),
-      );
-    });
+    return ElementListCards(
+      elements: compoundsProvider.state.searched,
+      onSelected: ((element) => {inspect(element)}),
+    );
   }
 
   void _onQueryChanged(BuildContext context, String query) {

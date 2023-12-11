@@ -24,7 +24,8 @@ class AppTheme {
             'Color index must be less than ${colorList.length}');
   ThemeData getTheme() => ThemeData(
         useMaterial3: true,
-        brightness: isDarkMode ? Brightness.dark : Brightness.light,
+        /* brightness: isDarkMode ? Brightness.dark : Brightness.light, */
+        brightness: Brightness.dark,
         /* Text */
         textTheme: TextTheme(
           /*     titleLarge: GoogleFonts.montserratAlternates().copyWith(

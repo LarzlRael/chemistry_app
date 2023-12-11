@@ -8,7 +8,8 @@ class CompoundsByTypePage extends StatelessWidget {
   final String compoundType;
   @override
   Widget build(BuildContext context) {
-    final list = generateOxidosByOneElement(listPeriodic[0]);
+    /* final list = generateOxidosByOneElement(listPeriodic[0]); */
+    final list = generateOxidosByGroupElements(Group.monovalente);
     return Scaffold(
       body: SafeArea(
         child: CompoundtListCards(

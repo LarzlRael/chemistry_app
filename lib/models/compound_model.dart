@@ -26,12 +26,15 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement elements) {
   if (elements.valencias.isEmpty) {
     return compound;
   }
+
   if (elements.valencias.length > 1) {
     compound.add(Compound(
       element: elements,
       /* TODO  name ferrico and ferroso*/
       name: "Oxido de ${elements.name.toLowerCase()}",
-      formula: "${elements.symbol}${elements.valencias[0].value}O",
+      formula: elements.symbol.toLowerCase() == "nh4"
+          ? "${elements.symbol}(${elements.valencias[0].value})O"
+          : "${elements.symbol}${elements.valencias[0].value}O",
       type: "Oxido",
     ));
     return compound;
@@ -44,6 +47,15 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement elements) {
       formula: "${elements.symbol}${2}O${element}",
       type: "Oxido",
     ));
+  });
+  return compound;
+}
+
+List<Compound> generateOxidosByGroupElements(Group group) {
+  final elements = filterByGroup(group);
+  final compound = <Compound>[];
+  elements.forEach((element) {
+    compound.addAll(generateOxidosByOneElement(element));
   });
   return compound;
 }

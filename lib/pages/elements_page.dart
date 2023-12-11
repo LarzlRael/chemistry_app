@@ -1,12 +1,13 @@
 part of 'pages.dart';
 
-class ElementsPage extends HookWidget {
+class ElementsPage extends HookConsumerWidget {
   const ElementsPage({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final selectedGroup = useState<Group>(Group.nullGroup);
     final elements = filterByGroup(selectedGroup.value);
-    final compoundsProvider = context.read<CompoundsProvider>();
+    /* final compoundsProvider = context.read<CompoundsProvider>(); */
+    final compoundsProvider = ref.watch(compoundProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: Text('Elementos'),
