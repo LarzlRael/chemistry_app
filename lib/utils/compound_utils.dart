@@ -35,3 +35,11 @@ List<PeriodicTableElement> generateOxidos(List<PeriodicTableElement> elements) {
   });
   return oxidos;
 }
+
+bool hasNumber(String input) {
+  // Define una expresión regular que busca un número en el string
+  RegExp regex = RegExp(r'\d');
+
+  // Verifica si la expresión regular tiene coincidencias en el string
+  return regex.hasMatch(input);
+}

@@ -21,33 +21,27 @@ class Compound {
   ) ;*/
 }
 
-List<Compound> generateOxidosByOneElement(PeriodicTableElement elements) {
+List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
   final compound = <Compound>[];
-  if (elements.valencias.isEmpty) {
+
+  if (element.valencias.isEmpty) {
     return compound;
   }
 
-  if (elements.valencias.length > 1) {
+  for (var valencia in element.valencias) {
+    final elementIsOne = valencia.value == 1 ? "" : valencia.value;
+    final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
+
     compound.add(Compound(
-      element: elements,
-      /* TODO  name ferrico and ferroso*/
-      name: "Oxido de ${elements.name.toLowerCase()}",
-      formula: elements.symbol.toLowerCase() == "nh4"
-          ? "${elements.symbol}(${elements.valencias[0].value})O"
-          : "${elements.symbol}${elements.valencias[0].value}O",
+      element: element,
+      name: "Oxido ${element.name.toLowerCase()} $suffix",
+      formula: hasNumber(element.symbol)
+          ? "\\(${element.symbol}\\)${2}O$elementIsOne"
+          : "${element.symbol}${2}O$elementIsOne",
       type: "Oxido",
     ));
-    return compound;
   }
-  elements.valencias.forEach((valencia) {
-    final element = valencia.value == 1 ? "" : valencia.value;
-    compound.add(Compound(
-      element: elements,
-      name: "Oxido de ${elements.name.toLowerCase()}",
-      formula: "${elements.symbol}${2}O${element}",
-      type: "Oxido",
-    ));
-  });
+
   return compound;
 }
 
