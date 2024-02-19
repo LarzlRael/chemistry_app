@@ -56,6 +56,28 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
   return compound;
 }
 
+List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
+  final compound = <Compound>[];
+
+  if (element.valencias.isEmpty) {
+    return compound;
+  }
+
+  final valencia =
+      element.valencias.first.value == 1 ? "" : element.valencias.first.value;
+  String name = "Peroxido de ${element.name.toLowerCase()}";
+
+  name = "Peroxido de ${element.name.toLowerCase()}";
+  compound.add(Compound(
+    element: element,
+    name: name,
+    formula: "${element.symbol}${valencia}O${2}",
+    type: "Peroxido",
+  ));
+
+  return compound;
+}
+
 List<Compound> generateOxidosByGroupElements(Group group) {
   final elements = filterByGroup(group);
   final compound = <Compound>[];
@@ -65,9 +87,25 @@ List<Compound> generateOxidosByGroupElements(Group group) {
   return compound;
 }
 
+List<Compound> generatePeroxidosByGroupElements(Group group) {
+  final elements = filterByGroup(group);
+  final compound = <Compound>[];
+  elements.forEach((element) {
+    compound.addAll(generatePeroxidoByOneElement(element));
+  });
+  return compound;
+}
+
 List<Compound> generateOxidosByGroupsElements(List<Group> group) {
   return group
       .map((e) => generateOxidosByGroupElements(e))
+      .expand((e) => e)
+      .toList();
+}
+
+List<Compound> generatePerOxidosByGroupsElements(List<Group> group) {
+  return group
+      .map((e) => generatePeroxidosByGroupElements(e))
       .expand((e) => e)
       .toList();
 }

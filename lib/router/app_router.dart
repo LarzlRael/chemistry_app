@@ -34,6 +34,15 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: '/compound_detail_page',
+      builder: (_, state) {
+        Compound element = state.extra as Compound;
+        return CompoundDetail(
+          compound: element,
+        );
+      },
+    ),
+    GoRoute(
       path: '/compounds_by_type_page/:type_compound',
       builder: (_, state) {
         return CompoundsByTypePage(

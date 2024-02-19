@@ -2,6 +2,7 @@ part of '../pages.dart';
 
 class ElementsDetail extends StatelessWidget {
   final PeriodicTableElement periodicTableElement;
+
   const ElementsDetail({
     super.key,
     required this.periodicTableElement,
