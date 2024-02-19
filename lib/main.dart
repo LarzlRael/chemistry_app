@@ -6,7 +6,7 @@ import 'package:templat_project/router/app_router.dart';
 import 'constants/constant.dart';
 
 void main() async {
-  await Enviroment.initEnviroment();
+  /* await Enviroment.initEnviroment(); */
   return runApp(
     ProviderScope(
       child: const MyApp(),

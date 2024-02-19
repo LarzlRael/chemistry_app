@@ -33,28 +33,9 @@ class GamesPage extends HookWidget {
           backColor: Colors.blue,
           frontColor: Colors.green,
           child: Container(),
-          firstElement: firstElement,
+          periodicElement: firstElement,
         ),
       ),
-    );
-  }
-
-  Widget cardFlipable(Color color, Widget child) {
-    return Container(
-      width: 200,
-      height: 300,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: color,
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 5,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: child,
     );
   }
 }
@@ -65,13 +46,13 @@ class CardFlipablePeriodicElement extends StatelessWidget {
     required this.child,
     required this.frontColor,
     required this.backColor,
-    required this.firstElement,
+    required this.periodicElement,
   }) : super(key: key);
 
   final Color frontColor;
   final Color backColor;
   final Widget child;
-  final PeriodicTableElement firstElement;
+  final PeriodicTableElement periodicElement;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +61,7 @@ class CardFlipablePeriodicElement extends StatelessWidget {
     return PageView.builder(
         scrollDirection: Axis.vertical,
         itemCount: listPeriodic.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (_, index) {
           final compoundSeparate = separarElementos(listPeriodic[index].symbol);
           final compound = listPeriodic[index];
           return FlipCard(
@@ -152,7 +133,7 @@ class CardFlipablePeriodicElement extends StatelessWidget {
               ),
             ),
             front: cardFlipable(
-              Colors.green,
+              colorByGroup(compound.group),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
