@@ -31,10 +31,21 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
   for (var valencia in element.valencias) {
     final elementIsOne = valencia.value == 1 ? "" : valencia.value;
     final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
-
+    String name = "";
+    if (element.valencias.length == 1) {
+      name = "Oxido de ${element.name.toLowerCase()}";
+    } else {
+      name = "Oxido ${element.name.toLowerCase().substring(
+            0,
+            element.name.length - 1,
+          )}$suffix";
+    }
+    if (element.name.contains("oro")) {
+      name = "Oxido aur${suffix}";
+    }
     compound.add(Compound(
       element: element,
-      name: "Oxido ${element.name.toLowerCase()} $suffix",
+      name: name,
       formula: hasNumber(element.symbol)
           ? "\\(${element.symbol}\\)${2}O$elementIsOne"
           : "${element.symbol}${2}O$elementIsOne",
@@ -52,4 +63,11 @@ List<Compound> generateOxidosByGroupElements(Group group) {
     compound.addAll(generateOxidosByOneElement(element));
   });
   return compound;
+}
+
+List<Compound> generateOxidosByGroupsElements(List<Group> group) {
+  return group
+      .map((e) => generateOxidosByGroupElements(e))
+      .expand((e) => e)
+      .toList();
 }

@@ -46,7 +46,6 @@ class PeriodicTableElement {
   final Group group;
   final TypeElement typeElement;
   final List<Valencia> valencias;
-
   PeriodicTableElement({
     required this.name,
     required this.symbol,
