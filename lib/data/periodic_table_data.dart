@@ -312,7 +312,7 @@ final List<PeriodicTableElement> listPeriodic = [
       ),
       Valencia(
         value: 3,
-        suffix: TypeValencia.oso,
+        suffix: TypeValencia.ico,
       ),
     ],
     name: 'Talio',
@@ -823,4 +823,4 @@ Color colorByGroup(Group group) {
 
   return groupColors[group] ??
       Colors.black; // Devuelve el color asignado o negro si no hay coincidencia
-} /* ADD PLATA */
+}

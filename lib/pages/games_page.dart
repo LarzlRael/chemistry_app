@@ -8,12 +8,12 @@ class GamesPage extends HookWidget {
     final currentIndex = useState(0);
     final listSuffle = shuffleList(listPeriodic);
     final firstElement = listSuffle[currentIndex.value];
-
+    final pageViewController = usePageController();
     return Scaffold(
       appBar: AppBar(
         title: Text('Juegos'),
         actions: [
-          TextButton.icon(
+          /* TextButton.icon(
             label: Text('Siguiente'),
             onPressed: () {
               currentIndex.value++;
@@ -25,11 +25,35 @@ class GamesPage extends HookWidget {
               Icons.chevron_right_rounded,
               size: 40,
             ),
+          ), */
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: TextButton.icon(
+              onPressed: () {
+                currentIndex.value++;
+                if (currentIndex.value == listSuffle.length) {
+                  currentIndex.value = 0;
+                }
+                pageViewController.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+              },
+              icon: Icon(
+                Icons.chevron_left,
+                size: 40,
+              ),
+              label: Text(
+                "Siguiente",
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            ),
           ),
         ],
       ),
       body: Center(
         child: CardFlipablePeriodicElement(
+          pageViewController: pageViewController,
           backColor: Colors.blue,
           frontColor: Colors.green,
           child: Container(),
@@ -41,7 +65,9 @@ class GamesPage extends HookWidget {
 }
 
 class CardFlipablePeriodicElement extends StatelessWidget {
+  final PageController? pageViewController;
   const CardFlipablePeriodicElement({
+    this.pageViewController,
     Key? key,
     required this.child,
     required this.frontColor,
@@ -59,6 +85,7 @@ class CardFlipablePeriodicElement extends StatelessWidget {
     /* final compound = separarElementos(firstElement.symbol); */
     final textStyle = TextStyle(color: Colors.black, fontSize: 75);
     return PageView.builder(
+        controller: pageViewController,
         scrollDirection: Axis.vertical,
         itemCount: listPeriodic.length,
         itemBuilder: (_, index) {
@@ -162,6 +189,14 @@ Widget cardFlipable(Color color, Widget child) {
     decoration: BoxDecoration(
       /* borderRadius: BorderRadius.circular(15), */
       color: color,
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          color.withOpacity(0.7),
+          color,
+        ],
+      ),
       boxShadow: const [
         BoxShadow(
           color: Colors.black26,

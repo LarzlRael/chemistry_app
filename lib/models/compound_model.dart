@@ -1,10 +1,20 @@
 part of 'models.dart';
 
+enum TypeCompound {
+  oxido,
+  peroxido,
+  hidroxido,
+  acido,
+  sal,
+  hidracido,
+  oxoacido,
+}
+
 class Compound {
   final PeriodicTableElement element;
   final String name;
   final String formula;
-  final String type;
+  final TypeCompound type;
   Compound({
     required this.element,
     required this.name,
@@ -22,38 +32,60 @@ class Compound {
 }
 
 List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
-  final compound = <Compound>[];
+  /* TODO  hacer la simplififacion en casos cuando el elemento es 4*/
+  /* Fix names generated  */
+  /* Errors names
+            vandiico = vanadio  
+            titaniico = titanio  
+            mercuriico = mercurio  
+            paladiico = paladio  
+   */
+  final compounds = <Compound>[];
 
   if (element.valencias.isEmpty) {
-    return compound;
+    return compounds;
   }
+  final specialNameCases = {
+    'Au': 'aur',
+    'Pb': 'plumb',
+    'Cu': 'cupr',
+    'Fe': 'ferr',
+    'Mn': 'mangan',
+  };
 
   for (var valencia in element.valencias) {
-    final elementIsOne = valencia.value == 1 ? "" : valencia.value;
+    final elementIsOne =
+        valencia.value == 1 || valencia.value == 2 ? "" : valencia.value;
     final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
     String name = "";
+    final oxideValue = valencia.value == 2 ? "" : 2;
     if (element.valencias.length == 1) {
       name = "Oxido de ${element.name.toLowerCase()}";
     } else {
+      /* name = "Oxido ${element.name.toLowerCase().substring(
+            0,
+            element.name.length - (endInO ? 1:2),
+          )}$suffix"; */
       name = "Oxido ${element.name.toLowerCase().substring(
             0,
             element.name.length - 1,
           )}$suffix";
+      name = fixIcoWord(name);
     }
-    if (element.name.contains("oro")) {
-      name = "Oxido aur${suffix}";
+    /* Special names cases */
+
+    if (specialNameCases.containsKey(element.symbol)) {
+      name = "Oxido ${specialNameCases[element.symbol]}$suffix";
     }
-    compound.add(Compound(
+    compounds.add(Compound(
       element: element,
       name: name,
-      formula: hasNumber(element.symbol)
-          ? "\\(${element.symbol}\\)${2}O$elementIsOne"
-          : "${element.symbol}${2}O$elementIsOne",
-      type: "Oxido",
+      formula: "${element.symbol}$oxideValue O$elementIsOne",
+      type: TypeCompound.oxido,
     ));
   }
 
-  return compound;
+  return compounds;
 }
 
 List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
@@ -72,7 +104,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     element: element,
     name: name,
     formula: "${element.symbol}${valencia}O${2}",
-    type: "Peroxido",
+    type: TypeCompound.peroxido,
   ));
 
   return compound;

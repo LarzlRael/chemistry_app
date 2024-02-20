@@ -1,15 +1,11 @@
 part of 'utils.dart';
 
-List<String> separarElementos(String texto) {
+List<String> separarElementos(String text) {
   RegExp regExp = RegExp(r'([a-zA-Z]+|\d+)');
-  Iterable<RegExpMatch> matches = regExp.allMatches(texto);
+  Iterable<RegExpMatch> matches = regExp.allMatches(text);
   int counter = 0;
   List<String> elementos = [];
   for (RegExpMatch match in matches) {
-    /* if (counter == 0) {
-        elementos.add(match.group(0)!.toUpperCase());
-      } else {
-      } */
     elementos.add(match.group(0)!);
     counter++;
   }

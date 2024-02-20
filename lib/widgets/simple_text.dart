@@ -14,8 +14,8 @@ class SimpleText extends StatelessWidget {
   final double? lineHeight;
 
   const SimpleText({
-    Key? key,
     required this.text,
+    Key? key,
     this.fontWeight,
     this.padding,
     this.fontSize,

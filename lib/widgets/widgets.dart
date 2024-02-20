@@ -12,6 +12,7 @@ import 'package:templat_project/utils/utils.dart';
 import '../provider/providers.dart';
 
 part 'simple_text.dart';
+part 'text/formula_in_text.dart';
 part 'searchs/search_element_delegate.dart';
 part 'cards/element_card.dart';
 part 'cards/compound_card.dart';

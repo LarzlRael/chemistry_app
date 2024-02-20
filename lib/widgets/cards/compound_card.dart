@@ -46,7 +46,6 @@ class CompoundCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final compoundSeparate = separarElementos(compound.formula);
     final textStyle = TextStyle(color: Colors.white, fontSize: fontSizeCard);
     return InkWell(
       onTap: () {
@@ -77,32 +76,9 @@ class CompoundCard extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RichText(
-                      text: TextSpan(
-                        style: textStyle,
-                        children: compoundSeparate.map((e) {
-                          if (e.contains(RegExp(r'[a-zA-Z]'))) {
-                            return TextSpan(
-                              text: e,
-                              style: textStyle,
-                            );
-                          } else {
-                            return WidgetSpan(
-                              child: Transform.translate(
-                                offset: const Offset(0.0, 4.0),
-                                child: Text(
-                                  e,
-                                  style: TextStyle(
-                                    fontSize: fontSizeCard * 0.50,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                        }).toList(),
-                      ),
+                    FormulaInText(
+                      compoundFormula: compound.formula,
+                      textStyle: textStyle,
                     ),
                     SimpleText(
                       text: compound.name,
