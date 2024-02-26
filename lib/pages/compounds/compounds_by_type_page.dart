@@ -38,9 +38,23 @@ class CompoundsByTypePage extends HookWidget {
         case "Oxidos dobles":
           listCompounds.value = generateOxidosDoblesByGroupsElements(
             [
-              Group.anfotero,
+              /* Group.anfotero, */
               Group.bitetravalente,
               Group.bitrivalente,
+            ],
+          );
+          break;
+        case "Hidroxidos":
+          listCompounds.value = generateHidroxidosByGroupsElements(
+            [
+              Group.monovalente,
+              Group.bivalente,
+              Group.trivalente,
+              Group.monoBivalente,
+              Group.monotrivalente,
+              Group.bitetravalente,
+              Group.bitrivalente,
+              Group.anfotero,
             ],
           );
           break;

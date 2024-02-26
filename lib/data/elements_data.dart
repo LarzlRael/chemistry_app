@@ -11,6 +11,8 @@ final compoundList = <CompoundListElement>[
       name: 'Peróxidos', pathImage: 'assets/chemestry/chemestry.png'),
   CompoundListElement(
       name: 'Oxidos dobles', pathImage: 'assets/chemestry/chemestry_3.png'),
+  CompoundListElement(
+      name: 'Hidroxidos', pathImage: 'assets/chemestry/reaction.png'),
 ];
 
 CompoundListElement findCompoundCardByName(String name) {

@@ -32,10 +32,11 @@ enum TypeElement {
 class Valencia {
   final int value;
   final TypeValencia suffix;
-
+  final TypeElement? typeElement;
   Valencia({
     required this.value,
     required this.suffix,
+    this.typeElement = TypeElement.metal,
   });
 }
 

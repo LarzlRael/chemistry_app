@@ -28,7 +28,7 @@ class CompoundtListCards extends StatelessWidget {
             child: CompoundCard(
               color: color,
               compound: compound,
-              key: ValueKey<String>(compound.formula),
+              /* key: ValueKey<String>(compound.formula), */
               onTap: onSelected,
             ),
           );
@@ -82,7 +82,8 @@ class CompoundCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FormulaInText(
-                      compoundFormula: compound.formula,
+                      compoundFormula:
+                          compound.formula.map((e) => e.suffix).join(),
                       textStyle: textStyle,
                     ),
                     SimpleText(

@@ -450,6 +450,26 @@ final List<PeriodicTableElement> listPeriodic = [
         value: 3,
         suffix: TypeValencia.ico,
       ),
+      Valencia(
+        value: 4,
+        suffix: TypeValencia.hipo_oso,
+        typeElement: TypeElement.no_metal,
+      ),
+      Valencia(
+        value: 6,
+        suffix: TypeValencia.per_ico,
+        typeElement: TypeElement.no_metal,
+      ),
+      Valencia(
+        value: 7,
+        suffix: TypeValencia.per_ico,
+        typeElement: TypeElement.no_metal,
+      ),
+      Valencia(
+        value: 4,
+        suffix: TypeValencia.hipo_oso,
+        typeElement: TypeElement.no_metal,
+      ),
     ],
     name: 'Manganeso',
     symbol: 'Mn',
@@ -471,6 +491,11 @@ final List<PeriodicTableElement> listPeriodic = [
         value: 3,
         suffix: TypeValencia.ico,
       ),
+      Valencia(
+        value: 6,
+        suffix: TypeValencia.ico,
+        typeElement: TypeElement.no_metal,
+      ),
     ],
   ),
   PeriodicTableElement(
@@ -488,6 +513,14 @@ final List<PeriodicTableElement> listPeriodic = [
         value: 3,
         suffix: TypeValencia.ico,
       ),
+      Valencia(
+        value: 4,
+        suffix: TypeValencia.ico,
+      ),
+      Valencia(
+        value: 5,
+        suffix: TypeValencia.per_ico,
+      ),
     ],
   ),
   PeriodicTableElement(
@@ -500,6 +533,11 @@ final List<PeriodicTableElement> listPeriodic = [
       Valencia(
         value: 3,
         suffix: TypeValencia.ico,
+      ),
+      Valencia(
+        value: 5,
+        suffix: TypeValencia.per_ico,
+        typeElement: TypeElement.no_metal,
       ),
     ],
   ),
@@ -517,6 +555,10 @@ final List<PeriodicTableElement> listPeriodic = [
       Valencia(
         value: 3,
         suffix: TypeValencia.ico,
+      ),
+      Valencia(
+        value: 4,
+        suffix: TypeValencia.per_ico,
       ),
     ],
   ),

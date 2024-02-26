@@ -39,3 +39,25 @@ bool hasNumber(String input) {
   // Verifica si la expresión regular tiene coincidencias en el string
   return regex.hasMatch(input);
 }
+
+List<Valence> sumValences(List<Valence> valences1, List<Valence> valences2) {
+  Map<String, int> suffixValueMap = {};
+
+  // Sumar los valores para los sufijos correspondientes
+  for (var valence in valences1) {
+    suffixValueMap.update(valence.suffix, (value) => value + valence.value,
+        ifAbsent: () => valence.value);
+  }
+
+  for (var valence in valences2) {
+    suffixValueMap.update(valence.suffix, (value) => value + valence.value,
+        ifAbsent: () => valence.value);
+  }
+
+  // Convertir el mapa de sufijo-valor nuevamente a una lista de Valence
+  List<Valence> result = suffixValueMap.entries
+      .map((entry) => Valence(suffix: entry.key, value: entry.value))
+      .toList();
+
+  return result;
+}

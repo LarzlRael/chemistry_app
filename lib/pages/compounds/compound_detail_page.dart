@@ -24,9 +24,9 @@ class CompoundByType extends StatelessWidget {
         return OxideDetail(compound: compound);
       case TypeCompound.peroxido:
         return PeroxideDetail(compound: compound);
+      case TypeCompound.oxido_doble:
+        return OxidosDoubles(compound: compound);
       /* 
-      case TypeCompound.hidroxido:
-        return HydroxideDetail(compound: compound);
       case TypeCompound.acido:
         return AcidDetail(compound: compound);
       case TypeCompound.sal:
@@ -68,7 +68,7 @@ class OxideDetail extends StatelessWidget {
             ],
           ),
           FormulaInText(
-            compoundFormula: compound.formula,
+            compoundFormula: compound.formula.map((e) => e.toString()).join(""),
             textStyle: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
           ),
@@ -115,7 +115,7 @@ class PeroxideDetail extends StatelessWidget {
             ],
           ),
           FormulaInText(
-            compoundFormula: compound.formula,
+            compoundFormula: compound.formula.map((e) => e.toString()).join(""),
             textStyle: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
           ),
@@ -129,6 +129,40 @@ class PeroxideDetail extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                 )
               : SizedBox(),
+        ],
+      ),
+    );
+  }
+}
+
+class OxidosDoubles extends StatelessWidget {
+  final Compound compound;
+
+  const OxidosDoubles({super.key, required this.compound});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          ...generateOxidosByOneElement(compound.element).map(
+            (e) => SimpleText(
+              text: e.formula.map((e) => e.suffix).join(""),
+              style: TextStyle(
+                fontSize: 60,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          SimpleText(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            text: compound.formula.map((e) => e.suffix).join(""),
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+          ),
+          SimpleText(
+            text: compound.name,
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+          ),
         ],
       ),
     );
