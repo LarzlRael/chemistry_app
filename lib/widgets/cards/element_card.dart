@@ -45,115 +45,118 @@ class ElementCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (onTap != null) {
-          onTap!(element);
-        }
-      },
-      child: Container(
-        key: key,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              colorByGroup(element.group),
-              colorByGroup(element.group).withOpacity(0.6),
-            ],
+    return Material(
+      child: InkWell(
+        onTap: () {
+          if (onTap != null) {
+            onTap!(element);
+          }
+        },
+        child: Container(
+          key: key,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                colorByGroup(element.group),
+                colorByGroup(element.group).withOpacity(0.6),
+              ],
+            ),
           ),
-        ),
-        width: 200,
-        height: 200,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                margin: EdgeInsets.only(top: 15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SimpleText(
-                      text: element.symbol,
-                      fontSize: 55,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      lineHeight: 1,
-                    ),
-                    SimpleText(
-                      text: element.name,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                      lineHeight: 1,
-                    ),
-                  ],
+          width: 200,
+          height: 200,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SimpleText(
+                        text: element.symbol,
+                        fontSize: 55,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        lineHeight: 1,
+                      ),
+                      SimpleText(
+                        text: element.name,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        lineHeight: 1,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 30,
-              right: 5,
-              child: element.valencias.length > 1
-                  ? Wrap(
-                      children: element.valencias.map((e) {
-                      return Container(
-                        margin: EdgeInsets.only(left: 5),
-                        child: Column(
-                          children: [
-                            SimpleText(
-                              text: e.value.toString(),
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              lineHeight: 1,
-                            ),
-                            SimpleText(
-                              text: e.suffix.name
-                                  .snakeCaseToWords()
-                                  .toCapitalize(),
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 12,
-                              lineHeight: 1,
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList())
-                  : SimpleText(
-                      text: element.valencias.first.value.toString(),
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                    ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 10),
-              child: Align(
-                alignment: Alignment.bottomCenter,
+              Positioned(
+                top: 30,
+                right: 5,
+                child: element.valencias.length > 1
+                    ? Wrap(
+                        children: element.valencias.map((e) {
+                        return Container(
+                          margin: EdgeInsets.only(left: 5),
+                          child: Column(
+                            children: [
+                              SimpleText(
+                                text: e.value.toString(),
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                lineHeight: 1,
+                              ),
+                              SimpleText(
+                                text: e.suffix.name
+                                    .snakeCaseToWords()
+                                    .toCapitalize(),
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 12,
+                                lineHeight: 1,
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList())
+                    : SimpleText(
+                        text: element.valencias.first.value.toString(),
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SimpleText(
+                    text: element.group.name.toCapitalize(),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 5,
+                left: 5,
                 child: SimpleText(
-                  text: element.group.name.toCapitalize(),
+                  text: element.typeElement.name
+                      .snakeCaseToWords()
+                      .toCapitalize(),
                   color: Colors.white,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w900,
                   fontSize: 16,
                 ),
               ),
-            ),
-            Positioned(
-              top: 5,
-              left: 5,
-              child: SimpleText(
-                text:
-                    element.typeElement.name.snakeCaseToWords().toCapitalize(),
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: 16,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

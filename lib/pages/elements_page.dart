@@ -28,7 +28,8 @@ class ElementsPage extends HookConsumerWidget {
                 onTap: () => showSearch(
                   context: context,
                   delegate: SearchElementDelegate(
-                      compoundsProvider: compoundsProvider),
+                    compoundsProvider: compoundsProvider,
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +62,6 @@ class ElementsPage extends HookConsumerWidget {
               },
             ),
             Expanded(
-              /* FIX THI */
               child: ElementListCards(
                 elements: elements,
                 key: ValueKey<Group>(
@@ -93,7 +93,7 @@ class CirclesRow extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Wrap(
-        spacing: 3, // Espacio entre los círculos
+        spacing: 2, // Espacio entre los círculos
         children: Group.values.map((group) {
           return InkWell(
             onTap: () => onTap(group),
@@ -119,7 +119,7 @@ class CirclesRow extends StatelessWidget {
                     ? 'Todos'
                     : group.name.toCapitalize(),
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 11,
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),

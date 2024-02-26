@@ -4,11 +4,13 @@ const fontSizeCard = 50.0;
 
 class CompoundtListCards extends StatelessWidget {
   final List<Compound> compoundsList;
+  final Color color;
   final Function(Compound compound)? onSelected;
   const CompoundtListCards({
+    required this.compoundsList,
+    required this.color,
     super.key,
     this.onSelected,
-    required this.compoundsList,
   });
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class CompoundtListCards extends StatelessWidget {
           return Hero(
             tag: compound.formula,
             child: CompoundCard(
+              color: color,
               compound: compound,
               key: ValueKey<String>(compound.formula),
               onTap: onSelected,
@@ -38,10 +41,12 @@ class CompoundtListCards extends StatelessWidget {
 class CompoundCard extends StatelessWidget {
   final Compound compound;
   final Function(Compound element)? onTap;
+  final Color color;
   const CompoundCard({
     super.key,
     this.onTap,
     required this.compound,
+    required this.color,
   });
 
   @override
@@ -60,8 +65,8 @@ class CompoundCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              colorByGroup(Group.monovalente),
-              colorByGroup(Group.monovalente).withOpacity(0.6),
+              color,
+              color.withOpacity(0.6),
             ],
           ),
         ),

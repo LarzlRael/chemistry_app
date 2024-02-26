@@ -8,8 +8,7 @@ class CompoundsByTypePage extends HookWidget {
   final String compoundType;
   @override
   Widget build(BuildContext context) {
-    /* final list = generateOxidosByOneElement(listPeriodic[0]); */
-    /* final list = generateOxidosByGroupElements(Group.monovalente); */
+    final currentType = useState<CompoundListElement?>(null);
     final listCompounds = useState<List<Compound>>([]);
     useEffect(() {
       switch (compoundType) {
@@ -36,21 +35,16 @@ class CompoundsByTypePage extends HookWidget {
             ],
           );
           break;
-        /*
-        case 'Oxidos dobles':
+        case "Oxidos dobles":
           listCompounds.value = generateOxidosDoblesByGroupsElements(
             [
-              Group.monovalente,
-              Group.bivalente,
-              Group.trivalente,
-              Group.monoBivalente,
-              Group.monotrivalente,
+              Group.anfotero,
               Group.bitetravalente,
               Group.bitrivalente,
-              Group.anfotero,
             ],
           );
           break;
+        /*
         default:
           listCompounds.value = generateOxidosByGroupsElements(
             [
@@ -68,12 +62,30 @@ class CompoundsByTypePage extends HookWidget {
           [];
       }
     }, []);
+    useEffect(() {
+      currentType.value = findCompoundCardByName(compoundType);
+      return () {
+        print('dispose');
+      };
+    }, []);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(compoundType),
+        title: Text(currentType.value!.name),
+        actions: [
+          Hero(
+            tag: currentType.value!.name,
+            child: Image.asset(
+              currentType.value!.pathImage,
+              width: 25,
+              height: 25,
+            ),
+          )
+        ],
       ),
       body: CompoundtListCards(
+        /* change this for de color */
+        color: Colors.blue,
         compoundsList: listCompounds.value,
         onSelected: ((element) => {
               context.push(

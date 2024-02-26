@@ -34,10 +34,10 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/compound_detail_page',
+      path: CompoundDetailPage.routeName,
       builder: (_, state) {
         Compound element = state.extra as Compound;
-        return CompoundDetail(
+        return CompoundDetailPage(
           compound: element,
         );
       },

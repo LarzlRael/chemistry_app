@@ -32,8 +32,7 @@ String removeAllHtmlTags(String htmlText) {
 
 String fixIcoWord(String word) {
   if (word.endsWith("iico")) {
-    // Remover la repetición de "ir"
-    return word.replaceRange(word.length - 4, word.length - 2, "");
+    return word.replaceFirst(RegExp(r'iico$'), 'ico');
   } else {
     return word;
   }

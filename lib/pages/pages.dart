@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:templat_project/buttons/buttons.dart';
+import 'package:templat_project/data/elements_data.dart';
 import 'package:templat_project/data/periodic_table_data.dart';
 import 'package:templat_project/models/models.dart';
 import 'package:templat_project/provider/providers.dart';
@@ -20,5 +21,5 @@ part 'elements_page.dart';
 part 'elements/elements_detail.dart';
 
 part 'compounds/compounds_page.dart';
-part 'compounds/compound_detail.dart';
+part 'compounds/compound_detail_page.dart';
 part 'compounds/compounds_by_type_page.dart';

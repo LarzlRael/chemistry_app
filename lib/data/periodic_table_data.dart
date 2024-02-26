@@ -824,3 +824,13 @@ Color colorByGroup(Group group) {
   return groupColors[group] ??
       Colors.black; // Devuelve el color asignado o negro si no hay coincidencia
 }
+
+Map<TypeCompound, Color> compoundColors = {
+  TypeCompound.oxido: Colors.indigo,
+  TypeCompound.peroxido: Colors.blue,
+  TypeCompound.hidroxido: Colors.green,
+  TypeCompound.acido: Colors.orange,
+  TypeCompound.sal: Colors.purple,
+  TypeCompound.hidracido: Colors.yellow,
+  TypeCompound.oxoacido: Colors.teal,
+};
