@@ -6,78 +6,103 @@ class ElementsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedGroup = useState<Group>(Group.nullGroup);
     final elements = filterByGroup(selectedGroup.value);
-    /* final compoundsProvider = context.read<CompoundsProvider>(); */
     final compoundsProvider = ref.watch(compoundProvider.notifier);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Elementos'),
-      ),
-      body: Container(
-        /* margin: const EdgeInsets.symmetric(horizontal: 10), */
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.grey[100],
+    return DefaultTabController(
+      length: Group.values.length,
+      child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+                isScrollable: true,
+                /* Tab(icon: Icon(Icons.directions_car)), */
+                tabs: Group.values.map((group) {
+                  return Tab(
+                    text: group.name.toCapitalize(),
+                  );
+                }).toList()),
+            title: Text('Elementos'),
+          ),
+          body: TabBarView(
+              children: Group.values.map((group) {
+            return Container(
+              child: Column(
+                children: [
+                  SearchBarElement(),
+                  Expanded(
+                    child: ElementsByGroup(
+                      group: group,
+                    ),
+                  ),
+                ],
               ),
-              height: 50,
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: InkWell(
-                onTap: () => showSearch(
-                  context: context,
-                  delegate: SearchElementDelegate(
-                    compoundsProvider: compoundsProvider,
+            );
+          }).toList())
+          /* Container(
+          /* margin: const EdgeInsets.symmetric(horizontal: 10), */
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.grey[100],
+                ),
+                height: 50,
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: InkWell(
+                  onTap: () => showSearch(
+                    context: context,
+                    delegate: SearchElementDelegate(
+                      compoundsProvider: compoundsProvider,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Buscar elemento',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () {
+                          showSearch(
+                            context: context,
+                            delegate: SearchElementDelegate(
+                              compoundsProvider: compoundsProvider,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Buscar elemento',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {
-                        showSearch(
-                          context: context,
-                          delegate: SearchElementDelegate(
-                            compoundsProvider: compoundsProvider,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+              ),
+              CirclesRow(
+                onTap: (element) {
+                  selectedGroup.value = element;
+                },
+              ),
+              Expanded(
+                child: ElementListCards(
+                  elements: elements,
+                  key: ValueKey<Group>(
+                    selectedGroup.value,
+                  ),
+                  onSelected: ((element) => {
+                        context.push(
+                          '/elements_detail_page',
+                          extra: element,
+                        )
+                      }),
                 ),
               ),
-            ),
-            CirclesRow(
-              onTap: (element) {
-                selectedGroup.value = element;
-              },
-            ),
-            Expanded(
-              child: ElementListCards(
-                elements: elements,
-                key: ValueKey<Group>(
-                  selectedGroup.value,
-                ),
-                onSelected: ((element) => {
-                      context.push(
-                        '/elements_detail_page',
-                        extra: element,
-                      )
-                    }),
-              ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        ), */
+          ),
     );
   }
 }
@@ -128,6 +153,77 @@ class CirclesRow extends StatelessWidget {
           );
         }).toList(),
       ),
+    );
+  }
+}
+
+class SearchBarElement extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, ref) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: Colors.grey[200],
+      ),
+      height: 50,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: InkWell(
+        onTap: () => showSearch(
+          context: context,
+          delegate: SearchElementDelegate(
+            compoundsNotifier: ref.read(compoundProvider.notifier),
+            compoundsState: ref.watch(compoundProvider),
+          ),
+        ),
+        child: Row(
+          /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */
+          children: [
+            Icon(
+              Icons.search,
+              color: Colors.grey[600],
+            ),
+            /* onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchElementDelegate(
+                    compoundsNotifier: ref.read(compoundProvider.notifier),
+                    compoundsState: ref.watch(compoundProvider),
+                  ),
+                );
+              }, */
+
+            Text(
+              'Buscar elemento',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey[600],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ElementsByGroup extends StatelessWidget {
+  final Group group;
+
+  const ElementsByGroup({super.key, required this.group});
+  @override
+  Widget build(BuildContext context) {
+    final elements = filterByGroup(group);
+    return ElementListCards(
+      elements: elements,
+      onSelected: ((element) => {
+            context.push(
+              '/elements_detail_page',
+              extra: element,
+            )
+          }),
     );
   }
 }

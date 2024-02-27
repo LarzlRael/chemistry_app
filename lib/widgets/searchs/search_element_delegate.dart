@@ -1,13 +1,15 @@
 part of '../widgets.dart';
 
 class SearchElementDelegate extends SearchDelegate {
-  final CompoundNotifier compoundsProvider;
+  final CompoundNotifier compoundsNotifier;
+  final CompoundStateProvider compoundsState;
   Timer? debouncerTimer;
 
   SearchElementDelegate({
-    required this.compoundsProvider,
+    required this.compoundsNotifier,
+    required this.compoundsState,
   }) {
-    this.compoundsProvider.setSearched(listPeriodic);
+    this.compoundsNotifier.setSearched(listPeriodic);
   }
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -17,7 +19,7 @@ class SearchElementDelegate extends SearchDelegate {
           : IconButton(
               onPressed: () {
                 query = '';
-                this.compoundsProvider.setSearched(listPeriodic);
+                this.compoundsNotifier.setSearched(listPeriodic);
               },
               icon: Icon(Icons.clear),
             ),
@@ -36,7 +38,7 @@ class SearchElementDelegate extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     _onQueryChanged(context, query);
     return ElementsListTile(
-      elements: compoundsProvider.state.searched,
+      elements: compoundsState.searched,
     );
   }
 
@@ -47,7 +49,7 @@ class SearchElementDelegate extends SearchDelegate {
     } */
     _onQueryChanged(context, query);
     return ElementsListTile(
-      elements: compoundsProvider.state.searched,
+      elements: compoundsState.searched,
       onSelected: ((element) => {inspect(element)}),
     );
   }
@@ -61,7 +63,7 @@ class SearchElementDelegate extends SearchDelegate {
         return;
       }
       final result = searchElements(listPeriodic, query.trim());
-      this.compoundsProvider.setSearched(result);
+      this.compoundsNotifier.setSearched(result);
     });
   }
 }
