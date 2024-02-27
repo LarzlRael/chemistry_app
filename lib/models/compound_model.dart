@@ -20,6 +20,14 @@ class Valence {
   });
 }
 
+final specialNameCases = {
+  'Au': 'aur',
+  'Pb': 'plumb',
+  'Cu': 'cupr',
+  'Fe': 'ferr',
+  'Mn': 'mangan',
+};
+
 class Compound {
   final PeriodicTableElement element;
   final String name;
@@ -39,15 +47,11 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
   if (element.valencias.isEmpty) {
     return compounds;
   }
-  final specialNameCases = {
-    'Au': 'aur',
-    'Pb': 'plumb',
-    'Cu': 'cupr',
-    'Fe': 'ferr',
-    'Mn': 'mangan',
-  };
 
   for (var valencia in element.valencias) {
+    if (valencia.typeElement == TypeElement.no_metal) {
+      continue;
+    }
     final oxideValue = Valence(
       value: 2,
       suffix: "O",
@@ -177,7 +181,67 @@ List<Compound> generateOxidosDoblesByOneElement(PeriodicTableElement element) {
 }
 
 List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
-  return [];
+  final compounds = <Compound>[];
+
+  if (element.valencias.isEmpty) {
+    return compounds;
+  }
+
+  for (var valencia in element.valencias) {
+    if (valencia.typeElement == TypeElement.no_metal) {
+      continue;
+    }
+    final oxideValue = Valence(
+      value: 1,
+      suffix: "OH",
+    );
+
+    final elementIsOne = valencia.value == 1 ? "" : valencia.value;
+    int elementValue = valencia.value;
+
+    /* get oso or ico */
+    final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
+    final firstValence = Valence(
+      suffix: element.symbol,
+      value: 1,
+    );
+    final secondValence = Valence(
+      suffix: oxideValue.suffix,
+      value: elementValue,
+    );
+    String name = "";
+
+    /* if (elementValue % OXIDE_VALUE == 0) {
+      if (elementValue % 2 == 0) {
+        oxideValue = elementValue ~/ OXIDE_VALUE;
+        elementValue = elementValue ~/ OXIDE_VALUE;
+      } else {
+        oxideValue = elementValue;
+      }
+    } */
+    if (element.valencias.length == 1) {
+      name = "Hidroxido de ${element.name.toLowerCase()}";
+    } else {
+      name = "Hidroxido ${element.name.toLowerCase().substring(
+            0,
+            element.name.length - 1,
+          )}$suffix";
+      name = fixIcoWord(name);
+    }
+    /* Special names cases */
+
+    if (specialNameCases.containsKey(element.symbol)) {
+      name = "Hidroxido ${specialNameCases[element.symbol]}$suffix";
+    }
+    compounds.add(Compound(
+      element: element,
+      name: name,
+      formula: [firstValence, secondValence],
+      type: TypeCompound.oxido,
+    ));
+  }
+
+  return compounds;
 }
 
 List<Compound> generateOxidosByGroupElements(Group group) {
@@ -211,7 +275,7 @@ List<Compound> generateHidroxidosByGroupElements(Group group) {
   final elements = filterByGroup(group);
   final compound = <Compound>[];
   elements.forEach((element) {
-    compound.addAll(generateOxidosDoblesByOneElement(element));
+    compound.addAll(generateHidroxidosByOneElement(element));
   });
   return compound;
 }

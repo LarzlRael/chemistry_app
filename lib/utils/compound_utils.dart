@@ -71,3 +71,16 @@ bool hasNonMetalValence(PeriodicTableElement element) {
   }
   return false;
 }
+
+String isOne(String text) {
+  return text.length == 1 ? text : '';
+}
+
+String getValenceString(List<Valence> valences) {
+  final val =
+      valences.map((valence) => '${valence.suffix}${valence.value}').join('');
+  if (val.contains("1")) {
+    return val.replaceAll("1", "");
+  }
+  return val;
+}

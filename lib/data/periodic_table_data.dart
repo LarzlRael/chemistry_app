@@ -516,10 +516,12 @@ final List<PeriodicTableElement> listPeriodic = [
       Valencia(
         value: 4,
         suffix: TypeValencia.ico,
+        typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 5,
         suffix: TypeValencia.per_ico,
+        typeElement: TypeElement.no_metal,
       ),
     ],
   ),
