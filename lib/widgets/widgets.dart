@@ -17,3 +17,4 @@ part 'searchs/search_element_delegate.dart';
 part 'searchs/search_element_compund_by_type.dart';
 part 'cards/element_card.dart';
 part 'cards/compound_card.dart';
+part 'cards/elements_list_tile.dart';

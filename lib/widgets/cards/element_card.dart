@@ -19,6 +19,7 @@ class ElementListCards extends StatelessWidget {
         crossAxisSpacing: 1,
         itemBuilder: (context, index) {
           final element = elements[index];
+
           return Hero(
             tag: element.symbol,
             child: ElementCard(

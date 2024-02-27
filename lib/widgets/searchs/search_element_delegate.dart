@@ -35,7 +35,7 @@ class SearchElementDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     _onQueryChanged(context, query);
-    return ElementListCards(
+    return ElementsListTile(
       elements: compoundsProvider.state.searched,
     );
   }
@@ -46,7 +46,7 @@ class SearchElementDelegate extends SearchDelegate {
       return Container();
     } */
     _onQueryChanged(context, query);
-    return ElementListCards(
+    return ElementsListTile(
       elements: compoundsProvider.state.searched,
       onSelected: ((element) => {inspect(element)}),
     );

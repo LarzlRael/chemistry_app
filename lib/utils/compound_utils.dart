@@ -61,3 +61,13 @@ List<Valence> sumValences(List<Valence> valences1, List<Valence> valences2) {
 
   return result;
 }
+
+/*  */
+bool hasNonMetalValence(PeriodicTableElement element) {
+  for (var valence in element.valencias) {
+    if (valence.typeElement == TypeElement.no_metal) {
+      return true;
+    }
+  }
+  return false;
+}
