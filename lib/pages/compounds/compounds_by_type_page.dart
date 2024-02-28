@@ -58,6 +58,20 @@ class CompoundsByTypePage extends HookConsumerWidget {
             ],
           );
           break;
+        case 'Hidruros':
+          listCompounds.value = generateHidrurosByGroupsElements(
+            [
+              Group.monovalente,
+              Group.bivalente,
+              Group.trivalente,
+              Group.monoBivalente,
+              Group.monotrivalente,
+              Group.bitetravalente,
+              Group.bitrivalente,
+              Group.anfotero,
+            ],
+          );
+          break;
         /*
         default:
           listCompounds.value = generateOxidosByGroupsElements(

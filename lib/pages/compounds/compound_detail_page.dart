@@ -29,6 +29,8 @@ class CompoundByType extends StatelessWidget {
         return PeroxideDetail(compound: compound);
       case TypeCompound.oxido_doble:
         return OxidosDoubles(compound: compound);
+      case TypeCompound.hidroxido:
+        return Hidroxido(compound: compound);
       /* 
       case TypeCompound.acido:
         return AcidDetail(compound: compound);
@@ -149,18 +151,69 @@ class OxidosDoubles extends StatelessWidget {
       child: Column(
         children: [
           ...generateOxidosByOneElement(compound.element).map(
-            (e) => SimpleText(
-              text: e.formula.map((e) => e.suffix).join(""),
-              style: TextStyle(
-                fontSize: 60,
+            (e) => FormulaInText(
+              compoundFormula: getValenceString(e.formula),
+              textStyle: TextStyle(
+                fontSize: 30,
                 fontWeight: FontWeight.w600,
+                color: Colors.black,
               ),
             ),
           ),
+          FormulaInText(
+            compoundFormula: getValenceString(compound.formula),
+            textStyle: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
           SimpleText(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            text: getValenceString(compound.formula),
+            text: compound.name,
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Hidroxido extends StatelessWidget {
+  final Compound compound;
+
+  const Hidroxido({super.key, required this.compound});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          /* Fix this show only one element by element  */
+          ...generateOxidosByOneElement(compound.element).map(
+            (e) => FormulaInText(
+              compoundFormula: getValenceString(e.formula),
+              textStyle: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          FormulaInText(
+            compoundFormula: "H2O",
+            textStyle: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          FormulaInText(
+            compoundFormula: getValenceString(compound.formula),
+            textStyle: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
           ),
           SimpleText(
             text: compound.name,

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'models.dart';
 
 enum Group {
@@ -55,4 +56,22 @@ class PeriodicTableElement {
     required this.typeElement,
     required this.valencias,
   });
+
+  PeriodicTableElement copyWith({
+    String? name,
+    String? symbol,
+    String? atomicNumber,
+    Group? group,
+    TypeElement? typeElement,
+    List<Valencia>? valencias,
+  }) {
+    return PeriodicTableElement(
+      name: name ?? this.name,
+      symbol: symbol ?? this.symbol,
+      atomicNumber: atomicNumber ?? this.atomicNumber,
+      group: group ?? this.group,
+      typeElement: typeElement ?? this.typeElement,
+      valencias: valencias ?? this.valencias,
+    );
+  }
 }

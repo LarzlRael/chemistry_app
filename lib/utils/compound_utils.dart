@@ -13,25 +13,6 @@ List<String> separarElementos(String text) {
   return elementos;
 }
 
-PeriodicTableElement oxidFromElement(PeriodicTableElement element) {
-  return PeriodicTableElement(
-    atomicNumber: '',
-    symbol: "${element.symbol}2O",
-    name: "Oxido de ${element.name.toLowerCase()} ",
-    group: element.group,
-    valencias: element.valencias,
-    typeElement: element.typeElement,
-  );
-}
-
-List<PeriodicTableElement> generateOxidos(List<PeriodicTableElement> elements) {
-  List<PeriodicTableElement> oxidos = [];
-  elements.forEach((element) {
-    oxidos.add(oxidFromElement(element));
-  });
-  return oxidos;
-}
-
 bool hasNumber(String input) {
   // Define una expresión regular que busca un número en el string
   RegExp regex = RegExp(r'\d');
@@ -83,4 +64,23 @@ String getValenceString(List<Valence> valences) {
     return val.replaceAll("1", "");
   }
   return val;
+}
+
+List<Valence> simplifyValences(Valence first, Valence second) {
+  /* simplificar si es el segudo elemento es 4 o  2 */
+  /* cuando ambos son iguales */
+  if (first.value == second.value) {
+    return [
+      first.copyWith(value: 1),
+      second.copyWith(value: 1),
+    ];
+  }
+  /* cuando uno es 2 y el otro es 4 */
+  if (first.value == 2 && second.value == 4) {
+    return [
+      first.copyWith(value: 1),
+      second.copyWith(value: 2),
+    ];
+  }
+  return [first, second];
 }
