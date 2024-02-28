@@ -258,7 +258,7 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
       element: elementAux,
       name: name,
       formula: [firstValence, secondValence],
-      type: TypeCompound.hidroxido,
+      type: TypeCompound.hidruro,
     ));
   }
 

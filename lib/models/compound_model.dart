@@ -5,6 +5,7 @@ enum TypeCompound {
   oxido,
   peroxido,
   hidroxido,
+  hidruro,
   oxido_doble,
   acido,
   sal,

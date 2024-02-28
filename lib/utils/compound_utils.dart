@@ -43,14 +43,35 @@ List<Valence> sumValences(List<Valence> valences1, List<Valence> valences2) {
   return result;
 }
 
-/*  */
-bool hasNonMetalValence(PeriodicTableElement element) {
-  for (var valence in element.valencias) {
-    if (valence.typeElement == TypeElement.no_metal) {
-      return true;
+bool hasBothTypes(List<Valencia> valencias) {
+  bool hasMetal = false;
+  bool hasNonMetal = false;
+
+  for (var valencia in valencias) {
+    if (valencia.typeElement == TypeElement.metal) {
+      hasMetal = true;
+    } else if (valencia.typeElement == TypeElement.no_metal) {
+      hasNonMetal = true;
+    }
+
+    if (hasMetal && hasNonMetal) return true;
+  }
+
+  return hasMetal && hasNonMetal;
+}
+
+bool isAllSameType(List<Valencia> valencias) {
+  if (valencias.isEmpty) {
+    return false; // Si la lista está vacía, no se puede determinar el tipo
+  }
+
+  TypeElement? primerTipo = valencias.first.typeElement;
+  for (var valencia in valencias) {
+    if (valencia.typeElement != primerTipo) {
+      return false; // Si encontramos un tipo diferente, no todos son del mismo tipo
     }
   }
-  return false;
+  return true; // Si llegamos hasta aquí, todos los tipos son iguales
 }
 
 String isOne(String text) {

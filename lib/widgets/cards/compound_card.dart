@@ -88,7 +88,7 @@ class CompoundCard extends StatelessWidget {
                     SimpleText(
                       text: compound.name,
                       textAlign: TextAlign.center,
-                      fontSize: 25,
+                      fontSize: 22,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
                       lineHeight: 1,
@@ -97,30 +97,6 @@ class CompoundCard extends StatelessWidget {
                 ),
               ),
             ),
-
-            /* Container(
-              margin: EdgeInsets.only(bottom: 10),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: SimpleText(
-                  text: element.group.name.toCapitalize(),
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                ),
-              ),
-            ), */
-            /* Positioned(
-              top: 5,
-              left: 5,
-              child: SimpleText(
-                text:
-                    element.typeElement.name.snakeCaseToWords().toCapitalize(),
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: 16,
-              ),
-            ), */
           ],
         ),
       ),

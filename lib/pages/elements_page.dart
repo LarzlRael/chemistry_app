@@ -4,9 +4,9 @@ class ElementsPage extends HookConsumerWidget {
   const ElementsPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedGroup = useState<Group>(Group.nullGroup);
+    /* final selectedGroup = useState<Group>(Group.nullGroup);
     final elements = filterByGroup(selectedGroup.value);
-    final compoundsProvider = ref.watch(compoundProvider.notifier);
+    final compoundsProvider = ref.watch(compoundProvider.notifier); */
     return DefaultTabController(
       length: Group.values.length,
       child: Scaffold(
@@ -35,74 +35,7 @@ class ElementsPage extends HookConsumerWidget {
                 ],
               ),
             );
-          }).toList())
-          /* Container(
-          /* margin: const EdgeInsets.symmetric(horizontal: 10), */
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.grey[100],
-                ),
-                height: 50,
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: InkWell(
-                  onTap: () => showSearch(
-                    context: context,
-                    delegate: SearchElementDelegate(
-                      compoundsProvider: compoundsProvider,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Buscar elemento',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () {
-                          showSearch(
-                            context: context,
-                            delegate: SearchElementDelegate(
-                              compoundsProvider: compoundsProvider,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              CirclesRow(
-                onTap: (element) {
-                  selectedGroup.value = element;
-                },
-              ),
-              Expanded(
-                child: ElementListCards(
-                  elements: elements,
-                  key: ValueKey<Group>(
-                    selectedGroup.value,
-                  ),
-                  onSelected: ((element) => {
-                        context.push(
-                          '/elements_detail_page',
-                          extra: element,
-                        )
-                      }),
-                ),
-              ),
-            ],
-          ),
-        ), */
-          ),
+          }).toList())),
     );
   }
 }

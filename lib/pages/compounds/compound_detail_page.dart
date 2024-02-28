@@ -31,6 +31,8 @@ class CompoundByType extends StatelessWidget {
         return OxidosDoubles(compound: compound);
       case TypeCompound.hidroxido:
         return Hidroxido(compound: compound);
+      case TypeCompound.hidruro:
+        return Hidruro(compound: compound);
       /* 
       case TypeCompound.acido:
         return AcidDetail(compound: compound);
@@ -201,6 +203,53 @@ class Hidroxido extends StatelessWidget {
           ),
           FormulaInText(
             compoundFormula: "H2O",
+            textStyle: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          FormulaInText(
+            compoundFormula: getValenceString(compound.formula),
+            textStyle: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          SimpleText(
+            text: compound.name,
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Hidruro extends StatelessWidget {
+  final Compound compound;
+
+  const Hidruro({super.key, required this.compound});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          /* Fix this show only one element by element  */
+          ...generateOxidosByOneElement(compound.element).map(
+            (e) => FormulaInText(
+              compoundFormula: getValenceString(e.formula),
+              textStyle: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          FormulaInText(
+            compoundFormula: "H",
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,

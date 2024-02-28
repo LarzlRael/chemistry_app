@@ -46,119 +46,51 @@ class ElementCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isBothTypes = hasBothTypes(element.valencias);
+    final metalValencias = element.valencias
+        .where((element) => element.typeElement == TypeElement.metal)
+        .toList();
+    final noMetalValencias = element.valencias
+        .where((element) => element.typeElement == TypeElement.no_metal)
+        .toList();
+
     return Material(
       child: InkWell(
         onTap: () {
-          if (onTap != null) {
+          if (onTap != null && !isBothTypes) {
             onTap!(element);
           }
         },
-        child: Container(
-          key: key,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                colorByGroup(element.group),
-                colorByGroup(element.group).withOpacity(0.6),
-              ],
-            ),
-          ),
-          width: 200,
-          height: 200,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SimpleText(
-                        text: element.symbol,
-                        fontSize: 55,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        lineHeight: 1,
-                      ),
-                      SimpleText(
-                        text: element.name,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        lineHeight: 1,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 30,
-                right: 5,
-                child: element.valencias.length > 1
-                    ? Wrap(
-                        children: element.valencias.map((e) {
-                        return Container(
-                          margin: EdgeInsets.only(left: 5),
-                          child: Column(
-                            children: [
-                              SimpleText(
-                                text: e.value.toString(),
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                lineHeight: 1,
-                              ),
-                              SimpleText(
-                                text: e.suffix.name
-                                    .snakeCaseToWords()
-                                    .toCapitalize(),
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 12,
-                                lineHeight: 1,
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList())
-                    : SimpleText(
-                        text: element.valencias.first.value.toString(),
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SimpleText(
-                    text: element.group.name.toCapitalize(),
+        child: !isBothTypes
+            ? CardElement(
+                element: element,
+                valencias:
+                    isAllSameType(element.valencias) ? element.valencias : [],
+                group: element.group.name.toCapitalize())
+            : FlipCard(
+                key: key,
+                front: CardElement(
+                  element: element,
+                  valencias: metalValencias,
+                  group: "Metal",
+                  extraWidget: Icon(
+                    Icons.change_circle_outlined,
                     color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
+                    size: 20,
+                  ),
+                ),
+                back: CardElement(
+                  color: Colors.purple,
+                  element: element,
+                  valencias: noMetalValencias,
+                  group: "No metal",
+                  extraWidget: Icon(
+                    Icons.change_circle_outlined,
+                    color: Colors.white,
+                    size: 20,
                   ),
                 ),
               ),
-              Positioned(
-                top: 5,
-                left: 5,
-                child: SimpleText(
-                  text: element.typeElement.name
-                      .snakeCaseToWords()
-                      .toCapitalize(),
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -250,6 +182,136 @@ class ElementCard2 extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CardElement extends StatelessWidget {
+  final List<Valencia> valencias;
+  final PeriodicTableElement element;
+  final String group;
+  final Widget? extraWidget;
+  final Color? color;
+  const CardElement({
+    super.key,
+    required this.element,
+    required this.valencias,
+    required this.group,
+    this.extraWidget,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      /* key: key, */
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            color ?? colorByGroup(element.group),
+            color ?? colorByGroup(element.group).withOpacity(0.6),
+          ],
+        ),
+      ),
+      width: 200,
+      height: 200,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              margin: EdgeInsets.only(top: 15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SimpleText(
+                    text: element.symbol,
+                    fontSize: 55,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    lineHeight: 1,
+                  ),
+                  SimpleText(
+                    text: element.name,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                    lineHeight: 1,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 30,
+            right: 5,
+            child: valencias.length > 1
+                ? Wrap(
+                    children: valencias.map((e) {
+                    return Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Column(
+                        children: [
+                          SimpleText(
+                            text: e.value.toString(),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            lineHeight: 1,
+                          ),
+                          SimpleText(
+                            text:
+                                e.suffix.name.snakeCaseToWords().toCapitalize(),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 12,
+                            lineHeight: 1,
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList())
+                : SimpleText(
+                    text: valencias.first.value.toString(),
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 10),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: SimpleText(
+                text: element.group.name.toCapitalize(),
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 5,
+            left: 5,
+            child: SimpleText(
+              text: group,
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              fontSize: 16,
+            ),
+          ),
+          extraWidget != null
+              ? Positioned(
+                  right: 5,
+                  top: 5,
+                  child: extraWidget!,
+                )
+              : SizedBox(),
+        ],
       ),
     );
   }
