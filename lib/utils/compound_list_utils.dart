@@ -34,3 +34,10 @@ List<Compound> generateHidrurosByGroupsElements(List<Group> group) {
       .expand((e) => e)
       .toList();
 }
+
+List<Compound> generateAnhidridosByGroupsElements(List<Group> group) {
+  return group
+      .map((e) => generateAnhidridosByGroupElements(e))
+      .expand((e) => e)
+      .toList();
+}

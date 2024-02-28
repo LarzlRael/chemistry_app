@@ -44,3 +44,12 @@ List<Compound> generateHidrurosByGroupElements(Group group) {
   });
   return compound;
 }
+
+List<Compound> generateAnhidridosByGroupElements(Group group) {
+  final elements = filterByGroup(group);
+  final compound = <Compound>[];
+  elements.forEach((element) {
+    compound.addAll(generateAnhidridosByOneElement(element));
+  });
+  return compound;
+}

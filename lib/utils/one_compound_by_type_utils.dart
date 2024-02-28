@@ -264,3 +264,58 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
 
   return compounds;
 }
+
+List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
+  const nameType = "Anhidrido";
+  final compounds = <Compound>[];
+
+  if (element.valencias.isEmpty) {
+    return compounds;
+  }
+
+  for (var valencia in element.valencias) {
+    if (valencia.typeElement == TypeElement.metal) {
+      continue;
+    }
+    final oxideValue = Valence(
+      value: 2,
+      suffix: "O",
+    );
+
+    int elementValue = valencia.value;
+
+    /* get oso or ico */
+    final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
+    final firstValence = Valence(
+      suffix: element.symbol,
+      value: oxideValue.value,
+    );
+    final secondValence = Valence(
+      suffix: oxideValue.suffix,
+      value: elementValue,
+    );
+    String name = "";
+
+    if (element.valencias.length == 1) {
+      name = "$nameType de ${element.name.toLowerCase()}";
+    } else {
+      name = "$nameType ${element.name.toLowerCase().substring(
+            0,
+            element.name.length - 1,
+          )}$suffix";
+      name = fixIcoWord(name);
+    }
+
+    /* if (specialHidrurosNameCases.containsKey(element.symbol)) {
+      name = "$nameType ${specialHidrurosNameCases[element.symbol]}$suffix";
+    } */
+    compounds.add(Compound(
+      element: element,
+      name: name,
+      formula: [firstValence, secondValence],
+      type: TypeCompound.hidruro,
+    ));
+  }
+
+  return compounds;
+}

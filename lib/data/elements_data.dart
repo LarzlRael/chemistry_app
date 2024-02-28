@@ -4,7 +4,7 @@ class CompoundListElement {
   CompoundListElement({required this.name, required this.pathImage});
 }
 
-final compoundList = <CompoundListElement>[
+final compoundMetalList = <CompoundListElement>[
   CompoundListElement(
       name: 'Oxidos', pathImage: 'assets/chemestry/chemestry_2.png'),
   CompoundListElement(
@@ -15,8 +15,11 @@ final compoundList = <CompoundListElement>[
       name: 'Hidroxidos', pathImage: 'assets/chemestry/reaction.png'),
   CompoundListElement(
       name: 'Hidruros', pathImage: 'assets/chemestry/chemestry.png'),
+  CompoundListElement(
+      name: 'Anhidridos', pathImage: 'assets/chemestry/chemestry_2.png'),
 ];
+/* final compoundNoMetalList = <CompoundListElement>[]; */
 
 CompoundListElement findCompoundCardByName(String name) {
-  return compoundList.firstWhere((element) => element.name == name);
+  return compoundMetalList.firstWhere((element) => element.name == name);
 }

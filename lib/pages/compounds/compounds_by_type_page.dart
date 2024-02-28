@@ -72,6 +72,17 @@ class CompoundsByTypePage extends HookConsumerWidget {
             ],
           );
           break;
+        case 'Anhidridos':
+          listCompounds.value = generateAnhidridosByGroupsElements(
+            [
+              Group.halogeno,
+              Group.nitrogeniodes,
+              Group.anfigenos,
+              Group.carbonoides,
+              Group.anfotero,
+            ],
+          );
+          break;
         /*
         default:
           listCompounds.value = generateOxidosByGroupsElements(
@@ -126,7 +137,7 @@ class CompoundsByTypePage extends HookConsumerWidget {
       ),
       body: CompoundtListCards(
         /* change this for de color */
-        color: Colors.blue,
+        color: Colors.indigoAccent,
         compoundsList: listCompounds.value,
         onSelected: ((element) => {
               context.push(

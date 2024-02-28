@@ -452,12 +452,12 @@ final List<PeriodicTableElement> listPeriodic = [
       ),
       Valencia(
         value: 4,
-        suffix: TypeValencia.hipo_oso,
+        suffix: TypeValencia.oso,
         typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 6,
-        suffix: TypeValencia.per_ico,
+        suffix: TypeValencia.ico,
         typeElement: TypeElement.no_metal,
       ),
       Valencia(
@@ -510,12 +510,12 @@ final List<PeriodicTableElement> listPeriodic = [
       ),
       Valencia(
         value: 4,
-        suffix: TypeValencia.ico,
+        suffix: TypeValencia.oso,
         typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 5,
-        suffix: TypeValencia.per_ico,
+        suffix: TypeValencia.ico,
         typeElement: TypeElement.no_metal,
       ),
     ],
@@ -533,7 +533,7 @@ final List<PeriodicTableElement> listPeriodic = [
       ),
       Valencia(
         value: 5,
-        suffix: TypeValencia.per_ico,
+        suffix: TypeValencia.ico,
         typeElement: TypeElement.no_metal,
       ),
     ],
@@ -555,7 +555,7 @@ final List<PeriodicTableElement> listPeriodic = [
       ),
       Valencia(
         value: 4,
-        suffix: TypeValencia.per_ico,
+        suffix: TypeValencia.ico,
       ),
     ],
   ),
@@ -581,8 +581,23 @@ final List<PeriodicTableElement> listPeriodic = [
     typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
-        value: -1,
+        value: 1,
+        suffix: TypeValencia.hipo_oso,
+        typeElement: TypeElement.no_metal,
+      ),
+      Valencia(
+        value: 3,
         suffix: TypeValencia.oso,
+        typeElement: TypeElement.no_metal,
+      ),
+      Valencia(
+        value: 5,
+        suffix: TypeValencia.ico,
+        typeElement: TypeElement.no_metal,
+      ),
+      Valencia(
+        value: 7,
+        suffix: TypeValencia.per_ico,
         typeElement: TypeElement.no_metal,
       ),
     ],
@@ -675,14 +690,17 @@ final List<PeriodicTableElement> listPeriodic = [
       Valencia(
         value: 2,
         suffix: TypeValencia.hipo_oso,
+        typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 4,
         suffix: TypeValencia.oso,
+        typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 6,
         suffix: TypeValencia.ico,
+        typeElement: TypeElement.no_metal,
       ),
     ],
   ),
@@ -696,14 +714,17 @@ final List<PeriodicTableElement> listPeriodic = [
       Valencia(
         value: 2,
         suffix: TypeValencia.hipo_oso,
+        typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 4,
         suffix: TypeValencia.oso,
+        typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 6,
         suffix: TypeValencia.ico,
+        typeElement: TypeElement.no_metal,
       ),
     ],
   ),
@@ -887,12 +908,15 @@ Color colorByGroup(Group group) {
       Colors.black; // Devuelve el color asignado o negro si no hay coincidencia
 }
 
-Map<TypeCompound, Color> compoundColors = {
-  TypeCompound.oxido: Colors.indigo,
-  TypeCompound.peroxido: Colors.blue,
-  TypeCompound.hidroxido: Colors.green,
-  TypeCompound.acido: Colors.orange,
-  TypeCompound.sal: Colors.purple,
-  TypeCompound.hidracido: Colors.yellow,
-  TypeCompound.oxoacido: Colors.teal,
-};
+Color colorByCompoundType(TypeCompound typeCompound) {
+  Map<TypeCompound, Color> compoundColors = {
+    TypeCompound.oxido: Colors.indigo,
+    TypeCompound.peroxido: Colors.blue,
+    TypeCompound.hidroxido: Colors.green,
+    TypeCompound.acido: Colors.orange,
+    TypeCompound.sal: Colors.purple,
+    TypeCompound.hidracido: Colors.yellow,
+    TypeCompound.oxoacido: Colors.teal,
+  };
+  return compoundColors[typeCompound] ?? Colors.blue;
+}

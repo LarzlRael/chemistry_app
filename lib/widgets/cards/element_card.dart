@@ -64,8 +64,7 @@ class ElementCard extends StatelessWidget {
         child: !isBothTypes
             ? CardElement(
                 element: element,
-                valencias:
-                    isAllSameType(element.valencias) ? element.valencias : [],
+                valencias: element.valencias,
                 group: element.group.name.toCapitalize())
             : FlipCard(
                 key: key,

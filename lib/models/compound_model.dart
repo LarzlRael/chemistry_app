@@ -36,6 +36,7 @@ final specialOxidesNameCases = {
   'Au': 'aur',
   'Pb': 'plumb',
   'Cu': 'cupr',
+  'Ni': 'niquel',
   'Fe': 'ferr',
   'Mn': 'mangan',
 };
