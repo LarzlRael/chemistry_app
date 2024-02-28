@@ -1,13 +1,13 @@
 part of '../pages.dart';
 
-class CompoundsByTypePage extends HookWidget {
+class CompoundsByTypePage extends HookConsumerWidget {
   const CompoundsByTypePage({
     super.key,
     required this.compoundType,
   });
   final String compoundType;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final currentType = useState<CompoundListElement?>(null);
     final listCompounds = useState<List<Compound>>([]);
     useEffect(() {
@@ -87,14 +87,27 @@ class CompoundsByTypePage extends HookWidget {
       appBar: AppBar(
         title: Text(currentType.value!.name),
         actions: [
-          Hero(
+          /* Hero(
             tag: currentType.value!.name,
             child: Image.asset(
               currentType.value!.pathImage,
               width: 25,
               height: 25,
             ),
-          )
+          ) */
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: SearchCompundByType(
+                  listCompounds: listCompounds.value,
+                  compoundNotifier: ref.read(compoundProvider.notifier),
+                  compoundState: ref.watch(compoundProvider),
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: CompoundtListCards(

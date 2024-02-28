@@ -1,13 +1,17 @@
 part of '../widgets.dart';
 
-class SearchElementCompundByType extends SearchDelegate {
-  final CompoundNotifier compoundsProvider;
+class SearchCompundByType extends SearchDelegate {
+  final List<Compound> listCompounds;
+  final CompoundNotifier compoundNotifier;
+  final CompoundState compoundState;
   Timer? debouncerTimer;
 
-  SearchElementCompundByType({
-    required this.compoundsProvider,
+  SearchCompundByType({
+    required this.listCompounds,
+    required this.compoundNotifier,
+    required this.compoundState,
   }) {
-    this.compoundsProvider.setSearched(listPeriodic);
+    this.compoundNotifier.setCompoundSearched(listCompounds);
   }
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -17,7 +21,7 @@ class SearchElementCompundByType extends SearchDelegate {
           : IconButton(
               onPressed: () {
                 query = '';
-                this.compoundsProvider.setSearched(listPeriodic);
+                this.compoundNotifier.setCompoundSearched(listCompounds);
               },
               icon: Icon(Icons.clear),
             ),
@@ -35,8 +39,8 @@ class SearchElementCompundByType extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     _onQueryChanged(context, query);
-    return ElementListCards(
-      elements: compoundsProvider.state.searched,
+    return CompundListTile(
+      compounds: compoundState.compoundSearched,
     );
   }
 
@@ -46,8 +50,8 @@ class SearchElementCompundByType extends SearchDelegate {
       return Container();
     } */
     _onQueryChanged(context, query);
-    return ElementListCards(
-      elements: compoundsProvider.state.searched,
+    return CompundListTile(
+      compounds: compoundState.compoundSearched,
       onSelected: ((element) => {inspect(element)}),
     );
   }
@@ -60,8 +64,8 @@ class SearchElementCompundByType extends SearchDelegate {
       if (query.isEmpty) {
         return;
       }
-      final result = searchElements(listPeriodic, query.trim());
-      this.compoundsProvider.setSearched(result);
+      final result = searchCompound(listCompounds, query.trim());
+      this.compoundNotifier.setCompoundSearched(result);
     });
   }
 }

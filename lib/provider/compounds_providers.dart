@@ -1,14 +1,17 @@
 part of 'providers.dart';
 
-final compoundProvider =
-    StateNotifierProvider<CompoundNotifier, CompoundStateProvider>(
-        (ref) => CompoundNotifier());
+final compoundProvider = StateNotifierProvider<CompoundNotifier, CompoundState>(
+    (ref) => CompoundNotifier());
 
-class CompoundNotifier extends StateNotifier<CompoundStateProvider> {
-  CompoundNotifier() : super(CompoundStateProvider.initial());
+class CompoundNotifier extends StateNotifier<CompoundState> {
+  CompoundNotifier() : super(CompoundState.initial());
 
   void setSearched(List<PeriodicTableElement> listPeriodic) {
     state = state.copyWith(searched: listPeriodic);
+  }
+
+  void setCompoundSearched(List<Compound> listCompounds) {
+    state = state.copyWith(compoundSearched: listCompounds);
   }
 
   void filterByGroup(Group group) {
@@ -22,30 +25,34 @@ class CompoundNotifier extends StateNotifier<CompoundStateProvider> {
   }
 }
 
-class CompoundStateProvider {
+class CompoundState {
   final bool isLoading;
-  final List<PeriodicTableElement> compounds;
+  final List<PeriodicTableElement> peridicElements;
   final List<PeriodicTableElement> searched;
+  final List<Compound> compoundSearched;
   final String errorMessage;
 
-  CompoundStateProvider({
+  CompoundState({
     this.isLoading = true,
-    this.compounds = const [],
+    this.peridicElements = const [],
     this.errorMessage = '',
     this.searched = const [],
+    this.compoundSearched = const [],
   });
-  factory CompoundStateProvider.initial() => CompoundStateProvider();
+  factory CompoundState.initial() => CompoundState();
 
-  CompoundStateProvider copyWith({
+  CompoundState copyWith({
     bool? isLoading,
     List<PeriodicTableElement>? compounds,
     String? errorMessage,
     List<PeriodicTableElement>? searched,
+    List<Compound>? compoundSearched,
   }) =>
-      CompoundStateProvider(
+      CompoundState(
         isLoading: isLoading ?? this.isLoading,
-        compounds: compounds ?? this.compounds,
+        peridicElements: compounds ?? this.peridicElements,
         errorMessage: errorMessage ?? this.errorMessage,
         searched: searched ?? this.searched,
+        compoundSearched: compoundSearched ?? this.compoundSearched,
       );
 }

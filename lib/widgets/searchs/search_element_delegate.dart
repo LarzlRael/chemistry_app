@@ -2,7 +2,7 @@ part of '../widgets.dart';
 
 class SearchElementDelegate extends SearchDelegate {
   final CompoundNotifier compoundsNotifier;
-  final CompoundStateProvider compoundsState;
+  final CompoundState compoundsState;
   Timer? debouncerTimer;
 
   SearchElementDelegate({

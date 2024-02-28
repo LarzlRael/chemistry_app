@@ -14,3 +14,14 @@ List<PeriodicTableElement> searchElements(
       )
       .toList();
 }
+
+List<Compound> searchCompound(
+  List<Compound> compounds,
+  String query,
+) {
+  // Filtrar por nombre o símbolo que coincida con la consulta
+  return compounds
+      .where(
+          (element) => element.name.toLowerCase().contains(query.toLowerCase()))
+      .toList();
+}

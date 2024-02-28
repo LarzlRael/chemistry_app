@@ -7,6 +7,9 @@ class CompoundDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(compound.name),
+      ),
       body: Center(
         child: CompoundByType(compound: compound),
       ),
@@ -68,7 +71,7 @@ class OxideDetail extends StatelessWidget {
             ],
           ),
           FormulaInText(
-            compoundFormula: compound.formula.map((e) => e.toString()).join(""),
+            compoundFormula: getValenceString(compound.formula),
             textStyle: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
           ),
@@ -115,7 +118,7 @@ class PeroxideDetail extends StatelessWidget {
             ],
           ),
           FormulaInText(
-            compoundFormula: compound.formula.map((e) => e.toString()).join(""),
+            compoundFormula: getValenceString(compound.formula),
             textStyle: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
           ),
@@ -156,7 +159,7 @@ class OxidosDoubles extends StatelessWidget {
           ),
           SimpleText(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            text: compound.formula.map((e) => e.suffix).join(""),
+            text: getValenceString(compound.formula),
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
           ),
           SimpleText(
