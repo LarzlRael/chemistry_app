@@ -17,6 +17,11 @@ final compoundMetalList = <CompoundListElement>[
       name: 'Hidruros', pathImage: 'assets/chemestry/chemestry.png'),
   CompoundListElement(
       name: 'Anhidridos', pathImage: 'assets/chemestry/chemestry_2.png'),
+  CompoundListElement(
+      name: 'Acidos oxacidos', pathImage: 'assets/chemestry/chemestry_2.png'),
+  CompoundListElement(
+      name: 'Acidos polihidratos',
+      pathImage: 'assets/chemestry/chemestry_2.png'),
 ];
 /* final compoundNoMetalList = <CompoundListElement>[]; */
 

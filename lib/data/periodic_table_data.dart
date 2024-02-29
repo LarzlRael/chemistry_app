@@ -641,18 +641,22 @@ final List<PeriodicTableElement> listPeriodic = [
       Valencia(
         value: 1,
         suffix: TypeValencia.hipo_oso,
+        typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 3,
         suffix: TypeValencia.oso,
+        typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 5,
         suffix: TypeValencia.ico,
+        typeElement: TypeElement.no_metal,
       ),
       Valencia(
         value: 7,
         suffix: TypeValencia.per_ico,
+        typeElement: TypeElement.no_metal,
       ),
     ],
   ),
@@ -880,6 +884,16 @@ List<PeriodicTableElement> shuffleList(
   return shuffledList;
 }
 
+List<PeriodicTableElement> getElementsBySimbols(
+    List<String> symbols, List<PeriodicTableElement> list) {
+  return symbols
+      .map((simbolo) => list.firstWhere(
+            (elemento) =>
+                elemento.symbol.toLowerCase() == simbolo.toLowerCase(),
+          ))
+      .toList();
+}
+
 List<PeriodicTableElement> filterByGroup(Group group) {
   if (group == Group.nullGroup) {
     return listPeriodic;
@@ -913,7 +927,7 @@ Color colorByCompoundType(TypeCompound typeCompound) {
     TypeCompound.oxido: Colors.indigo,
     TypeCompound.peroxido: Colors.blue,
     TypeCompound.hidroxido: Colors.green,
-    TypeCompound.acido: Colors.orange,
+    TypeCompound.acido_oxacido: Colors.orange,
     TypeCompound.sal: Colors.purple,
     TypeCompound.hidracido: Colors.yellow,
     TypeCompound.oxoacido: Colors.teal,

@@ -41,3 +41,10 @@ List<Compound> generateAnhidridosByGroupsElements(List<Group> group) {
       .expand((e) => e)
       .toList();
 }
+
+List<Compound> generateAcidosOxacidosByGroupsElements(List<Group> group) {
+  return group
+      .map((e) => generateAcidosOxacidosByGroupElements(e))
+      .expand((e) => e)
+      .toList();
+}

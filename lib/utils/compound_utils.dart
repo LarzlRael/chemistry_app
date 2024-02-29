@@ -87,21 +87,39 @@ String getValenceString(List<Valence> valences) {
   return val;
 }
 
-List<Valence> simplifyValences(Valence first, Valence second) {
-  /* simplificar si es el segudo elemento es 4 o  2 */
-  /* cuando ambos son iguales */
-  if (first.value == second.value) {
-    return [
-      first.copyWith(value: 1),
-      second.copyWith(value: 1),
-    ];
+List<Valence> simplify(List<Valence> arr) {
+  List<Valence> simplifiedList = [];
+
+  for (Valence val in arr) {
+    if (val.value % 2 == 0) {
+      double result = val.value / 2;
+      simplifiedList.add(val.copyWith(value: result.toInt()));
+    } else {
+      simplifiedList = List.from(arr);
+      break;
+    }
   }
-  /* cuando uno es 2 y el otro es 4 */
-  if (first.value == 2 && second.value == 4) {
-    return [
-      first.copyWith(value: 1),
-      second.copyWith(value: 2),
-    ];
-  }
-  return [first, second];
+
+  return simplifiedList;
 }
+
+List<String> splitString(String string, String spliter) {
+  return string.split(spliter);
+}
+
+isEven(int number) {
+  return number % 2 == 0;
+}
+
+String isEspecialCase(String symbol, Map<String, String> specialCaseList) {
+  if (specialCaseList.containsKey(symbol)) {
+    return specialCaseList[symbol]!;
+  }
+  return symbol;
+}
+/* List<Valence> simplifyAcidos(
+    Valence firstValence, Valence secondValence, Valence thirdValence) {
+  if (isEven(thirdValence.value)) {
+    return [firstValence, secondValence];
+  }
+} */

@@ -83,6 +83,20 @@ class CompoundsByTypePage extends HookConsumerWidget {
             ],
           );
           break;
+        case 'Acidos oxacidos':
+          listCompounds.value = generateAcidosOxacidosByGroupsElements(
+            [
+              Group.halogeno,
+              Group.nitrogeniodes,
+              Group.anfigenos,
+              Group.carbonoides,
+              Group.anfotero,
+            ],
+          );
+          break;
+        case 'Acidos polihidratos':
+          listCompounds.value = generateAcidosPolihidratadosByOneElement();
+          break;
         /*
         default:
           listCompounds.value = generateOxidosByGroupsElements(

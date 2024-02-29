@@ -7,10 +7,12 @@ enum TypeCompound {
   hidroxido,
   hidruro,
   oxido_doble,
-  acido,
+  acido_oxacido,
+  acido_polihidrato,
   sal,
   hidracido,
   oxoacido,
+  anhidrido,
 }
 
 class Valence {
@@ -30,6 +32,11 @@ class Valence {
       suffix: suffix ?? this.suffix,
     );
   }
+
+  @override
+  String toString() {
+    return '$suffix$value';
+  }
 }
 
 final specialOxidesNameCases = {
@@ -43,6 +50,7 @@ final specialOxidesNameCases = {
 final specialHidrurosNameCases = {
   'Au': 'aur',
   'Mn': 'mangan',
+  'N': 'nitr',
 };
 
 class Compound {
@@ -50,10 +58,29 @@ class Compound {
   final String name;
   final List<Valence> formula;
   final TypeCompound type;
+  final Compound? compound;
+
   Compound({
     required this.element,
     required this.name,
     required this.formula,
     required this.type,
+    this.compound,
   });
+
+  Compound copyWith({
+    PeriodicTableElement? element,
+    String? name,
+    List<Valence>? formula,
+    TypeCompound? type,
+    Compound? compound,
+  }) {
+    return Compound(
+      element: element ?? this.element,
+      name: name ?? this.name,
+      formula: formula ?? this.formula,
+      type: type ?? this.type,
+      compound: compound ?? this.compound,
+    );
+  }
 }

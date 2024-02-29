@@ -33,6 +33,8 @@ class CompoundByType extends StatelessWidget {
         return Hidroxido(compound: compound);
       case TypeCompound.hidruro:
         return Hidruro(compound: compound);
+      case TypeCompound.acido_oxacido:
+        return AcidoOxacido(compound: compound);
       /* 
       case TypeCompound.acido:
         return AcidDetail(compound: compound);
@@ -256,6 +258,52 @@ class Hidruro extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          FormulaInText(
+            compoundFormula: getValenceString(compound.formula),
+            textStyle: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          SimpleText(
+            text: compound.name,
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AcidoOxacido extends StatelessWidget {
+  final Compound compound;
+  const AcidoOxacido({super.key, required this.compound});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          /* Fix this show only one element by element  */
+          FormulaInText(
+            compoundFormula: getValenceString(compound.compound!.formula),
+            textStyle: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          Text(compound.compound!.name),
+          FormulaInText(
+            compoundFormula: "H2O",
+            textStyle: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          Text("Agua"),
           FormulaInText(
             compoundFormula: getValenceString(compound.formula),
             textStyle: TextStyle(

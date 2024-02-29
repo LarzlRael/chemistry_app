@@ -49,7 +49,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
     compounds.add(Compound(
       element: element,
       name: name,
-      formula: simplifyValences(firstValence, secondValence),
+      formula: simplify([firstValence, secondValence]),
       type: TypeCompound.oxido,
     ));
   }
@@ -77,7 +77,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     compound.add(Compound(
       element: element,
       name: name,
-      formula: simplifyValences(firstValence, secondValence),
+      formula: simplify([firstValence, secondValence]),
       type: TypeCompound.peroxido,
     ));
   }
@@ -94,7 +94,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     compound.add(Compound(
       element: element,
       name: name,
-      formula: simplifyValences(firstValence, secondValence),
+      formula: simplify([firstValence, secondValence]),
       type: TypeCompound.peroxido,
     ));
   }
@@ -298,13 +298,22 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
 
     if (element.valencias.length == 1) {
       name = "$nameType de ${element.name.toLowerCase()}";
+    }
+    if (valencia.suffix == TypeValencia.hipo_oso ||
+        valencia.suffix == TypeValencia.per_ico) {
+      final split = splitString(valencia.suffix.name, "_");
+      name = "$nameType ${split[0]}${element.name.toLowerCase().substring(
+            0,
+            element.name.length - 1,
+          )}${split[1]}";
     } else {
       name = "$nameType ${element.name.toLowerCase().substring(
             0,
             element.name.length - 1,
           )}$suffix";
-      name = fixIcoWord(name);
     }
+
+    name = fixIcoWord(name);
 
     /* if (specialHidrurosNameCases.containsKey(element.symbol)) {
       name = "$nameType ${specialHidrurosNameCases[element.symbol]}$suffix";
@@ -312,10 +321,65 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
     compounds.add(Compound(
       element: element,
       name: name,
-      formula: [firstValence, secondValence],
-      type: TypeCompound.hidruro,
+      formula: simplify([firstValence, secondValence]),
+      type: TypeCompound.anhidrido,
     ));
   }
 
+  return compounds;
+}
+
+List<Compound> generateAcidosOxacidosByOneElement(
+    PeriodicTableElement element) {
+  final exceptions = ["P", "Sb", "As", "B", "Si"];
+  if (exceptions.contains(element.symbol)) {
+    return [];
+  }
+  final getAnhidrido = generateAnhidridosByOneElement(element);
+  const nameType = "Acido";
+  final compounds = <Compound>[];
+
+  for (var anhidrido in getAnhidrido) {
+    String name = "$nameType";
+
+    /* if (specialHidrurosNameCases.containsKey(element.symbol)) {
+      name = "$nameType ${specialHidrurosNameCases[element.symbol]}$suffix";
+    } */
+    compounds.add(
+      Compound(
+        compound: anhidrido,
+        element: element,
+        name: anhidrido.name.replaceFirst("Anhidrido", name),
+        formula: simplify([
+          Valence(
+            suffix: "H",
+            value: 2,
+          ),
+          /* Si la valencia es impar poner 1 */
+          /* Si la valencia es par poner 2 */
+          /* EL oxigeno es con lo que aumente
+        valencia * lo aumentado
+         */
+          ...anhidrido.formula.map(
+              (e) => e.suffix == "O" ? e.copyWith(value: e.value * 2) : e
+              /* if (e.suffix == "O") {
+              return e.copyWith(value: e.value + 1);
+            }
+            return e; */
+              ),
+        ]),
+        type: TypeCompound.acido_oxacido,
+      ),
+    );
+  }
+
+  return compounds;
+}
+
+List<Compound> generateAcidosPolihidratadosByOneElement() {
+  final exceptions = ["P", "Sb", "As", "B", "Si"];
+  final getElements = getElementsBySimbols(exceptions, listPeriodic);
+  final compounds = <Compound>[];
+  inspect(getElements);
   return compounds;
 }

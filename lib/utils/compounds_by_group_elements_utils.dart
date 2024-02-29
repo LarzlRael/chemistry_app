@@ -53,3 +53,12 @@ List<Compound> generateAnhidridosByGroupElements(Group group) {
   });
   return compound;
 }
+
+List<Compound> generateAcidosOxacidosByGroupElements(Group group) {
+  final elements = filterByGroup(group);
+  final compound = <Compound>[];
+  elements.forEach((element) {
+    compound.addAll(generateAcidosOxacidosByOneElement(element));
+  });
+  return compound;
+}

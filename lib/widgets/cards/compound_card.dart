@@ -86,6 +86,7 @@ class CompoundCard extends StatelessWidget {
                       textStyle: textStyle,
                     ),
                     SimpleText(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
                       text: compound.name,
                       textAlign: TextAlign.center,
                       fontSize: 22,
