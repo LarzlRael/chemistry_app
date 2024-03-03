@@ -162,14 +162,6 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
     );
     String name = "";
 
-    /* if (elementValue % OXIDE_VALUE == 0) {
-      if (elementValue % 2 == 0) {
-        oxideValue = elementValue ~/ OXIDE_VALUE;
-        elementValue = elementValue ~/ OXIDE_VALUE;
-      } else {
-        oxideValue = elementValue;
-      }
-    } */
     if (element.valencias.length == 1) {
       name = "Hidroxido de ${element.name.toLowerCase()}";
     } else {
@@ -358,15 +350,9 @@ List<Compound> generateAcidosOxacidosByOneElement(
           /* Si la valencia es impar poner 1 */
           /* Si la valencia es par poner 2 */
           /* EL oxigeno es con lo que aumente
-        valencia * lo aumentado
-         */
-          ...anhidrido.formula.map(
-              (e) => e.suffix == "O" ? e.copyWith(value: e.value * 2) : e
-              /* if (e.suffix == "O") {
-              return e.copyWith(value: e.value + 1);
-            }
-            return e; */
-              ),
+        valencia * lo aumentado*/
+          ...anhidrido.formula
+              .map((e) => e.suffix == "O" ? e.copyWith(value: e.value + 1) : e),
         ]),
         type: TypeCompound.acido_oxacido,
       ),
@@ -378,8 +364,78 @@ List<Compound> generateAcidosOxacidosByOneElement(
 
 List<Compound> generateAcidosPolihidratadosByOneElement() {
   final exceptions = ["P", "Sb", "As", "B", "Si"];
-  final getElements = getElementsBySimbols(exceptions, listPeriodic);
+
+  final getElements = getElementsBySimbols(listPeriodic, exceptions);
+  final filteredElements = getElements.map((e) {
+    switch (e.symbol) {
+      case "P":
+      case "Sb":
+      case "As":
+        return filterValencias(e, [3, 5]);
+
+      case "B":
+        return filterValencias(e, [3]);
+
+      case "Si":
+        return filterValencias(e, [4]);
+
+      default:
+        [];
+    }
+  }).toList();
+
   final compounds = <Compound>[];
-  inspect(getElements);
+
+  filteredElements.forEach((element) {
+    final getAnhidrido = generateAnhidridosByOneElement(element!);
+    getAnhidrido.forEach((anhidrido) {
+      anhidrido.element.valencias.forEach((valencia) {
+        for (var i = 0; i < 3; i++) {
+          // Generar cada compuesto original tres veces
+          final modifiedAcido = anhidrido.copyWith(
+            formula: [
+              Valence(
+                suffix: "H",
+                value: 2 * valencia.value,
+              ),
+              ...anhidrido.formula.map((e) {
+                if (e.suffix == "O") {
+                  return e.copyWith(
+                      value: (i + 1) *
+                          valencia
+                              .value); // Multiplica por (i + 1) para obtener 1 * valencia.value, 2 * valencia.value, 3 * valencia.value
+                }
+                return e;
+              }),
+            ],
+            name: anhidrido.name.replaceFirst("Anhidrido", "Acido"),
+          );
+          compounds.add(modifiedAcido);
+        }
+      });
+    });
+  });
+
   return compounds;
+}
+
+List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
+  final getAcido = generateAcidosOxacidosByOneElement(element)
+      .map((e) => e.copyWith(name: remplazeOsoIco(e.name)))
+      .toList();
+
+  final convertIon = getAcido.map((acido) {
+    final ion = acido.copyWith(
+      name: acido.name.replaceFirst("Acido", "Ion"),
+      type: TypeCompound.ion,
+      formula: moveFirstElementToLastPosition(acido.formula.map((e) {
+        if (e.suffix == "H") {
+          return e.copyWith(value: e.value * -1, suffix: '');
+        }
+        return e;
+      }).toList()),
+    );
+    return ion;
+  }).toList();
+  return convertIon;
 }

@@ -1,15 +1,19 @@
 part of '../widgets.dart';
 
 class SearchElementDelegate extends SearchDelegate {
-  final CompoundNotifier compoundsNotifier;
-  final CompoundState compoundsState;
+  /* final CompoundNotifier compoundsNotifier;
+  final CompoundState compoundsState; */
+  final CompoundNotifier compoundsProvider;
+
   Timer? debouncerTimer;
 
   SearchElementDelegate({
-    required this.compoundsNotifier,
-    required this.compoundsState,
+    /* required this.compoundsNotifier,
+    required this.compoundsState, */
+    required this.compoundsProvider,
   }) {
-    this.compoundsNotifier.setSearched(listPeriodic);
+    /* this.compoundsNotifier.setSearched(listPeriodic); */
+    this.compoundsProvider.setSearched(listPeriodic);
   }
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -19,7 +23,7 @@ class SearchElementDelegate extends SearchDelegate {
           : IconButton(
               onPressed: () {
                 query = '';
-                this.compoundsNotifier.setSearched(listPeriodic);
+                this.compoundsProvider.setSearched(listPeriodic);
               },
               icon: Icon(Icons.clear),
             ),
@@ -38,7 +42,7 @@ class SearchElementDelegate extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     _onQueryChanged(context, query);
     return ElementsListTile(
-      elements: compoundsState.searched,
+      elements: compoundsProvider.state.searched,
     );
   }
 
@@ -49,7 +53,7 @@ class SearchElementDelegate extends SearchDelegate {
     } */
     _onQueryChanged(context, query);
     return ElementsListTile(
-      elements: compoundsState.searched,
+      elements: compoundsProvider.state.searched,
       onSelected: ((element) => {inspect(element)}),
     );
   }
@@ -63,7 +67,7 @@ class SearchElementDelegate extends SearchDelegate {
         return;
       }
       final result = searchElements(listPeriodic, query.trim());
-      this.compoundsNotifier.setSearched(result);
+      this.compoundsProvider.setSearched(result);
     });
   }
 }

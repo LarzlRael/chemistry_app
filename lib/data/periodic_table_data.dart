@@ -253,6 +253,7 @@ final List<PeriodicTableElement> listPeriodic = [
     group: Group.trivalente,
   ),
   PeriodicTableElement(
+    name: 'Cobre',
     typeElement: TypeElement.metal,
     valencias: [
       Valencia(
@@ -260,11 +261,10 @@ final List<PeriodicTableElement> listPeriodic = [
         suffix: TypeValencia.oso,
       ),
       Valencia(
-        value: 3,
+        value: 2,
         suffix: TypeValencia.oso,
       ),
     ],
-    name: 'Cobre',
     symbol: 'Cu',
     atomicNumber: '',
     group: Group.monoBivalente,
@@ -304,10 +304,12 @@ final List<PeriodicTableElement> listPeriodic = [
     group: Group.monotrivalente,
   ),
   PeriodicTableElement(
+    name: 'Talio',
+    symbol: 'Tl',
     typeElement: TypeElement.metal,
     valencias: [
       Valencia(
-        value: 2,
+        value: 1,
         suffix: TypeValencia.oso,
       ),
       Valencia(
@@ -315,8 +317,6 @@ final List<PeriodicTableElement> listPeriodic = [
         suffix: TypeValencia.ico,
       ),
     ],
-    name: 'Talio',
-    symbol: 'Tl',
     atomicNumber: '',
     group: Group.monotrivalente,
   ),
@@ -885,7 +885,9 @@ List<PeriodicTableElement> shuffleList(
 }
 
 List<PeriodicTableElement> getElementsBySimbols(
-    List<String> symbols, List<PeriodicTableElement> list) {
+  List<PeriodicTableElement> list,
+  List<String> symbols,
+) {
   return symbols
       .map((simbolo) => list.firstWhere(
             (elemento) =>

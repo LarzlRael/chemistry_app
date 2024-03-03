@@ -62,3 +62,12 @@ List<Compound> generateAcidosOxacidosByGroupElements(Group group) {
   });
   return compound;
 }
+
+List<Compound> generateIonessByGroupElements(Group group) {
+  final elements = filterByGroup(group);
+  final compound = <Compound>[];
+  elements.forEach((element) {
+    compound.addAll(generateIonesByOneElement(element));
+  });
+  return compound;
+}

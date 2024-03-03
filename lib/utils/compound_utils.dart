@@ -1,13 +1,12 @@
 part of 'utils.dart';
 
 List<String> separarElementos(String text) {
-  RegExp regExp = RegExp(r'([a-zA-Z]+|\d+)');
+  RegExp regExp = RegExp(r'-?\d+|[a-zA-Z]+');
   Iterable<RegExpMatch> matches = regExp.allMatches(text);
-  int counter = 0;
+
   List<String> elementos = [];
   for (RegExpMatch match in matches) {
     elementos.add(match.group(0)!);
-    counter++;
   }
 
   return elementos;
@@ -78,14 +77,8 @@ String isOne(String text) {
   return text.length == 1 ? text : '';
 }
 
-String getValenceString(List<Valence> valences) {
-  final val =
-      valences.map((valence) => '${valence.suffix}${valence.value}').join('');
-  if (val.contains("1")) {
-    return val.replaceAll("1", "");
-  }
-  return val;
-}
+String getValenceString(List<Valence> valences) =>
+    valences.map((valence) => '${valence.suffix}${valence.value}').join('');
 
 List<Valence> simplify(List<Valence> arr) {
   List<Valence> simplifiedList = [];
@@ -123,3 +116,63 @@ String isEspecialCase(String symbol, Map<String, String> specialCaseList) {
     return [firstValence, secondValence];
   }
 } */
+
+int concatValencesValues(List<Valence> valencias) {
+  // Concatenar los números en una cadena
+  String numerosConcatenados =
+      valencias.map((valencia) => valencia.value).join('');
+
+  // Convertir la cadena en un entero y devolverlo
+  return int.parse(numerosConcatenados);
+}
+
+List<PeriodicTableElement> filterValences(
+    List<PeriodicTableElement> elements, List<int> indexes) {
+  // Crear una nueva lista para almacenar los elementos filtrados
+  List<PeriodicTableElement> elementosFiltrados = [];
+
+  // Iterar sobre cada elemento y verificar si su índice está presente en la lista de números
+  for (int i = 0; i < elements.length; i++) {
+    if (indexes.contains(i)) {
+      // Si el índice está presente, agregar el elemento a la lista filtrada
+      elementosFiltrados.add(elements[i]);
+    }
+  }
+
+  return elementosFiltrados;
+}
+
+PeriodicTableElement filterValencias(
+    PeriodicTableElement element, List<int> indices) {
+  // Filtrar las valencias según los índices proporcionados
+  final filteredValencias = element.valencias
+      .where((valencia) => indices.contains(valencia.value))
+      .toList();
+
+  // Crear una copia del objeto PeriodicTableElement con las valencias filtradas
+  return element.copyWith(valencias: filteredValencias);
+}
+
+List<Valence> moveFirstElementToLastPosition(List<Valence> lista) {
+  if (lista.isNotEmpty) {
+    Valence primerElemento =
+        lista.removeAt(0); // Elimina y guarda el primer elemento
+    lista.add(primerElemento); // Agrega el primer elemento al final de la lista
+  }
+  return lista;
+}
+
+String remplazeOsoIco(String texto) {
+  RegExp regExp = RegExp(r'(oso|ico)$');
+
+  return texto.replaceAllMapped(regExp, (match) {
+    switch (match.group(0)) {
+      case 'oso':
+        return 'ito';
+      case 'ico':
+        return 'ato';
+      default:
+        return match.group(0)!;
+    }
+  });
+}

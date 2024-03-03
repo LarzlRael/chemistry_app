@@ -48,3 +48,10 @@ List<Compound> generateAcidosOxacidosByGroupsElements(List<Group> group) {
       .expand((e) => e)
       .toList();
 }
+
+List<Compound> generateIonesByGroupsElements(List<Group> group) {
+  return group
+      .map((e) => generateIonessByGroupElements(e))
+      .expand((e) => e)
+      .toList();
+}

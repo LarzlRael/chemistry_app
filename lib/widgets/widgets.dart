@@ -22,3 +22,4 @@ part 'cards/element_card.dart';
 part 'cards/compound_card.dart';
 part 'cards/elements_list_tile.dart';
 part 'cards/compound_list_tile.dart';
+part 'cards/card_detail_compound.dart';

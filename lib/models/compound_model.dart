@@ -8,11 +8,12 @@ enum TypeCompound {
   hidruro,
   oxido_doble,
   acido_oxacido,
-  acido_polihidrato,
+  acido_polihidratado,
   sal,
   hidracido,
   oxoacido,
   anhidrido,
+  ion,
 }
 
 class Valence {

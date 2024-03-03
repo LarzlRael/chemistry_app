@@ -16,30 +16,32 @@ class FormulaInText extends StatelessWidget {
       text: TextSpan(
         style: textStyle,
         children: compoundSeparate.map((e) {
+          /* is the number is negative in case of ios */
+
           if (e.contains(RegExp(r'[a-zA-Z]'))) {
             return TextSpan(
               text: e,
               style: textStyle,
             );
-          } else {
-            return WidgetSpan(
-              child: Transform.translate(
-                offset: const Offset(0.0, 4.0),
-                child: Text(
-                  e,
-                  style: textStyle?.copyWith(
-                        fontSize: textStyle!.fontSize! * 0.50,
-                        fontWeight: FontWeight.bold,
-                      ) ??
-                      TextStyle(
-                        fontSize:
-                            DefaultTextStyle.of(context).style.fontSize! * 0.50,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-              ),
-            );
           }
+          final position = int.parse(e) > 0 ? 4.0 : -30.0;
+          return WidgetSpan(
+            child: Transform.translate(
+              offset: Offset(0.0, position),
+              child: Text(
+                e,
+                style: textStyle?.copyWith(
+                      fontSize: textStyle!.fontSize! * 0.50,
+                      fontWeight: FontWeight.bold,
+                    ) ??
+                    TextStyle(
+                      fontSize:
+                          DefaultTextStyle.of(context).style.fontSize! * 0.50,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          );
         }).toList(),
       ),
     );

@@ -75,3 +75,21 @@ class PeriodicTableElement {
     );
   }
 }
+
+final metalGroup = <Group>[
+  Group.monovalente,
+  Group.bivalente,
+  Group.trivalente,
+  Group.monoBivalente,
+  Group.monotrivalente,
+  Group.bitetravalente,
+  Group.bitrivalente,
+  Group.anfotero,
+];
+
+final noMetalGroup = <Group>[
+  Group.halogeno,
+  Group.anfigenos,
+  Group.nitrogeniodes,
+  Group.carbonoides,
+];

@@ -106,8 +106,8 @@ class SearchBarElement extends ConsumerWidget {
         onTap: () => showSearch(
           context: context,
           delegate: SearchElementDelegate(
-            compoundsNotifier: ref.read(compoundProvider.notifier),
-            compoundsState: ref.watch(compoundProvider),
+            compoundsProvider: ref.read(compoundProvider.notifier),
+            /* compoundsState: ref.watch(compoundProvider), */
           ),
         ),
         child: Row(

@@ -33,6 +33,8 @@ class CompoundByType extends StatelessWidget {
         return Hidroxido(compound: compound);
       case TypeCompound.hidruro:
         return Hidruro(compound: compound);
+      case TypeCompound.anhidrido:
+        return AnHidrido(compound: compound);
       case TypeCompound.acido_oxacido:
         return AcidoOxacido(compound: compound);
       /* 
@@ -57,36 +59,33 @@ class OxideDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(fontSize: 60, fontWeight: FontWeight.w600);
+    final size = MediaQuery.of(context).size;
     final textStyleSuffix =
         TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SimpleText(text: compound.element.symbol, style: textStyle),
-              SimpleText(
-                  text: compound.element.valencias[0].value.toString(),
-                  style: textStyleSuffix),
-              SimpleText(text: "O", style: textStyle),
-              SimpleText(text: "-2", style: textStyleSuffix),
-            ],
-          ),
-          FormulaInText(
-            compoundFormula: getValenceString(compound.formula),
-            textStyle: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
-          ),
-          SimpleText(
-            text: compound.name,
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
+    return CardDetailCompound(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SimpleText(text: compound.element.symbol, style: textStyle),
+            SimpleText(
+                text: compound.element.valencias[0].value.toString(),
+                style: textStyleSuffix),
+            SimpleText(text: "O", style: textStyle),
+            SimpleText(text: "-2", style: textStyleSuffix),
+          ],
+        ),
+        FormulaInText(
+          compoundFormula: getValenceString(compound.formula),
+          textStyle: TextStyle(
+              fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
+        ),
+        SimpleText(
+          text: compound.name,
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        ),
+      ],
     );
   }
 }
@@ -100,47 +99,41 @@ class PeroxideDetail extends StatelessWidget {
     final textStyle = TextStyle(fontSize: 60, fontWeight: FontWeight.w600);
     final textStyleSuffix =
         TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Column(
+    return CardDetailCompound(children: [
+      Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          SimpleText(text: compound.element.symbol, style: textStyle),
+          SimpleText(
+              text: compound.element.valencias[0].value.toString(),
+              style: textStyleSuffix),
+          SimpleText(text: "O", style: textStyle),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SimpleText(text: compound.element.symbol, style: textStyle),
-              SimpleText(
-                  text: compound.element.valencias[0].value.toString(),
-                  style: textStyleSuffix),
-              SimpleText(text: "O", style: textStyle),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SimpleText(text: "-2", style: textStyleSuffix),
-                  SimpleText(text: " 2", style: textStyleSuffix),
-                ],
-              ),
+              SimpleText(text: "-2", style: textStyleSuffix),
+              SimpleText(text: " 2", style: textStyleSuffix),
             ],
           ),
-          FormulaInText(
-            compoundFormula: getValenceString(compound.formula),
-            textStyle: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
-          ),
-          SimpleText(
-            text: compound.name,
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-          ),
-          compound.element.group == Group.monovalente
-              ? SimpleText(
-                  text: "No se deben simplificar.",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-                )
-              : SizedBox(),
         ],
       ),
-    );
+      FormulaInText(
+        compoundFormula: getValenceString(compound.formula),
+        textStyle: TextStyle(
+            fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
+      ),
+      SimpleText(
+        text: compound.name,
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+      ),
+      compound.element.group == Group.monovalente
+          ? SimpleText(
+              text: "No se deben simplificar.",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+            )
+          : SizedBox(),
+    ]);
   }
 }
 
@@ -151,33 +144,32 @@ class OxidosDoubles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          ...generateOxidosByOneElement(compound.element).map(
-            (e) => FormulaInText(
-              compoundFormula: getValenceString(e.formula),
-              textStyle: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          FormulaInText(
-            compoundFormula: getValenceString(compound.formula),
+    return CardDetailCompound(
+      children: [
+        ...generateOxidosByOneElement(compound.element).map(
+          (e) => FormulaInText(
+            compoundFormula: getValenceString(e.formula),
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
           ),
-          SimpleText(
-            text: compound.name,
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        ),
+        FormulaInText(
+          compoundFormula: getValenceString(compound.formula),
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
-        ],
-      ),
+        ),
+        SimpleText(
+          text: compound.name,
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }
@@ -189,42 +181,40 @@ class Hidroxido extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          /* Fix this show only one element by element  */
-          ...generateOxidosByOneElement(compound.element).map(
-            (e) => FormulaInText(
-              compoundFormula: getValenceString(e.formula),
-              textStyle: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          FormulaInText(
-            compoundFormula: "H2O",
+    return CardDetailCompound(
+      children: [
+        /* Fix this show only one element by element  */
+        ...generateOxidosByOneElement(compound.element).map(
+          (e) => FormulaInText(
+            compoundFormula: getValenceString(e.formula),
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
           ),
-          FormulaInText(
-            compoundFormula: getValenceString(compound.formula),
-            textStyle: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
+        ),
+        FormulaInText(
+          compoundFormula: "H2O",
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
-          SimpleText(
-            text: compound.name,
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        ),
+        FormulaInText(
+          compoundFormula: getValenceString(compound.formula),
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
-        ],
-      ),
+        ),
+        SimpleText(
+          text: compound.name,
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        ),
+      ],
     );
   }
 }
@@ -236,42 +226,85 @@ class Hidruro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          /* Fix this show only one element by element  */
-          ...generateOxidosByOneElement(compound.element).map(
-            (e) => FormulaInText(
-              compoundFormula: getValenceString(e.formula),
-              textStyle: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          FormulaInText(
-            compoundFormula: "H",
+    return CardDetailCompound(
+      children: [
+        /* Fix this show only one element by element  */
+        ...generateOxidosByOneElement(compound.element).map(
+          (e) => FormulaInText(
+            compoundFormula: getValenceString(e.formula),
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
           ),
-          FormulaInText(
-            compoundFormula: getValenceString(compound.formula),
+        ),
+        FormulaInText(
+          compoundFormula: "H",
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+        ),
+        FormulaInText(
+          compoundFormula: getValenceString(compound.formula),
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+        ),
+        SimpleText(
+          text: compound.name,
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        ),
+      ],
+    );
+  }
+}
+
+class AnHidrido extends StatelessWidget {
+  final Compound compound;
+
+  const AnHidrido({super.key, required this.compound});
+
+  @override
+  Widget build(BuildContext context) {
+    return CardDetailCompound(
+      children: [
+        /* Fix this show only one element by element  */
+        ...generateOxidosByOneElement(compound.element).map(
+          (e) => FormulaInText(
+            compoundFormula: getValenceString(e.formula),
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
           ),
-          SimpleText(
-            text: compound.name,
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        ),
+        FormulaInText(
+          compoundFormula: "H",
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
-        ],
-      ),
+        ),
+        FormulaInText(
+          compoundFormula: getValenceString(compound.formula),
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+        ),
+        SimpleText(
+          text: compound.name,
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        ),
+      ],
     );
   }
 }
@@ -282,42 +315,40 @@ class AcidoOxacido extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          /* Fix this show only one element by element  */
-          FormulaInText(
-            compoundFormula: getValenceString(compound.compound!.formula),
-            textStyle: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
+    return CardDetailCompound(
+      children: [
+        /* Fix this show only one element by element  */
+        FormulaInText(
+          compoundFormula: getValenceString(compound.compound!.formula),
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
-          Text(compound.compound!.name),
-          FormulaInText(
-            compoundFormula: "H2O",
-            textStyle: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
+        ),
+        Text(compound.compound!.name),
+        FormulaInText(
+          compoundFormula: "H2O",
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
-          Text("Agua"),
-          FormulaInText(
-            compoundFormula: getValenceString(compound.formula),
-            textStyle: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
+        ),
+        Text("Agua"),
+        FormulaInText(
+          compoundFormula: getValenceString(compound.formula),
+          textStyle: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
           ),
-          SimpleText(
-            text: compound.name,
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
+        ),
+        SimpleText(
+          text: compound.name,
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+        ),
+      ],
     );
   }
 }
