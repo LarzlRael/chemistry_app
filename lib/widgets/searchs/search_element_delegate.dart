@@ -13,7 +13,7 @@ class SearchElementDelegate extends SearchDelegate {
     required this.compoundsProvider,
   }) {
     /* this.compoundsNotifier.setSearched(listPeriodic); */
-    this.compoundsProvider.setSearched(listPeriodic);
+    this.compoundsProvider.setSearched(allListPeriodic);
   }
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -23,7 +23,7 @@ class SearchElementDelegate extends SearchDelegate {
           : IconButton(
               onPressed: () {
                 query = '';
-                this.compoundsProvider.setSearched(listPeriodic);
+                this.compoundsProvider.setSearched(allListPeriodic);
               },
               icon: Icon(Icons.clear),
             ),
@@ -41,9 +41,7 @@ class SearchElementDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     _onQueryChanged(context, query);
-    return ElementsListTile(
-      elements: compoundsProvider.state.searched,
-    );
+    return ResultAndSuggestion();
   }
 
   @override
@@ -52,10 +50,7 @@ class SearchElementDelegate extends SearchDelegate {
       return Container();
     } */
     _onQueryChanged(context, query);
-    return ElementsListTile(
-      elements: compoundsProvider.state.searched,
-      onSelected: ((element) => {inspect(element)}),
-    );
+    return ResultAndSuggestion();
   }
 
   void _onQueryChanged(BuildContext context, String query) {
@@ -64,10 +59,20 @@ class SearchElementDelegate extends SearchDelegate {
     debouncerTimer = Timer(Duration(milliseconds: 250), () async {
       print(query);
       if (query.isEmpty) {
-        return;
+        this.compoundsProvider.setSearched(allListPeriodic);
       }
-      final result = searchElements(listPeriodic, query.trim());
+      final result = searchElements(allListPeriodic, query.trim());
       this.compoundsProvider.setSearched(result);
     });
+  }
+}
+
+class ResultAndSuggestion extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, ref) {
+    final compoundsS = ref.watch(compoundProvider).elementSearchList;
+    return ElementsListTile(
+      elements: compoundsS,
+    );
   }
 }

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:templat_project/models/models.dart';
 
-final List<PeriodicTableElement> listPeriodic = [
+final List<PeriodicTableElement> allListPeriodic = [
   PeriodicTableElement(
     typeElement: TypeElement.metal,
     valencias: [
@@ -898,9 +898,9 @@ List<PeriodicTableElement> getElementsBySimbols(
 
 List<PeriodicTableElement> filterByGroup(Group group) {
   if (group == Group.nullGroup) {
-    return listPeriodic;
+    return allListPeriodic;
   }
-  return listPeriodic.where((element) => element.group == group).toList();
+  return allListPeriodic.where((element) => element.group == group).toList();
 }
 
 Color colorByGroup(Group group) {

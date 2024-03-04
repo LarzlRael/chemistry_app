@@ -55,3 +55,7 @@ List<Compound> generateIonesByGroupsElements(List<Group> group) {
       .expand((e) => e)
       .toList();
 }
+
+List<PeriodicTableElement> generateMetals(List<Group> group) {
+  return group.map((e) => generateELementsByGroup(e)).expand((e) => e).toList();
+}

@@ -30,9 +30,11 @@ class CompoundsPage extends StatelessWidget {
                     tag: element.name,
                     child: CompoundsOption(
                       compoundCard: element,
-                      onTap: (option) => context.push(
-                        '/compounds_by_type_page/$option',
-                      ),
+                      onTap: (option) {
+                        option == 'Sales neutras'
+                            ? context.push('/compounds_page/sales_neutras')
+                            : context.push('/compounds_by_type_page/$option');
+                      },
                     ),
                   );
                 },

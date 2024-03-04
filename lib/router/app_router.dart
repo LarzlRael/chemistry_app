@@ -23,7 +23,16 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/compounds_page',
       builder: (_, __) => const CompoundsPage(),
+      routes: [
+        GoRoute(
+          path: 'sales_neutras',
+          builder: (_, state) {
+            return SalesNeutras();
+          },
+        ),
+      ],
     ),
+
     GoRoute(
       path: '/elements_detail_page',
       builder: (_, state) {

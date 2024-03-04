@@ -16,27 +16,27 @@ class CompoundNotifier extends StateNotifier<CompoundState> {
 
   void filterByGroup(Group group) {
     if (group == Group.nullGroup) {
-      setSearched(listPeriodic);
+      setSearched(allListPeriodic);
     }
     state = state.copyWith(
       compounds:
-          listPeriodic.where((element) => element.group == group).toList(),
+          allListPeriodic.where((element) => element.group == group).toList(),
     );
   }
 }
 
 class CompoundState {
   final bool isLoading;
-  final List<PeriodicTableElement> peridicElements;
-  final List<PeriodicTableElement> searched;
+  final List<PeriodicTableElement> periodicElements;
+  final List<PeriodicTableElement> elementSearchList;
   final List<Compound> compoundSearched;
   final String errorMessage;
 
   CompoundState({
     this.isLoading = true,
-    this.peridicElements = const [],
+    this.periodicElements = const [],
     this.errorMessage = '',
-    this.searched = const [],
+    this.elementSearchList = const [],
     this.compoundSearched = const [],
   });
   factory CompoundState.initial() => CompoundState();
@@ -50,9 +50,9 @@ class CompoundState {
   }) =>
       CompoundState(
         isLoading: isLoading ?? this.isLoading,
-        peridicElements: compounds ?? this.peridicElements,
+        periodicElements: compounds ?? this.periodicElements,
         errorMessage: errorMessage ?? this.errorMessage,
-        searched: searched ?? this.searched,
+        elementSearchList: searched ?? this.elementSearchList,
         compoundSearched: compoundSearched ?? this.compoundSearched,
       );
 }

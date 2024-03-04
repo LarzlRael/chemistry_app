@@ -9,6 +9,15 @@ List<Compound> generateOxidosByGroupElements(Group group) {
   return compound;
 }
 
+List<PeriodicTableElement> generateELementsByGroup(Group group) {
+  final elements = filterByGroup(group);
+  final compound = <PeriodicTableElement>[];
+  elements.forEach((element) {
+    compound.add(element);
+  });
+  return compound;
+}
+
 List<Compound> generatePeroxidosByGroupElements(Group group) {
   final elements = filterByGroup(group);
   final compound = <Compound>[];

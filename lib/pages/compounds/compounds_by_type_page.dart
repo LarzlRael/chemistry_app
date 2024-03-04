@@ -131,7 +131,6 @@ class CompoundsByTypePage extends HookConsumerWidget {
                 delegate: SearchCompundByType(
                   listCompounds: listCompounds.value,
                   compoundNotifier: ref.read(compoundProvider.notifier),
-                  compoundState: ref.watch(compoundProvider),
                 ),
               );
             },

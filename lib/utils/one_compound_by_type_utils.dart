@@ -365,7 +365,7 @@ List<Compound> generateAcidosOxacidosByOneElement(
 List<Compound> generateAcidosPolihidratadosByOneElement() {
   final exceptions = ["P", "Sb", "As", "B", "Si"];
 
-  final getElements = getElementsBySimbols(listPeriodic, exceptions);
+  final getElements = getElementsBySimbols(allListPeriodic, exceptions);
   final filteredElements = getElements.map((e) {
     switch (e.symbol) {
       case "P":
@@ -438,4 +438,32 @@ List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
     return ion;
   }).toList();
   return convertIon;
+}
+
+Compound generateOneIon(
+    PeriodicTableElement periodicTableElement, Compound compound) {
+  return Compound(
+      element: periodicTableElement,
+      name: compound.name.replaceAll('Ion', '') +
+          ' de ' +
+          periodicTableElement.name.toLowerCase(),
+      type: TypeCompound.sal_neutra,
+      formula: [
+        Valence(
+          suffix: compound.formula[0].suffix,
+          value: compound.formula[0].value,
+        ),
+        ...compound.formula
+      ]);
+  /* final ion = acido.copyWith(
+    name: acido.name.replaceFirst("Acido", "Ion"),
+    type: TypeCompound.ion,
+    formula: moveFirstElementToLastPosition(acido.formula.map((e) {
+      if (e.suffix == "H") {
+        return e.copyWith(value: e.value * -1, suffix: '');
+      }
+      return e;
+    }).toList()),
+  );
+  return ion; */
 }

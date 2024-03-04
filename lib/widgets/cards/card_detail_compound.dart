@@ -4,9 +4,10 @@ class CardDetailCompound extends StatelessWidget {
   const CardDetailCompound({
     super.key,
     required this.children,
+    required this.compoundName,
   });
   final List<Widget> children;
-
+  final String compoundName;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -19,7 +20,14 @@ class CardDetailCompound extends StatelessWidget {
         color: Colors.blue,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: children,
+          children: [
+            ...children,
+            Text(
+              compoundName,
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+              textAlign: TextAlign.center,
+            )
+          ],
         ),
       ),
     );

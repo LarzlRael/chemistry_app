@@ -6,7 +6,7 @@ class GamesPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final currentIndex = useState(0);
-    final listSuffle = shuffleList(listPeriodic);
+    final listSuffle = shuffleList(allListPeriodic);
     final firstElement = listSuffle[currentIndex.value];
     final pageViewController = usePageController();
     return Scaffold(
@@ -87,10 +87,11 @@ class CardFlipablePeriodicElement extends StatelessWidget {
     return PageView.builder(
         controller: pageViewController,
         scrollDirection: Axis.vertical,
-        itemCount: listPeriodic.length,
+        itemCount: allListPeriodic.length,
         itemBuilder: (_, index) {
-          final compoundSeparate = separarElementos(listPeriodic[index].symbol);
-          final compound = listPeriodic[index];
+          final compoundSeparate =
+              separarElementos(allListPeriodic[index].symbol);
+          final compound = allListPeriodic[index];
           return FlipCard(
             fill: Fill
                 .fillBack, // Fill the back side of the card to make in the same size as the front.

@@ -23,8 +23,9 @@ final compoundMetalList = <CompoundListElement>[
       name: 'Acidos polihidratos',
       pathImage: 'assets/chemestry/chemestry_2.png'),
   CompoundListElement(
-      name: 'Iones',
-      pathImage: 'assets/chemestry/chemestry_2.png'),
+      name: 'Iones', pathImage: 'assets/chemestry/chemestry_2.png'),
+  CompoundListElement(
+      name: 'Sales neutras', pathImage: 'assets/chemestry/chemestry_2.png'),
 ];
 /* final compoundNoMetalList = <CompoundListElement>[]; */
 

@@ -78,6 +78,7 @@ String isOne(String text) {
 }
 
 String getValenceString(List<Valence> valences) =>
+/* TODO add () parentesis a los elemtnso quesean necesarios */
     valences.map((valence) => '${valence.suffix}${valence.value}').join('');
 
 List<Valence> simplify(List<Valence> arr) {

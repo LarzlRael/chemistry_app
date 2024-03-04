@@ -79,8 +79,11 @@ class ListTileCompound extends StatelessWidget {
                       ))
                   .toList(),
             ), */
-            leading:
-                CircleAvatar(child: Text(getValenceString(element.formula))),
+            leading: Card(
+                child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: Text(getValenceString(element.formula)))),
           ),
         ),
       ),

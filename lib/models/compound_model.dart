@@ -14,6 +14,7 @@ enum TypeCompound {
   oxoacido,
   anhidrido,
   ion,
+  sal_neutra,
 }
 
 class Valence {

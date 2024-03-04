@@ -3,13 +3,12 @@ part of '../widgets.dart';
 class SearchCompundByType extends SearchDelegate {
   final List<Compound> listCompounds;
   final CompoundNotifier compoundNotifier;
-  final CompoundState compoundState;
+
   Timer? debouncerTimer;
 
   SearchCompundByType({
     required this.listCompounds,
     required this.compoundNotifier,
-    required this.compoundState,
   }) {
     this.compoundNotifier.setCompoundSearched(listCompounds);
   }
@@ -39,9 +38,7 @@ class SearchCompundByType extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     _onQueryChanged(context, query);
-    return CompundListTile(
-      compounds: compoundState.compoundSearched,
-    );
+    return CompoundsResultAndSuggestion();
   }
 
   @override
@@ -50,10 +47,7 @@ class SearchCompundByType extends SearchDelegate {
       return Container();
     } */
     _onQueryChanged(context, query);
-    return CompundListTile(
-      compounds: compoundState.compoundSearched,
-      onSelected: ((element) => {inspect(element)}),
-    );
+    return CompoundsResultAndSuggestion();
   }
 
   void _onQueryChanged(BuildContext context, String query) {
@@ -67,5 +61,15 @@ class SearchCompundByType extends SearchDelegate {
       final result = searchCompound(listCompounds, query.trim());
       this.compoundNotifier.setCompoundSearched(result);
     });
+  }
+}
+
+class CompoundsResultAndSuggestion extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, ref) {
+    final compoundsS = ref.watch(compoundProvider).compoundSearched;
+    return CompundListTile(
+      compounds: compoundsS,
+    );
   }
 }
