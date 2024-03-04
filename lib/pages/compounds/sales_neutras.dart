@@ -50,9 +50,7 @@ class SalesNeutras extends HookWidget {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Icon(
-                    FontAwesomeIcons.circlePlus,
-                  ),
+                  child: Icon(FontAwesomeIcons.circlePlus),
                 ),
                 SelecteCardForSal(
                   title: 'Ion',
@@ -67,8 +65,8 @@ class SalesNeutras extends HookWidget {
                             FormulaInText(
                               compoundFormula:
                                   getValenceString(ionSelected.value!.formula),
+                              fontSize: 20,
                               textStyle: TextStyle(
-                                  fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black),
                             ),
@@ -89,10 +87,9 @@ class SalesNeutras extends HookWidget {
                         child: FormulaInText(
                           compoundFormula:
                               getValenceString(result.value!.formula),
+                          fontSize: 35,
                           textStyle: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black),
+                              fontWeight: FontWeight.w600, color: Colors.black),
                         ),
                       ),
                     ],

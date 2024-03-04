@@ -243,8 +243,8 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
       name = fixIcoWord(name);
     }
 
-    if (specialHidrurosNameCases.containsKey(elementAux.symbol)) {
-      name = "Hidruro ${specialHidrurosNameCases[elementAux.symbol]}$suffix";
+    if (noMetalspecialNamesCases.containsKey(elementAux.symbol)) {
+      name = "Hidruro ${noMetalspecialNamesCases[elementAux.symbol]}$suffix";
     }
     compounds.add(Compound(
       element: elementAux,
@@ -258,7 +258,6 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
 }
 
 List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
-  const nameType = "Anhidrido";
   final compounds = <Compound>[];
 
   if (element.valencias.isEmpty) {
@@ -289,27 +288,24 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
     String name = "";
 
     if (element.valencias.length == 1) {
-      name = "$nameType de ${element.name.toLowerCase()}";
+      name = "$anhidridoName de ${element.name.toLowerCase()}";
     }
-    if (valencia.suffix == TypeValencia.hipo_oso ||
+    if (element.valencias.length > 1 && valencia.suffix == TypeValencia.ico ||
+        valencia.suffix == TypeValencia.oso) {
+      name = setAnhidridoName(element, valencia);
+    }
+    if (element.valencias.length > 2 &&
+            valencia.suffix == TypeValencia.hipo_oso ||
         valencia.suffix == TypeValencia.per_ico) {
-      final split = splitString(valencia.suffix.name, "_");
-      name = "$nameType ${split[0]}${element.name.toLowerCase().substring(
-            0,
-            element.name.length - 1,
-          )}${split[1]}";
-    } else {
-      name = "$nameType ${element.name.toLowerCase().substring(
-            0,
-            element.name.length - 1,
-          )}$suffix";
+      name = anhidridoHipoOsoName(element, valencia);
     }
+    /* if (element.valencias.length > 1 &&
+        noMetalspecialameCases.containsKey(element.symbol)) {
+      name = "$nameType ${noMetalspecialameCases[element.symbol]}$suffix";
+    } */
 
     name = fixIcoWord(name);
 
-    /* if (specialHidrurosNameCases.containsKey(element.symbol)) {
-      name = "$nameType ${specialHidrurosNameCases[element.symbol]}$suffix";
-    } */
     compounds.add(Compound(
       element: element,
       name: name,
@@ -334,14 +330,14 @@ List<Compound> generateAcidosOxacidosByOneElement(
   for (var anhidrido in getAnhidrido) {
     String name = "$nameType";
 
-    /* if (specialHidrurosNameCases.containsKey(element.symbol)) {
-      name = "$nameType ${specialHidrurosNameCases[element.symbol]}$suffix";
+    /*  if (noMetalspecialameCases.containsKey(element.symbol)) {
+      name = "$nameType ${noMetalspecialameCases[element.symbol]}$suffix";
     } */
     compounds.add(
       Compound(
         compound: anhidrido,
         element: element,
-        name: anhidrido.name.replaceFirst("Anhidrido", name),
+        name: anhidrido.name.replaceFirst(anhidridoName, name),
         formula: simplify([
           Valence(
             suffix: "H",
@@ -400,15 +396,13 @@ List<Compound> generateAcidosPolihidratadosByOneElement() {
               ),
               ...anhidrido.formula.map((e) {
                 if (e.suffix == "O") {
-                  return e.copyWith(
-                      value: (i + 1) *
-                          valencia
-                              .value); // Multiplica por (i + 1) para obtener 1 * valencia.value, 2 * valencia.value, 3 * valencia.value
+                  return e.copyWith(value: (i + 1) * valencia.value);
+                  // Multiplica por (i + 1) para obtener 1 * valencia.value, 2 * valencia.value, 3 * valencia.value
                 }
                 return e;
               }),
             ],
-            name: anhidrido.name.replaceFirst("Anhidrido", "Acido"),
+            name: anhidrido.name.replaceFirst(anhidridoName, "Acido"),
           );
           compounds.add(modifiedAcido);
         }
@@ -448,49 +442,12 @@ Compound generateOneIon(
   return Compound(
     element: periodicTableElement,
     name: compound.name.replaceAll('Ion', '') +
-        salNeutraName(periodicTableElement, valence),
+        salNeutraName(periodicTableElement, valence).toCapitalize(),
     type: TypeCompound.sal_neutra,
     formula: [
       Valence(
         suffix: periodicTableElement.symbol,
-        value: compound.formula.last.value * valence.value * -1,
-      ),
-      ...compound.formula
-        ..removeLast()
-        ..add(Valence(value: valence.value, suffix: ''))
-    ],
-  );
-  /* final ion = acido.copyWith(
-    name: acido.name.replaceFirst("Acido", "Ion"),
-    type: TypeCompound.ion,
-    formula: moveFirstElementToLastPosition(acido.formula.map((e) {
-      if (e.suffix == "H") {
-        return e.copyWith(value: e.value * -1, suffix: '');
-      }
-      return e;
-    }).toList()),
-  );
-  return ion; */
-}
-
-Compound generateSaleNeutra(
-  PeriodicTableElement periodicTableElement,
-  Valencia valence,
-  Compound compound,
-) {
-  return Compound(
-    element: periodicTableElement,
-    name: periodicTableElement.valencias.length == 1
-        ? "Ion de ${periodicTableElement.name.toLowerCase()}"
-        : "Ion ${periodicTableElement.name.toLowerCase().substring(
-              0,
-              periodicTableElement.name.length - 1,
-            )}${valence.suffix.name}",
-    type: TypeCompound.sal_neutra,
-    formula: [
-      Valence(
-        suffix: periodicTableElement.symbol,
-        value: compound.formula.last.value * valence.value * -1,
+        value: compound.formula.last.value.abs(),
       ),
       ...compound.formula
         ..removeLast()

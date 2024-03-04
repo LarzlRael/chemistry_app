@@ -17,6 +17,8 @@ enum TypeCompound {
   sal_neutra,
 }
 
+final anhidridoName = TypeCompound.anhidrido.name.toCapitalize();
+
 class Valence {
   final int value;
   final String suffix;
@@ -49,8 +51,8 @@ final specialOxidesNameCases = {
   'Fe': 'ferr',
   'Mn': 'mangan',
 };
-final specialHidrurosNameCases = {
-  'Au': 'aur',
+final noMetalspecialNamesCases = {
+  'S': 'sulfur',
   'Mn': 'mangan',
   'N': 'nitr',
 };

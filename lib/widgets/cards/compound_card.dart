@@ -51,7 +51,7 @@ class CompoundCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(color: Colors.white, fontSize: fontSizeCard);
+    final textStyle = TextStyle(color: Colors.white);
     return InkWell(
       onTap: () {
         if (onTap != null) {
@@ -84,6 +84,7 @@ class CompoundCard extends StatelessWidget {
                     FormulaInText(
                       compoundFormula: getValenceString(compound.formula),
                       textStyle: textStyle,
+                      fontSize: fontSizeCard,
                     ),
                     SimpleText(
                       padding: EdgeInsets.symmetric(horizontal: 5),

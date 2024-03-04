@@ -1,7 +1,7 @@
 part of 'utils.dart';
 
 List<String> separarElementos(String text) {
-  RegExp regExp = RegExp(r'-?\d+|[a-zA-Z]+');
+  RegExp regExp = RegExp(r'-?\d+|[a-zA-Z]|(?<=\d)(?=\D)|(?<=\D)(?=\d)');
   Iterable<RegExpMatch> matches = regExp.allMatches(text);
 
   List<String> elementos = [];
@@ -79,7 +79,7 @@ String isOne(String text) {
 
 String getValenceString(List<Valence> valences) =>
 /* TODO add () parentesis a los elemtnso quesean necesarios */
-    valences.map((valence) => '${valence.suffix}${valence.value}').join('');
+    valences.map((valence) => valence.toString()).join('');
 
 List<Valence> simplify(List<Valence> arr) {
   List<Valence> simplifiedList = [];
@@ -184,10 +184,45 @@ String salNeutraName(
   final valenceSuffix = valence.suffix.name;
 
   if (periodicTableElement.valencias.length == 1) {
-    return "de $name";
+    return " de $name";
   }
   if (specialOxidesNameCases.containsKey(periodicTableElement.symbol)) {
-    return "${specialOxidesNameCases[periodicTableElement.symbol]}$valenceSuffix";
+    return " ${specialOxidesNameCases[periodicTableElement.symbol]}$valenceSuffix";
   }
   return "${name.substring(0, name.length - 1)}$valenceSuffix";
+}
+
+String getValueOrSame(String key, String defaultValue) {
+  return noMetalspecialNamesCases[key] ?? defaultValue;
+}
+
+String setAnhidridoName(
+    PeriodicTableElement periodicTableElement, Valencia valence) {
+  if (noMetalspecialNamesCases.containsKey(periodicTableElement.symbol)) {
+    return "$anhidridoName ${noMetalspecialNamesCases[periodicTableElement.symbol]}${valence.suffix.name}";
+  } else {
+    return "$anhidridoName ${periodicTableElement.name.toLowerCase().substring(
+          0,
+          periodicTableElement.name.length - 1,
+        )}${valence.suffix.name}";
+  }
+}
+
+String anhidridoHipoOsoName(
+    PeriodicTableElement periodicTableElement, Valencia valence) {
+  final split = splitString(valence.suffix.name, "_");
+  String name = '';
+  const typeElement = 'Anhidrido';
+  if (noMetalspecialNamesCases.containsKey(periodicTableElement.symbol)) {
+    name =
+        "$typeElement ${split[0]}${noMetalspecialNamesCases[periodicTableElement.symbol]}${split[1]}";
+  } else {
+    name =
+        "$typeElement ${split[0]}${periodicTableElement.name.toLowerCase().substring(
+              0,
+              periodicTableElement.name.length - 1,
+            )}${split[1]}";
+  }
+
+  return name;
 }
