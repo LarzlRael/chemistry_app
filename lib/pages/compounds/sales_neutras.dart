@@ -8,11 +8,13 @@ class SalesNeutras extends HookWidget {
     final metalSelected = useState<PeriodicTableElement?>(null);
     final ionSelected = useState<Compound?>(null);
     final result = useState<Compound?>(null);
+    final currentValencia = useState<Valencia?>(null);
     final mediaQuery = MediaQuery.of(context).size;
     useEffect(() {
       if (metalSelected.value != null && ionSelected.value != null) {
         result.value = generateOneIon(
           metalSelected.value!,
+          currentValencia.value!,
           ionSelected.value!,
         );
       }
@@ -30,11 +32,21 @@ class SalesNeutras extends HookWidget {
               children: [
                 SelecteCardForSal(
                   title: 'Metal',
-                  onTap: () => bottomSheetMetals(context, metalSelected),
+                  onTap: () => bottomSheetMetals(
+                    context,
+                    metalSelected,
+                    currentValencia,
+                  ),
                   width: mediaQuery.width * 0.4,
                   child: metalSelected.value == null
                       ? Text('Seleccione un metal')
-                      : Text(metalSelected.value!.name),
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(metalSelected.value!.name),
+                            Text(currentValencia.value?.value.toString() ?? '')
+                          ],
+                        ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 5),
@@ -48,7 +60,20 @@ class SalesNeutras extends HookWidget {
                   onTap: () => bottomSheetIones(context, ionSelected),
                   child: ionSelected.value == null
                       ? Text('Seleccione un ion')
-                      : Text(ionSelected.value!.name),
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(ionSelected.value!.name),
+                            FormulaInText(
+                              compoundFormula:
+                                  getValenceString(ionSelected.value!.formula),
+                              textStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
+                          ],
+                        ),
                 ),
               ],
             ),
@@ -82,6 +107,7 @@ class SalesNeutras extends HookWidget {
 void bottomSheetMetals(
   BuildContext context,
   ValueNotifier<PeriodicTableElement?> metalSelected,
+  ValueNotifier<Valencia?> valenciaSeleted,
 ) {
   /* fix metal group */
   final elements = generateMetals(metalGroup);
@@ -92,51 +118,15 @@ void bottomSheetMetals(
         return FractionallySizedBox(
           heightFactor: 0.9,
           child: Container(
-            child: ElementsListTile(
+            child: ListTileElementsValences(
               elements: elements,
-              onSelected: (element) {
+              onSelected: (element, valence) {
                 /* metalSelected.value = element;
                 context.pop(); */
-                if (element.valencias.length > 1) {
-                  bottomSheetSelecteValence(context, element.valencias);
-                } else {
-                  metalSelected.value = element;
-                  context.pop();
-                }
+                valenciaSeleted.value = valence;
+                metalSelected.value = element;
+                context.pop();
               },
-            ),
-          ),
-        );
-      });
-}
-
-void bottomSheetSelecteValence(
-  BuildContext context,
-  List<Valencia> valences,
-) {
-  /* fix metal group */
-
-  showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.9,
-          child: Container(
-            child: Wrap(
-              children: valences
-                  .map(
-                    (e) => Card(
-                      child: Text(
-                        e.value.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      /* onTap: () {
-                        context.pop(e);
-                      }, */
-                    ),
-                  )
-                  .toList(),
             ),
           ),
         );

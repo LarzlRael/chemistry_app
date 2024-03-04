@@ -80,10 +80,19 @@ class ListTileCompound extends StatelessWidget {
                   .toList(),
             ), */
             leading: Card(
-                child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    child: Text(getValenceString(element.formula)))),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: FormulaInText(
+                  compoundFormula: getValenceString(element.formula),
+                  textStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),

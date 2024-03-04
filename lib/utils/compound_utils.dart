@@ -177,3 +177,17 @@ String remplazeOsoIco(String texto) {
     }
   });
 }
+
+String salNeutraName(
+    PeriodicTableElement periodicTableElement, Valencia valence) {
+  final name = periodicTableElement.name.toLowerCase();
+  final valenceSuffix = valence.suffix.name;
+
+  if (periodicTableElement.valencias.length == 1) {
+    return "de $name";
+  }
+  if (specialOxidesNameCases.containsKey(periodicTableElement.symbol)) {
+    return "${specialOxidesNameCases[periodicTableElement.symbol]}$valenceSuffix";
+  }
+  return "${name.substring(0, name.length - 1)}$valenceSuffix";
+}

@@ -441,20 +441,25 @@ List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
 }
 
 Compound generateOneIon(
-    PeriodicTableElement periodicTableElement, Compound compound) {
+  PeriodicTableElement periodicTableElement,
+  Valencia valence,
+  Compound compound,
+) {
   return Compound(
-      element: periodicTableElement,
-      name: compound.name.replaceAll('Ion', '') +
-          ' de ' +
-          periodicTableElement.name.toLowerCase(),
-      type: TypeCompound.sal_neutra,
-      formula: [
-        Valence(
-          suffix: compound.formula[0].suffix,
-          value: compound.formula[0].value,
-        ),
-        ...compound.formula
-      ]);
+    element: periodicTableElement,
+    name: compound.name.replaceAll('Ion', '') +
+        salNeutraName(periodicTableElement, valence),
+    type: TypeCompound.sal_neutra,
+    formula: [
+      Valence(
+        suffix: periodicTableElement.symbol,
+        value: compound.formula.last.value * valence.value * -1,
+      ),
+      ...compound.formula
+        ..removeLast()
+        ..add(Valence(value: valence.value, suffix: ''))
+    ],
+  );
   /* final ion = acido.copyWith(
     name: acido.name.replaceFirst("Acido", "Ion"),
     type: TypeCompound.ion,
@@ -466,4 +471,30 @@ Compound generateOneIon(
     }).toList()),
   );
   return ion; */
+}
+
+Compound generateSaleNeutra(
+  PeriodicTableElement periodicTableElement,
+  Valencia valence,
+  Compound compound,
+) {
+  return Compound(
+    element: periodicTableElement,
+    name: periodicTableElement.valencias.length == 1
+        ? "Ion de ${periodicTableElement.name.toLowerCase()}"
+        : "Ion ${periodicTableElement.name.toLowerCase().substring(
+              0,
+              periodicTableElement.name.length - 1,
+            )}${valence.suffix.name}",
+    type: TypeCompound.sal_neutra,
+    formula: [
+      Valence(
+        suffix: periodicTableElement.symbol,
+        value: compound.formula.last.value * valence.value * -1,
+      ),
+      ...compound.formula
+        ..removeLast()
+        ..add(Valence(value: valence.value, suffix: ''))
+    ],
+  );
 }

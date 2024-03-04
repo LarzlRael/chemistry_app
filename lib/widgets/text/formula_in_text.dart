@@ -24,12 +24,13 @@ class FormulaInText extends StatelessWidget {
               style: textStyle,
             );
           }
+          /* change -30 position as the font size */
           final position = int.parse(e) > 0 ? 4.0 : -30.0;
           return WidgetSpan(
             child: Transform.translate(
               offset: Offset(0.0, position),
               child: Text(
-                e,
+                int.parse(e) == 1 || int.parse(e) == 0 ? '' : e,
                 style: textStyle?.copyWith(
                       fontSize: textStyle!.fontSize! * 0.50,
                       fontWeight: FontWeight.bold,
