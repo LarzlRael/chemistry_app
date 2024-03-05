@@ -418,7 +418,7 @@ List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
       type: TypeCompound.ion,
       formula: moveFirstElementToLastPosition(acido.formula.map((e) {
         if (e.suffix == "H") {
-          return e.copyWith(value: e.value * -1, suffix: '');
+          return e.copyWith(value: makeNegative(e.value), suffix: '');
         }
         return e;
       }).toList()),

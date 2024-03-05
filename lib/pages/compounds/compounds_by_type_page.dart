@@ -124,7 +124,7 @@ class CompoundsByTypePage extends HookConsumerWidget {
       ),
       body: CompoundtListCards(
         /* change this for de color */
-        color: Colors.indigoAccent,
+        color: colorByCompoundType(compoundType),
         compoundsList: listCompounds.value,
         onSelected: ((element) => {
               context.push(
