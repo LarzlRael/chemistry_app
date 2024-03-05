@@ -299,12 +299,6 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
         valencia.suffix == TypeValencia.per_ico) {
       name = anhidridoHipoOsoName(element, valencia);
     }
-    /* if (element.valencias.length > 1 &&
-        noMetalspecialameCases.containsKey(element.symbol)) {
-      name = "$nameType ${noMetalspecialameCases[element.symbol]}$suffix";
-    } */
-
-    name = fixIcoWord(name);
 
     compounds.add(Compound(
       element: element,
