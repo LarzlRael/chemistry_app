@@ -24,3 +24,4 @@ part 'compounds/compounds_page.dart';
 part 'compounds/sales_neutras.dart';
 part 'compounds/compound_detail_page.dart';
 part 'compounds/compounds_by_type_page.dart';
+part 'animation_test.dart';

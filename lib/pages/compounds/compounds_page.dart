@@ -30,10 +30,11 @@ class CompoundsPage extends StatelessWidget {
                     tag: element.name,
                     child: CompoundsOption(
                       compoundCard: element,
-                      onTap: (option) {
-                        option == 'Sales neutras'
+                      onTap: (option, type) {
+                        type == TypeCompound.sal_neutra
                             ? context.push('/compounds_page/sales_neutras')
-                            : context.push('/compounds_by_type_page/$option');
+                            : context
+                                .push('/compounds_by_type_page/${type.name}');
                       },
                     ),
                   );
@@ -75,14 +76,14 @@ class CompoundsOption extends StatelessWidget {
     this.onTap,
   });
   final CompoundListElement compoundCard;
-  final Function(String option)? onTap;
+  final Function(String option, TypeCompound type)? onTap;
   @override
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
         onTap: () {
           if (onTap != null) {
-            onTap!(compoundCard.name);
+            onTap!(compoundCard.name, compoundCard.type);
           }
         },
         child: Container(

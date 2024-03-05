@@ -12,7 +12,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
       continue;
     }
 
-    final oxideValue = Valence(
+    final oxideValue = ValenceCompound(
       value: 2,
       suffix: "O",
     );
@@ -21,11 +21,11 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
 
     /* get oso or ico */
 
-    final firstValence = Valence(
+    final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: 2,
     );
-    final secondValence = Valence(
+    final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
       value: elementValue,
     );
@@ -64,11 +64,11 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     return compound;
   }
   if (element.group == Group.monovalente) {
-    final firstValence = Valence(
+    final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: 1,
     );
-    final secondValence = Valence(
+    final secondValence = ValenceCompound(
       suffix: "O",
       value: 2,
     );
@@ -83,11 +83,11 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
   }
   if (element.group == Group.bivalente) {
     String name = "Peroxido de ${element.name.toLowerCase()}";
-    final firstValence = Valence(
+    final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: 2,
     );
-    final secondValence = Valence(
+    final secondValence = ValenceCompound(
       suffix: "O",
       value: 2,
     );
@@ -143,7 +143,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
     if (valencia.typeElement == TypeElement.no_metal) {
       continue;
     }
-    final oxideValue = Valence(
+    final oxideValue = ValenceCompound(
       value: 1,
       suffix: "OH",
     );
@@ -152,11 +152,11 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
 
     /* get oso or ico */
     final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
-    final firstValence = Valence(
+    final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: 1,
     );
-    final secondValence = Valence(
+    final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
       value: elementValue,
     );
@@ -214,7 +214,7 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
     if (valencia.typeElement == TypeElement.no_metal) {
       continue;
     }
-    final oxideValue = Valence(
+    final oxideValue = ValenceCompound(
       value: 1,
       suffix: "H",
     );
@@ -223,11 +223,11 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
 
     /* get oso or ico */
     final suffix = elementAux.valencias.length == 1 ? "" : valencia.suffix.name;
-    final firstValence = Valence(
+    final firstValence = ValenceCompound(
       suffix: elementAux.symbol,
       value: 1,
     );
-    final secondValence = Valence(
+    final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
       value: elementValue,
     );
@@ -268,7 +268,7 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
     if (valencia.typeElement == TypeElement.metal) {
       continue;
     }
-    final oxideValue = Valence(
+    final oxideValue = ValenceCompound(
       value: 2,
       suffix: "O",
     );
@@ -277,11 +277,11 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
 
     /* get oso or ico */
     final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
-    final firstValence = Valence(
+    final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: oxideValue.value,
     );
-    final secondValence = Valence(
+    final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
       value: elementValue,
     );
@@ -333,7 +333,7 @@ List<Compound> generateAcidosOxacidosByOneElement(
         element: element,
         name: anhidrido.name.replaceFirst(anhidridoName, name),
         formula: simplify([
-          Valence(
+          ValenceCompound(
             suffix: "H",
             value: 2,
           ),
@@ -384,7 +384,7 @@ List<Compound> generateAcidosPolihidratadosByOneElement() {
           // Generar cada compuesto original tres veces
           final modifiedAcido = anhidrido.copyWith(
             formula: [
-              Valence(
+              ValenceCompound(
                 suffix: "H",
                 value: 2 * valencia.value,
               ),
@@ -439,13 +439,13 @@ Compound generateOneIon(
         salNeutraName(periodicTableElement, valence).toCapitalize(),
     type: TypeCompound.sal_neutra,
     formula: [
-      Valence(
+      ValenceCompound(
         suffix: periodicTableElement.symbol,
         value: compound.formula.last.value.abs(),
       ),
       ...compound.formula
         ..removeLast()
-        ..add(Valence(value: valence.value, suffix: ''))
+        ..add(ValenceCompound(value: valence.value, suffix: ''))
     ],
   );
 }

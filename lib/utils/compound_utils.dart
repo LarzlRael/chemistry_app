@@ -1,15 +1,25 @@
 part of 'utils.dart';
 
-List<String> separarElementos(String text) {
-  RegExp regExp = RegExp(r'-?\d+|[a-zA-Z]|(?<=\d)(?=\D)|(?<=\D)(?=\d)');
-  Iterable<RegExpMatch> matches = regExp.allMatches(text);
+List<String> splitStringIntoCharacters(String input) {
+  List<String> characters = [];
+  bool mergeNext = false; // Indica si se debe unir el siguiente carácter
 
-  List<String> elementos = [];
-  for (RegExpMatch match in matches) {
-    elementos.add(match.group(0)!);
+  for (int i = 0; i < input.length; i++) {
+    if (mergeNext) {
+      // Si se debe unir el siguiente carácter
+      characters.add(
+          '${input[i - 1]}${input[i]}'); // Se agrega el signo junto con el número siguiente
+      mergeNext = false; // Se resetea el indicador
+    } else if (input[i] == '-') {
+      // Si el carácter actual es un signo negativo
+      mergeNext =
+          true; // Se indica que el siguiente carácter debe unirse con este
+    } else {
+      characters.add(input[i]); // Se agrega el carácter actual
+    }
   }
 
-  return elementos;
+  return characters;
 }
 
 bool hasNumber(String input) {
@@ -20,7 +30,8 @@ bool hasNumber(String input) {
   return regex.hasMatch(input);
 }
 
-List<Valence> sumValences(List<Valence> valences1, List<Valence> valences2) {
+List<ValenceCompound> sumValences(
+    List<ValenceCompound> valences1, List<ValenceCompound> valences2) {
   Map<String, int> suffixValueMap = {};
 
   // Sumar los valores para los sufijos correspondientes
@@ -35,8 +46,8 @@ List<Valence> sumValences(List<Valence> valences1, List<Valence> valences2) {
   }
 
   // Convertir el mapa de sufijo-valor nuevamente a una lista de Valence
-  List<Valence> result = suffixValueMap.entries
-      .map((entry) => Valence(suffix: entry.key, value: entry.value))
+  List<ValenceCompound> result = suffixValueMap.entries
+      .map((entry) => ValenceCompound(suffix: entry.key, value: entry.value))
       .toList();
 
   return result;
@@ -77,14 +88,14 @@ String isOne(String text) {
   return text.length == 1 ? text : '';
 }
 
-String getValenceString(List<Valence> valences) =>
+String getValenceString(List<ValenceCompound> valences) =>
 /* TODO add () parentesis a los elemtnso quesean necesarios */
     valences.map((valence) => valence.toString()).join('');
 
-List<Valence> simplify(List<Valence> arr) {
-  List<Valence> simplifiedList = [];
+List<ValenceCompound> simplify(List<ValenceCompound> arr) {
+  List<ValenceCompound> simplifiedList = [];
 
-  for (Valence val in arr) {
+  for (ValenceCompound val in arr) {
     if (val.value % 2 == 0) {
       double result = val.value / 2;
       simplifiedList.add(val.copyWith(value: result.toInt()));
@@ -118,7 +129,7 @@ String isEspecialCase(String symbol, Map<String, String> specialCaseList) {
   }
 } */
 
-int concatValencesValues(List<Valence> valencias) {
+int concatValencesValues(List<ValenceCompound> valencias) {
   // Concatenar los números en una cadena
   String numerosConcatenados =
       valencias.map((valencia) => valencia.value).join('');
@@ -154,9 +165,10 @@ PeriodicTableElement filterValencias(
   return element.copyWith(valencias: filteredValencias);
 }
 
-List<Valence> moveFirstElementToLastPosition(List<Valence> lista) {
+List<ValenceCompound> moveFirstElementToLastPosition(
+    List<ValenceCompound> lista) {
   if (lista.isNotEmpty) {
-    Valence primerElemento =
+    ValenceCompound primerElemento =
         lista.removeAt(0); // Elimina y guarda el primer elemento
     lista.add(primerElemento); // Agrega el primer elemento al final de la lista
   }

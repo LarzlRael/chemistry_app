@@ -5,18 +5,18 @@ class CompoundsByTypePage extends HookConsumerWidget {
     super.key,
     required this.compoundType,
   });
-  final String compoundType;
+  final TypeCompound compoundType;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentType = useState<CompoundListElement?>(null);
     final listCompounds = useState<List<Compound>>([]);
     useEffect(() {
       switch (compoundType) {
-        case 'Oxidos':
+        case TypeCompound.oxido:
           listCompounds.value = generateOxidosByGroupsElements(metalGroup);
           break;
 
-        case 'Peróxidos':
+        case TypeCompound.peroxido:
           listCompounds.value = generatePerOxidosByGroupsElements(
             [
               Group.monovalente,
@@ -24,7 +24,7 @@ class CompoundsByTypePage extends HookConsumerWidget {
             ],
           );
           break;
-        case "Oxidos dobles":
+        case TypeCompound.oxido_doble:
           listCompounds.value = generateOxidosDoblesByGroupsElements(
             [
               /* Group.anfotero, */
@@ -33,24 +33,24 @@ class CompoundsByTypePage extends HookConsumerWidget {
             ],
           );
           break;
-        case "Hidroxidos":
+        case TypeCompound.hidroxido:
           listCompounds.value = generateHidroxidosByGroupsElements(metalGroup);
           break;
-        case 'Hidruros':
+        case TypeCompound.hidruro:
           listCompounds.value = generateHidrurosByGroupsElements(metalGroup);
           break;
-        case 'Anhidridos':
+        case TypeCompound.anhidrido:
           listCompounds.value =
               generateAnhidridosByGroupsElements(noMetalGroup);
           break;
-        case 'Acidos oxacidos':
+        case TypeCompound.acido_oxacido:
           listCompounds.value =
               generateAcidosOxacidosByGroupsElements(noMetalGroup);
           break;
-        case 'Acidos polihidratos':
+        case TypeCompound.acido_polihidratado:
           listCompounds.value = generateAcidosPolihidratadosByOneElement();
           break;
-        case 'Iones':
+        case TypeCompound.ion:
           listCompounds.value = generateIonesByGroupsElements(noMetalGroup);
           break;
         /*
@@ -85,42 +85,27 @@ class CompoundsByTypePage extends HookConsumerWidget {
           IconButton(
             icon: Icon(Icons.help),
             onPressed: () {
-              showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => Dialog(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Text('Un oxido se forma cuando un elemento '
-                                  'se combina con oxígeno. '
-                                  'Los óxidos son compuestos binarios '
-                                  'formados por la combinación de un metal '
-                                  'con el oxígeno. '
-                                  'Los óxidos se pueden clasificar en dos '
-                                  'grandes grupos: óxidos básicos y óxidos '
-                                  'ácidos. '
-                                  'Los óxidos básicos son compuestos binarios '
-                                  'formados por la combinación de un metal '
-                                  'con el oxígeno. '
-                                  'Los óxidos ácidos son compuestos binarios '
-                                  'formados por la combinación de un no metal '
-                                  'con el oxígeno. '
-                                  'Los óxidos básicos reaccionan con el agua '
-                                  'para formar bases, '
-                                  'mientras que los óxidos ácidos reaccionan '
-                                  'con el agua para formar ácidos.'),
-                              const SizedBox(height: 15),
-                              TextButton(
-                                onPressed: context.pop,
-                                child: const Text('Close'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ));
+              showModalBottomSheet<String>(
+                context: context,
+                isScrollControlled: true,
+                builder: (BuildContext context) => FractionallySizedBox(
+                  heightFactor: 0.9,
+                  child: Container(
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          // Contenido del diálogo aquí
+                          Center(
+                              child: CompoundInstructionByType(
+                            typeCompound: compoundType,
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
             },
           ),
           IconButton(

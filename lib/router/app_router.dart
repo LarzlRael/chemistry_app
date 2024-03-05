@@ -9,7 +9,7 @@ final appRouter = GoRouter(
   routes: [
     ///* Primera pantalla
     GoRoute(
-      path: '/',
+      path: HomePage.routeName,
       builder: (context, state) => HomePage(),
     ),
     GoRoute(
@@ -20,6 +20,16 @@ final appRouter = GoRouter(
       path: '/elements_page',
       builder: (_, __) => const ElementsPage(),
     ),
+    GoRoute(
+      path: '/elements_page',
+      builder: (_, __) => const ElementsPage(),
+    ),
+
+    GoRoute(
+      path: '/animation_test',
+      builder: (_, __) => const AnimationTest(),
+    ),
+
     GoRoute(
       path: '/compounds_page',
       builder: (_, __) => const CompoundsPage(),
@@ -55,7 +65,8 @@ final appRouter = GoRouter(
       path: '/compounds_by_type_page/:type_compound',
       builder: (_, state) {
         return CompoundsByTypePage(
-          compoundType: state.params['type_compound']!,
+          compoundType:
+              getTypeCompoundFromString(state.params['type_compound']!),
         );
       },
     ),

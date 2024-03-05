@@ -13,7 +13,7 @@ class FormulaInText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final compoundSeparate = separarElementos(compoundFormula);
+    final compoundSeparate = splitStringIntoCharacters(compoundFormula);
     return RichText(
       text: TextSpan(
         style: textStyle,

@@ -90,7 +90,7 @@ class CardFlipablePeriodicElement extends StatelessWidget {
         itemCount: allListPeriodic.length,
         itemBuilder: (_, index) {
           final compoundSeparate =
-              separarElementos(allListPeriodic[index].symbol);
+              splitStringIntoCharacters(allListPeriodic[index].symbol);
           final compound = allListPeriodic[index];
           return FlipCard(
             fill: Fill
