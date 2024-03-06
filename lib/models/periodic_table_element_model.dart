@@ -46,14 +46,13 @@ class PeriodicTableElement {
   final String symbol;
   final String atomicNumber;
   final Group group;
-  final TypeElement typeElement;
+
   final List<Valencia> valencias;
   PeriodicTableElement({
     required this.name,
     required this.symbol,
     required this.atomicNumber,
     required this.group,
-    required this.typeElement,
     required this.valencias,
   });
 
@@ -70,7 +69,6 @@ class PeriodicTableElement {
       symbol: symbol ?? this.symbol,
       atomicNumber: atomicNumber ?? this.atomicNumber,
       group: group ?? this.group,
-      typeElement: typeElement ?? this.typeElement,
       valencias: valencias ?? this.valencias,
     );
   }

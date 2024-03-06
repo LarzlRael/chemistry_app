@@ -10,6 +10,12 @@ class SalesNeutras extends HookWidget {
     final result = useState<Compound?>(null);
     final currentValencia = useState<Valencia?>(null);
     final mediaQuery = MediaQuery.of(context).size;
+    final textTheme = Theme.of(context).textTheme;
+
+    final styleMetalCard = textTheme.titleLarge!.copyWith(
+      color: Colors.white,
+    );
+
     useEffect(() {
       if (metalSelected.value != null && ionSelected.value != null) {
         result.value = generateOneIon(
@@ -31,6 +37,9 @@ class SalesNeutras extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SelecteCardForSal(
+                  color: metalSelected.value == null
+                      ? null
+                      : colorByGroup(metalSelected.value!.group),
                   title: 'Metal',
                   onTap: () => bottomSheetMetals(
                     context,
@@ -39,12 +48,26 @@ class SalesNeutras extends HookWidget {
                   ),
                   width: mediaQuery.width * 0.4,
                   child: metalSelected.value == null
-                      ? Text('Seleccione un metal')
+                      ? Text(
+                          'Seleccione un metal',
+                          textAlign: TextAlign.center,
+                          style: textTheme.labelMedium,
+                        )
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(metalSelected.value!.name),
-                            Text(currentValencia.value?.value.toString() ?? '')
+                            Text(
+                              metalSelected.value!.name,
+                              style: styleMetalCard,
+                            ),
+                            Text(
+                              currentValencia.value?.value.toString() ?? '',
+                              style: styleMetalCard,
+                            ),
+                            Text(
+                              metalSelected.value?.symbol ?? '',
+                              style: styleMetalCard,
+                            ),
                           ],
                         ),
                 ),
@@ -53,22 +76,33 @@ class SalesNeutras extends HookWidget {
                   child: Icon(FontAwesomeIcons.circlePlus),
                 ),
                 SelecteCardForSal(
+                  color: ionSelected.value == null
+                      ? null
+                      : colorByCompoundType(ionSelected.value!.type),
                   title: 'Ion',
                   width: mediaQuery.width * 0.4,
                   onTap: () => bottomSheetIones(context, ionSelected),
                   child: ionSelected.value == null
-                      ? Text('Seleccione un ion')
+                      ? Text(
+                          'Seleccione un ion',
+                          style: textTheme.labelMedium,
+                        )
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(ionSelected.value!.name),
+                            Text(
+                              ionSelected.value!.name,
+                              style: textTheme.titleLarge!.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
                             FormulaInText(
                               compoundFormula:
                                   getValenceString(ionSelected.value!.formula),
                               fontSize: 20,
                               textStyle: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
                               ),
                             ),
                           ],
@@ -77,12 +111,14 @@ class SalesNeutras extends HookWidget {
               ],
             ),
             result.value == null
-                ? Text('Seleccione ambos elementos para ver el resultado.')
+                ? SimpleText(
+                    text:
+                        'Seleccione ambos elementos para ver el formar una sal neutra.',
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    textAlign: TextAlign.center,
+                  )
                 : Column(
                     children: [
-                      Container(
-                        child: Text(result.value?.name ?? ''),
-                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: FormulaInText(
@@ -92,6 +128,10 @@ class SalesNeutras extends HookWidget {
                           textStyle: TextStyle(
                               fontWeight: FontWeight.w600, color: Colors.black),
                         ),
+                      ),
+                      SimpleText(
+                        text: result.value?.name.toCapitalize() ?? '',
+                        style: textTheme.headlineMedium,
                       ),
                     ],
                   ),
@@ -160,32 +200,46 @@ class SelecteCardForSal extends StatelessWidget {
   final Widget child;
   final double? width;
   final String title;
+  final Color? color;
   const SelecteCardForSal({
     super.key,
     this.onTap,
     this.width,
     required this.child,
     required this.title,
+    this.color,
   });
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         InkWell(
+          customBorder: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           onTap: onTap,
           child: Card(
             child: Container(
+              decoration: BoxDecoration(
+                gradient: color == null
+                    ? null
+                    : LinearGradient(
+                        colors: [
+                          color!,
+                          color!.withOpacity(0.8),
+                        ],
+                      ),
+                borderRadius: BorderRadius.circular(10),
+              ),
               width: width ?? 125,
               height: 150,
-              /* decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Colors.blue,
-                  width: 2,
-                ),
-              ), */
               child: Center(
                 child: child,
               ),

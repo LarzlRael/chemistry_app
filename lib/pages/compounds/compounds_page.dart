@@ -10,61 +10,65 @@ class CompoundsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Compuestos'),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SimpleText(
-              text: 'Metales',
-              style: textTheme.titleMedium,
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: AlignedGridView.count(
-                itemCount: compoundMetalList.length,
-                crossAxisCount: 2,
-                mainAxisSpacing: 1,
-                crossAxisSpacing: 1,
-                itemBuilder: (context, index) {
-                  final element = compoundMetalList[index];
-                  return Hero(
-                    tag: element.name,
-                    child: CompoundsOption(
-                      compoundCard: element,
-                      onTap: (option, type) {
-                        type == TypeCompound.sal_neutra
-                            ? context.push('/compounds_page/sales_neutras')
-                            : context
-                                .push('/compounds_by_type_page/${type.name}');
-                      },
-                    ),
-                  );
-                },
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /* SimpleText(
+                text: 'Metales',
+                style: textTheme.titleMedium,
               ),
-            ),
-            /* SizedBox(
-                height:
-                    20), // Espacio entre la rejilla de tarjetas y la siguiente lista
-            Expanded(
-              child: AlignedGridView.count(
-                itemCount: compoundNoMetalList.length,
-                crossAxisCount: 2,
-                mainAxisSpacing: 1,
-                crossAxisSpacing: 1,
-                itemBuilder: (context, index) {
-                  final element = compoundNoMetalList[index];
-                  return Hero(
-                    tag: element.name,
-                    child: CompoundsOption(
-                      compoundCard: element,
-                      onTap: (option) => context.push(
-                        '/compounds_by_type_page/$option',
+              SizedBox(height: 10), */
+              Expanded(
+                child: AlignedGridView.count(
+                  itemCount: compoundMetalList.length,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 1,
+                  crossAxisSpacing: 1,
+                  itemBuilder: (context, index) {
+                    final element = compoundMetalList[index];
+                    return Hero(
+                      tag: element.name,
+                      child: CompoundsOption(
+                        compoundCard: element,
+                        onTap: (option, type) {
+                          type == TypeCompound.sal_neutra
+                              ? context.push('/compounds_page/sales_neutras')
+                              : context
+                                  .push('/compounds_by_type_page/${type.name}');
+                        },
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ), */
-          ],
+
+              /* SizedBox(
+                  height:
+                      20), // Espacio entre la rejilla de tarjetas y la siguiente lista
+              Expanded(
+                child: AlignedGridView.count(
+                  itemCount: compoundNoMetalList.length,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 1,
+                  crossAxisSpacing: 1,
+                  itemBuilder: (context, index) {
+                    final element = compoundNoMetalList[index];
+                    return Hero(
+                      tag: element.name,
+                      child: CompoundsOption(
+                        compoundCard: element,
+                        onTap: (option) => context.push(
+                          '/compounds_by_type_page/$option',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ), */
+            ],
+          ),
         ));
   }
 }

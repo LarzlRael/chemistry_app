@@ -436,7 +436,7 @@ Compound generateOneIon(
   return Compound(
     element: periodicTableElement,
     name: compound.name.replaceAll('Ion', '') +
-        salNeutraName(periodicTableElement, valence).toCapitalize(),
+        salNeutraName(periodicTableElement, valence),
     type: TypeCompound.sal_neutra,
     formula: [
       ValenceCompound(

@@ -5,7 +5,6 @@ import 'package:templat_project/models/models.dart';
 
 final List<PeriodicTableElement> allListPeriodic = [
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -18,7 +17,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monovalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -31,7 +29,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monovalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -44,7 +41,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monovalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -57,7 +53,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monovalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -70,7 +65,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monovalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -83,7 +77,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monovalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -96,7 +89,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monovalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -110,7 +102,6 @@ final List<PeriodicTableElement> allListPeriodic = [
         Group.monovalente, // Puedes asignar el grupo que consideres apropiado
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -123,7 +114,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -136,7 +126,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -149,7 +138,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -162,7 +150,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -175,7 +162,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -188,7 +174,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -201,7 +186,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -214,7 +198,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 3,
@@ -227,7 +210,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.trivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 3,
@@ -240,7 +222,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.trivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 3,
@@ -254,7 +235,6 @@ final List<PeriodicTableElement> allListPeriodic = [
   ),
   PeriodicTableElement(
     name: 'Cobre',
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -270,7 +250,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monoBivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -287,7 +266,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monoBivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -306,7 +284,6 @@ final List<PeriodicTableElement> allListPeriodic = [
   PeriodicTableElement(
     name: 'Talio',
     symbol: 'Tl',
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 1,
@@ -321,7 +298,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.monotrivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -338,7 +314,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bitrivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -355,7 +330,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bitrivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -372,7 +346,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bitrivalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -389,7 +362,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bitetravalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -406,7 +378,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bitetravalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -423,7 +394,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bitetravalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -440,7 +410,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     group: Group.bitetravalente,
   ),
   PeriodicTableElement(
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -476,7 +445,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Cr',
     atomicNumber: '',
     group: Group.anfotero,
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -498,7 +466,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'V',
     atomicNumber: '',
     group: Group.anfotero,
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -525,7 +492,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Bi',
     atomicNumber: '',
     group: Group.anfotero,
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 3,
@@ -543,7 +509,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Ti',
     atomicNumber: '',
     group: Group.anfotero,
-    typeElement: TypeElement.metal,
     valencias: [
       Valencia(
         value: 2,
@@ -556,6 +521,7 @@ final List<PeriodicTableElement> allListPeriodic = [
       Valencia(
         value: 4,
         suffix: TypeValencia.ico,
+        typeElement: TypeElement.no_metal,
       ),
     ],
   ),
@@ -564,7 +530,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'F',
     atomicNumber: '',
     group: Group.halogeno,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: -1,
@@ -578,7 +543,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Cl',
     atomicNumber: '',
     group: Group.halogeno,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 1,
@@ -607,7 +571,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Br',
     atomicNumber: '',
     group: Group.halogeno,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 1,
@@ -636,7 +599,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'I',
     atomicNumber: '',
     group: Group.halogeno,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 1,
@@ -665,7 +627,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'S',
     atomicNumber: '',
     group: Group.anfigenos,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 2,
@@ -689,7 +650,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Se',
     atomicNumber: '',
     group: Group.anfigenos,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 2,
@@ -713,7 +673,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Te',
     atomicNumber: '',
     group: Group.anfigenos,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 2,
@@ -737,7 +696,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'N',
     atomicNumber: '',
     group: Group.nitrogeniodes,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 1,
@@ -761,7 +719,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'P',
     atomicNumber: '',
     group: Group.nitrogeniodes,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 1,
@@ -785,7 +742,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'As',
     atomicNumber: '',
     group: Group.nitrogeniodes,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 3,
@@ -804,7 +760,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Sb',
     atomicNumber: '',
     group: Group.nitrogeniodes,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 3,
@@ -823,7 +778,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'B',
     atomicNumber: '',
     group: Group.nitrogeniodes,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 3,
@@ -837,7 +791,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'C',
     atomicNumber: '',
     group: Group.carbonoides,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 2,
@@ -856,7 +809,6 @@ final List<PeriodicTableElement> allListPeriodic = [
     symbol: 'Si',
     atomicNumber: '',
     group: Group.carbonoides,
-    typeElement: TypeElement.no_metal,
     valencias: [
       Valencia(
         value: 4,

@@ -57,8 +57,8 @@ class ListTileCompound extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.red,
-                Colors.red.withOpacity(0.5),
+                colorByCompoundType(element.type),
+                colorByCompoundType(element.type).withOpacity(0.5),
               ],
             ),
           ),
