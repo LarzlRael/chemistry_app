@@ -44,7 +44,7 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/elements_detail_page',
+      path: ElementsDetail.routeName,
       builder: (_, state) {
         PeriodicTableElement element = state.extra as PeriodicTableElement;
         return ElementsDetail(

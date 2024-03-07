@@ -90,4 +90,5 @@ final noMetalGroup = <Group>[
   Group.anfigenos,
   Group.nitrogeniodes,
   Group.carbonoides,
+  Group.anfotero,
 ];

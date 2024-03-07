@@ -49,6 +49,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
     compounds.add(Compound(
       element: element,
       name: name,
+      isSpecialCase: specialOxidesNameCases.containsKey(element.symbol),
       formula: simplify([firstValence, secondValence]),
       type: TypeCompound.oxido,
     ));
@@ -66,7 +67,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
   if (element.group == Group.monovalente) {
     final firstValence = ValenceCompound(
       suffix: element.symbol,
-      value: 1,
+      value: 2,
     );
     final secondValence = ValenceCompound(
       suffix: "O",
@@ -77,7 +78,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     compound.add(Compound(
       element: element,
       name: name,
-      formula: simplify([firstValence, secondValence]),
+      formula: [firstValence, secondValence],
       type: TypeCompound.peroxido,
     ));
   }
@@ -85,7 +86,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     String name = "Peroxido de ${element.name.toLowerCase()}";
     final firstValence = ValenceCompound(
       suffix: element.symbol,
-      value: 2,
+      value: 1,
     );
     final secondValence = ValenceCompound(
       suffix: "O",
@@ -94,7 +95,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     compound.add(Compound(
       element: element,
       name: name,
-      formula: simplify([firstValence, secondValence]),
+      formula: [firstValence, secondValence],
       type: TypeCompound.peroxido,
     ));
   }
@@ -112,11 +113,8 @@ List<Compound> generateOxidosDoblesByOneElement(PeriodicTableElement element) {
   oxidosDoubles.add(Compound(
     element: element,
     name: name,
-    formula: /* sumValences(
-      getOxide[0].formula,
-      getOxide.length > 1 ? getOxide[1].formula : getOxide[0].formula,
-    ), */
-        [
+    isSpecialCase: element.symbol == "Bi",
+    formula: [
       ValenceCompound(
         value: element.symbol == "Bi" ? 2 : 3,
         suffix: getOxide[0].element.symbol,
@@ -274,8 +272,6 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
 
     int elementValue = valencia.value;
 
-    /* get oso or ico */
-    final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
     final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: oxideValue.value,
@@ -299,12 +295,15 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
       name = setAnhidridoHipoOsoName(element, valencia);
     }
 
-    compounds.add(Compound(
-      element: element,
-      name: name,
-      formula: simplify([firstValence, secondValence]),
-      type: TypeCompound.anhidrido,
-    ));
+    compounds.add(
+      Compound(
+        element: element,
+        isSpecialCase: valencia.value == 6,
+        name: name,
+        formula: simplify([firstValence, secondValence]),
+        type: TypeCompound.anhidrido,
+      ),
+    );
   }
 
   return compounds;
@@ -326,26 +325,52 @@ List<Compound> generateAcidosOxacidosByOneElement(
     /*  if (noMetalspecialameCases.containsKey(element.symbol)) {
       name = "$nameType ${noMetalspecialameCases[element.symbol]}$suffix";
     } */
-    compounds.add(
-      Compound(
-        compound: anhidrido,
-        element: element,
-        name: anhidrido.name.replaceFirst(anhidridoName, name),
-        formula: simplify([
-          ValenceCompound(
-            suffix: "H",
-            value: 2,
-          ),
-          /* Si la valencia es impar poner 1 */
-          /* Si la valencia es par poner 2 */
-          /* EL oxigeno es con lo que aumente
+    if (anhidrido.name.contains("hiponitroso")) {
+      compounds.add(
+        Compound(
+          compound: anhidrido,
+          element: element,
+          name: anhidrido.name.replaceFirst(anhidridoName, name),
+          isSpecialCase: true,
+          formula: [
+            ValenceCompound(
+              suffix: "H",
+              value: 2,
+            ),
+            ValenceCompound(
+              suffix: "N",
+              value: 2,
+            ),
+            ValenceCompound(
+              suffix: "O",
+              value: 2,
+            ),
+          ],
+          type: TypeCompound.acido_oxacido,
+        ),
+      );
+    } else {
+      compounds.add(
+        Compound(
+          compound: anhidrido,
+          element: element,
+          name: anhidrido.name.replaceFirst(anhidridoName, name),
+          formula: simplify([
+            ValenceCompound(
+              suffix: "H",
+              value: 2,
+            ),
+            /* Si la valencia es impar poner 1 */
+            /* Si la valencia es par poner 2 */
+            /* EL oxigeno es con lo que aumente
         valencia * lo aumentado*/
-          ...anhidrido.formula
-              .map((e) => e.suffix == "O" ? e.copyWith(value: e.value + 1) : e),
-        ]),
-        type: TypeCompound.acido_oxacido,
-      ),
-    );
+            ...anhidrido.formula.map(
+                (e) => e.suffix == "O" ? e.copyWith(value: e.value + 1) : e),
+          ]),
+          type: TypeCompound.acido_oxacido,
+        ),
+      );
+    }
   }
 
   return compounds;

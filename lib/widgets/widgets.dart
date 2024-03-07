@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:templat_project/data/periodic_table_data.dart';
 import 'package:templat_project/models/models.dart';
+import 'package:templat_project/pages/pages.dart';
 import 'package:templat_project/utils/utils.dart';
 
 import '../provider/providers.dart';

@@ -106,6 +106,7 @@ class Compound {
   final String name;
   final List<ValenceCompound> formula;
   final TypeCompound type;
+  final bool isSpecialCase;
   final Compound? compound;
 
   Compound({
@@ -113,6 +114,7 @@ class Compound {
     required this.name,
     required this.formula,
     required this.type,
+    this.isSpecialCase = false,
     this.compound,
   });
 

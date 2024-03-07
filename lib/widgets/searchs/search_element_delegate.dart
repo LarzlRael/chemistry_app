@@ -72,7 +72,8 @@ class ResultAndSuggestion extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final compoundsS = ref.watch(compoundProvider).elementSearchList;
     return ElementsListTile(
-      elements: compoundsS,
-    );
+        elements: compoundsS,
+        onSelected: (element) =>
+            context.push(ElementsDetail.routeName, extra: element));
   }
 }

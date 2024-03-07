@@ -74,6 +74,15 @@ class CompoundCard extends StatelessWidget {
         height: 200,
         child: Stack(
           children: [
+            if (compound.isSpecialCase)
+              Positioned(
+                top: 5,
+                right: 5,
+                child: Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                ),
+              ),
             Align(
               alignment: Alignment.center,
               child: Container(
@@ -90,7 +99,10 @@ class CompoundCard extends StatelessWidget {
                       fontSize: fontSizeCard - 10,
                     ),
                     SimpleText(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 7.5,
+                      ),
                       text: compound.name,
                       textAlign: TextAlign.center,
                       fontSize: 22,
