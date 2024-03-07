@@ -82,9 +82,12 @@ class CompoundCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FormulaInText(
-                      compoundFormula: getValenceString(compound.formula),
+                      compoundFormula: getValenceString(
+                        compound.formula,
+                        typeCompound: compound.type,
+                      ),
                       textStyle: textStyle,
-                      fontSize: fontSizeCard,
+                      fontSize: fontSizeCard - 10,
                     ),
                     SimpleText(
                       padding: EdgeInsets.symmetric(horizontal: 5),

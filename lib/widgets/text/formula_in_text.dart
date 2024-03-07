@@ -4,11 +4,13 @@ class FormulaInText extends StatelessWidget {
   final String compoundFormula;
   final TextStyle? textStyle;
   final double? fontSize;
+  final TypeCompound? typeCompound;
   const FormulaInText({
     super.key,
     required this.compoundFormula,
     this.textStyle,
     this.fontSize = 16.0,
+    this.typeCompound,
   });
 
   @override
@@ -19,7 +21,7 @@ class FormulaInText extends StatelessWidget {
         style: textStyle,
         children: compoundSeparate.map((e) {
           /* is the number is negative in case of ios */
-          if (e.contains(RegExp(r'[a-zA-Z]'))) {
+          if (e.contains(RegExp(r'[a-zA-Z()]'))) {
             return TextSpan(
               text: e,
               style: textStyle?.copyWith(

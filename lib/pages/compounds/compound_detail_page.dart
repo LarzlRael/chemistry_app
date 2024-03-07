@@ -190,7 +190,7 @@ class Hidroxido extends StatelessWidget {
         /* Fix this show only one element by element  */
         ...generateOxidosByOneElement(compound.element).map(
           (e) => FormulaInText(
-            compoundFormula: getValenceString(e.formula),
+            compoundFormula: getValenceString(e.formula, typeCompound: e.type),
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,

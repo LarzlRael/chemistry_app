@@ -1,6 +1,6 @@
 <manifest
   xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.exon.chimestry">
+  package="com.exon.chemistry_app">
 >
     <uses-permission android:name="android.permission.INTERNET" />
    <application

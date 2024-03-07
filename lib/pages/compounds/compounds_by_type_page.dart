@@ -26,11 +26,7 @@ class CompoundsByTypePage extends HookConsumerWidget {
           break;
         case TypeCompound.oxido_doble:
           listCompounds.value = generateOxidosDoblesByGroupsElements(
-            [
-              /* Group.anfotero, */
-              Group.bitetravalente,
-              Group.bitrivalente,
-            ],
+            [Group.bitetravalente, Group.bitrivalente, Group.anfotero],
           );
           break;
         case TypeCompound.hidroxido:

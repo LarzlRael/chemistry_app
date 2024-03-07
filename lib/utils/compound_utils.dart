@@ -18,7 +18,10 @@ List<String> splitStringIntoCharacters(String input) {
       characters.add(input[i]); // Se agrega el carácter actual
     }
   }
-
+  /* if (int.parse(characters.last).isNaN && int.parse(characters.last) > 0) {
+    characters.add(')');
+  }
+ */
   return characters;
 }
 
@@ -88,9 +91,45 @@ String isOne(String text) {
   return text.length == 1 ? text : '';
 }
 
-String getValenceString(List<ValenceCompound> valences) =>
-/* TODO add () parentesis a los elemtnso quesean necesarios */
-    valences.map((valence) => valence.toString()).join('');
+String getValenceString(
+  List<ValenceCompound> valences, {
+  TypeCompound? typeCompound,
+}) {
+  if (typeCompound == TypeCompound.ion) {
+    String str = valences.map((valence) => valence.toString()).join('');
+    int posicionGuion = str.indexOf('-');
+
+    // Extrae la parte antes del guion y la parte después del guion
+    String parteAntesGuion = str.substring(0, posicionGuion);
+    String parteDespuesGuion = str.substring(posicionGuion);
+
+    // Agrega paréntesis alrededor de la parte antes del guion y luego une con la parte después del guion
+    String resultado = '($parteAntesGuion)$parteDespuesGuion';
+
+    return resultado;
+  }
+  if (typeCompound == TypeCompound.hidroxido) {
+    final elementName = valences.map((valence) => valence.toString()).join('');
+    return elementName.replaceAll(RegExp('OH'), '(OH)');
+  }
+  if (typeCompound == TypeCompound.sal_neutra) {
+    if (valences.last.value == 1) {
+      return valences.map((valence) => valence.toString()).join('');
+    }
+    final elementName = valences.mapIndexed((i, valence) {
+      if (i == 0) {
+        return valence.toString() + '(';
+      }
+      if (i == valences.length - 2) {
+        return valence.toString() + ')';
+      }
+      return valence.toString();
+    }).join('');
+    return elementName;
+  }
+
+  return valences.map((valence) => valence.toString()).join('');
+}
 
 List<ValenceCompound> simplify(List<ValenceCompound> arr) {
   List<ValenceCompound> simplifiedList = [];
@@ -210,27 +249,34 @@ String getValueOrSame(String key, String defaultValue) {
 
 String setAnhidridoName(
     PeriodicTableElement periodicTableElement, Valencia valence) {
+  if (periodicTableElement.symbol == "F") {
+    return "$anhidridoName de fluor";
+  }
   if (noMetalspecialNamesCases.containsKey(periodicTableElement.symbol)) {
     return "$anhidridoName ${noMetalspecialNamesCases[periodicTableElement.symbol]}${valence.suffix.name}";
-  } else {
+  }
+  if (valence.suffix == TypeValencia.ico ||
+      valence.suffix == TypeValencia.oso) {
     return "$anhidridoName ${periodicTableElement.name.toLowerCase().substring(
           0,
           periodicTableElement.name.length - 1,
         )}${valence.suffix.name}";
   }
+
+  return "$anhidridoName de ${periodicTableElement.name.toLowerCase()}";
 }
 
-String anhidridoHipoOsoName(
+String setAnhidridoHipoOsoName(
     PeriodicTableElement periodicTableElement, Valencia valence) {
   final split = splitString(valence.suffix.name, "_");
   String name = '';
-  const typeElement = 'Anhidrido';
+
   if (noMetalspecialNamesCases.containsKey(periodicTableElement.symbol)) {
     name =
-        "$typeElement ${split[0]}${noMetalspecialNamesCases[periodicTableElement.symbol]}${split[1]}";
+        "$anhidridoName ${split[0]}${noMetalspecialNamesCases[periodicTableElement.symbol]}${split[1]}";
   } else {
     name =
-        "$typeElement ${split[0]}${periodicTableElement.name.toLowerCase().substring(
+        "$anhidridoName ${split[0]}${periodicTableElement.name.toLowerCase().substring(
               0,
               periodicTableElement.name.length - 1,
             )}${split[1]}";

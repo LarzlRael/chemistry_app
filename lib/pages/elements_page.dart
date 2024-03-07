@@ -14,11 +14,11 @@ class ElementsPage extends HookConsumerWidget {
             bottom: TabBar(
                 isScrollable: true,
                 /* Tab(icon: Icon(Icons.directions_car)), */
-                tabs: Group.values.map((group) {
-                  return Tab(
-                    text: group.name.toCapitalize(),
-                  );
-                }).toList()),
+                tabs: Group.values
+                    .map((group) => Tab(
+                          text: group.name.toCapitalize(),
+                        ))
+                    .toList()),
             title: Text('Elementos'),
           ),
           body: TabBarView(

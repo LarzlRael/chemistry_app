@@ -99,23 +99,12 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     ));
   }
 
-  /* final valencia =
-      element.valencias.first.value == 1 ? "" : element.valencias.first.value;
-  String name = "Peroxido de ${element.name.toLowerCase()}";
-
-  name = "Peroxido de ${element.name.toLowerCase()}";
-  compound.add(Compound(
-    element: element,
-    name: name,
-    formula: "${element.symbol}${valencia}O${2}",
-    type: TypeCompound.peroxido,
-  ));
- */
   return compound;
 }
 
 List<Compound> generateOxidosDoblesByOneElement(PeriodicTableElement element) {
   final oxidosDoubles = <Compound>[];
+
   final getOxide = generateOxidosByOneElement(element);
 
   final name = "Oxido doble de ${getOxide[0].element.name.toLowerCase()}";
@@ -123,10 +112,20 @@ List<Compound> generateOxidosDoblesByOneElement(PeriodicTableElement element) {
   oxidosDoubles.add(Compound(
     element: element,
     name: name,
-    formula: sumValences(
+    formula: /* sumValences(
       getOxide[0].formula,
       getOxide.length > 1 ? getOxide[1].formula : getOxide[0].formula,
-    ),
+    ), */
+        [
+      ValenceCompound(
+        value: element.symbol == "Bi" ? 2 : 3,
+        suffix: getOxide[0].element.symbol,
+      ),
+      ValenceCompound(
+        value: 4,
+        suffix: 'O',
+      ),
+    ],
     type: TypeCompound.oxido_doble,
   ));
   return oxidosDoubles;
@@ -297,7 +296,7 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
     if (element.valencias.length > 2 &&
             valencia.suffix == TypeValencia.hipo_oso ||
         valencia.suffix == TypeValencia.per_ico) {
-      name = anhidridoHipoOsoName(element, valencia);
+      name = setAnhidridoHipoOsoName(element, valencia);
     }
 
     compounds.add(Compound(
@@ -433,19 +432,21 @@ Compound generateOneIon(
   Valencia valence,
   Compound compound,
 ) {
+  List<ValenceCompound> newFormula = List.from(compound.formula);
+  newFormula.removeLast();
+  newFormula.add(ValenceCompound(value: valence.value, suffix: ''));
+
   return Compound(
     element: periodicTableElement,
-    name: compound.name.replaceAll('Ion', '') +
-        salNeutraName(periodicTableElement, valence),
+    name: (compound.name.replaceAll('Ion', '') +
+        salNeutraName(periodicTableElement, valence)),
     type: TypeCompound.sal_neutra,
     formula: [
       ValenceCompound(
         suffix: periodicTableElement.symbol,
         value: compound.formula.last.value.abs(),
       ),
-      ...compound.formula
-        ..removeLast()
-        ..add(ValenceCompound(value: valence.value, suffix: ''))
+      ...newFormula,
     ],
   );
 }

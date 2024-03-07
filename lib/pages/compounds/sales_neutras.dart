@@ -95,10 +95,13 @@ class SalesNeutras extends HookWidget {
                               style: textTheme.titleLarge!.copyWith(
                                 color: Colors.white,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                             FormulaInText(
-                              compoundFormula:
-                                  getValenceString(ionSelected.value!.formula),
+                              compoundFormula: getValenceString(
+                                ionSelected.value!.formula,
+                                typeCompound: ionSelected.value!.type,
+                              ),
                               fontSize: 20,
                               textStyle: TextStyle(
                                 fontWeight: FontWeight.w700,
@@ -122,15 +125,17 @@ class SalesNeutras extends HookWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: FormulaInText(
-                          compoundFormula:
-                              getValenceString(result.value!.formula),
+                          compoundFormula: getValenceString(
+                            result.value!.formula,
+                            typeCompound: result.value!.type,
+                          ),
                           fontSize: 35,
                           textStyle: TextStyle(
                               fontWeight: FontWeight.w600, color: Colors.black),
                         ),
                       ),
                       SimpleText(
-                        text: result.value?.name.toCapitalize() ?? '',
+                        text: result.value!.name.toCapitalize(),
                         style: textTheme.headlineMedium,
                       ),
                     ],
@@ -159,8 +164,6 @@ void bottomSheetMetals(
             child: ListTileElementsValences(
               elements: elements,
               onSelected: (element, valence) {
-                /* metalSelected.value = element;
-                context.pop(); */
                 valenciaSeleted.value = valence;
                 metalSelected.value = element;
                 context.pop();
@@ -186,7 +189,7 @@ void bottomSheetIones(
             child: CompundListTile(
               compounds: elements,
               onSelected: (element) {
-                ionSelected.value = element;
+                ionSelected.value = element.copyWith();
                 context.pop();
               },
             ),
@@ -221,9 +224,8 @@ class SelecteCardForSal extends StatelessWidget {
           ),
         ),
         InkWell(
-          customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          customBorder:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           onTap: onTap,
           child: Card(
             child: Container(
