@@ -284,3 +284,39 @@ String setAnhidridoHipoOsoName(
 
   return name;
 }
+
+String changeAcidoName(String name, String symbol) {
+  final special = {
+    'B': 'borico',
+    'Si': 'silicico',
+  };
+  if (special.containsKey(symbol)) {
+    return "Acido ${special[symbol]}";
+  }
+  return name.replaceFirst(anhidridoName, "Acido");
+}
+
+String acidoPolihidracidoName(String acidoName, int oxigenoValue) {
+  String name = '';
+  switch (oxigenoValue) {
+    case 1:
+      name = "meta";
+      break;
+    case 2:
+      name = "piro";
+      break;
+    case 3:
+      name = "orto";
+      break;
+
+    default:
+      return "";
+  }
+  // Dividir la palabra en dos partes
+  List<String> partes = acidoName.split(' ');
+
+  // Agregar "meta" en el medio
+  String palabraConMeta = partes.join(' $name ');
+
+  return palabraConMeta;
+}

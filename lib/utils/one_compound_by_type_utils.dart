@@ -402,28 +402,29 @@ List<Compound> generateAcidosPolihidratadosByOneElement() {
 
   filteredElements.forEach((element) {
     final getAnhidrido = generateAnhidridosByOneElement(element!);
-    getAnhidrido.forEach((anhidrido) {
-      anhidrido.element.valencias.forEach((valencia) {
-        for (var i = 0; i < 3; i++) {
-          // Generar cada compuesto original tres veces
-          final modifiedAcido = anhidrido.copyWith(
-            formula: [
+    getAnhidrido.forEachIndexed((index, anhidrido) {
+      [1, 2, 3].forEach((i) {
+        // Generar cada compuesto original tres veces
+        final modifiedAcido = anhidrido.copyWith(
+            formula: simplify([
               ValenceCompound(
                 suffix: "H",
-                value: 2 * valencia.value,
+                value: 2 * i,
               ),
               ...anhidrido.formula.map((e) {
                 if (e.suffix == "O") {
-                  return e.copyWith(value: (i + 1) * valencia.value);
-                  // Multiplica por (i + 1) para obtener 1 * valencia.value, 2 * valencia.value, 3 * valencia.value
+                  return e.copyWith(
+                    value: i + anhidrido.formula.last.value,
+                  );
                 }
                 return e;
               }),
-            ],
-            name: anhidrido.name.replaceFirst(anhidridoName, "Acido"),
-          );
-          compounds.add(modifiedAcido);
-        }
+            ]),
+            name: acidoPolihidracidoName(
+              changeAcidoName(anhidrido.name, element.symbol),
+              i,
+            ));
+        compounds.add(modifiedAcido);
       });
     });
   });
