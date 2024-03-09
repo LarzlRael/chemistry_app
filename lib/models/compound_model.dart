@@ -9,8 +9,7 @@ enum TypeCompound {
   oxido_doble,
   acido_oxacido,
   acido_polihidratado,
-  sal,
-  hidracido,
+
   oxoacido,
   anhidrido,
   ion,
@@ -31,15 +30,11 @@ extension TypeCompoundExtension on TypeCompound {
       case TypeCompound.oxido_doble:
         return 'Óxido Doble';
       case TypeCompound.acido_oxacido:
-        return 'Ácido Oxoácido';
+        return 'Ácido Oxácido';
       case TypeCompound.acido_polihidratado:
         return 'Ácido Polihidratado';
-      case TypeCompound.sal:
-        return 'Sal';
-      case TypeCompound.hidracido:
-        return 'Hidrácido';
       case TypeCompound.oxoacido:
-        return 'Oxoácido';
+        return 'Oxácido';
       case TypeCompound.anhidrido:
         return 'Anhídrido';
       case TypeCompound.ion:
@@ -87,17 +82,14 @@ class ValenceCompound {
   }
 }
 
-final specialOxidesNameCases = {
+final specialNamesCases = {
   'Au': 'aur',
   'Pb': 'plumb',
   'Cu': 'cupr',
   'Ni': 'niquel',
   'Fe': 'ferr',
   'Mn': 'mangan',
-};
-final noMetalspecialNamesCases = {
   'S': 'sulfur',
-  'Mn': 'mangan',
   'N': 'nitr',
 };
 

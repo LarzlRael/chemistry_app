@@ -42,14 +42,17 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
     }
     /* Special names cases */
 
-    if (specialOxidesNameCases.containsKey(element.symbol)) {
+    if (specialNamesCases.containsKey(element.symbol)) {
       name =
-          "Oxido ${specialOxidesNameCases[element.symbol]}${valencia.suffix.name}";
+          "Oxido ${specialNamesCases[element.symbol]}${valencia.suffix.name}";
+    }
+    if (element.symbol == "Bi" && valencia.value == 3) {
+      name = "Oxido de bismuto";
     }
     compounds.add(Compound(
       element: element,
       name: name,
-      isSpecialCase: specialOxidesNameCases.containsKey(element.symbol),
+      isSpecialCase: specialNamesCases.containsKey(element.symbol),
       formula: simplify([firstValence, secondValence]),
       type: TypeCompound.oxido,
     ));
@@ -109,14 +112,14 @@ List<Compound> generateOxidosDoblesByOneElement(PeriodicTableElement element) {
   final getOxide = generateOxidosByOneElement(element);
 
   final name = "Oxido doble de ${getOxide[0].element.name.toLowerCase()}";
-
+  final isBismuto = element.symbol == "Bi";
   oxidosDoubles.add(Compound(
     element: element,
     name: name,
-    isSpecialCase: element.symbol == "Bi",
+    isSpecialCase: isBismuto,
     formula: [
       ValenceCompound(
-        value: element.symbol == "Bi" ? 2 : 3,
+        value: isBismuto ? 2 : 3,
         suffix: getOxide[0].element.symbol,
       ),
       ValenceCompound(
@@ -170,8 +173,8 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
     }
     /* Special names cases */
 
-    if (specialOxidesNameCases.containsKey(element.symbol)) {
-      name = "Hidroxido ${specialOxidesNameCases[element.symbol]}$suffix";
+    if (specialNamesCases.containsKey(element.symbol)) {
+      name = "Hidroxido ${specialNamesCases[element.symbol]}$suffix";
     }
     compounds.add(Compound(
       element: element,
@@ -185,6 +188,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
 }
 
 List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
+  final spcialHidrurosCase = ["Cu", "Pb", "Fe"];
   PeriodicTableElement elementAux = element;
   Map<Group, int> groupValenciaMap = {
     Group.monoBivalente: 2,
@@ -240,8 +244,11 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
       name = fixIcoWord(name);
     }
 
-    if (noMetalspecialNamesCases.containsKey(elementAux.symbol)) {
-      name = "Hidruro ${noMetalspecialNamesCases[elementAux.symbol]}$suffix";
+    if (specialNamesCases.containsKey(elementAux.symbol)) {
+      name = "Hidruro ${specialNamesCases[elementAux.symbol]}$suffix";
+    }
+    if (spcialHidrurosCase.contains(elementAux.symbol)) {
+      name = "Hidruro de ${elementAux.name.toLowerCase()}";
     }
     compounds.add(Compound(
       element: elementAux,

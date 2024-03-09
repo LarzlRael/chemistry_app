@@ -880,10 +880,12 @@ Color colorByCompoundType(TypeCompound typeCompound) {
   Map<TypeCompound, Color> compoundColors = {
     TypeCompound.oxido: Colors.indigo,
     TypeCompound.peroxido: Colors.blue,
+    TypeCompound.oxido_doble: Colors.brown,
     TypeCompound.hidroxido: Colors.green,
+    TypeCompound.anhidrido: Colors.pink,
     TypeCompound.acido_oxacido: Colors.orange,
-    TypeCompound.sal: Colors.purple,
-    TypeCompound.hidracido: Colors.yellow,
+    TypeCompound.acido_polihidratado: Colors.amber,
+    TypeCompound.ion: Colors.lime,
     TypeCompound.oxoacido: Colors.teal,
   };
   return compoundColors[typeCompound] ?? Colors.blue;

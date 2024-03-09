@@ -237,14 +237,14 @@ String salNeutraName(
   if (periodicTableElement.valencias.length == 1) {
     return " de $name";
   }
-  if (specialOxidesNameCases.containsKey(periodicTableElement.symbol)) {
-    return " ${specialOxidesNameCases[periodicTableElement.symbol]}$valenceSuffix";
+  if (specialNamesCases.containsKey(periodicTableElement.symbol)) {
+    return " ${specialNamesCases[periodicTableElement.symbol]}$valenceSuffix";
   }
   return "${name.substring(0, name.length - 1)}$valenceSuffix";
 }
 
 String getValueOrSame(String key, String defaultValue) {
-  return noMetalspecialNamesCases[key] ?? defaultValue;
+  return specialNamesCases[key] ?? defaultValue;
 }
 
 String setAnhidridoName(
@@ -252,8 +252,8 @@ String setAnhidridoName(
   if (periodicTableElement.symbol == "F") {
     return "$anhidridoName de fluor";
   }
-  if (noMetalspecialNamesCases.containsKey(periodicTableElement.symbol)) {
-    return "$anhidridoName ${noMetalspecialNamesCases[periodicTableElement.symbol]}${valence.suffix.name}";
+  if (specialNamesCases.containsKey(periodicTableElement.symbol)) {
+    return "$anhidridoName ${specialNamesCases[periodicTableElement.symbol]}${valence.suffix.name}";
   }
   if (valence.suffix == TypeValencia.ico ||
       valence.suffix == TypeValencia.oso) {
@@ -271,9 +271,9 @@ String setAnhidridoHipoOsoName(
   final split = splitString(valence.suffix.name, "_");
   String name = '';
 
-  if (noMetalspecialNamesCases.containsKey(periodicTableElement.symbol)) {
+  if (specialNamesCases.containsKey(periodicTableElement.symbol)) {
     name =
-        "$anhidridoName ${split[0]}${noMetalspecialNamesCases[periodicTableElement.symbol]}${split[1]}";
+        "$anhidridoName ${split[0]}${specialNamesCases[periodicTableElement.symbol]}${split[1]}";
   } else {
     name =
         "$anhidridoName ${split[0]}${periodicTableElement.name.toLowerCase().substring(
