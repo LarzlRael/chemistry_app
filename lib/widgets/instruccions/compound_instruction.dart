@@ -11,6 +11,8 @@ class CompoundInstructionByType extends StatelessWidget {
         return CompoundOxidosInstruction();
       case TypeCompound.peroxido:
         return CompoundPeroxidosInstruction();
+      case TypeCompound.hidroxido:
+        return HidroxidoInstruction();
       /*  
       case TypeCompound.oxidoDoble:
         return CompoundInstruction();
@@ -227,5 +229,107 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
         ),
       ],
     ));
+  }
+}
+
+class HidroxidoInstruction extends StatelessWidget {
+  const HidroxidoInstruction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CardInstructionContainer(
+      child: Column(
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                        suffix: 'M',
+                        value: 2,
+                      ),
+                      ValenceCompound(
+                        suffix: 'O',
+                        value: 1,
+                      ),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    text: 'Oxido basico',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Icon(Icons.add),
+              ),
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                        suffix: 'H',
+                        value: 2,
+                      ),
+                      ValenceCompound(
+                        suffix: 'O',
+                        value: 1,
+                      ),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    text: 'Agua',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Icon(FontAwesomeIcons.equals),
+              ),
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                        suffix: 'M',
+                        value: 1,
+                      ),
+                      ValenceCompound(
+                        suffix: '(OH)',
+                        value: 1,
+                      ),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    text: 'Hidroxido',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Hidroxido(
+            compound: generateHidroxidosByOneElement(
+              getOneELement(allListPeriodic, 'Na'),
+            )[0],
+          ),
+        ],
+      ),
+    );
   }
 }

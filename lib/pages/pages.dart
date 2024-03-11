@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:collection/collection.dart';
+import 'dart:math' as math;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -26,3 +27,4 @@ part 'compounds/sales_neutras.dart';
 part 'compounds/compound_detail_page.dart';
 part 'compounds/compounds_by_type_page.dart';
 part 'animation_test.dart';
+part 'games/guess_periodic_element.dart';

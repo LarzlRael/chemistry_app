@@ -572,7 +572,7 @@ class IonDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final styleText = TextStyle(
-      fontSize: 14,
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     );
@@ -587,17 +587,15 @@ class IonDetail extends StatelessWidget {
               children: [
                 FormulaInText(
                   compoundFormula: compound.compound!.formula,
-                  fontSize: 30,
+                  gap: 2.5,
+                  fontSize: 40,
                   textStyle: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
                 ),
                 SimpleText(
-                  text: compound.compound!.name.replaceAll(
-                    anhidridoName,
-                    'Anh.',
-                  ),
+                  text: compound.compound!.name,
                   style: styleText,
                   padding: EdgeInsets.only(top: 5),
                 ),

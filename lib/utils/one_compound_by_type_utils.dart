@@ -442,13 +442,15 @@ List<Compound> generateAcidosPolihidratadosByOneElement() {
 }
 
 List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
-  final getAcido = generateAcidosOxacidosByOneElement(element)
+  /* change this */
+  final getAcidos = generateAcidosOxacidosByOneElement(element)
       .map((e) => e.copyWith(name: remplazeOsoIco(e.name)))
       .toList();
+  final getAcidosAux = generateAcidosOxacidosByOneElement(element);
 
-  final convertIon = getAcido.map((acido) {
+  final convertIon = getAcidos.mapIndexed((index, acido) {
     final ion = acido.copyWith(
-      compound: acido,
+      compound: getAcidosAux[index],
       name: acido.name.replaceFirst("Acido", "Ion"),
       type: TypeCompound.ion,
       formula: moveFirstElementToLastPosition(acido.formula.map(

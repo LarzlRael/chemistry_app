@@ -890,6 +890,7 @@ Color colorByCompoundType(TypeCompound typeCompound) {
     TypeCompound.oxido: Colors.indigo,
     TypeCompound.peroxido: Colors.blue,
     TypeCompound.oxido_doble: Colors.brown,
+    TypeCompound.hidruro: Colors.cyan,
     TypeCompound.hidroxido: Colors.green,
     TypeCompound.anhidrido: Colors.pink,
     TypeCompound.acido_oxacido: Colors.orange,
