@@ -8,9 +8,10 @@ class CompoundInstructionByType extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (typeCompound) {
       case TypeCompound.oxido:
-        return CompoundInstruction();
-      /*  case TypeCompound.perOxido:
-        return CompoundInstruction();
+        return CompoundOxidosInstruction();
+      case TypeCompound.peroxido:
+        return CompoundPeroxidosInstruction();
+      /*  
       case TypeCompound.oxidoDoble:
         return CompoundInstruction();
       case TypeCompound.hidroxido:
@@ -31,8 +32,8 @@ class CompoundInstructionByType extends StatelessWidget {
   }
 }
 
-class CompoundInstruction extends StatelessWidget {
-  const CompoundInstruction({super.key});
+class CompoundOxidosInstruction extends StatelessWidget {
+  const CompoundOxidosInstruction({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -123,5 +124,108 @@ class CompoundInstruction extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class CompoundPeroxidosInstruction extends StatelessWidget {
+  const CompoundPeroxidosInstruction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyleSuffix =
+        TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
+    final textStyle = TextStyle(fontSize: 40, fontWeight: FontWeight.w600);
+    return CardInstructionContainer(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Text(
+              'Metal',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Icon(Icons.add),
+            ),
+            Text(
+              'Oxigeno 2 ,-2',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Icon(FontAwesomeIcons.equals),
+            ),
+            Text(
+              'PEROXIDO',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ],
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FormulaInText(
+                    gap: 5,
+                    compoundFormula: [
+                      ValenceCompound(
+                        suffix: 'M',
+                        value: 1,
+                        isSuperIndex: true,
+                      ),
+                    ],
+                    fontSize: 40,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SimpleText(text: "O", style: textStyle),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SimpleText(text: "-2", style: textStyleSuffix),
+                          SimpleText(text: " 2", style: textStyleSuffix),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        SimpleText(
+          text:
+              'Donde M es el metal con la valencia de 1  y O el oxigeno con -1',
+          padding: EdgeInsets.symmetric(vertical: 5),
+        ),
+        SimpleText(
+          text: 'Número de oxidacion del elemento M',
+          padding: EdgeInsets.symmetric(vertical: 5),
+        ),
+        SimpleText(
+          text: 'Número de oxidacion del oxigeno',
+          padding: EdgeInsets.symmetric(vertical: 5),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: PeroxideDetail(
+            compound: generatePeroxidoByOneElement(
+              getOneELement(allListPeriodic, 'Li'),
+            )[0],
+          ),
+        ),
+      ],
+    ));
   }
 }

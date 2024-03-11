@@ -50,7 +50,7 @@ class CardDetailCompound extends StatelessWidget {
                 Text(
                   compoundName,
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 25,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),

@@ -35,3 +35,17 @@ class CardInstructionContainer extends StatelessWidget {
     );
   }
 }
+
+Widget lineSeparator() {
+  return Container(
+    margin: EdgeInsets.only(top: 10),
+    decoration: BoxDecoration(
+      border: Border(
+        top: BorderSide(
+          color: Colors.white,
+          width: 2,
+        ),
+      ),
+    ),
+  );
+}

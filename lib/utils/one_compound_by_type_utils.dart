@@ -178,6 +178,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
       name = "Hidroxido ${specialNamesCases[element.symbol]}$suffix";
     }
     compounds.add(Compound(
+      compound: null,
       periodicTableElement: element,
       name: name,
       formula: [firstValence, secondValence],
@@ -447,6 +448,7 @@ List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
 
   final convertIon = getAcido.map((acido) {
     final ion = acido.copyWith(
+      compound: acido,
       name: acido.name.replaceFirst("Acido", "Ion"),
       type: TypeCompound.ion,
       formula: moveFirstElementToLastPosition(acido.formula.map(

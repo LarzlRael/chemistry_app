@@ -894,7 +894,7 @@ Color colorByCompoundType(TypeCompound typeCompound) {
     TypeCompound.anhidrido: Colors.pink,
     TypeCompound.acido_oxacido: Colors.orange,
     TypeCompound.acido_polihidratado: Colors.amber,
-    TypeCompound.ion: Colors.lime,
+    TypeCompound.ion: Colors.purple,
     TypeCompound.oxoacido: Colors.teal,
   };
   return compoundColors[typeCompound] ?? Colors.blue;
