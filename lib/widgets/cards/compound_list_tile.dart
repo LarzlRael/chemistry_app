@@ -84,10 +84,8 @@ class ListTileCompound extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                 child: FormulaInText(
-                  compoundFormula: getValenceString(
-                    element.formula,
-                    typeCompound: element.type,
-                  ),
+                  compoundFormula: element.formula,
+                  typeCompound: element.type,
                   textStyle: TextStyle(
                     color: Colors.black,
                     fontSize: 15,

@@ -39,8 +39,9 @@ class ElementCard extends StatelessWidget {
     super.key,
     required this.element,
     this.onTap,
+    this.size = 200,
   });
-
+  final double? size;
   final PeriodicTableElement element;
   final Function(PeriodicTableElement element)? onTap;
 
@@ -65,10 +66,12 @@ class ElementCard extends StatelessWidget {
             ? CardElement(
                 element: element,
                 valencias: element.valencias,
+                size: size,
                 group: element.group.name.toCapitalize())
             : FlipCard(
                 key: key,
                 front: CardElement(
+                  size: size,
                   element: element,
                   valencias: metalValencias,
                   group: "Metal",
@@ -79,6 +82,7 @@ class ElementCard extends StatelessWidget {
                   ),
                 ),
                 back: CardElement(
+                  size: size,
                   color: Colors.purple,
                   element: element,
                   valencias: noMetalValencias,
@@ -192,6 +196,7 @@ class CardElement extends StatelessWidget {
   final String group;
   final Widget? extraWidget;
   final Color? color;
+  final double? size;
   const CardElement({
     super.key,
     required this.element,
@@ -199,6 +204,7 @@ class CardElement extends StatelessWidget {
     required this.group,
     this.extraWidget,
     this.color,
+    this.size = 200,
   });
 
   @override
@@ -211,12 +217,14 @@ class CardElement extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             color ?? colorByGroup(element.group),
-            color ?? colorByGroup(element.group).withOpacity(0.6),
+            color != null
+                ? color!.withOpacity(0.6)
+                : colorByGroup(element.group).withOpacity(0.6),
           ],
         ),
       ),
-      width: 200,
-      height: 200,
+      width: size,
+      height: size,
       child: Stack(
         children: [
           Align(

@@ -109,7 +109,7 @@ final List<PeriodicTableElement> allListPeriodic = [
       ),
     ],
     name: 'Berilio',
-    symbol: 'BE',
+    symbol: 'Be',
     atomicNumber: '',
     group: Group.bivalente,
   ),
@@ -242,7 +242,7 @@ final List<PeriodicTableElement> allListPeriodic = [
       ),
       Valencia(
         value: 2,
-        suffix: TypeValencia.oso,
+        suffix: TypeValencia.ico,
       ),
     ],
     symbol: 'Cu',
@@ -846,6 +846,15 @@ List<PeriodicTableElement> getElementsBySimbols(
                 elemento.symbol.toLowerCase() == simbolo.toLowerCase(),
           ))
       .toList();
+}
+
+PeriodicTableElement getOneELement(
+  List<PeriodicTableElement> list,
+  String symbol,
+) {
+  return list.firstWhere(
+    (elemento) => elemento.symbol.toLowerCase() == symbol.toLowerCase(),
+  );
 }
 
 List<PeriodicTableElement> filterByGroup(Group group) {

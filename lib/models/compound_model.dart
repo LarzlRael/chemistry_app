@@ -9,7 +9,6 @@ enum TypeCompound {
   oxido_doble,
   acido_oxacido,
   acido_polihidratado,
-
   oxoacido,
   anhidrido,
   ion,
@@ -61,24 +60,32 @@ final anhidridoName = TypeCompound.anhidrido.name;
 class ValenceCompound {
   final int value;
   final String suffix;
+  final bool isSuperIndex;
+  final bool isSimplified;
+
   ValenceCompound({
     required this.value,
     required this.suffix,
+    this.isSuperIndex = false,
+    this.isSimplified = false,
   });
 
   ValenceCompound copyWith({
     int? value,
     String? suffix,
+    bool? isSuperIndex,
+    bool? isSimplified,
   }) {
     return ValenceCompound(
       value: value ?? this.value,
       suffix: suffix ?? this.suffix,
+      isSuperIndex: isSuperIndex ?? this.isSuperIndex,
+      isSimplified: isSimplified ?? this.isSimplified,
     );
   }
 
-  @override
-  String toString() {
-    return '$suffix$value';
+  List<String> concatValenceCompound() {
+    return suffix.isNotEmpty ? [suffix, value.toString()] : [value.toString()];
   }
 }
 
@@ -94,7 +101,7 @@ final specialNamesCases = {
 };
 
 class Compound {
-  final PeriodicTableElement element;
+  final PeriodicTableElement periodicTableElement;
   final String name;
   final List<ValenceCompound> formula;
   final TypeCompound type;
@@ -102,7 +109,7 @@ class Compound {
   final Compound? compound;
 
   Compound({
-    required this.element,
+    required this.periodicTableElement,
     required this.name,
     required this.formula,
     required this.type,
@@ -118,7 +125,7 @@ class Compound {
     Compound? compound,
   }) {
     return Compound(
-      element: element ?? this.element,
+      periodicTableElement: element ?? this.periodicTableElement,
       name: name ?? this.name,
       formula: formula ?? this.formula,
       type: type ?? this.type,

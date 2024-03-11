@@ -153,7 +153,7 @@ class ElementsByGroup extends StatelessWidget {
       elements: elements,
       onSelected: ((element) => {
             context.push(
-              '/elements_detail_page',
+              ElementsDetail.routeName,
               extra: element,
             )
           }),

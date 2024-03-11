@@ -50,7 +50,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
       name = "Oxido de bismuto";
     }
     compounds.add(Compound(
-      element: element,
+      periodicTableElement: element,
       name: name,
       isSpecialCase: specialNamesCases.containsKey(element.symbol),
       formula: simplify([firstValence, secondValence]),
@@ -79,7 +79,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     String name = "Peroxido de ${element.name.toLowerCase()}";
 
     compound.add(Compound(
-      element: element,
+      periodicTableElement: element,
       name: name,
       formula: [firstValence, secondValence],
       type: TypeCompound.peroxido,
@@ -96,7 +96,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
       value: 2,
     );
     compound.add(Compound(
-      element: element,
+      periodicTableElement: element,
       name: name,
       formula: [firstValence, secondValence],
       type: TypeCompound.peroxido,
@@ -111,16 +111,17 @@ List<Compound> generateOxidosDoblesByOneElement(PeriodicTableElement element) {
 
   final getOxide = generateOxidosByOneElement(element);
 
-  final name = "Oxido doble de ${getOxide[0].element.name.toLowerCase()}";
+  final name =
+      "Oxido doble de ${getOxide[0].periodicTableElement.name.toLowerCase()}";
   final isBismuto = element.symbol == "Bi";
   oxidosDoubles.add(Compound(
-    element: element,
+    periodicTableElement: element,
     name: name,
     isSpecialCase: isBismuto,
     formula: [
       ValenceCompound(
         value: isBismuto ? 2 : 3,
-        suffix: getOxide[0].element.symbol,
+        suffix: getOxide[0].periodicTableElement.symbol,
       ),
       ValenceCompound(
         value: 4,
@@ -145,7 +146,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
     }
     final oxideValue = ValenceCompound(
       value: 1,
-      suffix: "OH",
+      suffix: "(OH)",
     );
 
     int elementValue = valencia.value;
@@ -177,7 +178,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
       name = "Hidroxido ${specialNamesCases[element.symbol]}$suffix";
     }
     compounds.add(Compound(
-      element: element,
+      periodicTableElement: element,
       name: name,
       formula: [firstValence, secondValence],
       type: TypeCompound.hidroxido,
@@ -251,7 +252,7 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
       name = "Hidruro de ${elementAux.name.toLowerCase()}";
     }
     compounds.add(Compound(
-      element: elementAux,
+      periodicTableElement: elementAux,
       name: name,
       formula: [firstValence, secondValence],
       type: TypeCompound.hidruro,
@@ -304,7 +305,7 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
 
     compounds.add(
       Compound(
-        element: element,
+        periodicTableElement: element,
         isSpecialCase: valencia.value == 6,
         name: name,
         formula: simplify([firstValence, secondValence]),
@@ -336,7 +337,7 @@ List<Compound> generateAcidosOxacidosByOneElement(
       compounds.add(
         Compound(
           compound: anhidrido,
-          element: element,
+          periodicTableElement: element,
           name: anhidrido.name.replaceFirst(anhidridoName, name),
           isSpecialCase: true,
           formula: [
@@ -360,7 +361,7 @@ List<Compound> generateAcidosOxacidosByOneElement(
       compounds.add(
         Compound(
           compound: anhidrido,
-          element: element,
+          periodicTableElement: element,
           name: anhidrido.name.replaceFirst(anhidridoName, name),
           formula: simplify([
             ValenceCompound(
@@ -448,30 +449,36 @@ List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
     final ion = acido.copyWith(
       name: acido.name.replaceFirst("Acido", "Ion"),
       type: TypeCompound.ion,
-      formula: moveFirstElementToLastPosition(acido.formula.map((e) {
-        if (e.suffix == "H") {
-          return e.copyWith(value: makeNegative(e.value), suffix: '');
-        }
-        return e;
-      }).toList()),
+      formula: moveFirstElementToLastPosition(acido.formula.map(
+        (e) {
+          if (e.suffix == "H") {
+            return e.copyWith(
+              value: makeNegative(e.value),
+              suffix: ')',
+              isSuperIndex: true,
+            );
+          }
+          return e;
+        },
+      ).toList()),
     );
     return ion;
   }).toList();
   return convertIon;
 }
 
-Compound generateOneIon(
+Compound generateSalNeutra(
   PeriodicTableElement periodicTableElement,
   Valencia valence,
   Compound compound,
 ) {
   List<ValenceCompound> newFormula = List.from(compound.formula);
   newFormula.removeLast();
-  newFormula.add(ValenceCompound(value: valence.value, suffix: ''));
+  newFormula.add(ValenceCompound(value: valence.value, suffix: ')'));
 
-  return Compound(
-    element: periodicTableElement,
-    name: (compound.name.replaceAll('Ion', '') +
+  Compound compoundAux = Compound(
+    periodicTableElement: periodicTableElement,
+    name: (compound.name.replaceAll('Ion', '').trim() +
         salNeutraName(periodicTableElement, valence)),
     type: TypeCompound.sal_neutra,
     formula: [
@@ -479,7 +486,20 @@ Compound generateOneIon(
         suffix: periodicTableElement.symbol,
         value: compound.formula.last.value.abs(),
       ),
-      ...newFormula,
+      ...newFormula
     ],
   );
+  /* compoundAux.copyWith(
+    formula: compoundAux.formula.map((e) {
+      if (e.suffix == "O") {
+        return e.copyWith(
+          value: makeNegative(e.value),
+          suffix: 'O)',
+          isSuperIndex: true,
+        );
+      }
+      return e;
+    }).toList(),
+  ); */
+  return compoundAux;
 }

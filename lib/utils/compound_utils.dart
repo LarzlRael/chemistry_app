@@ -22,8 +22,21 @@ List<String> splitStringIntoCharacters(String input) {
     characters.add(')');
   }
  */
+
+  characters.removeWhere((element) => element == '1' || element == '0');
   return characters;
 }
+
+/* List<String> setArrayStringFormula(
+  List<ValenceCompound> valences, {
+  TypeCompound? typeCompound,
+}) {
+  /* TODO here all cases names */
+  return valences
+      .map((valence) => valence.concatValenceCompound())
+      .expand((element) => element)
+      .toList();
+} */
 
 bool hasNumber(String input) {
   // Define una expresión regular que busca un número en el string
@@ -96,7 +109,8 @@ String getValenceString(
   TypeCompound? typeCompound,
 }) {
   if (typeCompound == TypeCompound.ion) {
-    String str = valences.map((valence) => valence.toString()).join('');
+    String str =
+        valences.map((valence) => valence.concatValenceCompound()).toString();
     int posicionGuion = str.indexOf('-');
 
     // Extrae la parte antes del guion y la parte después del guion
@@ -137,7 +151,10 @@ List<ValenceCompound> simplify(List<ValenceCompound> arr) {
   for (ValenceCompound val in arr) {
     if (val.value % 2 == 0) {
       double result = val.value / 2;
-      simplifiedList.add(val.copyWith(value: result.toInt()));
+      simplifiedList.add(val.copyWith(
+        value: result.toInt(),
+        isSimplified: true,
+      ));
     } else {
       simplifiedList = List.from(arr);
       break;
@@ -155,7 +172,7 @@ isEven(int number) {
   return number % 2 == 0;
 }
 
-String isEspecialCase(String symbol, Map<String, String> specialCaseList) {
+String isSpecialCase(String symbol, Map<String, String> specialCaseList) {
   if (specialCaseList.containsKey(symbol)) {
     return specialCaseList[symbol]!;
   }
@@ -205,13 +222,20 @@ PeriodicTableElement filterValencias(
 }
 
 List<ValenceCompound> moveFirstElementToLastPosition(
-    List<ValenceCompound> lista) {
-  if (lista.isNotEmpty) {
+  List<ValenceCompound> lista,
+) {
+  final tempList =
+      List<ValenceCompound>.from(lista); // Hacer una copia de la lista original
+  if (tempList.isNotEmpty) {
     ValenceCompound primerElemento =
-        lista.removeAt(0); // Elimina y guarda el primer elemento
-    lista.add(primerElemento); // Agrega el primer elemento al final de la lista
+        tempList.removeAt(0); // Elimina y guarda el primer elemento
+    tempList.add(
+        primerElemento); // Agrega el primer elemento al final de la tempList
   }
-  return lista;
+  tempList[0] = tempList[0].copyWith(
+    suffix: "(" + tempList[0].suffix,
+  );
+  return tempList;
 }
 
 String remplazeOsoIco(String texto) {
@@ -240,7 +264,7 @@ String salNeutraName(
   if (specialNamesCases.containsKey(periodicTableElement.symbol)) {
     return " ${specialNamesCases[periodicTableElement.symbol]}$valenceSuffix";
   }
-  return "${name.substring(0, name.length - 1)}$valenceSuffix";
+  return " ${name.substring(0, name.length - 1)}$valenceSuffix";
 }
 
 String getValueOrSame(String key, String defaultValue) {

@@ -70,6 +70,12 @@ class CompoundsResultAndSuggestion extends ConsumerWidget {
     final compoundsS = ref.watch(compoundProvider).compoundSearched;
     return CompundListTile(
       compounds: compoundsS,
+      onSelected: (Compound element) {
+        context.push(
+          CompoundDetailPage.routeName,
+          extra: element,
+        );
+      },
     );
   }
 }

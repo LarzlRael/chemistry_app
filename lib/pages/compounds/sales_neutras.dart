@@ -18,7 +18,7 @@ class SalesNeutras extends HookWidget {
 
     useEffect(() {
       if (metalSelected.value != null && ionSelected.value != null) {
-        result.value = generateOneIon(
+        result.value = generateSalNeutra(
           metalSelected.value!,
           currentValencia.value!,
           ionSelected.value!,
@@ -98,10 +98,8 @@ class SalesNeutras extends HookWidget {
                               textAlign: TextAlign.center,
                             ),
                             FormulaInText(
-                              compoundFormula: getValenceString(
-                                ionSelected.value!.formula,
-                                typeCompound: ionSelected.value!.type,
-                              ),
+                              compoundFormula: ionSelected.value!.formula,
+                              typeCompound: ionSelected.value!.type,
                               fontSize: 20,
                               textStyle: TextStyle(
                                 fontWeight: FontWeight.w700,
@@ -125,10 +123,8 @@ class SalesNeutras extends HookWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: FormulaInText(
-                          compoundFormula: getValenceString(
-                            result.value!.formula,
-                            typeCompound: result.value!.type,
-                          ),
+                          compoundFormula: result.value!.formula,
+                          typeCompound: result.value!.type,
                           fontSize: 35,
                           textStyle: TextStyle(
                               fontWeight: FontWeight.w600, color: Colors.black),

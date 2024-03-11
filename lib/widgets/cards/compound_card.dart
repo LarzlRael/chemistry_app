@@ -91,10 +91,8 @@ class CompoundCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FormulaInText(
-                      compoundFormula: getValenceString(
-                        compound.formula,
-                        typeCompound: compound.type,
-                      ),
+                      compoundFormula: compound.formula,
+                      gap: 2.5,
                       textStyle: textStyle,
                       fontSize: fontSizeCard - 10,
                     ),

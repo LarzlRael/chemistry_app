@@ -24,7 +24,7 @@ class CompoundByType extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (compound.type) {
       case TypeCompound.oxido:
-        return OxideDetail(compound: compound);
+        return OxideDetailCard(compound: compound);
       case TypeCompound.peroxido:
         return PeroxideDetail(compound: compound);
       case TypeCompound.oxido_doble:
@@ -53,20 +53,64 @@ class CompoundByType extends StatelessWidget {
   }
 }
 
-class OxideDetail extends StatelessWidget {
+class OxideDetail extends HookWidget {
   final Compound compound;
   const OxideDetail({super.key, required this.compound});
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(fontSize: 60, fontWeight: FontWeight.w600);
-    final size = MediaQuery.of(context).size;
-    final textStyleSuffix =
-        TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+    final showWithOutSimplify = useState(false);
+
+    final textStyleAll = TextStyle(
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    );
+
     return CardDetailCompound(
+      extraAction: !compound.formula.first.isSimplified
+          ? null
+          : IconButton(
+              onPressed: () {
+                showWithOutSimplify.value = !showWithOutSimplify.value;
+              },
+              tooltip: !showWithOutSimplify.value
+                  ? "Mostrar formula sin simplificar"
+                  : "Mostrar formula simplificada",
+              icon: Icon(
+                color: Colors.white,
+                size: 25,
+                showWithOutSimplify.value
+                    ? Icons.remove_red_eye_outlined
+                    : Icons.remove_red_eye,
+              ),
+            ),
+      extraInfo: [
+        SimpleText(
+          padding: EdgeInsets.only(top: 10),
+          text:
+              "Donde el metal ${compound.periodicTableElement.name} tiene valencia de ${compound.formula.first.isSimplified ? '${compound.formula.last.value * 2}' : '${compound.formula.last.value}'} y el oxigeno de -2",
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        if (compound.formula.first.isSimplified)
+          SimpleText(
+            padding: EdgeInsets.only(top: 10),
+            text: "La formula se simplifico",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+      ],
       background: colorByCompoundType(compound.type),
       compoundName: compound.name,
       children: [
-        Row(
+        /* Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -77,20 +121,67 @@ class OxideDetail extends StatelessWidget {
             SimpleText(text: "O", style: textStyle),
             SimpleText(text: "-2", style: textStyleSuffix),
           ],
+        ), */
+        FormulaInText(
+          gap: 5,
+          fontSize: 35,
+          compoundFormula: [
+            ValenceCompound(
+              suffix: compound.periodicTableElement.symbol,
+              value: compound.periodicTableElement.valencias[0].value,
+              isSuperIndex: true,
+            ),
+            ValenceCompound(
+              value: -2,
+              suffix: "O",
+              isSuperIndex: true,
+            ),
+          ],
+          textStyle: textStyleAll,
         ),
         FormulaInText(
-          compoundFormula: getValenceString(compound.formula),
-          textStyle: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
+          gap: 5,
+          fontSize: 35,
+          compoundFormula: showWithOutSimplify.value
+              ? compound.formula
+                  .map((e) => e.copyWith(
+                        value: e.value * 2,
+                      ))
+                  .toList()
+              : compound.formula,
+          textStyle: textStyleAll,
         ),
-        /* SimpleText(
-          text: compound.name,
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-        ), */
       ],
+    );
+  }
+}
+
+class OxideDetailCard extends HookWidget {
+  final Compound compound;
+  const OxideDetailCard({super.key, required this.compound});
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            right: 0,
+            child: ElementCard(
+              element: compound.periodicTableElement,
+              size: 150,
+              onTap: (element) => context.push(
+                ElementsDetail.routeName,
+                extra: element,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: OxideDetail(compound: compound),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -112,9 +203,11 @@ class PeroxideDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SimpleText(text: compound.element.symbol, style: textStyle),
             SimpleText(
-                text: compound.element.valencias[0].value.toString(),
+                text: compound.periodicTableElement.symbol, style: textStyle),
+            SimpleText(
+                text:
+                    compound.periodicTableElement.valencias[0].value.toString(),
                 style: textStyleSuffix),
             SimpleText(text: "O", style: textStyle),
             Column(
@@ -127,11 +220,11 @@ class PeroxideDetail extends StatelessWidget {
           ],
         ),
         FormulaInText(
-          compoundFormula: getValenceString(compound.formula),
+          compoundFormula: compound.formula,
           textStyle: TextStyle(
               fontSize: 30, fontWeight: FontWeight.w600, color: Colors.black),
         ),
-        compound.element.group == Group.monovalente
+        compound.periodicTableElement.group == Group.monovalente
             ? SimpleText(
                 text: "No se deben simplificar.",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
@@ -153,9 +246,9 @@ class OxidosDoubles extends StatelessWidget {
       background: colorByCompoundType(compound.type),
       compoundName: compound.name,
       children: [
-        ...generateOxidosByOneElement(compound.element).map(
+        ...generateOxidosByOneElement(compound.periodicTableElement).map(
           (e) => FormulaInText(
-            compoundFormula: getValenceString(e.formula),
+            compoundFormula: e.formula,
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
@@ -164,7 +257,7 @@ class OxidosDoubles extends StatelessWidget {
           ),
         ),
         FormulaInText(
-          compoundFormula: getValenceString(compound.formula),
+          compoundFormula: compound.formula,
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -188,9 +281,10 @@ class Hidroxido extends StatelessWidget {
       compoundName: compound.name,
       children: [
         /* Fix this show only one element by element  */
-        ...generateOxidosByOneElement(compound.element).map(
+        ...generateOxidosByOneElement(compound.periodicTableElement).map(
           (e) => FormulaInText(
-            compoundFormula: getValenceString(e.formula, typeCompound: e.type),
+            compoundFormula: e.formula,
+            typeCompound: e.type,
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
@@ -199,7 +293,8 @@ class Hidroxido extends StatelessWidget {
           ),
         ),
         FormulaInText(
-          compoundFormula: "H2O",
+          compoundFormula: [],
+          /* compoundFormula: "H2O", */
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -207,7 +302,7 @@ class Hidroxido extends StatelessWidget {
           ),
         ),
         FormulaInText(
-          compoundFormula: getValenceString(compound.formula),
+          compoundFormula: compound.formula,
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -235,9 +330,9 @@ class Hidruro extends StatelessWidget {
       compoundName: compound.name,
       children: [
         /* Fix this show only one element by element  */
-        ...generateOxidosByOneElement(compound.element).map(
+        ...generateOxidosByOneElement(compound.periodicTableElement).map(
           (e) => FormulaInText(
-            compoundFormula: getValenceString(e.formula),
+            compoundFormula: e.formula,
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
@@ -246,7 +341,10 @@ class Hidruro extends StatelessWidget {
           ),
         ),
         FormulaInText(
-          compoundFormula: "H",
+          compoundFormula: [
+            ValenceCompound(value: 1, suffix: "H"),
+          ],
+          /* compoundFormula: "H", */
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -254,7 +352,7 @@ class Hidruro extends StatelessWidget {
           ),
         ),
         FormulaInText(
-          compoundFormula: getValenceString(compound.formula),
+          compoundFormula: compound.formula,
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -282,9 +380,9 @@ class AnHidrido extends StatelessWidget {
       compoundName: compound.name,
       children: [
         /* Fix this show only one element by element  */
-        ...generateOxidosByOneElement(compound.element).map(
+        ...generateOxidosByOneElement(compound.periodicTableElement).map(
           (e) => FormulaInText(
-            compoundFormula: getValenceString(e.formula),
+            compoundFormula: e.formula,
             textStyle: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
@@ -293,7 +391,8 @@ class AnHidrido extends StatelessWidget {
           ),
         ),
         FormulaInText(
-          compoundFormula: "H",
+          /* compoundFormula: "H" ,*/
+          compoundFormula: [],
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -301,7 +400,7 @@ class AnHidrido extends StatelessWidget {
           ),
         ),
         FormulaInText(
-          compoundFormula: getValenceString(compound.formula),
+          compoundFormula: (compound.formula),
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -325,7 +424,7 @@ class AcidoOxacido extends StatelessWidget {
       children: [
         /* Fix this show only one element by element  */
         FormulaInText(
-          compoundFormula: getValenceString(compound.compound!.formula),
+          compoundFormula: compound.compound!.formula,
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -334,7 +433,8 @@ class AcidoOxacido extends StatelessWidget {
         ),
         Text(compound.compound!.name),
         FormulaInText(
-          compoundFormula: "H2O",
+          /* compoundFormula: "H2O", */
+          compoundFormula: [],
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
@@ -343,7 +443,7 @@ class AcidoOxacido extends StatelessWidget {
         ),
         Text("Agua"),
         FormulaInText(
-          compoundFormula: getValenceString(compound.formula),
+          compoundFormula: compound.formula,
           textStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600,
