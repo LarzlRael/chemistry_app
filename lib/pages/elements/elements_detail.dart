@@ -9,11 +9,17 @@ class ElementsDetail extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(periodicTableElement.name),
+      ),
       body: Center(
         child: Hero(
           tag: periodicTableElement.symbol,
           child: ElementCard(
+            size: size.width * 0.90,
+            fontSize: 100,
             element: periodicTableElement,
           ),
         ),

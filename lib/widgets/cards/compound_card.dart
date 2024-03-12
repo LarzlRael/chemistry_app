@@ -1,16 +1,22 @@
 part of '../widgets.dart';
 
-const fontSizeCard = 50.0;
-
 class CompoundtListCards extends StatelessWidget {
   final List<Compound> compoundsList;
   final Color color;
   final Function(Compound compound)? onSelected;
+  final double cardFontSize;
+  final double formulaFontSize;
+  final double formulaGap;
+  final double cardSize;
   const CompoundtListCards({
     required this.compoundsList,
     required this.color,
     super.key,
     this.onSelected,
+    this.cardFontSize = 22,
+    this.formulaFontSize = 50,
+    this.formulaGap = 2.5,
+    this.cardSize = 200,
   });
   @override
   Widget build(BuildContext context) {
@@ -28,8 +34,11 @@ class CompoundtListCards extends StatelessWidget {
             child: CompoundCard(
               color: color,
               compound: compound,
-              /* key: ValueKey<String>(compound.formula), */
+              fontSize: cardFontSize,
+              formulaFontSize: formulaFontSize,
+              formulaGap: formulaGap,
               onTap: onSelected,
+              cardSize: cardSize,
             ),
           );
         },
@@ -42,11 +51,19 @@ class CompoundCard extends StatelessWidget {
   final Compound compound;
   final Function(Compound element)? onTap;
   final Color color;
+  final double fontSize;
+  final double formulaFontSize;
+  final double formulaGap;
+  final double cardSize;
   const CompoundCard({
     super.key,
     this.onTap,
+    this.fontSize = 22,
+    this.formulaFontSize = 40,
     required this.compound,
     required this.color,
+    this.formulaGap = 2.5,
+    this.cardSize = 200,
   });
 
   @override
@@ -70,8 +87,8 @@ class CompoundCard extends StatelessWidget {
             ],
           ),
         ),
-        width: 200,
-        height: 200,
+        width: cardSize,
+        height: cardSize,
         child: Stack(
           children: [
             if (compound.isSpecialCase)
@@ -88,13 +105,13 @@ class CompoundCard extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.only(top: 15),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     FormulaInText(
                       compoundFormula: compound.formula,
-                      gap: 2.5,
+                      gap: formulaGap,
                       textStyle: textStyle,
-                      fontSize: fontSizeCard - 10,
+                      fontSize: formulaFontSize,
                     ),
                     SimpleText(
                       padding: EdgeInsets.symmetric(
@@ -103,7 +120,7 @@ class CompoundCard extends StatelessWidget {
                       ),
                       text: compound.name,
                       textAlign: TextAlign.center,
-                      fontSize: 22,
+                      fontSize: fontSize,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
                       lineHeight: 1,
@@ -112,6 +129,21 @@ class CompoundCard extends StatelessWidget {
                 ),
               ),
             ),
+            /* Align(
+              alignment: Alignment.bottomCenter,
+              child: SimpleText(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 5,
+                  vertical: 7.5,
+                ),
+                text: compound.name,
+                textAlign: TextAlign.center,
+                fontSize: fontSize,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
+                lineHeight: 1,
+              ),
+            ), */
           ],
         ),
       ),

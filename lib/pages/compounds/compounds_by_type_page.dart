@@ -119,16 +119,45 @@ class CompoundsByTypePage extends HookConsumerWidget {
         ],
       ),
       body: CompoundtListCards(
-        /* change this for de color */
         color: colorByCompoundType(compoundType),
+        cardFontSize: 22,
+        formulaFontSize: formulaFontSize(compoundType),
+        formulaGap: 3,
+        cardSize: 160,
         compoundsList: listCompounds.value,
         onSelected: ((element) => {
               context.push(
-                '/compound_detail_page',
+                CompoundDetailPage.routeName,
                 extra: element,
               )
             }),
       ),
     );
+  }
+}
+
+double formulaFontSize(TypeCompound compoundType) {
+  switch (compoundType) {
+    case TypeCompound.oxido:
+      return 57;
+    case TypeCompound.peroxido:
+      return 54;
+    case TypeCompound.oxido_doble:
+      return 55;
+    case TypeCompound.hidroxido:
+      return 42.5;
+    case TypeCompound.hidruro:
+      return 60;
+    case TypeCompound.anhidrido:
+      return 60;
+
+    case TypeCompound.acido_oxacido:
+      return 45;
+    case TypeCompound.acido_polihidratado:
+      return 45;
+    case TypeCompound.ion:
+      return 45;
+    default:
+      return 50;
   }
 }

@@ -16,7 +16,7 @@ class ElementsPage extends HookConsumerWidget {
                 /* Tab(icon: Icon(Icons.directions_car)), */
                 tabs: Group.values
                     .map((group) => Tab(
-                          text: group.name.toCapitalize(),
+                          text: group.name.toCapitalize() + 's',
                         ))
                     .toList()),
             title: Text('Elementos'),
@@ -73,7 +73,7 @@ class CirclesRow extends StatelessWidget {
               ),
               /* backgroundColor: colorByGroup(group), */
               child: Text(
-                group.name == Group.nullGroup.name
+                group.name == Group.todo.name
                     ? 'Todos'
                     : group.name.toCapitalize(),
                 style: TextStyle(

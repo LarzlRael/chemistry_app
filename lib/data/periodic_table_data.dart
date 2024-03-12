@@ -858,7 +858,7 @@ PeriodicTableElement getOneELement(
 }
 
 List<PeriodicTableElement> filterByGroup(Group group) {
-  if (group == Group.nullGroup) {
+  if (group == Group.todo) {
     return allListPeriodic;
   }
   return allListPeriodic.where((element) => element.group == group).toList();
@@ -877,8 +877,8 @@ Color colorByGroup(Group group) {
     Group.halogeno: Colors.pinkAccent,
     Group.anfigenos: Colors.lightGreen,
     Group.nitrogeniodes: Colors.indigo,
-    Group.carbonoides: Colors.brown,
-    Group.nullGroup: Colors.grey,
+    Group.carbonoides: Colors.pinkAccent,
+    Group.todo: Colors.grey,
   };
 
   return groupColors[group] ??
@@ -889,7 +889,7 @@ Color colorByCompoundType(TypeCompound typeCompound) {
   Map<TypeCompound, Color> compoundColors = {
     TypeCompound.oxido: Colors.indigo,
     TypeCompound.peroxido: Colors.blue,
-    TypeCompound.oxido_doble: Colors.brown,
+    TypeCompound.oxido_doble: Colors.pinkAccent,
     TypeCompound.hidruro: Colors.cyan,
     TypeCompound.hidroxido: Colors.green,
     TypeCompound.anhidrido: Colors.pink,

@@ -65,33 +65,107 @@ class ListTileElementValences extends StatelessWidget {
             fontSize: 17,
             fontWeight: FontWeight.w500,
           ),
-          subtitle: Wrap(
-              children: element.valencias
-                  .map(
-                    (valence) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2.5),
-                      child: FilledButton(
-                          style: TextButton.styleFrom(
-                            /* backgroundColor: Colors.blue, */
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          child: Text(
-                            "+" + valence.value.toString(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          onPressed: () => onTap?.call(element, valence)),
+          subtitle: element.valencias.length == 1
+              ? InkWell(
+                  onTap: () => onTap?.call(element, element.valencias.first),
+                  child: FilledButton(
+                    /* style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ), */
+                    child: Text(
+                      "+" + element.valencias.first.value.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  )
-                  .toList()),
+                    onPressed: () =>
+                        onTap?.call(element, element.valencias.first),
+                  ),
+                )
+              : Wrap(
+                  children: element.valencias.map((valence) {
+                  return valence.typeElement != TypeElement.metal
+                      ? SizedBox()
+                      : Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2.5),
+                          child: FilledButton(
+                              style: TextButton.styleFrom(
+                                /* backgroundColor: Colors.blue, */
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              child: Text(
+                                "+" + valence.value.toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              onPressed: () => onTap?.call(element, valence)),
+                        );
+                }).toList()),
           leading: CircleAvatar(child: Text(element.symbol)),
         ),
       ),
     );
+  }
+}
+
+class CardsElementsValences extends StatelessWidget {
+  const CardsElementsValences({
+    super.key,
+    required this.onPressed,
+    required this.isShowWithOutSimplify,
+  });
+  final Function() onPressed;
+  final bool isShowWithOutSimplify;
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onPressed,
+      tooltip: !isShowWithOutSimplify
+          ? "Mostrar formula sin simplificar"
+          : "Mostrar formula simplificada",
+      icon: Icon(
+        color: Colors.white,
+        size: 25,
+        isShowWithOutSimplify
+            ? Icons.remove_red_eye_outlined
+            : Icons.remove_red_eye,
+      ),
+    );
+  }
+}
+
+class ShowMessageSimply extends StatelessWidget {
+  const ShowMessageSimply({
+    super.key,
+    required this.isShowWithOutSimplify,
+    required this.isSimplify,
+  });
+  final bool isShowWithOutSimplify;
+  final bool isSimplify;
+  @override
+  Widget build(BuildContext context) {
+    return isShowWithOutSimplify
+        ? SimpleText(
+            padding: EdgeInsets.only(top: 10),
+            text: !isSimplify
+                ? "La formula simplificada"
+                : "La formula sin simplificar",
+            style: TextStyle(
+              fontSize: 19,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          )
+        : SizedBox();
   }
 }

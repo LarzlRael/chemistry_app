@@ -21,8 +21,8 @@ class CardDetailCompound extends StatelessWidget {
 
     return Card(
       child: Container(
-        width: size.width * 0.75,
-        height: size.height * 0.45,
+        width: size.width * 0.90,
+        height: size.height * 0.65,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -47,21 +47,54 @@ class CardDetailCompound extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ...children,
-                Text(
-                  compoundName,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
                 if (extraInfo != null) ...extraInfo!,
               ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                compoundName,
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class ElementAndAndName extends StatelessWidget {
+  const ElementAndAndName({
+    super.key,
+    required this.element,
+    required this.elementName,
+    this.padding,
+    this.fontSize = 25,
+  });
+  final Widget element;
+  final String elementName;
+  final EdgeInsets? padding;
+  final double? fontSize;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        element,
+        SimpleText(
+          text: elementName,
+          fontSize: fontSize,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+          textAlign: TextAlign.center,
+          padding: padding,
+        ),
+      ],
     );
   }
 }

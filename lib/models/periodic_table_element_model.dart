@@ -2,7 +2,7 @@
 part of 'models.dart';
 
 enum Group {
-  nullGroup,
+  todo,
   monovalente,
   bivalente,
   trivalente,

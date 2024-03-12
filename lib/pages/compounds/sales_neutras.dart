@@ -100,7 +100,7 @@ class SalesNeutras extends HookWidget {
                             FormulaInText(
                               compoundFormula: ionSelected.value!.formula,
                               typeCompound: ionSelected.value!.type,
-                              fontSize: 20,
+                              fontSize: 30,
                               textStyle: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
@@ -121,11 +121,11 @@ class SalesNeutras extends HookWidget {
                 : Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: FormulaInText(
                           compoundFormula: result.value!.formula,
                           typeCompound: result.value!.type,
-                          fontSize: 35,
+                          fontSize: 60,
                           textStyle: TextStyle(
                               fontWeight: FontWeight.w600, color: Colors.black),
                         ),

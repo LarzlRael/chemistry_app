@@ -15,7 +15,7 @@ class CompoundNotifier extends StateNotifier<CompoundState> {
   }
 
   void filterByGroup(Group group) {
-    if (group == Group.nullGroup) {
+    if (group == Group.todo) {
       setSearched(allListPeriodic);
     }
     state = state.copyWith(

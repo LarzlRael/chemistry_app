@@ -40,8 +40,10 @@ class ElementCard extends StatelessWidget {
     required this.element,
     this.onTap,
     this.size = 200,
+    this.fontSize = 55,
   });
   final double? size;
+  final double fontSize;
   final PeriodicTableElement element;
   final Function(PeriodicTableElement element)? onTap;
 
@@ -67,10 +69,12 @@ class ElementCard extends StatelessWidget {
                 element: element,
                 valencias: element.valencias,
                 size: size,
+                fontSize: fontSize,
                 group: element.group.name.toCapitalize())
             : FlipCard(
                 key: key,
                 front: CardElement(
+                  fontSize: fontSize,
                   size: size,
                   element: element,
                   valencias: metalValencias,
@@ -82,6 +86,7 @@ class ElementCard extends StatelessWidget {
                   ),
                 ),
                 back: CardElement(
+                  fontSize: fontSize,
                   size: size,
                   color: Colors.purple,
                   element: element,
@@ -197,6 +202,7 @@ class CardElement extends StatelessWidget {
   final Widget? extraWidget;
   final Color? color;
   final double? size;
+  final double fontSize;
   const CardElement({
     super.key,
     required this.element,
@@ -205,10 +211,18 @@ class CardElement extends StatelessWidget {
     this.extraWidget,
     this.color,
     this.size = 200,
+    this.fontSize = 55,
   });
 
   @override
   Widget build(BuildContext context) {
+/* fontSize: 55,
+fontSize: 30,
+fontSize: 12,
+fontSize: 20,
+fontSize: 16,
+fontSize: 16,
+fontSize: 16, */
     return Container(
       /* key: key, */
       decoration: BoxDecoration(
@@ -236,14 +250,14 @@ class CardElement extends StatelessWidget {
                 children: [
                   SimpleText(
                     text: element.symbol,
-                    fontSize: 55,
+                    fontSize: fontSize,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     lineHeight: 1,
                   ),
                   SimpleText(
                     text: element.name,
-                    fontSize: 30,
+                    fontSize: fontSize * 0.55,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
                     lineHeight: 1,
@@ -266,7 +280,7 @@ class CardElement extends StatelessWidget {
                             text: e.value.toString(),
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                            fontSize: fontSize * 0.3,
                             lineHeight: 1,
                           ),
                           SimpleText(
@@ -274,7 +288,7 @@ class CardElement extends StatelessWidget {
                                 e.suffix.name.snakeCaseToWords().toCapitalize(),
                             color: Colors.white,
                             fontWeight: FontWeight.w300,
-                            fontSize: 12,
+                            fontSize: fontSize * 0.25,
                             lineHeight: 1,
                           ),
                         ],
@@ -286,7 +300,7 @@ class CardElement extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
-                    fontSize: 20,
+                    fontSize: fontSize * 0.4,
                   ),
           ),
           Container(
@@ -297,7 +311,7 @@ class CardElement extends StatelessWidget {
                 text: element.group.name.toCapitalize(),
                 color: Colors.white,
                 fontWeight: FontWeight.w400,
-                fontSize: 16,
+                fontSize: fontSize * 0.3,
               ),
             ),
           ),
@@ -308,7 +322,7 @@ class CardElement extends StatelessWidget {
               text: group,
               color: Colors.white,
               fontWeight: FontWeight.w900,
-              fontSize: 16,
+              fontSize: fontSize * 0.3,
             ),
           ),
           extraWidget != null
