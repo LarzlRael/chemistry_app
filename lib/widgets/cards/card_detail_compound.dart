@@ -1,23 +1,25 @@
 part of '../widgets.dart';
 
-class CardDetailCompound extends StatelessWidget {
+class CardDetailCompound extends HookWidget {
   const CardDetailCompound({
+    this.formulaSize = 90,
     super.key,
     required this.children,
-    required this.compoundName,
+    required this.compound,
     required this.background,
     this.extraAction,
     this.extraInfo,
   });
   final List<Widget> children;
   final List<Widget>? extraInfo;
-  final String compoundName;
+  final Compound compound;
   final Color background;
   final Widget? extraAction;
-
+  final double formulaSize;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isSimplify = useState(false);
 
     return Card(
       child: Container(
@@ -37,27 +39,54 @@ class CardDetailCompound extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            if (extraAction != null)
+            if (compound.type != TypeCompound.ion &&
+                compound.formula.first.isSimplified)
               Positioned(
                 top: 5,
                 right: 5,
-                child: extraAction!,
+                child: CardsElementsValences(
+                  onPressed: () {
+                    isSimplify.value = !isSimplify.value;
+                  },
+                  isShowWithOutSimplify: isSimplify.value,
+                ),
               ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ...children,
+                FormulaInText(
+                  gap: 1,
+                  fontSize: formulaSize,
+                  compoundFormula: isSimplify.value
+                      ? compound.formula
+                          .map((e) => e.copyWith(value: e.value * 2))
+                          .toList()
+                      : compound.formula,
+                  textStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+                compound.type == TypeCompound.ion
+                    ? SizedBox()
+                    : ShowMessageSimply(
+                        isShowWithOutSimplify:
+                            compound.formula.first.isSimplified,
+                        isSimplify: isSimplify.value,
+                      ),
                 if (extraInfo != null) ...extraInfo!,
               ],
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Text(
-                compoundName,
+                compound.name,
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
+                  height: 1,
                 ),
                 textAlign: TextAlign.center,
               ),

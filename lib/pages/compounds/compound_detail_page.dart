@@ -67,27 +67,17 @@ class CompoundByType extends StatelessWidget {
   }
 }
 
-class OxideDetail extends HookWidget {
+class OxideDetail extends StatelessWidget {
   final Compound compound;
   const OxideDetail({super.key, required this.compound});
   @override
   Widget build(BuildContext context) {
-    final isShowWithOutSimplify = useState(false);
-
     final textStyleAll = TextStyle(
       fontWeight: FontWeight.w600,
       color: Colors.white,
     );
 
     return CardDetailCompound(
-      extraAction: !compound.formula.first.isSimplified
-          ? null
-          : CardsElementsValences(
-              onPressed: () {
-                isShowWithOutSimplify.value = !isShowWithOutSimplify.value;
-              },
-              isShowWithOutSimplify: isShowWithOutSimplify.value,
-            ),
       extraInfo: [
         SimpleText(
           padding: EdgeInsets.only(top: 10),
@@ -100,13 +90,13 @@ class OxideDetail extends HookWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        ShowMessageSimply(
+        /*  ShowMessageSimply(
           isShowWithOutSimplify: compound.formula.first.isSimplified,
           isSimplify: isShowWithOutSimplify.value,
-        )
+        ) */
       ],
       background: colorByCompoundType(compound.type),
-      compoundName: compound.name,
+      compound: compound,
       children: [
         /* Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -162,9 +152,9 @@ class OxideDetail extends HookWidget {
           ],
         ),
         lineSeparator(),
-        FormulaInText(
-          gap: 5,
-          fontSize: 100,
+        /* FormulaInText(
+          gap: 1,
+          fontSize: 90,
           compoundFormula: isShowWithOutSimplify.value
               ? compound.formula
                   .map((e) => e.copyWith(
@@ -173,7 +163,7 @@ class OxideDetail extends HookWidget {
                   .toList()
               : compound.formula,
           textStyle: textStyleAll,
-        ),
+        ), */
       ],
     );
   }
@@ -244,7 +234,7 @@ class PeroxideDetail extends StatelessWidget {
             : SizedBox(),
       ],
       background: colorByCompoundType(compound.type),
-      compoundName: compound.name,
+      compound: compound,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -284,7 +274,7 @@ class PeroxideDetail extends StatelessWidget {
           ],
         ),
         lineSeparator(),
-        FormulaInText(
+        /* FormulaInText(
           compoundFormula: compound.formula,
           fontSize: 100,
           gap: 2.5,
@@ -292,7 +282,7 @@ class PeroxideDetail extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: Colors.white,
           ),
-        ),
+        ), */
       ],
     );
   }
@@ -307,7 +297,7 @@ class OxidosDoubles extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardDetailCompound(
       background: colorByCompoundType(compound.type),
-      compoundName: compound.name,
+      compound: compound,
       children: compound.isSpecialCase
           ? [
               Center(
@@ -362,14 +352,6 @@ class OxidosDoubles extends StatelessWidget {
                 ],
               ),
               lineSeparator(),
-              FormulaInText(
-                compoundFormula: compound.formula,
-                fontSize: 70,
-                textStyle: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
             ],
       extraInfo: compound.isSpecialCase
           ? [
@@ -396,8 +378,9 @@ class Hidroxido extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardDetailCompound(
+      formulaSize: 70,
       background: colorByCompoundType(compound.type),
-      compoundName: compound.name,
+      compound: compound,
       children: [
         //*  Fix this show only one element by element
         ElementAndAndName(
@@ -437,14 +420,6 @@ class Hidroxido extends StatelessWidget {
           ),
         ),
         lineSeparator(),
-        FormulaInText(
-          compoundFormula: compound.formula,
-          fontSize: 80,
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
       ],
     );
   }
@@ -458,8 +433,9 @@ class Hidruro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardDetailCompound(
+      formulaSize: 100,
       background: colorByCompoundType(compound.type),
-      compoundName: compound.name,
+      compound: compound,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -505,49 +481,21 @@ class Hidruro extends StatelessWidget {
           ],
         ),
         lineSeparator(),
-        FormulaInText(
-          compoundFormula: compound.formula,
-          fontSize: 100,
-          gap: 5,
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        /* SimpleText(
-          text: compound.name,
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-        ), */
       ],
     );
   }
 }
 
-class Anhidrido extends HookWidget {
+class Anhidrido extends StatelessWidget {
   final Compound compound;
 
   const Anhidrido({super.key, required this.compound});
 
   @override
   Widget build(BuildContext context) {
-    final isShowWithOutSimplify = useState(false);
     return CardDetailCompound(
       background: colorByCompoundType(compound.type),
-      compoundName: compound.name,
-      extraInfo: [
-        ShowMessageSimply(
-          isShowWithOutSimplify: compound.formula.first.isSimplified,
-          isSimplify: isShowWithOutSimplify.value,
-        ),
-      ],
-      extraAction: !compound.formula.first.isSimplified
-          ? null
-          : CardsElementsValences(
-              onPressed: () {
-                isShowWithOutSimplify.value = !isShowWithOutSimplify.value;
-              },
-              isShowWithOutSimplify: isShowWithOutSimplify.value,
-            ),
+      compound: compound,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -597,29 +545,16 @@ class Anhidrido extends HookWidget {
           ],
         ),
         lineSeparator(),
-        FormulaInText(
-          compoundFormula: !isShowWithOutSimplify.value
-              ? compound.formula
-              : compound.formula
-                  .map((e) => e.copyWith(value: e.value * 2))
-                  .toList(),
-          fontSize: 100,
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
       ],
     );
   }
 }
 
-class AcidoOxacido extends HookWidget {
+class AcidoOxacido extends StatelessWidget {
   final Compound compound;
   const AcidoOxacido({super.key, required this.compound});
   @override
   Widget build(BuildContext context) {
-    final isShowWithOutSimplify = useState(false);
     final styleText = TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w600,
@@ -627,21 +562,7 @@ class AcidoOxacido extends HookWidget {
     );
     return CardDetailCompound(
       background: colorByCompoundType(compound.type),
-      extraAction: !compound.formula.first.isSimplified
-          ? null
-          : CardsElementsValences(
-              onPressed: () {
-                isShowWithOutSimplify.value = !isShowWithOutSimplify.value;
-              },
-              isShowWithOutSimplify: isShowWithOutSimplify.value,
-            ),
-      extraInfo: [
-        ShowMessageSimply(
-          isShowWithOutSimplify: compound.formula.first.isSimplified,
-          isSimplify: isShowWithOutSimplify.value,
-        ),
-      ],
-      compoundName: compound.name,
+      compound: compound,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -685,19 +606,6 @@ class AcidoOxacido extends HookWidget {
           ],
         ),
         lineSeparator(),
-        FormulaInText(
-          gap: 2.5,
-          compoundFormula: isShowWithOutSimplify.value
-              ? compound.formula
-                  .map((e) => e.copyWith(value: e.value * 2))
-                  .toList()
-              : compound.formula,
-          fontSize: 75,
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
       ],
     );
   }
@@ -715,7 +623,8 @@ class IonDetail extends StatelessWidget {
     );
     return CardDetailCompound(
       background: colorByCompoundType(compound.type),
-      compoundName: compound.name,
+      compound: compound,
+      formulaSize: 85,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -735,44 +644,20 @@ class IonDetail extends StatelessWidget {
           ],
         ),
         lineSeparator(),
-        FormulaInText(
-          gap: 2.5,
-          compoundFormula: compound.formula,
-          fontSize: 90,
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
       ],
     );
   }
 }
 
-class AcidoOxacidoPoliHidratado extends HookWidget {
+class AcidoOxacidoPoliHidratado extends StatelessWidget {
   final Compound compound;
   const AcidoOxacidoPoliHidratado({super.key, required this.compound});
   @override
   Widget build(BuildContext context) {
-    final isShowWithOutSimplify = useState(false);
-
     return CardDetailCompound(
+      formulaSize: 80,
       background: colorByCompoundType(compound.type),
-      compoundName: compound.name,
-      extraInfo: [
-        ShowMessageSimply(
-          isShowWithOutSimplify: compound.formula.first.isSimplified,
-          isSimplify: isShowWithOutSimplify.value,
-        ),
-      ],
-      extraAction: !compound.formula.first.isSimplified
-          ? null
-          : CardsElementsValences(
-              onPressed: () {
-                isShowWithOutSimplify.value = !isShowWithOutSimplify.value;
-              },
-              isShowWithOutSimplify: isShowWithOutSimplify.value,
-            ),
+      compound: compound,
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -782,7 +667,7 @@ class AcidoOxacidoPoliHidratado extends HookWidget {
               element: FormulaInText(
                 compoundFormula: compound.compound!.formula,
                 gap: 2.5,
-                fontSize: 70,
+                fontSize: 65,
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
@@ -805,7 +690,7 @@ class AcidoOxacidoPoliHidratado extends HookWidget {
                   ),
                 ],
                 gap: 2.5,
-                fontSize: 70,
+                fontSize: 65,
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
@@ -816,19 +701,6 @@ class AcidoOxacidoPoliHidratado extends HookWidget {
           ],
         ),
         lineSeparator(),
-        FormulaInText(
-          gap: 2.5,
-          compoundFormula: isShowWithOutSimplify.value
-              ? compound.formula
-                  .map((e) => e.copyWith(value: e.value * 2))
-                  .toList()
-              : compound.formula,
-          fontSize: 80,
-          textStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
       ],
     );
   }

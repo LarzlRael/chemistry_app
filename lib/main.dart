@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:templat_project/theme/theme.dart';
 
 import 'constants/enviroments.dart';
 import 'package:templat_project/router/app_router.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       /* theme: appTheme.getTheme(), */
+      theme: AppTheme2(isDarkmode: false).getTheme(),
     );
   }
 }

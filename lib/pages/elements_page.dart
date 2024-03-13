@@ -97,7 +97,7 @@ class SearchBarElement extends ConsumerWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: Colors.grey[200],
+        /* color: Colors.grey[200], */
       ),
       height: 50,
       width: double.infinity,

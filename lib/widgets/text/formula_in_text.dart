@@ -18,11 +18,14 @@ class FormulaInText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final exeption = [1, 0];
     return Wrap(
       spacing: gap ?? 0, // Espacio entre los elementos
       children: compoundFormula.map((e) {
+        final isOneOrCero =
+            compoundFormula.length == 1 ? false : exeption.contains(e.value);
         final position =
-            !e.isSuperIndex ? (fontSize! / 1.5) : (fontSize! / 6) * -1;
+            !e.isSuperIndex ? (fontSize! / 2.5) : (fontSize! / 6) * -1;
         return Wrap(
           spacing: gap ?? 0, // Espacio entre los elementos
           crossAxisAlignment: WrapCrossAlignment.center,
@@ -36,11 +39,16 @@ class FormulaInText extends StatelessWidget {
             ),
             Transform.translate(
               offset: Offset(0.0, position),
-              child: Text(
-                e.value == 1 || e.value == 0 ? '' : e.value.toString(),
-                style: textStyle?.copyWith(
-                  fontSize: fontSize! * 0.50,
-                  fontWeight: FontWeight.bold,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 150),
+                opacity: isOneOrCero ? 0.0 : 1.0,
+                child: Text(
+                  e.value.toString(),
+                  style: textStyle?.copyWith(
+                    fontSize: isOneOrCero ? fontSize! * 0.25 : fontSize! * 0.50,
+                    fontWeight: FontWeight.bold,
+                    color: isOneOrCero ? Colors.transparent : null,
+                  ),
                 ),
               ),
             )

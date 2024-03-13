@@ -98,6 +98,7 @@ final specialNamesCases = {
   'Mn': 'mangan',
   'S': 'sulfur',
   'N': 'nitr',
+  'As': 'arseni',
 };
 
 class Compound {

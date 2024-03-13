@@ -87,7 +87,7 @@ class ListTileCompound extends StatelessWidget {
                   compoundFormula: element.formula,
                   typeCompound: element.type,
                   textStyle: TextStyle(
-                    color: Colors.black,
+                    /* color: Colors.black, */
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
                   ),

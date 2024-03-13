@@ -157,8 +157,8 @@ class ShowMessageSimply extends StatelessWidget {
         ? SimpleText(
             padding: EdgeInsets.only(top: 10),
             text: !isSimplify
-                ? "La formula simplificada"
-                : "La formula sin simplificar",
+                ? "Formula simplificada"
+                : "Formula sin simplificar",
             style: TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.w400,

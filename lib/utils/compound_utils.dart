@@ -274,17 +274,19 @@ String getValueOrSame(String key, String defaultValue) {
 String setAnhidridoName(
     PeriodicTableElement periodicTableElement, Valencia valence) {
   if (periodicTableElement.symbol == "F") {
-    return "$anhidridoName de fluor";
+    return "$anhidridoName hipofluoroso";
   }
   if (specialNamesCases.containsKey(periodicTableElement.symbol)) {
-    return "$anhidridoName ${specialNamesCases[periodicTableElement.symbol]}${valence.suffix.name}";
+    return "$anhidridoName ${specialNamesCases[periodicTableElement.symbol]}${valence.suffix.name}"
+        .replaceAll('iico', 'ico');
   }
   if (valence.suffix == TypeValencia.ico ||
       valence.suffix == TypeValencia.oso) {
     return "$anhidridoName ${periodicTableElement.name.toLowerCase().substring(
-          0,
-          periodicTableElement.name.length - 1,
-        )}${valence.suffix.name}";
+              0,
+              periodicTableElement.name.length - 1,
+            )}${valence.suffix.name}"
+        .replaceAll('iico', 'ico');
   }
 
   return "$anhidridoName de ${periodicTableElement.name.toLowerCase()}";
@@ -297,13 +299,17 @@ String setAnhidridoHipoOsoName(
 
   if (specialNamesCases.containsKey(periodicTableElement.symbol)) {
     name =
-        "$anhidridoName ${split[0]}${specialNamesCases[periodicTableElement.symbol]}${split[1]}";
+        "$anhidridoName ${split[0]}${specialNamesCases[periodicTableElement.symbol]}${split[1]}"
+            .replaceAll('iico', 'ico');
+    ;
   } else {
     name =
         "$anhidridoName ${split[0]}${periodicTableElement.name.toLowerCase().substring(
-              0,
-              periodicTableElement.name.length - 1,
-            )}${split[1]}";
+                  0,
+                  periodicTableElement.name.length - 1,
+                )}${split[1]}"
+            .replaceAll('iico', 'ico');
+    ;
   }
 
   return name;

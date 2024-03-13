@@ -533,7 +533,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     valencias: [
       Valencia(
         value: -1,
-        suffix: TypeValencia.oso,
+        suffix: TypeValencia.hipo_oso,
         typeElement: TypeElement.no_metal,
       ),
     ],

@@ -59,3 +59,18 @@ class AppTheme {
         isDarkMode: isDarkMode ?? this.isDarkMode,
       );
 }
+
+class AppTheme2 {
+  final bool isDarkmode;
+
+  AppTheme2({required this.isDarkmode});
+
+  ThemeData getTheme() => ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.purple,
+        brightness: isDarkmode ? Brightness.dark : Brightness.light,
+        /* listTileTheme: const ListTileThemeData(
+          iconColor: Colors.green,
+        ), */
+      );
+}

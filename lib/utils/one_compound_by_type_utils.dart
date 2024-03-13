@@ -287,7 +287,7 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
     );
     final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
-      value: elementValue,
+      value: element.symbol == 'F' ? 1 : elementValue,
     );
     String name = "";
 
