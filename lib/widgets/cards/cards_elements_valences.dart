@@ -77,7 +77,7 @@ class ListTileElementValences extends StatelessWidget {
                     child: Text(
                       "+" + element.valencias.first.value.toString(),
                       style: TextStyle(
-                        color: Colors.white,
+                        /* color: Colors.white, */
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
                       ),
@@ -102,7 +102,7 @@ class ListTileElementValences extends StatelessWidget {
                               child: Text(
                                 "+" + valence.value.toString(),
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  /* color: Colors.white, */
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,
                                 ),

@@ -47,16 +47,30 @@ class CompoundByType extends StatelessWidget {
           compoundWidget: Hidroxido(compound: compound),
         );
       case TypeCompound.hidruro:
-        return Hidruro(compound: compound);
+        return ElementDetailCardWithPeriodicElement(
+          periodicTableElement: compound.periodicTableElement,
+          compoundWidget: Hidruro(compound: compound),
+        );
 
       case TypeCompound.anhidrido:
-        return Anhidrido(compound: compound);
+        return ElementDetailCardWithPeriodicElement(
+          periodicTableElement: compound.periodicTableElement,
+          compoundWidget: Anhidrido(
+            compound: compound,
+          ),
+        );
 
       case TypeCompound.acido_oxacido:
-        return AcidoOxacido(compound: compound);
+        return ElementDetailCardWithPeriodicElement(
+          compoundWidget: AcidoOxacido(compound: compound),
+          periodicTableElement: compound.periodicTableElement,
+        );
 
       case TypeCompound.acido_polihidratado:
-        return AcidoOxacidoPoliHidratado(compound: compound);
+        return ElementDetailCardWithPeriodicElement(
+          compoundWidget: AcidoOxacidoPoliHidratado(compound: compound),
+          periodicTableElement: compound.periodicTableElement,
+        );
 
       case TypeCompound.ion:
         return IonDetail(compound: compound);
@@ -179,26 +193,97 @@ class ElementDetailCardWithPeriodicElement extends HookWidget {
   final Widget compoundWidget;
   @override
   Widget build(BuildContext context) {
+    final showValences = useState(false);
     return SizedBox.expand(
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            right: 0,
-            child: ElementCard(
-              element: periodicTableElement,
-              size: 150,
-              onTap: (element) => context.push(
-                ElementsDetail.routeName,
-                extra: element,
+      child: InkWell(
+        splashFactory: NoSplash.splashFactory,
+        highlightColor: Colors.transparent,
+        onTap: () => showValences.value ? showValences.value = false : null,
+        splashColor: null,
+        child: Stack(
+          children: [
+            AnimatedOpacity(
+              duration: Duration(milliseconds: 250),
+              opacity: showValences.value ? 0.35 : 1,
+              child: Align(
+                alignment: Alignment.center,
+                child: compoundWidget,
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: compoundWidget,
-          ),
-        ],
+            Positioned(
+                top: 0,
+                right: 0,
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 250),
+                  child: showValences.value
+                      ? ElementCard(
+                          element: periodicTableElement,
+                          size: 180,
+                          onTap: (el) =>
+                              showValences.value = !showValences.value)
+                      : InkWell(
+                          onTap: () => showValences.value = true,
+                          child: Card(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    colorByGroup(periodicTableElement.group),
+                                    colorByGroup(periodicTableElement.group)
+                                        .withOpacity(0.8),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    periodicTableElement.symbol,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      /* color: Colors.white, */
+                                    ),
+                                  ),
+                                  Text(
+                                    periodicTableElement.name,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      /* color: Colors.white, */
+                                    ),
+                                  ),
+                                  Row(
+                                    children: periodicTableElement.valencias
+                                        .map(
+                                          (e) => Text(
+                                            e.value.toString() + " ",
+                                            style: TextStyle(
+                                              /* color: Colors.white, */
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                                  )
+                                ],
+                              ),
+                            ),
+                            /* color: Colors.white, */
+                          ),
+                        ),
+                )
+
+                /* onTap: (element) => context.push(
+                  ElementsDetail.routeName,
+                  extra: element,
+                ), */
+
+                ),
+          ],
+        ),
       ),
     );
   }
@@ -295,9 +380,20 @@ class OxidosDoubles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final getOxides = generateOxidosByOneElement(compound.periodicTableElement)
+        .mapIndexed((index, e) =>
+            e.periodicTableElement.group == Group.bitetravalente && index == 0
+                ? e.copyWith(
+                    formula: e.formula
+                        .mapIndexed((index, e) =>
+                            index == 0 ? e.copyWith(suffix: '2' + e.suffix) : e)
+                        .toList())
+                : e)
+        .toList();
     return CardDetailCompound(
       background: colorByCompoundType(compound.type),
       compound: compound,
+      formulaSize: 80,
       children: compound.isSpecialCase
           ? [
               Center(
@@ -319,19 +415,25 @@ class OxidosDoubles extends StatelessWidget {
             ]
           : [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
                   Column(
                     children: [
-                      ...generateOxidosByOneElement(
-                              compound.periodicTableElement)
-                          .map(
+                      ...getOxides.map(
                         (e) => ElementAndAndName(
                           elementName: e.name.replaceAll('Oxido', 'Ox.'),
                           element: FormulaInText(
                             gap: 2.5,
                             compoundFormula: e.formula,
-                            fontSize: 65,
+                            fontSize: 85,
                             textStyle: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
@@ -340,14 +442,6 @@ class OxidosDoubles extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 50,
-                    ),
                   ),
                 ],
               ),
@@ -381,6 +475,7 @@ class Hidroxido extends StatelessWidget {
       formulaSize: 70,
       background: colorByCompoundType(compound.type),
       compound: compound,
+      height: 0.6,
       children: [
         //*  Fix this show only one element by element
         ElementAndAndName(
@@ -433,6 +528,8 @@ class Hidruro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardDetailCompound(
+      height: 0.45,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       formulaSize: 100,
       background: colorByCompoundType(compound.type),
       compound: compound,
@@ -480,7 +577,7 @@ class Hidruro extends StatelessWidget {
             ),
           ],
         ),
-        lineSeparator(),
+        SizedBox(),
       ],
     );
   }
@@ -494,6 +591,8 @@ class Anhidrido extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardDetailCompound(
+      height: 0.5,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       background: colorByCompoundType(compound.type),
       compound: compound,
       children: [
@@ -544,7 +643,7 @@ class Anhidrido extends StatelessWidget {
             ),
           ],
         ),
-        lineSeparator(),
+        SizedBox(),
       ],
     );
   }
@@ -555,57 +654,59 @@ class AcidoOxacido extends StatelessWidget {
   const AcidoOxacido({super.key, required this.compound});
   @override
   Widget build(BuildContext context) {
-    final styleText = TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    );
     return CardDetailCompound(
+      formulaSize: 80,
+      height: 0.50,
+      mainAxisAlignment: MainAxisAlignment.start,
       background: colorByCompoundType(compound.type),
       compound: compound,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElementAndAndName(
-              element: FormulaInText(
-                compoundFormula: compound.compound!.formula,
-                fontSize: 40,
-                textStyle: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+        Container(
+          margin: EdgeInsets.only(top: 100),
+          /* color: Colors.blue, */
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElementAndAndName(
+                element: FormulaInText(
+                  compoundFormula: compound.compound!.formula,
+                  fontSize: 40,
+                  textStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+                elementName: compound.compound!.name.replaceAll(
+                  anhidridoName,
+                  'Anh.',
                 ),
               ),
-              elementName: compound.compound!.name.replaceAll(
-                anhidridoName,
-                'Anh.',
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            ElementAndAndName(
-              elementName: "Agua",
-              element: FormulaInText(
-                compoundFormula: [
-                  ValenceCompound(value: 2, suffix: "H"),
-                  ValenceCompound(value: 1, suffix: "0"),
-                ],
-                fontSize: 40,
-                textStyle: TextStyle(
-                  fontWeight: FontWeight.w600,
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Icon(
+                  Icons.add,
                   color: Colors.white,
+                  size: 30,
                 ),
               ),
-            ),
-          ],
+              ElementAndAndName(
+                elementName: "Agua",
+                element: FormulaInText(
+                  compoundFormula: [
+                    ValenceCompound(value: 2, suffix: "H"),
+                    ValenceCompound(value: 1, suffix: "0"),
+                  ],
+                  fontSize: 40,
+                  textStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-        lineSeparator(),
+        /* lineSeparator(), */
       ],
     );
   }
@@ -622,9 +723,11 @@ class IonDetail extends StatelessWidget {
       color: Colors.white,
     );
     return CardDetailCompound(
+      height: 0.45,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       background: colorByCompoundType(compound.type),
       compound: compound,
-      formulaSize: 85,
+      formulaSize: 80,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -643,7 +746,7 @@ class IonDetail extends StatelessWidget {
             ),
           ],
         ),
-        lineSeparator(),
+        /* lineSeparator(), */
       ],
     );
   }
@@ -655,52 +758,66 @@ class AcidoOxacidoPoliHidratado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CardDetailCompound(
+      height: 0.60,
       formulaSize: 80,
       background: colorByCompoundType(compound.type),
       compound: compound,
       children: [
-        Column(
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElementAndAndName(
-              padding: EdgeInsets.only(top: 10),
-              element: FormulaInText(
-                compoundFormula: compound.compound!.formula,
-                gap: 2.5,
-                fontSize: 65,
-                textStyle: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
+            Container(
+              /* margin: EdgeInsets.symmetric(horizontal: 10), */
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 30,
               ),
-              elementName: compound.compound!.name,
             ),
-            ElementAndAndName(
-              padding: EdgeInsets.only(top: 10),
-              element: FormulaInText(
-                compoundFormula: [
-                  ValenceCompound(
-                    value: 2,
-                    suffix:
-                        "${mapMetaPiroOrtoReverse[compound.name.split(" ")[1]]}H",
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElementAndAndName(
+                  padding: EdgeInsets.only(top: 0),
+                  element: FormulaInText(
+                    compoundFormula: compound.compound!.formula,
+                    gap: 2.5,
+                    fontSize: 65,
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
-                  ValenceCompound(
-                    value: 1,
-                    suffix: "0",
-                  ),
-                ],
-                gap: 2.5,
-                fontSize: 65,
-                textStyle: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  elementName: compound.compound!.name,
                 ),
-              ),
-              elementName: 'Agua',
+                ElementAndAndName(
+                  padding: EdgeInsets.only(top: 0),
+                  element: FormulaInText(
+                    compoundFormula: [
+                      ValenceCompound(
+                        value: 2,
+                        suffix:
+                            "${mapMetaPiroOrtoReverse[compound.name.split(" ")[1]]}H",
+                      ),
+                      ValenceCompound(
+                        value: 1,
+                        suffix: "0",
+                      ),
+                    ],
+                    gap: 2.5,
+                    fontSize: 65,
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  elementName: 'Agua',
+                ),
+              ],
             ),
           ],
         ),
-        lineSeparator(),
+        /* lineSeparator(), */
       ],
     );
   }

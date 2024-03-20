@@ -357,7 +357,7 @@ final List<PeriodicTableElement> allListPeriodic = [
       ),
     ],
     name: 'Estaño',
-    symbol: 'SN',
+    symbol: 'Sn',
     atomicNumber: '',
     group: Group.bitetravalente,
   ),

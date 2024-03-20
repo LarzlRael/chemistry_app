@@ -85,6 +85,8 @@ class CompoundsOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
+        customBorder:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         onTap: () {
           if (onTap != null) {
             onTap!(compoundCard.name, compoundCard.type);

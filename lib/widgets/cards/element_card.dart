@@ -41,9 +41,11 @@ class ElementCard extends StatelessWidget {
     this.onTap,
     this.size = 200,
     this.fontSize = 55,
+    this.borderRadius = 0,
   });
   final double? size;
   final double fontSize;
+  final double borderRadius;
   final PeriodicTableElement element;
   final Function(PeriodicTableElement element)? onTap;
 
@@ -70,12 +72,14 @@ class ElementCard extends StatelessWidget {
                 valencias: element.valencias,
                 size: size,
                 fontSize: fontSize,
+                borderRadius: borderRadius,
                 group: element.group.name.toCapitalize())
             : FlipCard(
                 key: key,
                 front: CardElement(
                   fontSize: fontSize,
                   size: size,
+                  borderRadius: borderRadius,
                   element: element,
                   valencias: metalValencias,
                   group: "Metal",
@@ -90,6 +94,7 @@ class ElementCard extends StatelessWidget {
                   size: size,
                   color: Colors.purple,
                   element: element,
+                  borderRadius: borderRadius,
                   valencias: noMetalValencias,
                   group: "No metal",
                   extraWidget: Icon(
@@ -203,6 +208,7 @@ class CardElement extends StatelessWidget {
   final Color? color;
   final double? size;
   final double fontSize;
+  final double borderRadius;
   const CardElement({
     super.key,
     required this.element,
@@ -212,6 +218,7 @@ class CardElement extends StatelessWidget {
     this.color,
     this.size = 200,
     this.fontSize = 55,
+    this.borderRadius = 0,
   });
 
   @override
@@ -226,6 +233,7 @@ fontSize: 16, */
     return Container(
       /* key: key, */
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderRadius),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -239,100 +247,104 @@ fontSize: 16, */
       ),
       width: size,
       height: size,
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              margin: EdgeInsets.only(top: 15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SimpleText(
-                    text: element.symbol,
-                    fontSize: fontSize,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    lineHeight: 1,
-                  ),
-                  SimpleText(
-                    text: element.name,
-                    fontSize: fontSize * 0.55,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                    lineHeight: 1,
-                  ),
-                ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                margin: EdgeInsets.only(top: 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SimpleText(
+                      text: element.symbol,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      lineHeight: 1,
+                    ),
+                    SimpleText(
+                      text: element.name,
+                      fontSize: fontSize * 0.55,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                      lineHeight: 1,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Positioned(
-            top: 30,
-            right: 5,
-            child: valencias.length > 1
-                ? Wrap(
-                    children: valencias.map((e) {
-                    return Container(
-                      margin: EdgeInsets.only(left: 5),
-                      child: Column(
-                        children: [
-                          SimpleText(
-                            text: e.value.toString(),
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: fontSize * 0.3,
-                            lineHeight: 1,
-                          ),
-                          SimpleText(
-                            text:
-                                e.suffix.name.snakeCaseToWords().toCapitalize(),
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300,
-                            fontSize: fontSize * 0.25,
-                            lineHeight: 1,
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList())
-                : SimpleText(
-                    text: valencias.first.value.toString(),
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: fontSize * 0.4,
-                  ),
-          ),
-          Container(
-            margin: EdgeInsets.only(bottom: 10),
-            child: Align(
-              alignment: Alignment.bottomCenter,
+            Positioned(
+              top: 30,
+              right: 5,
+              child: valencias.length > 1
+                  ? Wrap(
+                      children: valencias.map((e) {
+                      return Container(
+                        margin: EdgeInsets.only(left: 5),
+                        child: Column(
+                          children: [
+                            SimpleText(
+                              text: e.value.toString(),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: fontSize * 0.3,
+                              lineHeight: 1,
+                            ),
+                            SimpleText(
+                              text: e.suffix.name
+                                  .snakeCaseToWords()
+                                  .toCapitalize(),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300,
+                              fontSize: fontSize * 0.25,
+                              lineHeight: 1,
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList())
+                  : SimpleText(
+                      text: valencias.first.value.toString(),
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: fontSize * 0.4,
+                    ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: SimpleText(
+                  text: element.group.name.toCapitalize(),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: fontSize * 0.3,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 5,
+              left: 5,
               child: SimpleText(
-                text: element.group.name.toCapitalize(),
+                text: group,
                 color: Colors.white,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w900,
                 fontSize: fontSize * 0.3,
               ),
             ),
-          ),
-          Positioned(
-            top: 5,
-            left: 5,
-            child: SimpleText(
-              text: group,
-              color: Colors.white,
-              fontWeight: FontWeight.w900,
-              fontSize: fontSize * 0.3,
-            ),
-          ),
-          extraWidget != null
-              ? Positioned(
-                  right: 5,
-                  top: 5,
-                  child: extraWidget!,
-                )
-              : SizedBox(),
-        ],
+            extraWidget != null
+                ? Positioned(
+                    right: 5,
+                    top: 5,
+                    child: extraWidget!,
+                  )
+                : SizedBox(),
+          ],
+        ),
       ),
     );
   }

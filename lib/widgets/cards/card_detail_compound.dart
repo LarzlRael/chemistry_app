@@ -7,15 +7,19 @@ class CardDetailCompound extends HookWidget {
     required this.children,
     required this.compound,
     required this.background,
+    this.height = 0.65,
     this.extraAction,
     this.extraInfo,
+    this.mainAxisAlignment = MainAxisAlignment.start,
   });
+  final double height;
   final List<Widget> children;
   final List<Widget>? extraInfo;
   final Compound compound;
   final Color background;
   final Widget? extraAction;
   final double formulaSize;
+  final MainAxisAlignment mainAxisAlignment;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -24,7 +28,7 @@ class CardDetailCompound extends HookWidget {
     return Card(
       child: Container(
         width: size.width * 0.90,
-        height: size.height * 0.65,
+        height: size.height * height,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -52,10 +56,11 @@ class CardDetailCompound extends HookWidget {
                 ),
               ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: mainAxisAlignment,
+              /* crossAxisAlignment: CrossAxisAlignment.center, */
               children: [
                 ...children,
-                FormulaInText(
+                /* FormulaInText(
                   gap: 1,
                   fontSize: formulaSize,
                   compoundFormula: isSimplify.value
@@ -67,28 +72,47 @@ class CardDetailCompound extends HookWidget {
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
-                ),
-                compound.type == TypeCompound.ion
-                    ? SizedBox()
-                    : ShowMessageSimply(
-                        isShowWithOutSimplify:
-                            compound.formula.first.isSimplified,
-                        isSimplify: isSimplify.value,
-                      ),
+                ), */
+
                 if (extraInfo != null) ...extraInfo!,
               ],
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: Text(
-                compound.name,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  height: 1,
-                ),
-                textAlign: TextAlign.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FormulaInText(
+                    gap: 1,
+                    fontSize: formulaSize,
+                    compoundFormula: isSimplify.value
+                        ? compound.formula
+                            .map((e) => e.copyWith(value: e.value * 2))
+                            .toList()
+                        : compound.formula,
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  compound.type == TypeCompound.ion
+                      ? SizedBox()
+                      : ShowMessageSimply(
+                          isShowWithOutSimplify:
+                              compound.formula.first.isSimplified,
+                          isSimplify: isSimplify.value,
+                        ),
+                  Text(
+                    compound.name,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      height: 1,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
           ],
@@ -113,6 +137,7 @@ class ElementAndAndName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         element,
         SimpleText(

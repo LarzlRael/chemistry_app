@@ -144,8 +144,9 @@ class SalesNeutras extends HookWidget {
                             typeCompound: result.value!.type,
                             fontSize: 55,
                             textStyle: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
                           SimpleText(
                             text: result.value!.name.toCapitalize(),

@@ -156,7 +156,7 @@ double formulaFontSize(TypeCompound compoundType) {
     case TypeCompound.acido_polihidratado:
       return 45;
     case TypeCompound.ion:
-      return 45;
+      return 42.5;
     default:
       return 50;
   }

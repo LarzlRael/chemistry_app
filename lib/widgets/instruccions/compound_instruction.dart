@@ -155,7 +155,7 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
               child: Icon(Icons.add),
             ),
             Text(
-              'Oxigeno 2 ,-2',
+              'Oxigeno (+2 y -2)',
               style: Theme.of(context).textTheme.headline6,
             ),
             Container(
@@ -208,7 +208,7 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
         ),
         SimpleText(
           text:
-              'Donde M es el metal con la valencia de 1  y O el oxigeno con -1',
+              'Donde M es el metal con la valencia de 1  y O el oxigeno con +2 y -2',
           padding: EdgeInsets.symmetric(vertical: 5),
         ),
         SimpleText(
