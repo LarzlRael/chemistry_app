@@ -44,22 +44,22 @@ final compoundMetalList = <CompoundListElement>[
   ),
   CompoundListElement(
     name: 'Acidos oxacidos',
-    pathImage: 'assets/chemestry/chemestry_2.png',
+    pathImage: 'assets/chemestry/acidos_ox.png',
     type: TypeCompound.acido_oxacido,
   ),
   CompoundListElement(
     name: 'Acidos polihidratos',
-    pathImage: 'assets/chemestry/chemestry_2.png',
+    pathImage: 'assets/chemestry/acidos_pol.png',
     type: TypeCompound.acido_polihidratado,
   ),
   CompoundListElement(
     name: 'Iones',
-    pathImage: 'assets/chemestry/chemestry_2.png',
+    pathImage: 'assets/chemestry/ion.png',
     type: TypeCompound.ion,
   ),
   CompoundListElement(
     name: 'Sales neutras',
-    pathImage: 'assets/chemestry/chemestry_2.png',
+    pathImage: 'assets/chemestry/sales_neu.png',
     type: TypeCompound.sal_neutra,
   ),
 ];
