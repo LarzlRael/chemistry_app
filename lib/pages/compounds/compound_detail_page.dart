@@ -241,9 +241,8 @@ class ElementDetailCardWithPeriodicElement extends HookWidget {
                                   Text(
                                     periodicTableElement.symbol,
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 35,
                                       fontWeight: FontWeight.bold,
-                                      /* color: Colors.white, */
                                     ),
                                   ),
                                   Text(
@@ -475,13 +474,14 @@ class Hidroxido extends StatelessWidget {
       formulaSize: 70,
       background: colorByCompoundType(compound.type),
       compound: compound,
-      height: 0.6,
+      height: 0.55,
       children: [
         //*  Fix this show only one element by element
         ElementAndAndName(
-          elementName: compound.name.replaceAll('Oxido', 'Ox.'),
+          elementName: compound.name
+              .replaceAll(TypeCompound.hidroxido.name, TypeCompound.oxido.name),
           element: FormulaInText(
-            compoundFormula: [
+            compoundFormula: simplify([
               ValenceCompound(
                 value: 2,
                 suffix: compound.periodicTableElement.symbol,
@@ -490,7 +490,7 @@ class Hidroxido extends StatelessWidget {
                 value: compound.formula.last.value,
                 suffix: "O",
               ),
-            ],
+            ]),
             typeCompound: compound.type,
             fontSize: 60,
             textStyle: TextStyle(

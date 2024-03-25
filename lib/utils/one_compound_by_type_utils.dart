@@ -7,6 +7,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
     return compounds;
   }
 
+  final oxidoName = TypeCompound.oxido.name;
   for (var valencia in element.valencias) {
     if (valencia.typeElement == TypeElement.no_metal) {
       continue;
@@ -32,9 +33,9 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
     String name = "";
 
     if (element.valencias.length == 1) {
-      name = "Oxido de ${element.name.toLowerCase()}";
+      name = "$oxidoName de ${element.name.toLowerCase()}";
     } else {
-      name = "Oxido ${element.name.toLowerCase().substring(
+      name = "$oxidoName ${element.name.toLowerCase().substring(
             0,
             element.name.length - 1,
           )}${valencia.suffix.name}";
@@ -44,10 +45,10 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
 
     if (specialNamesCases.containsKey(element.symbol)) {
       name =
-          "Oxido ${specialNamesCases[element.symbol]}${valencia.suffix.name}";
+          "$oxidoName ${specialNamesCases[element.symbol]}${valencia.suffix.name}";
     }
     if (element.symbol == "Bi" && valencia.value == 3) {
-      name = "Oxido de bismuto";
+      name = "$oxidoName de bismuto";
     }
     compounds.add(Compound(
       periodicTableElement: element,
@@ -64,6 +65,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
 List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
   final compound = <Compound>[];
 
+  final peroxidoName = TypeCompound.peroxido.name;
   if (element.valencias.isEmpty) {
     return compound;
   }
@@ -76,7 +78,8 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
       suffix: "O",
       value: 2,
     );
-    String name = "Peroxido de ${element.name.toLowerCase()}";
+
+    String name = "$peroxidoName de ${element.name.toLowerCase()}";
 
     compound.add(Compound(
       periodicTableElement: element,
@@ -86,7 +89,7 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     ));
   }
   if (element.group == Group.bivalente) {
-    String name = "Peroxido de ${element.name.toLowerCase()}";
+    String name = "$peroxidoName de ${element.name.toLowerCase()}";
     final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: 1,
@@ -162,11 +165,11 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
       value: elementValue,
     );
     String name = "";
-
+    final hidroxidoName = TypeCompound.hidroxido.name;
     if (element.valencias.length == 1) {
-      name = "Hidroxido de ${element.name.toLowerCase()}";
+      name = "$hidroxidoName de ${element.name.toLowerCase()}";
     } else {
-      name = "Hidroxido ${element.name.toLowerCase().substring(
+      name = "$hidroxidoName ${element.name.toLowerCase().substring(
             0,
             element.name.length - 1,
           )}$suffix";
@@ -175,15 +178,17 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
     /* Special names cases */
 
     if (specialNamesCases.containsKey(element.symbol)) {
-      name = "Hidroxido ${specialNamesCases[element.symbol]}$suffix";
+      name = "$hidroxidoName ${specialNamesCases[element.symbol]}$suffix";
     }
-    compounds.add(Compound(
-      compound: null,
-      periodicTableElement: element,
-      name: name,
-      formula: [firstValence, secondValence],
-      type: TypeCompound.hidroxido,
-    ));
+    compounds.add(
+      Compound(
+        compound: null,
+        periodicTableElement: element,
+        name: name,
+        formula: [firstValence, secondValence],
+        type: TypeCompound.hidroxido,
+      ),
+    );
   }
 
   return compounds;
@@ -197,6 +202,7 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
     Group.bitrivalente: 3,
     Group.bitetravalente: 2
   };
+  final hidruroName = TypeCompound.hidruro.name;
 
   int? excludedValencia = groupValenciaMap[element.group];
 
@@ -237,9 +243,9 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
     String name = "";
 
     if (elementAux.valencias.length == 1) {
-      name = "Hidruro de ${elementAux.name.toLowerCase()}";
+      name = "$hidruroName de ${elementAux.name.toLowerCase()}";
     } else {
-      name = "Hidruro ${elementAux.name.toLowerCase().substring(
+      name = "$hidruroName ${elementAux.name.toLowerCase().substring(
             0,
             elementAux.name.length - 1,
           )}$suffix";
@@ -247,10 +253,10 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
     }
 
     if (specialNamesCases.containsKey(elementAux.symbol)) {
-      name = "Hidruro ${specialNamesCases[elementAux.symbol]}$suffix";
+      name = "$hidruroName ${specialNamesCases[elementAux.symbol]}$suffix";
     }
     if (spcialHidrurosCase.contains(elementAux.symbol)) {
-      name = "Hidruro de ${elementAux.name.toLowerCase()}";
+      name = "$hidruroName de ${elementAux.name.toLowerCase()}";
     }
     compounds.add(Compound(
       periodicTableElement: elementAux,
