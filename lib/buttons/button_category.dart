@@ -41,7 +41,7 @@ class ButtonCategory extends StatelessWidget {
                     ),
                     Expanded(
                       child: SimpleText(
-                        text: text,
+                        text,
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

@@ -460,7 +460,7 @@ List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
   final convertIon = getAcidos.mapIndexed((index, acido) {
     final ion = acido.copyWith(
       compound: getAcidosAux[index],
-      name: acido.name.replaceFirst("Acido", "Ion"),
+      name: acido.name.replaceFirst("Acido", TypeCompound.ion.name),
       type: TypeCompound.ion,
       formula: moveFirstElementToLastPosition(acido.formula.map(
         (e) {
@@ -491,7 +491,7 @@ Compound generateSalNeutra(
 
   Compound compoundAux = Compound(
     periodicTableElement: periodicTableElement,
-    name: (compound.name.replaceAll('Ion', '').trim() +
+    name: (compound.name.replaceAll(TypeCompound.ion.name, '').trim() +
         salNeutraName(periodicTableElement, valence)),
     type: TypeCompound.sal_neutra,
     formula: [
@@ -502,17 +502,6 @@ Compound generateSalNeutra(
       ...newFormula
     ],
   );
-  /* compoundAux.copyWith(
-    formula: compoundAux.formula.map((e) {
-      if (e.suffix == "O") {
-        return e.copyWith(
-          value: makeNegative(e.value),
-          suffix: 'O)',
-          isSuperIndex: true,
-        );
-      }
-      return e;
-    }).toList(),
-  ); */
+
   return compoundAux;
 }

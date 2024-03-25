@@ -13,8 +13,8 @@ class SimpleText extends StatelessWidget {
   final TextAlign? textAlign;
   final double? lineHeight;
 
-  const SimpleText({
-    required this.text,
+  const SimpleText(
+    this.text, {
     Key? key,
     this.fontWeight,
     this.padding,

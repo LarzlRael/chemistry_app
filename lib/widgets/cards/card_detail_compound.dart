@@ -141,7 +141,7 @@ class ElementAndAndName extends StatelessWidget {
       children: [
         element,
         SimpleText(
-          text: elementName,
+          elementName,
           fontSize: fontSize,
           fontWeight: FontWeight.w600,
           color: Colors.white,

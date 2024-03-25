@@ -105,16 +105,15 @@ class CompoundOxidosInstruction extends StatelessWidget {
             ),
           ),
           SimpleText(
-            text:
-                'Donde M es el metal con la valencia de 3  y O el oxigeno con -2',
+            'Donde M es el metal con la valencia de 3  y O el oxigeno con -2',
             padding: EdgeInsets.symmetric(vertical: 5),
           ),
           SimpleText(
-            text: 'Número de oxidacion del elemento M',
+            'Número de oxidacion del elemento M',
             padding: EdgeInsets.symmetric(vertical: 5),
           ),
           SimpleText(
-            text: 'Número de oxidacion del oxigeno',
+            'Número de oxidacion del oxigeno',
             padding: EdgeInsets.symmetric(vertical: 5),
           ),
           Align(
@@ -191,12 +190,12 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SimpleText(text: "O", style: textStyle),
+                      SimpleText("O", style: textStyle),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SimpleText(text: "-2", style: textStyleSuffix),
-                          SimpleText(text: " 2", style: textStyleSuffix),
+                          SimpleText("-2", style: textStyleSuffix),
+                          SimpleText(" 2", style: textStyleSuffix),
                         ],
                       ),
                     ],
@@ -207,16 +206,15 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
           ),
         ),
         SimpleText(
-          text:
-              'Donde M es el metal con la valencia de 1  y O el oxigeno con +2 y -2',
+          'Donde M es el metal con la valencia de 1  y O el oxigeno con +2 y -2',
           padding: EdgeInsets.symmetric(vertical: 5),
         ),
         SimpleText(
-          text: 'Número de oxidacion del elemento M',
+          'Número de oxidacion del elemento M',
           padding: EdgeInsets.symmetric(vertical: 5),
         ),
         SimpleText(
-          text: 'Número de oxidacion del oxigeno',
+          'Número de oxidacion del oxigeno',
           padding: EdgeInsets.symmetric(vertical: 5),
         ),
         Align(
@@ -262,7 +260,7 @@ class HidroxidoInstruction extends StatelessWidget {
                     textStyle: Theme.of(context).textTheme.headline6,
                   ),
                   SimpleText(
-                    text: 'Oxido basico',
+                    'Oxido basico',
                     padding: EdgeInsets.symmetric(vertical: 5),
                   ),
                 ],
@@ -289,7 +287,7 @@ class HidroxidoInstruction extends StatelessWidget {
                     textStyle: Theme.of(context).textTheme.headline6,
                   ),
                   SimpleText(
-                    text: 'Agua',
+                    'Agua',
                     padding: EdgeInsets.symmetric(vertical: 5),
                   ),
                 ],
@@ -316,7 +314,7 @@ class HidroxidoInstruction extends StatelessWidget {
                     textStyle: Theme.of(context).textTheme.headline6,
                   ),
                   SimpleText(
-                    text: 'Hidroxido',
+                    'Hidroxido',
                     padding: EdgeInsets.symmetric(vertical: 5),
                   ),
                 ],

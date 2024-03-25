@@ -113,8 +113,7 @@ class SalesNeutras extends HookWidget {
             ),
             result.value == null
                 ? SimpleText(
-                    text:
-                        'Seleccione ambos elementos para ver el formar una sal neutra.',
+                    'Seleccione ambos elementos para ver el formar una sal neutra.',
                     padding: EdgeInsets.symmetric(vertical: 20),
                     textAlign: TextAlign.center,
                   )
@@ -149,7 +148,7 @@ class SalesNeutras extends HookWidget {
                             ),
                           ),
                           SimpleText(
-                            text: result.value!.name.toCapitalize(),
+                            result.value!.name.toCapitalize(),
                             style: textTheme.headlineMedium!.copyWith(
                               color: Colors.white,
                             ),

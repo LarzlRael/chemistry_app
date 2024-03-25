@@ -35,7 +35,7 @@ class GuessPeriodicElement extends HookWidget {
               ), */
               child: Center(
                 child: SimpleText(
-                  text: optionsGame.value.correctAnswer.symbol,
+                  optionsGame.value.correctAnswer.symbol,
                   fontSize: 35,
                   fontWeight: FontWeight.w500,
                 ),
@@ -76,7 +76,7 @@ class GuessPeriodicElement extends HookWidget {
                       height: 100,
                       child: Center(
                         child: SimpleText(
-                          text: optionsGame.value.listSuffle[index].name,
+                          optionsGame.value.listSuffle[index].name,
                           textAlign: TextAlign.center,
                         ),
                       ),

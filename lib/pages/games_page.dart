@@ -56,8 +56,7 @@ class GamesPage extends HookWidget {
           pageViewController: pageViewController,
           backColor: Colors.blue,
           frontColor: Colors.green,
-          child: Container(),
-          periodicElement: firstElement,
+          listPeriodic: listSuffle,
         ),
       ),
     );
@@ -69,117 +68,90 @@ class CardFlipablePeriodicElement extends StatelessWidget {
   const CardFlipablePeriodicElement({
     this.pageViewController,
     Key? key,
-    required this.child,
     required this.frontColor,
     required this.backColor,
-    required this.periodicElement,
+    required this.listPeriodic,
   }) : super(key: key);
 
   final Color frontColor;
   final Color backColor;
-  final Widget child;
-  final PeriodicTableElement periodicElement;
+  final List<PeriodicTableElement> listPeriodic;
 
   @override
   Widget build(BuildContext context) {
-    /* final compound = separarElementos(firstElement.symbol); */
-    final textStyle = TextStyle(color: Colors.black, fontSize: 75);
     return PageView.builder(
-        controller: pageViewController,
-        scrollDirection: Axis.vertical,
-        itemCount: allListPeriodic.length,
-        itemBuilder: (_, index) {
-          final compoundSeparate =
-              splitStringIntoCharacters(allListPeriodic[index].symbol);
-          final compound = allListPeriodic[index];
-          return FlipCard(
-            fill: Fill
-                .fillBack, // Fill the back side of the card to make in the same size as the front.
-            direction: FlipDirection.HORIZONTAL, // default
-            side: CardSide.FRONT, // The side to initially display.
-            back: cardFlipable(
-              Colors.blue,
-              Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            style: textStyle,
-                            children: compoundSeparate.map((e) {
-                              if (e.contains(RegExp(r'[a-zA-Z]'))) {
-                                return TextSpan(
-                                  text: e,
-                                  style: textStyle,
-                                );
-                              } else {
-                                return WidgetSpan(
-                                  child: Transform.translate(
-                                    offset: const Offset(0.0, 4.0),
-                                    child: Text(
-                                      e,
-                                      style: TextStyle(
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                            }).toList(),
-                          ),
-                        ),
-                        compound.atomicNumber.isEmpty
-                            ? SizedBox()
-                            : SimpleText(
-                                text: compound.atomicNumber,
-                                color: Colors.black,
-                                fontSize: 30,
-                              ),
-                      ],
-                    ),
+      controller: pageViewController,
+      scrollDirection: Axis.vertical,
+      itemCount: listPeriodic.length,
+      itemBuilder: (_, index) {
+        final compound = listPeriodic[index];
+        return FlipCard(
+          fill: Fill
+              .fillBack, // Fill the back side of the card to make in the same size as the front.
+          direction: FlipDirection.HORIZONTAL, // default
+          side: CardSide.FRONT, // The side to initially display.
+          front: cardFlipable(
+            Colors.blue,
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SimpleText(
+                        compound.symbol,
+                        color: Colors.white,
+                        fontSize: 80,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      SimpleText(
+                        compound.name,
+                        color: Colors.white,
+                        fontSize: 60,
+                      ),
+                      SimpleText(
+                        compound.valencias
+                            .map((e) => "+" + e.value.toString())
+                            .join(' '),
+                        color: Colors.white,
+                        fontSize: 40,
+                      ),
+                    ],
                   ),
-                  Positioned(
+                ),
+                Positioned(
                     top: 20,
                     right: 20,
-                    child: Wrap(
-                        children: compound.valencias.map((e) {
-                      return SimpleText(
-                        text: e.value.toString(),
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      );
-                    }).toList()),
+                    child: SimpleText(
+                      compound.group.name.toCapitalize(),
+                      color: Colors.white,
+                      fontSize: 30,
+                    )),
+              ],
+            ),
+          ),
+          back: cardFlipable(
+            colorByGroup(compound.group),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SimpleText(
+                    compound.symbol,
+                    color: Colors.white,
+                    fontSize: 90,
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
             ),
-            front: cardFlipable(
-              colorByGroup(compound.group),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      compound.name,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
 

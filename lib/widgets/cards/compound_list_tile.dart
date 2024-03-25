@@ -65,7 +65,7 @@ class ListTileCompound extends StatelessWidget {
           child: ListTile(
             key: key,
             title: SimpleText(
-              text: element.name,
+              element.name,
               color: Colors.white,
               fontSize: 17,
               fontWeight: FontWeight.w500,

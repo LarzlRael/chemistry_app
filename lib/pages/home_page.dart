@@ -105,8 +105,7 @@ class CardOption extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SimpleText(
-                    text: title,
+                SimpleText(title,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                     padding: const EdgeInsets.only(bottom: 2),
@@ -114,7 +113,7 @@ class CardOption extends StatelessWidget {
                 subtitle == null
                     ? const SizedBox()
                     : SimpleText(
-                        text: subtitle!,
+                        subtitle!,
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                         color: Colors.blue,

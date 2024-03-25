@@ -66,7 +66,7 @@ class ListTileElement extends StatelessWidget {
           child: ListTile(
             key: key,
             title: SimpleText(
-              text: element.name,
+              element.name,
               color: Colors.white,
               fontSize: 17,
               fontWeight: FontWeight.w500,
@@ -74,7 +74,7 @@ class ListTileElement extends StatelessWidget {
             subtitle: Row(
               children: element.valencias
                   .map((e) => SimpleText(
-                        text: e.value.toString(),
+                        e.value.toString(),
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         color: Colors.white,
                       ))

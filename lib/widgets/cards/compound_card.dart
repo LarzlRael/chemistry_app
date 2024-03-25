@@ -118,7 +118,7 @@ class CompoundCard extends StatelessWidget {
                         horizontal: 5,
                         vertical: 7.5,
                       ),
-                      text: compound.name,
+                      compound.name,
                       textAlign: TextAlign.center,
                       fontSize: fontSize,
                       fontWeight: FontWeight.w400,

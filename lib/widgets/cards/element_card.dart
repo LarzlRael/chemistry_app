@@ -151,7 +151,7 @@ class ElementCard2 extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SimpleText(
-                    text: element.symbol,
+                    element.symbol,
                     lineHeight: 1,
                     fontSize: 80,
                     fontWeight: FontWeight.bold,
@@ -159,7 +159,7 @@ class ElementCard2 extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                   ),
                   SimpleText(
-                    text: element.name,
+                    element.name,
                     fontSize: 35,
                     lineHeight: 1,
                     fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class ElementCard2 extends StatelessWidget {
                 child: Wrap(
                     children: element.valencias.map((e) {
                   return SimpleText(
-                    text: "${e.value} ",
+                    "${e.value} ",
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
@@ -186,7 +186,7 @@ class ElementCard2 extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: SimpleText(
-                  text: element.group.name.toCapitalize(),
+                  element.group.name.toCapitalize(),
                   color: Colors.white,
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
@@ -259,14 +259,14 @@ fontSize: 16, */
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SimpleText(
-                      text: element.symbol,
+                      element.symbol,
                       fontSize: fontSize,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       lineHeight: 1,
                     ),
                     SimpleText(
-                      text: element.name,
+                      element.name,
                       fontSize: fontSize * 0.55,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
@@ -287,16 +287,14 @@ fontSize: 16, */
                         child: Column(
                           children: [
                             SimpleText(
-                              text: e.value.toString(),
+                              e.value.toString(),
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
                               fontSize: fontSize * 0.3,
                               lineHeight: 1,
                             ),
                             SimpleText(
-                              text: e.suffix.name
-                                  .snakeCaseToWords()
-                                  .toCapitalize(),
+                              e.suffix.name.snakeCaseToWords().toCapitalize(),
                               color: Colors.white,
                               fontWeight: FontWeight.w300,
                               fontSize: fontSize * 0.25,
@@ -307,7 +305,7 @@ fontSize: 16, */
                       );
                     }).toList())
                   : SimpleText(
-                      text: valencias.first.value.toString(),
+                      valencias.first.value.toString(),
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
@@ -319,7 +317,7 @@ fontSize: 16, */
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: SimpleText(
-                  text: element.group.name.toCapitalize(),
+                  element.group.name.toCapitalize(),
                   color: Colors.white,
                   fontWeight: FontWeight.w400,
                   fontSize: fontSize * 0.3,
@@ -330,7 +328,7 @@ fontSize: 16, */
               top: 5,
               left: 5,
               child: SimpleText(
-                text: group,
+                group,
                 color: Colors.white,
                 fontWeight: FontWeight.w900,
                 fontSize: fontSize * 0.3,

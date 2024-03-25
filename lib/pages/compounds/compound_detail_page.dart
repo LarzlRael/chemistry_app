@@ -95,8 +95,7 @@ class OxideDetail extends StatelessWidget {
       extraInfo: [
         SimpleText(
           padding: EdgeInsets.only(top: 10),
-          text:
-              "Donde el metal ${compound.periodicTableElement.name} tiene valencia de ${compound.formula.first.isSimplified ? '${compound.formula.last.value * 2}' : '${compound.formula.last.value}'} y el oxigeno de -2",
+          "Donde el metal ${compound.periodicTableElement.name} tiene valencia de ${compound.formula.first.isSimplified ? '${compound.formula.last.value * 2}' : '${compound.formula.last.value}'} y el oxigeno de -2",
           style: TextStyle(
             fontSize: 19,
             fontWeight: FontWeight.w400,
@@ -308,7 +307,7 @@ class PeroxideDetail extends StatelessWidget {
       extraInfo: [
         compound.periodicTableElement.group == Group.monovalente
             ? SimpleText(
-                text: "No se deben simplificar.",
+                "No se deben simplificar.",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
@@ -345,12 +344,12 @@ class PeroxideDetail extends StatelessWidget {
             ElementAndAndName(
               elementName: 'Oxigeno',
               element: Row(children: [
-                SimpleText(text: "O", style: textStyle),
+                SimpleText("O", style: textStyle),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SimpleText(text: "-2", style: textStyleSuffix),
-                    SimpleText(text: " 2", style: textStyleSuffix),
+                    SimpleText("-2", style: textStyleSuffix),
+                    SimpleText(" 2", style: textStyleSuffix),
                   ],
                 ),
               ]),
@@ -449,8 +448,7 @@ class OxidosDoubles extends StatelessWidget {
       extraInfo: compound.isSpecialCase
           ? [
               SimpleText(
-                text:
-                    "Caso especial,solo se forma con un elemento. y su formula es de esta forma.",
+                "Caso especial,solo se forma con un elemento. y su formula es de esta forma.",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,

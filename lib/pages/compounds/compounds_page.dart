@@ -16,7 +16,7 @@ class CompoundsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /* SimpleText(
-                text: 'Metales',
+                 'Metales',
                 style: textTheme.titleMedium,
               ),
               SizedBox(height: 10), */
@@ -107,7 +107,7 @@ class CompoundsOption extends StatelessWidget {
                   height: 50,
                 ),
                 SimpleText(
-                  text: compoundCard.name,
+                  compoundCard.name,
                   padding: const EdgeInsets.only(top: 5),
                   style: TextStyle(
                     fontSize: 16,
