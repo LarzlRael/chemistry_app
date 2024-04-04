@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:templat_project/data/periodic_table_data.dart';
+
 import 'package:templat_project/models/models.dart';
 import '../pages/pages.dart';
 

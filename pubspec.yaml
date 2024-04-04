@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -47,15 +47,15 @@ dependencies:
 
 flutter_native_splash:
   color: '#ffffff'
-  image: assets/yourPathLogo.png
+  image: assets/logo_app.png
   #branding: assets/branding-development.png
   color_dark: '#15141b'
-  image_dark: assets/yourPathLogo.png
+  image_dark: assets/logo_app.png
   #branding_dark: assets/branding-development.png
   android_12:
-    image: assets/yourPathLogo.png
+    image: assets/logo_app.png
     icon_background_color: '#ffffff'
-    image_dark: assets/yourPathLogo.png
+    image_dark: assets/logo_app.png
     icon_background_color_dark: '#ffffff'
 
   web: false
@@ -63,14 +63,13 @@ flutter_native_splash:
 dev_dependencies:
   change_app_package_name: ^1.1.0
   flutter_launcher_icons: ^0.13.1
-
   flutter_test:
     sdk: flutter
 
-flutter_icons:
+flutter_launcher_icons:
   android: 'launcher_icon'
   ios: true
-  image_path: 'assets/yourPathIcon.png'
+  image_path: 'assets/logo_app.png'
   min_sdk_android: 21
 
   # The "flutter_lints" package below contains a set of recommended lints to

@@ -11,25 +11,23 @@ class CompoundInstructionByType extends StatelessWidget {
         return CompoundOxidosInstruction();
       case TypeCompound.peroxido:
         return CompoundPeroxidosInstruction();
+      case TypeCompound.oxido_doble:
+        return OxidoDobleInstruction();
       case TypeCompound.hidroxido:
         return HidroxidoInstruction();
-      /*  
-      case TypeCompound.oxidoDoble:
-        return CompoundInstruction();
-      case TypeCompound.hidroxido:
-        return CompoundInstruction();
       case TypeCompound.hidruro:
-        return CompoundInstruction();
+        return HidruroInstruction();
       case TypeCompound.anhidrido:
-        return CompoundInstruction();
-      case TypeCompound.acidoOxacido:
-        return CompoundInstruction();
-      case TypeCompound.acidoPolihidratado:
-        return CompoundInstruction();
+        return AnhidridoInstruction();
+      case TypeCompound.acido_oxacido:
+        return AcidoOxacidoInstruction();
+      case TypeCompound.acido_polihidratado:
+        return AcidoPolihidratosInstruction();
+
       case TypeCompound.ion:
-        return CompoundInstruction(); */
+        return IonInstruction();
       default:
-        return Container();
+        return CircularProgressIndicator();
     }
   }
 }
@@ -325,6 +323,455 @@ class HidroxidoInstruction extends StatelessWidget {
             compound: generateHidroxidosByOneElement(
               getOneELement(allListPeriodic, 'Na'),
             )[0],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HidruroInstruction extends StatelessWidget {
+  const HidruroInstruction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CardInstructionContainer(
+      child: Column(
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                          suffix: 'M', value: 1, isSuperIndex: true),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'Metal',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Icon(Icons.add),
+              ),
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                          suffix: 'H', value: -1, isSuperIndex: true),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'Hidrogeno',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Icon(FontAwesomeIcons.equals),
+              ),
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                        suffix: 'M',
+                        value: 1,
+                      ),
+                      ValenceCompound(
+                        suffix: 'H',
+                        value: 1,
+                      ),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'Hidruro',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Hidruro(
+            compound: generateHidrurosByOneElement(
+              getOneELement(allListPeriodic, 'Na'),
+            )[0],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AnhidridoInstruction extends StatelessWidget {
+  const AnhidridoInstruction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CardInstructionContainer(
+      child: Column(
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                          suffix: 'NM', value: 1, isSuperIndex: true),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'No metal',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Icon(Icons.add),
+              ),
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: -2,
+                    compoundFormula: [
+                      ValenceCompound(
+                          suffix: 'O', value: -2, isSuperIndex: true),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'Oxigeno',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Icon(FontAwesomeIcons.equals),
+              ),
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                        suffix: 'NM',
+                        value: 2,
+                      ),
+                      ValenceCompound(
+                        suffix: 'O',
+                        value: 1,
+                      ),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'Anhidrido',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Anhidrido(
+            compound: generateAnhidridosByOneElement(
+              getOneELement(allListPeriodic, 'Cl'),
+            )[0],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AcidoOxacidoInstruction extends StatelessWidget {
+  const AcidoOxacidoInstruction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CardInstructionContainer(
+      child: Column(
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(suffix: 'NM', value: 2),
+                      ValenceCompound(
+                          suffix: 'O', value: 1, isSuperIndex: false),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'Anhidrido',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Icon(Icons.add),
+              ),
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: -2,
+                    compoundFormula: [
+                      ValenceCompound(suffix: 'H', value: 2),
+                      ValenceCompound(suffix: '0', value: 1),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'Agua',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Icon(FontAwesomeIcons.equals),
+              ),
+              Column(
+                children: [
+                  FormulaInText(
+                    gap: 2,
+                    compoundFormula: [
+                      ValenceCompound(
+                        suffix: 'H',
+                        value: 2,
+                      ),
+                      ValenceCompound(
+                        suffix: 'NM',
+                        value: 2,
+                      ),
+                      ValenceCompound(
+                        suffix: 'O',
+                        value: 2,
+                      ),
+                    ],
+                    fontSize: 30,
+                    textStyle: Theme.of(context).textTheme.headline6,
+                  ),
+                  SimpleText(
+                    'Ácido',
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          AcidoOxacido(
+            compound: generateAcidosOxacidosByOneElement(
+              getOneELement(allListPeriodic, 'Cl'),
+            )[2],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class IonInstruction extends StatelessWidget {
+  const IonInstruction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CardInstructionContainer(
+      child: Column(
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Column(
+                children: [
+                  SimpleText(
+                    "Para formar un Ion tienes que eliminar el hidrogeno",
+                    fontSize: 20,
+                    textAlign: TextAlign.center,
+                  ),
+                  SimpleText(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    "Se cambia la terminacion de oso a convierte en 'ito' e ico se convierte en 'ato'",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          IonDetail(
+            compound: generateIonesByOneElement(
+              getOneELement(allListPeriodic, 'Cl'),
+            )[2],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class OxidoDobleInstruction extends StatelessWidget {
+  const OxidoDobleInstruction({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CardInstructionContainer(
+      child: Column(
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Column(
+                children: [
+                  SimpleText(
+                    "Los oxidos dobles se forman solo con el Bitrivalentes, Bitetravalentes y anfoteros con su valencia metalica",
+                    fontSize: 16,
+                    textAlign: TextAlign.center,
+                  ),
+                  SimpleText(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    "Se deben sumar sus valencias para formar 3 y 4",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          OxidosDoubles(
+            compound: generateOxidosDoblesByOneElement(
+              getOneELement(allListPeriodic, 'Sn'),
+            )[0],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AcidoPolihidratosInstruction extends StatelessWidget {
+  const AcidoPolihidratosInstruction({super.key});
+  @override
+  Widget build(BuildContext context) {
+    const namePoli = ['Meta', 'Piro', 'Orto'];
+    return CardInstructionContainer(
+      child: Column(
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Column(
+                children: [
+                  SizedBox(height: 15),
+                  SimpleText(
+                    "Se forma un acido polihidratado con un anhidrido y agua que pueden ser 1, 2 o 3 moleculas",
+                    fontSize: 16,
+                    textAlign: TextAlign.center,
+                  ),
+                  SimpleText(
+                    "Para formar acidos polihidratos se usan estos elementos P, Sb, As, B, Si",
+                    fontSize: 16,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 15),
+                  ...namePoli
+                      .mapIndexed(
+                        (index, e) => Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FormulaInText(
+                              gap: 2,
+                              compoundFormula: [
+                                ValenceCompound(
+                                  suffix: 'NM',
+                                  value: 1,
+                                ),
+                                ValenceCompound(
+                                  suffix: 'O',
+                                  value: 1,
+                                ),
+                              ],
+                              fontSize: 30,
+                              textStyle: Theme.of(context).textTheme.headline6,
+                            ),
+                            Icon(Icons.add),
+                            FormulaInText(
+                              gap: 2,
+                              compoundFormula: [
+                                ValenceCompound(
+                                  suffix: '${index + 1}H',
+                                  value: 2,
+                                ),
+                                ValenceCompound(
+                                  suffix: '0',
+                                  value: 1,
+                                ),
+                              ],
+                              fontSize: 30,
+                              textStyle: Theme.of(context).textTheme.headline6,
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 5),
+                              child: Icon(FontAwesomeIcons.equals, size: 14),
+                            ),
+                            SimpleText(
+                              "Acido " + e,
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                              fontSize: 18,
+                            ),
+                          ],
+                        ),
+                      )
+                      .toList(),
+                ],
+              ),
+            ],
+          ),
+          AcidoOxacidoPoliHidratado(
+            compound: generateAcidosPolihidratadosByOneElement()[0],
+          ),
+          AcidoOxacidoPoliHidratado(
+            compound: generateAcidosPolihidratadosByOneElement()[1],
+          ),
+          AcidoOxacidoPoliHidratado(
+            compound: generateAcidosPolihidratadosByOneElement()[2],
           ),
         ],
       ),

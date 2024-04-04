@@ -402,7 +402,7 @@ class OxidosDoubles extends StatelessWidget {
                   element: FormulaInText(
                     gap: 2.5,
                     compoundFormula: compound.formula,
-                    fontSize: 80,
+                    fontSize: 75,
                     textStyle: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
@@ -427,11 +427,12 @@ class OxidosDoubles extends StatelessWidget {
                     children: [
                       ...getOxides.map(
                         (e) => ElementAndAndName(
-                          elementName: e.name.replaceAll('Oxido', 'Ox.'),
+                          elementName:
+                              e.name.replaceAll(TypeCompound.oxido.name, 'Ox.'),
                           element: FormulaInText(
                             gap: 2.5,
                             compoundFormula: e.formula,
-                            fontSize: 85,
+                            fontSize: 75,
                             textStyle: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
@@ -449,11 +450,9 @@ class OxidosDoubles extends StatelessWidget {
           ? [
               SimpleText(
                 "Caso especial,solo se forma con un elemento. y su formula es de esta forma.",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
               )
             ]
           : null,

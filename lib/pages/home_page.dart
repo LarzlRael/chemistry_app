@@ -7,7 +7,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quimica con el D.R. SIMI'),
+        title: Text(appName),
         centerTitle: true,
       ),
       body: SafeArea(

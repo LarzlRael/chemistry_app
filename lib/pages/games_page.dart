@@ -90,8 +90,8 @@ class CardFlipablePeriodicElement extends StatelessWidget {
               .fillBack, // Fill the back side of the card to make in the same size as the front.
           direction: FlipDirection.HORIZONTAL, // default
           side: CardSide.FRONT, // The side to initially display.
-          front: cardFlipable(
-            Colors.blue,
+          back: cardFlipable(
+            colorByGroup(compound.group),
             Stack(
               children: [
                 Align(
@@ -132,7 +132,7 @@ class CardFlipablePeriodicElement extends StatelessWidget {
               ],
             ),
           ),
-          back: cardFlipable(
+          front: cardFlipable(
             colorByGroup(compound.group),
             Center(
               child: Column(

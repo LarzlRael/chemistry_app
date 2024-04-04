@@ -85,7 +85,7 @@ class CompoundsByTypePage extends HookConsumerWidget {
                 context: context,
                 isScrollControlled: true,
                 builder: (BuildContext context) => FractionallySizedBox(
-                  heightFactor: 0.9,
+                  /* heightFactor: 0.9, */
                   child: Container(
                     width: double.infinity,
                     child: SingleChildScrollView(
