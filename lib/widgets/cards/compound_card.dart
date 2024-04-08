@@ -69,6 +69,9 @@ class CompoundCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(color: Colors.white);
+    print('compound: ${compound.name}');
+    final isAmonio = compound.name.contains('amonio');
+    print('isAmonio: $isAmonio');
     return InkWell(
       onTap: () {
         if (onTap != null) {
@@ -111,7 +114,8 @@ class CompoundCard extends StatelessWidget {
                       compoundFormula: compound.formula,
                       gap: formulaGap,
                       textStyle: textStyle,
-                      fontSize: formulaFontSize,
+                      fontSize:
+                          isAmonio ? formulaFontSize * 0.7 : formulaFontSize,
                     ),
                     SimpleText(
                       padding: EdgeInsets.symmetric(

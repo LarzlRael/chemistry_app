@@ -35,6 +35,7 @@ class FormulaInText extends StatelessWidget {
               style: textStyle?.copyWith(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
+                color: e.color,
               ),
             ),
             Transform.translate(
@@ -47,7 +48,7 @@ class FormulaInText extends StatelessWidget {
                   style: textStyle?.copyWith(
                     fontSize: isOneOrCero ? fontSize! * 0.25 : fontSize! * 0.50,
                     fontWeight: FontWeight.bold,
-                    color: isOneOrCero ? Colors.transparent : null,
+                    color: isOneOrCero ? Colors.transparent : e.colorValue,
                   ),
                 ),
               ),

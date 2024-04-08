@@ -39,8 +39,8 @@ class HomePage extends StatelessWidget {
                 onPress: () {
                   context.push('/compounds_page');
                 },
-                color1: Colors.red,
-                color2: Colors.redAccent,
+                color1: Color(0xff8D0074),
+                color2: Color(0xff8D0074),
               ),
               ButtonCategory(
                 icon: FontAwesomeIcons.fantasyFlightGames,
@@ -57,8 +57,8 @@ class HomePage extends StatelessWidget {
                 onPress: () {
                   context.push('/elements_page');
                 },
-                color1: Colors.green,
-                color2: Colors.greenAccent,
+                color1: Color(0xff8061C0),
+                color2: Color(0xff8061C0),
               ),
             ],
           ),

@@ -13,6 +13,8 @@ const colorList = <Color>[
   Colors.pinkAccent,
 ];
 
+const scaffoldBlackBackgroundColor = Color(0xff334B48);
+
 class AppTheme {
   final int selectedColor;
   final bool isDarkMode;
@@ -69,6 +71,7 @@ class AppTheme2 {
         useMaterial3: true,
         colorSchemeSeed: Colors.purple,
         brightness: isDarkmode ? Brightness.dark : Brightness.light,
+        /* scaffoldBackgroundColor: isDarkmode ? Colors.black : Colors.white, */
         /* listTileTheme: const ListTileThemeData(
           iconColor: Colors.green,
         ), */

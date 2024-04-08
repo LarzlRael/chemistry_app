@@ -229,8 +229,9 @@ List<ValenceCompound> moveFirstElementToLastPosition(
   if (tempList.isNotEmpty) {
     ValenceCompound primerElemento =
         tempList.removeAt(0); // Elimina y guarda el primer elemento
-    tempList.add(
-        primerElemento); // Agrega el primer elemento al final de la tempList
+    tempList.add(primerElemento.copyWith(
+        colorValue:
+            hidrogeno)); // Agrega el primer elemento al final de la tempList
   }
   tempList[0] = tempList[0].copyWith(
     suffix: "(" + tempList[0].suffix,

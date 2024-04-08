@@ -2,6 +2,8 @@ import 'dart:developer';
 
 export 'package:templat_project/helpers/helpers.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
+import 'package:templat_project/constants/compund_colors.dart';
 import 'package:templat_project/models/models.dart';
 
 import '../data/periodic_table_data.dart';

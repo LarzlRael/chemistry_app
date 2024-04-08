@@ -46,8 +46,8 @@ class CardDetailCompound extends HookWidget {
             if (compound.type != TypeCompound.ion &&
                 compound.formula.first.isSimplified)
               Positioned(
-                top: 5,
-                right: 5,
+                top: 1,
+                right: 1,
                 child: CardsElementsValences(
                   onPressed: () {
                     isSimplify.value = !isSimplify.value;
@@ -84,7 +84,9 @@ class CardDetailCompound extends HookWidget {
                 children: [
                   FormulaInText(
                     gap: 1,
-                    fontSize: formulaSize,
+                    fontSize: compound.name.contains('amonio')
+                        ? formulaSize * 0.8
+                        : formulaSize,
                     compoundFormula: isSimplify.value
                         ? compound.formula
                             .map((e) => e.copyWith(value: e.value * 2))
@@ -140,13 +142,15 @@ class ElementAndAndName extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         element,
-        SimpleText(
-          elementName,
-          fontSize: fontSize,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-          textAlign: TextAlign.center,
-          padding: padding,
+        Container(
+          child: SimpleText(
+            elementName,
+            fontSize: fontSize,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            textAlign: TextAlign.center,
+            padding: padding,
+          ),
         ),
       ],
     );

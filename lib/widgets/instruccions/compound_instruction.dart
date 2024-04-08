@@ -57,7 +57,9 @@ class CompoundOxidosInstruction extends StatelessWidget {
               ),
               Text(
                 'Oxigeno',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                      color: oxigeno,
+                    ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10),
@@ -81,7 +83,13 @@ class CompoundOxidosInstruction extends StatelessWidget {
                       value: 3,
                       isSuperIndex: true,
                     ),
-                    ValenceCompound(suffix: 'O', value: -2, isSuperIndex: true),
+                    ValenceCompound(
+                      suffix: 'O',
+                      value: -2,
+                      isSuperIndex: true,
+                      colorValue: oxigeno,
+                      color: oxigeno,
+                    ),
                   ],
                   fontSize: 40,
                   textStyle: Theme.of(context).textTheme.headline6,
@@ -92,8 +100,9 @@ class CompoundOxidosInstruction extends StatelessWidget {
                     ValenceCompound(
                       suffix: 'M',
                       value: 2,
+                      colorValue: oxigeno,
                     ),
-                    ValenceCompound(suffix: 'O', value: 3)
+                    ValenceCompound(suffix: 'O', value: 3, color: oxigeno)
                   ],
                   /* compoundFormula: 'Li2O', */
                   fontSize: 40,
@@ -132,8 +141,9 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyleSuffix =
-        TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
-    final textStyle = TextStyle(fontSize: 40, fontWeight: FontWeight.w600);
+        TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: oxigeno);
+    final textStyle =
+        TextStyle(fontSize: 40, fontWeight: FontWeight.w600, color: oxigeno);
     return CardInstructionContainer(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +163,10 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
             ),
             Text(
               'Oxigeno (+2 y -2)',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(color: oxigeno),
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 10),
@@ -275,10 +288,12 @@ class HidroxidoInstruction extends StatelessWidget {
                       ValenceCompound(
                         suffix: 'H',
                         value: 2,
+                        color: agua,
                       ),
                       ValenceCompound(
                         suffix: 'O',
                         value: 1,
+                        color: agua,
                       ),
                     ],
                     fontSize: 30,
@@ -305,6 +320,7 @@ class HidroxidoInstruction extends StatelessWidget {
                       ),
                       ValenceCompound(
                         suffix: '(OH)',
+                        color: agua,
                         value: 1,
                       ),
                     ],
@@ -369,7 +385,12 @@ class HidruroInstruction extends StatelessWidget {
                     gap: 2,
                     compoundFormula: [
                       ValenceCompound(
-                          suffix: 'H', value: -1, isSuperIndex: true),
+                        suffix: 'H',
+                        value: -1,
+                        isSuperIndex: true,
+                        color: hidrogeno,
+                        colorValue: hidrogeno,
+                      ),
                     ],
                     fontSize: 30,
                     textStyle: Theme.of(context).textTheme.headline6,
@@ -396,6 +417,7 @@ class HidruroInstruction extends StatelessWidget {
                       ValenceCompound(
                         suffix: 'H',
                         value: 1,
+                        color: hidrogeno,
                       ),
                     ],
                     fontSize: 30,
@@ -459,7 +481,12 @@ class AnhidridoInstruction extends StatelessWidget {
                     gap: -2,
                     compoundFormula: [
                       ValenceCompound(
-                          suffix: 'O', value: -2, isSuperIndex: true),
+                        suffix: 'O',
+                        value: -2,
+                        isSuperIndex: true,
+                        color: oxigeno,
+                        colorValue: oxigeno,
+                      ),
                     ],
                     fontSize: 30,
                     textStyle: Theme.of(context).textTheme.headline6,
@@ -486,6 +513,7 @@ class AnhidridoInstruction extends StatelessWidget {
                       ValenceCompound(
                         suffix: 'O',
                         value: 1,
+                        color: oxigeno,
                       ),
                     ],
                     fontSize: 30,
@@ -527,9 +555,14 @@ class AcidoOxacidoInstruction extends StatelessWidget {
                   FormulaInText(
                     gap: 2,
                     compoundFormula: [
-                      ValenceCompound(suffix: 'NM', value: 2),
                       ValenceCompound(
-                          suffix: 'O', value: 1, isSuperIndex: false),
+                          suffix: 'NM', value: 2, colorValue: oxigeno),
+                      ValenceCompound(
+                        suffix: 'O',
+                        value: 1,
+                        isSuperIndex: false,
+                        color: oxigeno,
+                      ),
                     ],
                     fontSize: 30,
                     textStyle: Theme.of(context).textTheme.headline6,
@@ -548,10 +581,7 @@ class AcidoOxacidoInstruction extends StatelessWidget {
                 children: [
                   FormulaInText(
                     gap: -2,
-                    compoundFormula: [
-                      ValenceCompound(suffix: 'H', value: 2),
-                      ValenceCompound(suffix: '0', value: 1),
-                    ],
+                    compoundFormula: h2O,
                     fontSize: 30,
                     textStyle: Theme.of(context).textTheme.headline6,
                   ),
@@ -573,6 +603,7 @@ class AcidoOxacidoInstruction extends StatelessWidget {
                       ValenceCompound(
                         suffix: 'H',
                         value: 2,
+                        color: hidrogeno,
                       ),
                       ValenceCompound(
                         suffix: 'NM',
@@ -581,6 +612,7 @@ class AcidoOxacidoInstruction extends StatelessWidget {
                       ValenceCompound(
                         suffix: 'O',
                         value: 2,
+                        color: oxigeno,
                       ),
                     ],
                     fontSize: 30,
@@ -725,6 +757,7 @@ class AcidoPolihidratosInstruction extends StatelessWidget {
                                 ),
                                 ValenceCompound(
                                   suffix: 'O',
+                                  color: oxigeno,
                                   value: 1,
                                 ),
                               ],
@@ -738,10 +771,13 @@ class AcidoPolihidratosInstruction extends StatelessWidget {
                                 ValenceCompound(
                                   suffix: '${index + 1}H',
                                   value: 2,
+                                  color: agua,
+                                  colorValue: agua,
                                 ),
                                 ValenceCompound(
                                   suffix: '0',
                                   value: 1,
+                                  color: agua,
                                 ),
                               ],
                               fontSize: 30,

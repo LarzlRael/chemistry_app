@@ -23,12 +23,16 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
     /* get oso or ico */
 
     final firstValence = ValenceCompound(
-      suffix: element.symbol,
+      suffix: element.symbol.contains('NH4')
+          ? "(${element.symbol})"
+          : element.symbol,
       value: 2,
+      colorValue: oxigeno,
     );
     final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
       value: elementValue,
+      color: oxigeno,
     );
     String name = "";
 
@@ -71,12 +75,16 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
   }
   if (element.group == Group.monovalente) {
     final firstValence = ValenceCompound(
-      suffix: element.symbol,
+      suffix: element.symbol.contains('NH4')
+          ? '(${element.symbol})'
+          : element.symbol,
       value: 2,
+      colorValue: oxigeno,
     );
     final secondValence = ValenceCompound(
       suffix: "O",
       value: 2,
+      color: oxigeno,
     );
 
     String name = "$peroxidoName de ${element.name.toLowerCase()}";
@@ -93,10 +101,12 @@ List<Compound> generatePeroxidoByOneElement(PeriodicTableElement element) {
     final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: 1,
+      colorValue: oxigeno,
     );
     final secondValence = ValenceCompound(
       suffix: "O",
       value: 2,
+      color: oxigeno,
     );
     compound.add(Compound(
       periodicTableElement: element,
@@ -125,10 +135,12 @@ List<Compound> generateOxidosDoblesByOneElement(PeriodicTableElement element) {
       ValenceCompound(
         value: isBismuto ? 2 : 3,
         suffix: getOxide[0].periodicTableElement.symbol,
+        colorValue: oxigeno,
       ),
       ValenceCompound(
         value: 4,
         suffix: 'O',
+        color: oxigeno,
       ),
     ],
     type: TypeCompound.oxido_doble,
@@ -147,10 +159,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
     if (valencia.typeElement == TypeElement.no_metal) {
       continue;
     }
-    final oxideValue = ValenceCompound(
-      value: 1,
-      suffix: "(OH)",
-    );
+    final oxideValue = ValenceCompound(value: 1, suffix: "(OH)", color: agua);
 
     int elementValue = valencia.value;
 
@@ -163,6 +172,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
     final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
       value: elementValue,
+      color: agua,
     );
     String name = "";
     final hidroxidoName = TypeCompound.hidroxido.name;
@@ -239,6 +249,7 @@ List<Compound> generateHidrurosByOneElement(PeriodicTableElement element) {
     final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
       value: elementValue,
+      color: hidrogeno,
     );
     String name = "";
 
@@ -290,10 +301,12 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
     final firstValence = ValenceCompound(
       suffix: element.symbol,
       value: oxideValue.value,
+      colorValue: oxigeno,
     );
     final secondValence = ValenceCompound(
       suffix: oxideValue.suffix,
       value: element.symbol == 'F' ? 1 : elementValue,
+      color: oxigeno,
     );
     String name = "";
 
@@ -351,6 +364,7 @@ List<Compound> generateAcidosOxacidosByOneElement(
             ValenceCompound(
               suffix: "H",
               value: 2,
+              color: hidrogeno,
             ),
             ValenceCompound(
               suffix: "N",
@@ -359,6 +373,7 @@ List<Compound> generateAcidosOxacidosByOneElement(
             ValenceCompound(
               suffix: "O",
               value: 2,
+              color: oxigeno,
             ),
           ],
           type: TypeCompound.acido_oxacido,
@@ -374,6 +389,7 @@ List<Compound> generateAcidosOxacidosByOneElement(
             ValenceCompound(
               suffix: "H",
               value: 2,
+              color: hidrogeno,
             ),
             /* Si la valencia es impar poner 1 */
             /* Si la valencia es par poner 2 */
@@ -426,6 +442,7 @@ List<Compound> generateAcidosPolihidratadosByOneElement() {
             ValenceCompound(
               suffix: "H",
               value: 2 * i,
+              color: hidrogeno,
             ),
             ...anhidrido.formula.map((e) {
               if (e.suffix == "O") {
@@ -468,6 +485,7 @@ List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
             return e.copyWith(
               value: makeNegative(e.value),
               suffix: ')',
+              color: Colors.white,
               isSuperIndex: true,
             );
           }
@@ -498,6 +516,7 @@ Compound generateSalNeutra(
       ValenceCompound(
         suffix: periodicTableElement.symbol,
         value: compound.formula.last.value.abs(),
+        colorValue: hidrogeno,
       ),
       ...newFormula
     ],

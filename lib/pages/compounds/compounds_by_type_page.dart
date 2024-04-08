@@ -139,13 +139,13 @@ class CompoundsByTypePage extends HookConsumerWidget {
 double formulaFontSize(TypeCompound compoundType) {
   switch (compoundType) {
     case TypeCompound.oxido:
-      return 57;
+      return 60;
     case TypeCompound.peroxido:
-      return 54;
+      return 57.5;
     case TypeCompound.oxido_doble:
-      return 55;
+      return 60;
     case TypeCompound.hidroxido:
-      return 42.5;
+      return 40;
     case TypeCompound.hidruro:
       return 60;
     case TypeCompound.anhidrido:

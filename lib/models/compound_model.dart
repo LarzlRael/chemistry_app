@@ -62,12 +62,16 @@ class ValenceCompound {
   final String suffix;
   final bool isSuperIndex;
   final bool isSimplified;
+  final Color color;
+  final Color colorValue;
 
   ValenceCompound({
     required this.value,
     required this.suffix,
     this.isSuperIndex = false,
     this.isSimplified = false,
+    this.color = Colors.white,
+    this.colorValue = Colors.white,
   });
 
   ValenceCompound copyWith({
@@ -75,12 +79,16 @@ class ValenceCompound {
     String? suffix,
     bool? isSuperIndex,
     bool? isSimplified,
+    Color? color,
+    Color? colorValue,
   }) {
     return ValenceCompound(
       value: value ?? this.value,
       suffix: suffix ?? this.suffix,
       isSuperIndex: isSuperIndex ?? this.isSuperIndex,
       isSimplified: isSimplified ?? this.isSimplified,
+      color: color ?? this.color,
+      colorValue: colorValue ?? this.colorValue,
     );
   }
 

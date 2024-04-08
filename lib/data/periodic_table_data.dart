@@ -887,16 +887,16 @@ Color colorByGroup(Group group) {
 
 Color colorByCompoundType(TypeCompound typeCompound) {
   Map<TypeCompound, Color> compoundColors = {
-    TypeCompound.oxido: Colors.indigo,
-    TypeCompound.peroxido: Colors.blue,
-    TypeCompound.oxido_doble: Colors.pinkAccent,
-    TypeCompound.hidruro: Colors.cyan,
-    TypeCompound.hidroxido: Colors.green,
-    TypeCompound.anhidrido: Colors.pink,
-    TypeCompound.acido_oxacido: Colors.orange,
-    TypeCompound.acido_polihidratado: Colors.amber,
-    TypeCompound.ion: Colors.purple,
-    TypeCompound.oxoacido: Colors.teal,
+    TypeCompound.oxido: Color(0xff40E0D0),
+    TypeCompound.peroxido: Color(0xff5DE9BF),
+    TypeCompound.oxido_doble: Color(0xff80F0AA),
+    TypeCompound.hidruro: Color(0xffA7F594),
+    TypeCompound.hidroxido: Color(0xffCFF880),
+    TypeCompound.anhidrido: Color(0xffF9F871),
+    TypeCompound.acido_oxacido: Color(0xff40E0D0),
+    TypeCompound.acido_polihidratado: Color(0xff00C8E4),
+    TypeCompound.ion: Color(0xff00ACEE),
+    TypeCompound.oxoacido: Color(0xff348AE4),
   };
   return compoundColors[typeCompound] ?? Colors.blue;
 }
