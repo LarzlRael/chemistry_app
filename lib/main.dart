@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:templat_project/plugin/admob_plugin.dart';
 import 'package:templat_project/theme/theme.dart';
 
 import 'constants/enviroments.dart';
@@ -7,7 +8,8 @@ import 'package:templat_project/router/app_router.dart';
 import 'constants/constant.dart';
 
 void main() async {
-  /* await Enviroment.initEnviroment(); */
+  await Enviroment.initEnviroment();
+  await AdmobPlugin.initialize();
   return runApp(
     ProviderScope(
       child: const MyApp(),

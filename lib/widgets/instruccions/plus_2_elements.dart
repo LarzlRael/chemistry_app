@@ -51,16 +51,18 @@ class VerticalPlus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: 15),
         Container(
           /* margin: EdgeInsets.symmetric(horizontal: 10), */
+          color: Colors.transparent,
           child: Icon(
             FontAwesomeIcons.circlePlus,
             color: iconPlusColor,
             size: iconSize,
           ),
         ),
+        SizedBox(width: 15),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

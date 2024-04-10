@@ -1,4 +1,7 @@
 <resources>
   <string name="appName">Química Académica</string>
+  <string
+    name="admob_application_id"
+  >ca-app-pub-3940256099942544~3347511713</string>
   <!-- Agrega más cadenas según sea necesario -->
 </resources>
