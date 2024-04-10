@@ -1,1 +1,1 @@
-const appName = "Aprende Química";
+const appName = "Química académica";

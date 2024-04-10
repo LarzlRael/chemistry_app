@@ -60,7 +60,7 @@ class ListTileElementValences extends StatelessWidget {
         child: ListTile(
           key: key,
           title: SimpleText(
-            element.name,
+            element.name + " (" + element.symbol + ")",
             color: Colors.white,
             fontSize: 17,
             fontWeight: FontWeight.w500,

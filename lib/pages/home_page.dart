@@ -10,57 +10,41 @@ class HomePage extends StatelessWidget {
         title: Text(appName),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              /*  CardOption(
-                title: 'Compuestos',
-                /* subtitle: 'Aprende sobre los compuestos', */
-                color: Colors.blue[300]!.withOpacity(0.20),
-                onTap: () => context.push('/compounds_page'),
-              ),
-              CardOption(
-                title: 'Juegos',
-                /* subtitle: 'Juega y aprende', */
-                color: Colors.green.withOpacity(0.20),
-                onTap: () => context.push('/games_page'),
-              ),
-              CardOption(
-                title: 'Elementos',
-                /* subtitle: 'Aprende sobre los elementos', */
-                color: Colors.red.withOpacity(0.20),
-                onTap: () => context.push('/elements_page'),
-              ), */
-              ButtonCategory(
-                icon: FontAwesomeIcons.flask,
-                text: 'Compuestos',
-                onPress: () {
-                  context.push('/compounds_page');
-                },
-                color1: Color(0xff8D0074),
-                color2: Color(0xff8D0074),
-              ),
-              ButtonCategory(
-                icon: FontAwesomeIcons.fantasyFlightGames,
-                text: 'Juegos',
-                onPress: () {
-                  context.push('/games_page');
-                },
-                color1: Colors.blue,
-                color2: Colors.blueAccent,
-              ),
-              ButtonCategory(
-                icon: FontAwesomeIcons.atom,
-                text: 'Elementos',
-                onPress: () {
-                  context.push('/elements_page');
-                },
-                color1: Color(0xff8061C0),
-                color2: Color(0xff8061C0),
-              ),
-            ],
+      body: ScaffoldBackground(
+        child: SafeArea(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              children: [
+                ButtonCategory(
+                  icon: FontAwesomeIcons.flask,
+                  text: 'Compuestos',
+                  onPress: () {
+                    context.push('/compounds_page');
+                  },
+                  color1: Color(0xff8D0074),
+                  color2: Color(0xff8D0074),
+                ),
+                ButtonCategory(
+                  icon: FontAwesomeIcons.fantasyFlightGames,
+                  text: 'Juegos',
+                  onPress: () {
+                    context.push('/games_page');
+                  },
+                  color1: Colors.blue,
+                  color2: Colors.blueAccent,
+                ),
+                ButtonCategory(
+                  icon: FontAwesomeIcons.atom,
+                  text: 'Elementos',
+                  onPress: () {
+                    context.push('/elements_page');
+                  },
+                  color1: Color(0xff8061C0),
+                  color2: Color(0xff8061C0),
+                ),
+              ],
+            ),
           ),
         ),
       ),

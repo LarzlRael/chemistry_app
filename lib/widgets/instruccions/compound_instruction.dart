@@ -123,6 +123,13 @@ class CompoundOxidosInstruction extends StatelessWidget {
             'Número de oxidacion del oxigeno',
             padding: EdgeInsets.symmetric(vertical: 5),
           ),
+          SimpleText(
+            'Ejemplo:',
+            padding: EdgeInsets.symmetric(vertical: 5),
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            /* textAlign: TextAlign.center, */
+          ),
           Align(
             alignment: Alignment.center,
             child: OxideDetail(
@@ -228,6 +235,7 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
           'Número de oxidacion del oxigeno',
           padding: EdgeInsets.symmetric(vertical: 5),
         ),
+        exampleLabel(),
         Align(
           alignment: Alignment.center,
           child: PeroxideDetail(
@@ -335,6 +343,7 @@ class HidroxidoInstruction extends StatelessWidget {
               ),
             ],
           ),
+          exampleLabel(),
           Hidroxido(
             compound: generateHidroxidosByOneElement(
               getOneELement(allListPeriodic, 'Na'),
@@ -431,6 +440,7 @@ class HidruroInstruction extends StatelessWidget {
               ),
             ],
           ),
+          exampleLabel(),
           Hidruro(
             compound: generateHidrurosByOneElement(
               getOneELement(allListPeriodic, 'Na'),
@@ -527,6 +537,7 @@ class AnhidridoInstruction extends StatelessWidget {
               ),
             ],
           ),
+          exampleLabel(),
           Anhidrido(
             compound: generateAnhidridosByOneElement(
               getOneELement(allListPeriodic, 'Cl'),
@@ -626,6 +637,7 @@ class AcidoOxacidoInstruction extends StatelessWidget {
               ),
             ],
           ),
+          exampleLabel(),
           AcidoOxacido(
             compound: generateAcidosOxacidosByOneElement(
               getOneELement(allListPeriodic, 'Cl'),
@@ -666,6 +678,7 @@ class IonInstruction extends StatelessWidget {
               ),
             ],
           ),
+          exampleLabel(),
           IonDetail(
             compound: generateIonesByOneElement(
               getOneELement(allListPeriodic, 'Cl'),
@@ -706,6 +719,7 @@ class OxidoDobleInstruction extends StatelessWidget {
               ),
             ],
           ),
+          exampleLabel(),
           OxidosDoubles(
             compound: generateOxidosDoblesByOneElement(
               getOneELement(allListPeriodic, 'Sn'),

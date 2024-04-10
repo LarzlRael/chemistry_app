@@ -49,3 +49,13 @@ Widget lineSeparator() {
     ),
   );
 }
+
+Widget exampleLabel() {
+  return SimpleText(
+    'Ejemplo:',
+    padding: EdgeInsets.symmetric(vertical: 5),
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    /* textAlign: TextAlign.center, */
+  );
+}

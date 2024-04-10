@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:templat_project/anim/animations.dart';
 
 import 'package:templat_project/models/models.dart';
 import '../pages/pages.dart';
@@ -54,10 +55,13 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: CompoundDetailPage.routeName,
-      builder: (_, state) {
+      pageBuilder: (_, state) {
         Compound element = state.extra as Compound;
-        return CompoundDetailPage(
-          compound: element,
+        return leftToRight(
+          duration: const Duration(milliseconds: 350),
+          child: CompoundDetailPage(
+            compound: element,
+          ),
         );
       },
     ),

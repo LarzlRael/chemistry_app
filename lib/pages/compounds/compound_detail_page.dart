@@ -38,8 +38,10 @@ class CompoundDetailPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: CompoundByType(compound: compound),
+      body: ScaffoldBackground(
+        child: Center(
+          child: CompoundByType(compound: compound),
+        ),
       ),
     );
   }
@@ -123,9 +125,9 @@ class OxideDetail extends StatelessWidget {
     );
 
     return CardDetailCompound(
-      height: 0.55,
+      height: 0.50,
       extraInfo: [
-        SimpleText(
+        /* SimpleText(
           padding: EdgeInsets.only(top: 10),
           "Donde el metal ${compound.periodicTableElement.name} tiene valencia de ${compound.formula.first.isSimplified ? '${compound.formula.last.value * 2}' : '${compound.formula.last.value}'} y el oxigeno de -2",
           style: TextStyle(
@@ -134,7 +136,7 @@ class OxideDetail extends StatelessWidget {
             color: Colors.white,
           ),
           textAlign: TextAlign.center,
-        ),
+        ), */
         /*  ShowMessageSimply(
           isShowWithOutSimplify: compound.formula.first.isSimplified,
           isSimplify: isShowWithOutSimplify.value,
@@ -155,8 +157,8 @@ class OxideDetail extends StatelessWidget {
             SimpleText(text: "-2", style: textStyleSuffix),
           ],
         ), */
-        Plus_2_Elements(
-          direcction: Plus2ElementsDirecction.horizontal,
+        Plus2Elements(
+          direction: Plus2ElementsDirection.horizontal,
           element1: ElementAndAndName(
             elementName: compound.periodicTableElement.name,
             element: FormulaInText(
@@ -347,8 +349,8 @@ class PeroxideDetail extends StatelessWidget {
       background: colorByCompoundType(compound.type),
       compound: compound,
       children: [
-        Plus_2_Elements(
-          direcction: Plus2ElementsDirecction.horizontal,
+        Plus2Elements(
+          direction: Plus2ElementsDirection.horizontal,
           element1: ElementAndAndName(
               element: FormulaInText(
                 gap: 5,
@@ -435,7 +437,7 @@ class OxidosDoubles extends StatelessWidget {
               )
             ]
           : [
-              Plus_2_Elements(
+              Plus2Elements(
                 element1: ElementAndAndName(
                   elementName: getOxides[0]
                       .name
@@ -495,7 +497,7 @@ class Hidroxido extends StatelessWidget {
       height: 0.55,
       children: [
         //*  Fix this show only one element by element
-        Plus_2_Elements(
+        Plus2Elements(
           element1: ElementAndAndName(
             elementName: compound.name.replaceAll(
                 TypeCompound.hidroxido.name, TypeCompound.oxido.name),
@@ -551,8 +553,8 @@ class Hidruro extends StatelessWidget {
       background: colorByCompoundType(compound.type),
       compound: compound,
       children: [
-        Plus_2_Elements(
-          direcction: Plus2ElementsDirecction.horizontal,
+        Plus2Elements(
+          direction: Plus2ElementsDirection.horizontal,
           element1: ElementAndAndName(
             elementName: compound.periodicTableElement.name,
             element: FormulaInText(
@@ -609,8 +611,8 @@ class Anhidrido extends StatelessWidget {
       background: colorByCompoundType(compound.type),
       compound: compound,
       children: [
-        Plus_2_Elements(
-          direcction: Plus2ElementsDirecction.horizontal,
+        Plus2Elements(
+          direction: Plus2ElementsDirection.horizontal,
           element1: ElementAndAndName(
             elementName: compound.periodicTableElement.name,
             element: FormulaInText(
@@ -668,7 +670,7 @@ class AcidoOxacido extends StatelessWidget {
       children: [
         Container(
           child: Center(
-            child: Plus_2_Elements(
+            child: Plus2Elements(
               element1: ElementAndAndName(
                 element: FormulaInText(
                   compoundFormula: compound.compound!.formula,
@@ -754,7 +756,8 @@ class AcidoOxacidoPoliHidratado extends StatelessWidget {
       background: colorByCompoundType(compound.type),
       compound: compound,
       children: [
-        Plus_2_Elements(
+        Plus2Elements(
+          iconSize: 30,
           element1: ElementAndAndName(
             padding: EdgeInsets.only(top: 0),
             element: FormulaInText(

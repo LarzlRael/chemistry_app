@@ -9,6 +9,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
 
   final oxidoName = TypeCompound.oxido.name;
   for (var valencia in element.valencias) {
+    final isNh4 = element.symbol.contains('NH4');
     if (valencia.typeElement == TypeElement.no_metal) {
       continue;
     }
@@ -23,9 +24,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
     /* get oso or ico */
 
     final firstValence = ValenceCompound(
-      suffix: element.symbol.contains('NH4')
-          ? "(${element.symbol})"
-          : element.symbol,
+      suffix: element.symbol,
       value: 2,
       colorValue: oxigeno,
     );
@@ -34,6 +33,21 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
       value: elementValue,
       color: oxigeno,
     );
+    final formula = isNh4
+        ? [
+            ValenceCompound(
+              suffix: '(NH',
+              value: 4,
+              /* colorValue: oxigeno, */
+            ),
+            ValenceCompound(
+              suffix: ")",
+              value: 2,
+              colorValue: oxigeno,
+            ),
+            secondValence,
+          ]
+        : simplify([firstValence, secondValence]);
     String name = "";
 
     if (element.valencias.length == 1) {
@@ -58,7 +72,7 @@ List<Compound> generateOxidosByOneElement(PeriodicTableElement element) {
       periodicTableElement: element,
       name: name,
       isSpecialCase: specialNamesCases.containsKey(element.symbol),
-      formula: simplify([firstValence, secondValence]),
+      formula: formula,
       type: TypeCompound.oxido,
     ));
   }
@@ -156,6 +170,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
   }
 
   for (var valencia in element.valencias) {
+    final isNh4 = element.symbol.contains('NH4');
     if (valencia.typeElement == TypeElement.no_metal) {
       continue;
     }
@@ -165,15 +180,36 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
 
     /* get oso or ico */
     final suffix = element.valencias.length == 1 ? "" : valencia.suffix.name;
-    final firstValence = ValenceCompound(
-      suffix: element.symbol,
-      value: 1,
-    );
-    final secondValence = ValenceCompound(
-      suffix: oxideValue.suffix,
-      value: elementValue,
-      color: agua,
-    );
+    final formula = isNh4
+        ? [
+            ValenceCompound(
+              suffix: 'NH',
+              value: 4,
+              /* colorValue: oxigeno, */
+            ),
+            ValenceCompound(
+              suffix: "",
+              value: 1,
+              /* color: oxigeno, */
+            ),
+            ValenceCompound(
+              suffix: "(OH)",
+              value: elementValue,
+              color: agua,
+            ),
+          ]
+        : [
+            ValenceCompound(
+              suffix: element.symbol,
+              value: 1,
+            ),
+            ValenceCompound(
+              suffix: oxideValue.suffix,
+              value: elementValue,
+              color: agua,
+            ),
+          ];
+
     String name = "";
     final hidroxidoName = TypeCompound.hidroxido.name;
     if (element.valencias.length == 1) {
@@ -195,7 +231,7 @@ List<Compound> generateHidroxidosByOneElement(PeriodicTableElement element) {
         compound: null,
         periodicTableElement: element,
         name: name,
-        formula: [firstValence, secondValence],
+        formula: formula,
         type: TypeCompound.hidroxido,
       ),
     );

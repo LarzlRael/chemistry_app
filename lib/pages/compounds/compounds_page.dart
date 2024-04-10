@@ -10,27 +10,26 @@ class CompoundsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Compuestos'),
         ),
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /* SimpleText(
-                 'Metales',
-                style: textTheme.titleMedium,
-              ),
-              SizedBox(height: 10), */
-              Expanded(
-                child: AlignedGridView.count(
-                  itemCount: compoundMetalList.length,
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 1,
-                  crossAxisSpacing: 1,
-                  itemBuilder: (context, index) {
-                    final element = compoundMetalList[index];
-                    return Hero(
-                      tag: element.name,
-                      child: CompoundsOption(
+        body: ScaffoldBackground(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /* SimpleText(
+                   'Metales',
+                  style: textTheme.titleMedium,
+                ),
+                SizedBox(height: 10), */
+                Expanded(
+                  child: AlignedGridView.count(
+                    itemCount: compoundMetalList.length,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
+                    itemBuilder: (context, index) {
+                      final element = compoundMetalList[index];
+                      return CompoundsOption(
                         compoundCard: element,
                         onTap: (option, type) {
                           type == TypeCompound.sal_neutra
@@ -38,36 +37,36 @@ class CompoundsPage extends StatelessWidget {
                               : context
                                   .push('/compounds_by_type_page/${type.name}');
                         },
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
 
-              /* SizedBox(
-                  height:
-                      20), // Espacio entre la rejilla de tarjetas y la siguiente lista
-              Expanded(
-                child: AlignedGridView.count(
-                  itemCount: compoundNoMetalList.length,
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 1,
-                  crossAxisSpacing: 1,
-                  itemBuilder: (context, index) {
-                    final element = compoundNoMetalList[index];
-                    return Hero(
-                      tag: element.name,
-                      child: CompoundsOption(
-                        compoundCard: element,
-                        onTap: (option) => context.push(
-                          '/compounds_by_type_page/$option',
+                /* SizedBox(
+                    height:
+                        20), // Espacio entre la rejilla de tarjetas y la siguiente lista
+                Expanded(
+                  child: AlignedGridView.count(
+                    itemCount: compoundNoMetalList.length,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1,
+                    itemBuilder: (context, index) {
+                      final element = compoundNoMetalList[index];
+                      return Hero(
+                        tag: element.name,
+                        child: CompoundsOption(
+                          compoundCard: element,
+                          onTap: (option) => context.push(
+                            '/compounds_by_type_page/$option',
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ), */
-            ],
+                      );
+                    },
+                  ),
+                ), */
+              ],
+            ),
           ),
         ));
   }
@@ -83,40 +82,38 @@ class CompoundsOption extends StatelessWidget {
   final Function(String option, TypeCompound type)? onTap;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        customBorder:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        onTap: () {
-          if (onTap != null) {
-            onTap!(compoundCard.name, compoundCard.type);
-          }
-        },
-        child: Container(
-          width: double.infinity,
-          height: 125,
-          margin: const EdgeInsets.all(2),
-          child: Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  compoundCard.pathImage,
-                  width: 50,
-                  height: 50,
+    return InkWell(
+      customBorder:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      onTap: () {
+        if (onTap != null) {
+          onTap!(compoundCard.name, compoundCard.type);
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        height: 125,
+        margin: const EdgeInsets.all(2),
+        child: Card(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                compoundCard.pathImage,
+                width: 50,
+                height: 50,
+              ),
+              SimpleText(
+                compoundCard.name,
+                padding: const EdgeInsets.only(top: 5),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  /* color: Colors.white, */
                 ),
-                SimpleText(
-                  compoundCard.name,
-                  padding: const EdgeInsets.only(top: 5),
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    /* color: Colors.white, */
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

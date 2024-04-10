@@ -3,7 +3,8 @@ part of '../widgets.dart';
 class SearchCompundByType extends SearchDelegate {
   final List<Compound> listCompounds;
   final CompoundNotifier compoundNotifier;
-
+  @override
+  String get searchFieldLabel => 'Buscar compuesto';
   Timer? debouncerTimer;
 
   SearchCompundByType({
@@ -31,7 +32,7 @@ class SearchCompundByType extends SearchDelegate {
   Widget? buildLeading(BuildContext context) {
     return IconButton(
       onPressed: context.pop,
-      icon: Icon(Icons.chevron_left, color: Colors.black),
+      icon: Icon(Icons.chevron_left, size: 30),
     );
   }
 

@@ -1,27 +1,35 @@
 part of '../widgets.dart';
 
-enum Plus2ElementsDirecction { horizontal, vertical }
+enum Plus2ElementsDirection { horizontal, vertical }
 
-class Plus_2_Elements extends StatelessWidget {
-  const Plus_2_Elements({
+class Plus2Elements extends StatelessWidget {
+  const Plus2Elements({
     super.key,
     required this.element1,
     required this.element2,
-    this.direcction = Plus2ElementsDirecction.vertical,
+    this.direction = Plus2ElementsDirection.vertical,
+    this.iconPlusColor = Colors.white,
+    this.iconSize = 40,
   });
   final Widget element1;
   final Widget element2;
-  final Plus2ElementsDirecction direcction;
+  final Color iconPlusColor;
+  final Plus2ElementsDirection direction;
+  final double iconSize;
   @override
   Widget build(BuildContext context) {
-    return direcction == Plus2ElementsDirecction.vertical
+    return direction == Plus2ElementsDirection.vertical
         ? VerticalPlus(
             element1: element1,
             element2: element2,
+            iconPlusColor: iconPlusColor,
+            iconSize: iconSize,
           )
         : HorizontalPlus(
             element1: element1,
             element2: element2,
+            iconPlusColor: iconPlusColor,
+            iconSize: iconSize,
           );
   }
 }
@@ -31,10 +39,14 @@ class VerticalPlus extends StatelessWidget {
     super.key,
     required this.element1,
     required this.element2,
+    this.iconPlusColor = Colors.white,
+    this.iconSize = 40,
   });
 
   final Widget element1;
   final Widget element2;
+  final Color iconPlusColor;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +54,11 @@ class VerticalPlus extends StatelessWidget {
       children: [
         SizedBox(width: 15),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          /* margin: EdgeInsets.symmetric(horizontal: 10), */
           child: Icon(
             FontAwesomeIcons.circlePlus,
-            color: Colors.white,
-            size: 40,
+            color: iconPlusColor,
+            size: iconSize,
           ),
         ),
         Column(
@@ -67,10 +79,14 @@ class HorizontalPlus extends StatelessWidget {
     super.key,
     required this.element1,
     required this.element2,
+    this.iconPlusColor = Colors.white,
+    this.iconSize = 40,
   });
 
   final Widget element1;
   final Widget element2;
+  final Color iconPlusColor;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +98,8 @@ class HorizontalPlus extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: Icon(
             FontAwesomeIcons.circlePlus,
-            color: Colors.white,
-            size: 40,
+            color: iconPlusColor,
+            size: iconSize,
           ),
         ),
         element2,

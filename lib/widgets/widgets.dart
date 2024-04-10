@@ -20,6 +20,7 @@ import '../provider/providers.dart';
 
 part 'simple_text.dart';
 part 'text/formula_in_text.dart';
+part 'backgroud/scaffold_background.dart';
 part 'searchs/search_element_delegate.dart';
 part 'searchs/search_compund_by_type.dart';
 part 'cards/element_card.dart';

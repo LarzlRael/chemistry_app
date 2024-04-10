@@ -14,13 +14,15 @@ class ElementsDetail extends StatelessWidget {
       appBar: AppBar(
         title: Text(periodicTableElement.name),
       ),
-      body: Center(
-        child: Hero(
-          tag: periodicTableElement.symbol,
-          child: ElementCard(
-            size: size.width * 0.90,
-            fontSize: 100,
-            element: periodicTableElement,
+      body: ScaffoldBackground(
+        child: Center(
+          child: Hero(
+            tag: periodicTableElement.symbol,
+            child: ElementCard(
+              size: size.width * 0.90,
+              fontSize: 100,
+              element: periodicTableElement,
+            ),
           ),
         ),
       ),
