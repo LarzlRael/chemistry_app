@@ -52,6 +52,7 @@ class ElementCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isBothTypes = hasBothTypes(element.valencias);
+    final elementType = determineElementType(element.valencias);
     final metalValencias = element.valencias
         .where((element) => element.typeElement == TypeElement.metal)
         .toList();
@@ -73,7 +74,7 @@ class ElementCard extends StatelessWidget {
                 size: size,
                 fontSize: fontSize,
                 borderRadius: borderRadius,
-                group: element.group.name.toCapitalize())
+                group: elementType)
             : FlipCard(
                 key: key,
                 front: CardElement(

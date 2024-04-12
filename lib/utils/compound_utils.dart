@@ -86,6 +86,44 @@ bool hasBothTypes(List<Valencia> valencias) {
   return hasMetal && hasNonMetal;
 }
 
+String determineElementType(List<Valencia> valencias) {
+  bool hasMetal = false;
+  bool hasNonMetal = false;
+
+  for (var valencia in valencias) {
+    if (valencia.typeElement == TypeElement.metal) {
+      hasMetal = true;
+    } else if (valencia.typeElement == TypeElement.no_metal) {
+      hasNonMetal = true;
+    }
+  }
+
+  if (hasMetal && hasNonMetal) {
+    return '';
+  }
+  if (hasMetal) {
+    return "Metal";
+  }
+  return "No metal";
+}
+
+bool typeElement(List<Valencia> valencias) {
+  bool hasMetal = false;
+  bool hasNonMetal = false;
+
+  for (var valencia in valencias) {
+    if (valencia.typeElement == TypeElement.metal) {
+      hasMetal = true;
+    } else if (valencia.typeElement == TypeElement.no_metal) {
+      hasNonMetal = true;
+    }
+
+    if (hasMetal && hasNonMetal) return true;
+  }
+
+  return hasMetal && hasNonMetal;
+}
+
 bool isAllSameType(List<Valencia> valencias) {
   if (valencias.isEmpty) {
     return false; // Si la lista está vacía, no se puede determinar el tipo
