@@ -9,6 +9,29 @@ class GamesPage extends HookWidget {
     final listSuffle = shuffleList(allListPeriodic);
     final firstElement = listSuffle[currentIndex.value];
     final pageViewController = usePageController();
+    useEffect(() {
+      ShakeDetector detector = ShakeDetector.autoStart(
+        onPhoneShake: () {
+          /* ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Shake!'),
+            ),
+          ); */
+          pageViewController.nextPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+          // Do stuff on phone shake
+        },
+        minimumShakeCount: 1,
+        shakeSlopTimeMS: 500,
+        shakeCountResetTime: 3000,
+        shakeThresholdGravity: 2.7,
+      );
+      return () {
+        detector.stopListening();
+      };
+    }, []);
     return Scaffold(
       appBar: AppBar(
         title: Text('Juegos'),
@@ -80,6 +103,7 @@ class CardFlipablePeriodicElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
+      physics: NeverScrollableScrollPhysics(),
       controller: pageViewController,
       scrollDirection: Axis.vertical,
       itemCount: listPeriodic.length,

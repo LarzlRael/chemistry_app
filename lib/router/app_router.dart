@@ -5,6 +5,7 @@ import 'package:templat_project/models/models.dart';
 import '../pages/pages.dart';
 
 final appRouter = GoRouter(
+  /* initialLocation: '/games/guess_periodic_element', */
   initialLocation: HomePage.routeName,
   /* refreshListenable: goRouterNotifier, */
   routes: [

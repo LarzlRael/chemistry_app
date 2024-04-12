@@ -44,6 +44,18 @@ class CompoundOxidosInstruction extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          GroupsChips(
+            groups: [
+              Group.monovalente,
+              Group.bivalente,
+              Group.trivalente,
+              Group.monoBivalente,
+              Group.monotrivalente,
+              Group.bitrivalente,
+              Group.bitetravalente,
+              Group.anfotero,
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -156,6 +168,12 @@ class CompoundPeroxidosInstruction extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        GroupsChips(
+          groups: [
+            Group.monovalente,
+            Group.bivalente,
+          ],
+        ),
         Wrap(
           alignment: WrapAlignment.center,
           crossAxisAlignment: WrapCrossAlignment.center,
@@ -256,7 +274,26 @@ class HidroxidoInstruction extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardInstructionContainer(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SimpleText(
+            "Los hidroxidos se forman con un oxido basico y agua",
+            fontSize: 16,
+            /* textAlign: TextAlign.center, */
+          ),
+          GroupsChips(
+            groups: [
+              Group.monovalente,
+              Group.bivalente,
+              Group.trivalente,
+              Group.monoBivalente,
+              Group.monotrivalente,
+              Group.bitrivalente,
+              Group.bitetravalente,
+              Group.anfotero,
+            ],
+          ),
           Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
@@ -363,6 +400,23 @@ class HidruroInstruction extends StatelessWidget {
     return CardInstructionContainer(
       child: Column(
         children: [
+          SimpleText(
+            "Los hidruros se forman con un metal y hidrogeno",
+            fontSize: 16,
+            /* textAlign: TextAlign.center, */
+          ),
+          GroupsChips(
+            groups: [
+              Group.monovalente,
+              Group.bivalente,
+              Group.trivalente,
+              Group.monoBivalente,
+              Group.monotrivalente,
+              Group.bitrivalente,
+              Group.bitetravalente,
+              Group.anfotero,
+            ],
+          ),
           Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
@@ -460,6 +514,19 @@ class AnhidridoInstruction extends StatelessWidget {
     return CardInstructionContainer(
       child: Column(
         children: [
+          SimpleText(
+            "Los anhidridos se forman con un no metal y oxigeno",
+            fontSize: 16,
+            textAlign: TextAlign.center,
+          ),
+          GroupsChips(
+            groups: [
+              Group.halogeno,
+              Group.anfigenos,
+              Group.nitrogeniodes,
+              Group.carbonoides,
+            ],
+          ),
           Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
@@ -557,6 +624,15 @@ class AcidoOxacidoInstruction extends StatelessWidget {
     return CardInstructionContainer(
       child: Column(
         children: [
+          GroupsChips(
+            groups: [
+              Group.halogeno,
+              Group.anfigenos,
+              Group.nitrogeniodes,
+              Group.carbonoides,
+              Group.anfotero,
+            ],
+          ),
           Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,

@@ -1,7 +1,7 @@
 part of '../pages.dart';
 
-class GuessPeriodicElement extends HookWidget {
-  const GuessPeriodicElement({super.key});
+class GuessCompoundGame extends HookWidget {
+  const GuessCompoundGame({super.key});
   static const routeName = 'guess_periodic_element';
   @override
   Widget build(BuildContext context) {
