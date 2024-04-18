@@ -7,6 +7,7 @@ import 'package:templat_project/constants/compund_colors.dart';
 import 'package:templat_project/models/models.dart';
 
 import '../data/periodic_table_data.dart';
+export 'files/save_file.dart';
 
 part 'text_utils.dart';
 part 'search_utils.dart';

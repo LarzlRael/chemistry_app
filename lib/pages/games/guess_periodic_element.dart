@@ -7,7 +7,7 @@ class GuessPeriodicElement extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final optionsGame = useState<GuessPeriodicHelper>(
-      generatePeriodicElementOptions(allListPeriodic, 6),
+      generatePeriodicElementOptions(allListPeriodic, 9),
     );
     final isCorrect = useState(false);
     final showCorrectOptionName = useState(true);
@@ -15,7 +15,7 @@ class GuessPeriodicElement extends HookWidget {
 
     useEffect(() {
       if (isCorrect.value) {
-        optionsGame.value = generatePeriodicElementOptions(allListPeriodic, 6);
+        optionsGame.value = generatePeriodicElementOptions(allListPeriodic, 9);
         selectedCardIndex.value = -1;
         isCorrect.value = false;
       }
@@ -36,23 +36,42 @@ class GuessPeriodicElement extends HookWidget {
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 30),
                   child: Card(
-                    color: colorByGroup(optionsGame.value.correctAnswer.group),
-                    child: Container(
-                      width: 150,
-                      height: 100,
-                      /* padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ), */
-                      child: Center(
-                        child: SimpleText(
-                          showCorrectOptionName.value
-                              ? optionsGame.value.correctAnswer.symbol
-                              : optionsGame.value.correctAnswer.name,
-                          fontSize: 45,
+                    /* color: colorByGroup(optionsGame.value.correctAnswer.group), */
+                    child: Column(
+                      children: [
+                        SimpleText(
+                          "¿Cual es el nombre de este elemento?",
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          textAlign: TextAlign.center,
+                          padding: EdgeInsets.symmetric(vertical: 10),
                         ),
-                      ),
+                        Container(
+                          /* width: 300,
+                          height: 200, */
+                          /* padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ), */
+                          child: Center(
+                            child: /* SimpleText(
+                              showCorrectOptionName.value
+                                  ? optionsGame.value.correctAnswer.symbol
+                                  : optionsGame.value.correctAnswer.name,
+                              fontSize: 45,
+                              fontWeight: FontWeight.bold,
+                            ) */
+                                ElementCard(
+                              element: optionsGame.value.correctAnswer,
+                              fontSize: 60,
+                              showName: false,
+                              borderRadius: 10,
+                              size: 150,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
                     ),
                   ),
                 ),
@@ -79,12 +98,9 @@ class GuessPeriodicElement extends HookWidget {
                             duration: const Duration(milliseconds: 300),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                color: selectedCardIndex.value == index
-                                    ? primaryColor
-                                    : Colors.transparent,
-                                width: 4,
-                              ),
+                              color: selectedCardIndex.value == index
+                                  ? primaryColor
+                                  : Colors.transparent,
                             ),
                             padding: EdgeInsets.all(10),
                             width: 100,
@@ -106,7 +122,6 @@ class GuessPeriodicElement extends HookWidget {
                     },
                   ),
                 ),
-                Spacer(),
                 Container(
                   width: double.infinity,
                   child: FilledButton(
@@ -121,10 +136,9 @@ class GuessPeriodicElement extends HookWidget {
                               isCorrect.value = true;
                               return;
                             }
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Respuesta incorrecta'),
-                              ),
+                            GlobalSnackBar.showSnackBar(
+                              context,
+                              'Respuesta incorrecta',
                             );
                           }
                         : null,

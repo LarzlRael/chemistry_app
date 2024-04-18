@@ -24,6 +24,12 @@ class ElementsPage extends HookConsumerWidget {
                   );
                 },
               ),
+             /*  IconButton(
+                icon: Icon(FontAwesomeIcons.download),
+                onPressed: () {
+                  downloadAndSavePDF(context);
+                },
+              ), */
             ],
             bottom: TabBar(
                 isScrollable: true,

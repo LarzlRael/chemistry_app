@@ -140,6 +140,7 @@ class GuessCompoundGame extends HookWidget {
                                     visible: selectedCardIndex.value == index &&
                                         isCorrect.value,
                                     child: FadeIn(
+                                      duration: Duration(milliseconds: 250),
                                       child: Icon(
                                         Icons.check_circle,
                                         /* color: Colors.w, */
@@ -156,7 +157,8 @@ class GuessCompoundGame extends HookWidget {
                     },
                   ),
                 ),
-                Container(
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 150),
                   width: double.infinity,
                   child: FilledButton(
                     style: FilledButton.styleFrom(

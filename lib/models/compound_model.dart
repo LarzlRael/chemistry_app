@@ -27,11 +27,11 @@ extension TypeCompoundExtension on TypeCompound {
       case TypeCompound.hidruro:
         return 'Hidruro';
       case TypeCompound.oxido_doble:
-        return 'Óxido Doble';
+        return 'Óxido doble';
       case TypeCompound.acido_oxacido:
-        return 'Ácido Oxácido';
+        return 'Ácido oxácido';
       case TypeCompound.acido_polihidratado:
-        return 'Ácido Polihidratado';
+        return 'Ácido polihidratado';
       case TypeCompound.oxoacido:
         return 'Oxácido';
       case TypeCompound.anhidrido:
