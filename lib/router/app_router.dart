@@ -5,7 +5,7 @@ import 'package:templat_project/models/models.dart';
 import '../pages/pages.dart';
 
 final appRouter = GoRouter(
-  /* initialLocation: '/games/guess_periodic_element', */
+  /* initialLocation: GuessPeriodicElement.routeName, */
   initialLocation: HomePage.routeName,
   /* refreshListenable: goRouterNotifier, */
   routes: [
@@ -76,10 +76,22 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/games/guess_periodic_element',
-      builder: (_, state) {
-        return GuessPeriodicElement();
-      },
+      path: GamesPage.routeName,
+      builder: (_, __) => const GamesPage(),
+      routes: [
+        GoRoute(
+          path: ElementsShake.routeName,
+          builder: (_, __) => const ElementsShake(),
+        ),
+        GoRoute(
+          path: GuessPeriodicElement.routeName,
+          builder: (_, __) => const GuessPeriodicElement(),
+        ),
+        GoRoute(
+          path: GuessCompoundGame.routeName,
+          builder: (_, __) => const GuessCompoundGame(),
+        ),
+      ],
     ),
   ],
 );

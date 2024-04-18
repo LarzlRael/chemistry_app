@@ -1,8 +1,8 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
-class GamesPage extends HookWidget {
-  const GamesPage({super.key});
-
+class ElementsShake extends HookWidget {
+  const ElementsShake({super.key});
+  static const routeName = 'elements_periodics_shake';
   @override
   Widget build(BuildContext context) {
     final currentIndex = useState(0);

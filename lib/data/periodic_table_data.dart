@@ -836,6 +836,11 @@ List<PeriodicTableElement> shuffleList(
   return shuffledList;
 }
 
+PeriodicTableElement getOneRandomElement(
+    List<PeriodicTableElement> originalList) {
+  return originalList[Random().nextInt(originalList.length)];
+}
+
 List<PeriodicTableElement> getElementsBySimbols(
   List<PeriodicTableElement> list,
   List<String> symbols,

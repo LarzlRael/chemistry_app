@@ -85,6 +85,15 @@ final metalGroup = <Group>[
   Group.anfotero,
 ];
 
+final peroxideGroup = <Group>[
+  Group.monovalente,
+  Group.bivalente,
+];
+final oxidosDoble = <Group>[
+  Group.bitetravalente,
+  Group.bitrivalente,
+  Group.anfotero
+];
 final noMetalGroup = <Group>[
   Group.halogeno,
   Group.anfigenos,
@@ -92,3 +101,102 @@ final noMetalGroup = <Group>[
   Group.carbonoides,
   Group.anfotero,
 ];
+
+final oxidoGroup = metalGroup;
+final peroxidoGroup = peroxideGroup;
+final oxidoDobleGroup = oxidosDoble;
+final hidroxidoGroup = metalGroup;
+final hidruroGroup = metalGroup;
+final anhidridoGroup = noMetalGroup;
+final acidoOxacidoGroup = noMetalGroup;
+final acidoPolihidratadoGroup = noMetalGroup;
+final ionGroup = noMetalGroup;
+
+List<TypeCompound> generatePossibleCombinations(Group group) {
+  var combinations = <TypeCompound>[];
+
+  if (oxidoGroup.contains(group)) combinations.add(TypeCompound.oxido);
+  if (peroxidoGroup.contains(group)) combinations.add(TypeCompound.peroxido);
+  if (oxidoDobleGroup.contains(group))
+    combinations.add(TypeCompound.oxido_doble);
+  if (hidroxidoGroup.contains(group)) combinations.add(TypeCompound.hidroxido);
+  if (hidruroGroup.contains(group)) combinations.add(TypeCompound.hidruro);
+  if (anhidridoGroup.contains(group)) combinations.add(TypeCompound.anhidrido);
+  if (acidoOxacidoGroup.contains(group))
+    combinations.add(TypeCompound.acido_oxacido);
+  if (acidoPolihidratadoGroup.contains(group))
+    combinations.add(TypeCompound.acido_polihidratado);
+  if (ionGroup.contains(group)) combinations.add(TypeCompound.ion);
+
+  return combinations;
+}
+
+List<Compound> genereateOptions(
+    List<TypeCompound> groups, PeriodicTableElement element) {
+  var options = <Compound>[];
+  for (var group in groups) {
+    switch (group) {
+      case TypeCompound.oxido:
+        options.addAll(generateOxidosByOneElement(element));
+        break;
+
+      case TypeCompound.peroxido:
+        options.addAll(generatePeroxidoByOneElement(element));
+        break;
+      case TypeCompound.oxido_doble:
+        options.addAll(generateOxidosDoblesByOneElement(element));
+        break;
+      case TypeCompound.hidroxido:
+        options.addAll(generateHidroxidosByOneElement(element));
+        break;
+      case TypeCompound.hidruro:
+        options.addAll(generateHidrurosByOneElement(element));
+        break;
+      case TypeCompound.anhidrido:
+        options.addAll(generateAnhidridosByOneElement(element));
+        break;
+      case TypeCompound.acido_oxacido:
+        options.addAll(generateAcidosOxacidosByOneElement(element));
+        break;
+      /* case TypeCompound.acido_polihidratado:
+        options.addAll(generateAcidosPolihidratadosByOneElement());
+        break; */
+      case TypeCompound.ion:
+        options.addAll(generateIonesByOneElement(element));
+        break;
+      default:
+        [];
+    }
+  }
+  if (exceptions.contains(element.symbol)) {
+    options.addAll(generateAcidosPolihidratadosByOneElement());
+  }
+  return options;
+}
+
+CompoundGuessGame generateCompoundGuessGame() {
+  final element = getOneRandomElement(allListPeriodic);
+  /* final element = getOneELement(allListPeriodic, "Sb"); */
+
+  final options = genereateOptions(
+    generatePossibleCombinations(element.group),
+    element,
+  );
+  final only4Options = options.length >= 4 ? options.take(4).toList() : options;
+
+  final correctElement = only4Options[Random().nextInt(only4Options.length)];
+  final sufleElements = List<Compound>.from(only4Options)..shuffle();
+  return CompoundGuessGame(
+    elements: sufleElements,
+    correctElement: correctElement,
+  );
+}
+
+class CompoundGuessGame {
+  List<Compound> elements;
+  Compound correctElement;
+  CompoundGuessGame({
+    required this.elements,
+    required this.correctElement,
+  });
+}

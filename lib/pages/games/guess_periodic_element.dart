@@ -3,6 +3,7 @@ part of '../pages.dart';
 class GuessPeriodicElement extends HookWidget {
   const GuessPeriodicElement({super.key});
   static const routeName = 'guess_periodic_element';
+
   @override
   Widget build(BuildContext context) {
     final optionsGame = useState<GuessPeriodicHelper>(
@@ -20,119 +21,124 @@ class GuessPeriodicElement extends HookWidget {
       }
     }, [isCorrect.value]);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Adivina el elemento'),
-      ),
       body: ScaffoldBackground(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              /* Text('Selecciona el elemento correcto'), */
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 30),
-                child: Card(
-                  color: colorByGroup(optionsGame.value.correctAnswer.group),
-                  child: Container(
-                    width: 150,
-                    height: 100,
-                    /* padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ), */
-                    child: Center(
-                      child: SimpleText(
-                        showCorrectOptionName.value
-                            ? optionsGame.value.correctAnswer.symbol
-                            : optionsGame.value.correctAnswer.name,
-                        fontSize: 45,
-                        fontWeight: FontWeight.bold,
+        child: SafeArea(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                /* Text('Selecciona el elemento correcto'), */
+                ProgresLinearTimer(
+                  height: 15,
+                  durationMiliseconds: 20000,
+                  onTimerFinish: () {},
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 30),
+                  child: Card(
+                    color: colorByGroup(optionsGame.value.correctAnswer.group),
+                    child: Container(
+                      width: 150,
+                      height: 100,
+                      /* padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ), */
+                      child: Center(
+                        child: SimpleText(
+                          showCorrectOptionName.value
+                              ? optionsGame.value.correctAnswer.symbol
+                              : optionsGame.value.correctAnswer.name,
+                          fontSize: 45,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              /* SizedBox(height: 15), */
-              Expanded(
-                child: AlignedGridView.count(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                  itemCount: optionsGame.value.listSuffle.length,
-                  itemBuilder: (context, int index) {
-                    return InkWell(
-                      customBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      onTap: () {
-                        selectedCardIndex.value = index;
-                      },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
+                /* SizedBox(height: 15), */
+                Expanded(
+                  child: AlignedGridView.count(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
+                    itemCount: optionsGame.value.listSuffle.length,
+                    itemBuilder: (context, int index) {
+                      return InkWell(
+                        customBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          decoration: BoxDecoration(
+                        onTap: () {
+                          selectedCardIndex.value = index;
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: selectedCardIndex.value == index
-                                  ? primaryColor
-                                  : Colors.transparent,
-                              width: 4,
-                            ),
                           ),
-                          padding: EdgeInsets.all(10),
-                          width: 100,
-                          height: 100,
-                          child: Center(
-                            child: SimpleText(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              showCorrectOptionName.value
-                                  ? optionsGame.value.listSuffle[index].name
-                                  : optionsGame.value.listSuffle[index].symbol,
-                              textAlign: TextAlign.center,
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: selectedCardIndex.value == index
+                                    ? primaryColor
+                                    : Colors.transparent,
+                                width: 4,
+                              ),
+                            ),
+                            padding: EdgeInsets.all(10),
+                            width: 100,
+                            height: 100,
+                            child: Center(
+                              child: SimpleText(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                showCorrectOptionName.value
+                                    ? optionsGame.value.listSuffle[index].name
+                                    : optionsGame
+                                        .value.listSuffle[index].symbol,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Spacer(),
-              Container(
-                width: double.infinity,
-                child: FilledButton(
-                  style: FilledButton.styleFrom(
-                    backgroundColor: primaryColor,
+                      );
+                    },
                   ),
-                  onPressed: selectedCardIndex.value != -1
-                      ? () {
-                          if (optionsGame
-                                  .value.listSuffle[selectedCardIndex.value] ==
-                              optionsGame.value.correctAnswer) {
-                            isCorrect.value = true;
-                            return;
+                ),
+                Spacer(),
+                Container(
+                  width: double.infinity,
+                  child: FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: secondaryColor,
+                    ),
+                    onPressed: selectedCardIndex.value != -1
+                        ? () {
+                            if (optionsGame.value
+                                    .listSuffle[selectedCardIndex.value] ==
+                                optionsGame.value.correctAnswer) {
+                              isCorrect.value = true;
+                              return;
+                            }
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Respuesta incorrecta'),
+                              ),
+                            );
                           }
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Respuesta incorrecta'),
-                            ),
-                          );
-                        }
-                      : null,
-                  child: SimpleText(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    'Comprobar',
-                    fontSize: 18,
-                    color: Colors.white,
+                        : null,
+                    child: SimpleText(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      'Comprobar',
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 15),
-            ],
+                SizedBox(height: 15),
+              ],
+            ),
           ),
         ),
       ),

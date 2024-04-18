@@ -3,7 +3,7 @@ part of '../widgets.dart';
 class FormulaInText extends StatelessWidget {
   final List<ValenceCompound> compoundFormula;
   final TextStyle? textStyle;
-  final double? fontSize;
+  final double fontSize;
   final TypeCompound? typeCompound;
   final double? gap;
 
@@ -25,7 +25,7 @@ class FormulaInText extends StatelessWidget {
         final isOneOrCero =
             compoundFormula.length == 1 ? false : exeption.contains(e.value);
         final position =
-            !e.isSuperIndex ? (fontSize! / 2.5) : (fontSize! / 6) * -1;
+            !e.isSuperIndex ? (fontSize / 2.5) : (fontSize / 6) * -1;
         return Wrap(
           spacing: gap ?? 0, // Espacio entre los elementos
           crossAxisAlignment: WrapCrossAlignment.center,

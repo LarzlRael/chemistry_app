@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:collection/collection.dart';
 import 'dart:math' as math;
 import 'package:flip_card/flip_card.dart';
@@ -18,12 +19,15 @@ import 'package:templat_project/data/constants_elementes.dart';
 import 'package:templat_project/data/elements_data.dart';
 import 'package:templat_project/data/periodic_table_data.dart';
 import 'package:templat_project/models/models.dart';
+import 'package:templat_project/notifications/snackbar.dart';
 import 'package:templat_project/provider/providers.dart';
 import 'package:templat_project/theme/colors.dart';
 import 'package:templat_project/widgets/widgets.dart';
 import 'package:templat_project/utils/utils.dart';
 part 'home_page.dart';
-part 'games_page.dart';
+part 'games/games_page.dart';
+part 'games/elements_shake.dart';
+
 part 'elements_page.dart';
 part 'elements/elements_detail.dart';
 

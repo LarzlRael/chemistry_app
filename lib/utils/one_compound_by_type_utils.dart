@@ -139,7 +139,7 @@ List<Compound> generateOxidosDoblesByOneElement(PeriodicTableElement element) {
   final getOxide = generateOxidosByOneElement(element);
 
   final name =
-      "Oxido doble de ${getOxide[0].periodicTableElement.name.toLowerCase()}";
+      "${TypeCompound.oxido_doble.name} de ${getOxide[0].periodicTableElement.name.toLowerCase()}";
   final isBismuto = element.symbol == "Bi";
   oxidosDoubles.add(Compound(
     periodicTableElement: element,
@@ -373,9 +373,9 @@ List<Compound> generateAnhidridosByOneElement(PeriodicTableElement element) {
   return compounds;
 }
 
+final exceptions = ["P", "Sb", "As", "B", "Si"];
 List<Compound> generateAcidosOxacidosByOneElement(
     PeriodicTableElement element) {
-  final exceptions = ["P", "Sb", "As", "B", "Si"];
   if (exceptions.contains(element.symbol)) {
     return [];
   }
@@ -444,8 +444,6 @@ List<Compound> generateAcidosOxacidosByOneElement(
 }
 
 List<Compound> generateAcidosPolihidratadosByOneElement() {
-  final exceptions = ["P", "Sb", "As", "B", "Si"];
-
   final getElements = getElementsBySimbols(allListPeriodic, exceptions);
   final filteredElements = getElements.map((e) {
     switch (e.symbol) {

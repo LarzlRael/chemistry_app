@@ -11,6 +11,20 @@ class ElementsPage extends HookConsumerWidget {
       length: Group.values.length,
       child: Scaffold(
           appBar: AppBar(
+            actions: [
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: SearchElementDelegate(
+                      compoundsProvider: ref.read(compoundProvider.notifier),
+                      /* compoundsState: ref.watch(compoundProvider), */
+                    ),
+                  );
+                },
+              ),
+            ],
             bottom: TabBar(
                 isScrollable: true,
                 /* Tab(icon: Icon(Icons.directions_car)), */
@@ -26,7 +40,7 @@ class ElementsPage extends HookConsumerWidget {
             return Container(
               child: Column(
                 children: [
-                  SearchBarElement(),
+                  /* SearchBarElement(), */
                   Expanded(
                     child: ElementsByGroup(
                       group: group,

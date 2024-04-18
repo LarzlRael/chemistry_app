@@ -13,41 +13,38 @@ class CompoundsByTypePage extends HookConsumerWidget {
     useEffect(() {
       switch (compoundType) {
         case TypeCompound.oxido:
-          listCompounds.value = generateOxidosByGroupsElements(metalGroup);
+          listCompounds.value = generateOxidosByGroupsElements(oxidoGroup);
           break;
 
         case TypeCompound.peroxido:
           listCompounds.value = generatePerOxidosByGroupsElements(
-            [
-              Group.monovalente,
-              Group.bivalente,
-            ],
+            peroxidoGroup,
           );
           break;
         case TypeCompound.oxido_doble:
-          listCompounds.value = generateOxidosDoblesByGroupsElements(
-            [Group.bitetravalente, Group.bitrivalente, Group.anfotero],
-          );
+          listCompounds.value =
+              generateOxidosDoblesByGroupsElements(oxidoDobleGroup);
           break;
         case TypeCompound.hidroxido:
-          listCompounds.value = generateHidroxidosByGroupsElements(metalGroup);
+          listCompounds.value =
+              generateHidroxidosByGroupsElements(hidroxidoGroup);
           break;
         case TypeCompound.hidruro:
-          listCompounds.value = generateHidrurosByGroupsElements(metalGroup);
+          listCompounds.value = generateHidrurosByGroupsElements(hidruroGroup);
           break;
         case TypeCompound.anhidrido:
           listCompounds.value =
-              generateAnhidridosByGroupsElements(noMetalGroup);
+              generateAnhidridosByGroupsElements(anhidridoGroup);
           break;
         case TypeCompound.acido_oxacido:
           listCompounds.value =
-              generateAcidosOxacidosByGroupsElements(noMetalGroup);
+              generateAcidosOxacidosByGroupsElements(acidoOxacidoGroup);
           break;
         case TypeCompound.acido_polihidratado:
           listCompounds.value = generateAcidosPolihidratadosByOneElement();
           break;
         case TypeCompound.ion:
-          listCompounds.value = generateIonesByGroupsElements(noMetalGroup);
+          listCompounds.value = generateIonesByGroupsElements(ionGroup);
           break;
         /*
         default:

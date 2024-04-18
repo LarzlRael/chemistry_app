@@ -14,6 +14,7 @@ import 'package:templat_project/data/constants_elementes.dart';
 import 'package:templat_project/data/periodic_table_data.dart';
 import 'package:templat_project/models/models.dart';
 import 'package:templat_project/pages/pages.dart';
+import 'package:templat_project/theme/colors.dart';
 import 'package:templat_project/utils/utils.dart';
 
 import '../provider/providers.dart';
@@ -33,3 +34,4 @@ part 'cards/card_instruction_container.dart';
 part 'instruccions/compound_instruction.dart';
 part 'instruccions/plus_2_elements.dart';
 part 'instruccions/groups_chips.dart';
+part 'games_widgets/progres_linear_timer.dart';

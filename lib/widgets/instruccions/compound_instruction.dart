@@ -44,18 +44,7 @@ class CompoundOxidosInstruction extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GroupsChips(
-            groups: [
-              Group.monovalente,
-              Group.bivalente,
-              Group.trivalente,
-              Group.monoBivalente,
-              Group.monotrivalente,
-              Group.bitrivalente,
-              Group.bitetravalente,
-              Group.anfotero,
-            ],
-          ),
+          GroupsChips(groups: metalGroup),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -282,18 +271,7 @@ class HidroxidoInstruction extends StatelessWidget {
             fontSize: 16,
             /* textAlign: TextAlign.center, */
           ),
-          GroupsChips(
-            groups: [
-              Group.monovalente,
-              Group.bivalente,
-              Group.trivalente,
-              Group.monoBivalente,
-              Group.monotrivalente,
-              Group.bitrivalente,
-              Group.bitetravalente,
-              Group.anfotero,
-            ],
-          ),
+          GroupsChips(groups: metalGroup),
           Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
@@ -406,16 +384,7 @@ class HidruroInstruction extends StatelessWidget {
             /* textAlign: TextAlign.center, */
           ),
           GroupsChips(
-            groups: [
-              Group.monovalente,
-              Group.bivalente,
-              Group.trivalente,
-              Group.monoBivalente,
-              Group.monotrivalente,
-              Group.bitrivalente,
-              Group.bitetravalente,
-              Group.anfotero,
-            ],
+            groups: metalGroup,
           ),
           Wrap(
             alignment: WrapAlignment.center,
@@ -519,14 +488,7 @@ class AnhidridoInstruction extends StatelessWidget {
             fontSize: 16,
             textAlign: TextAlign.center,
           ),
-          GroupsChips(
-            groups: [
-              Group.halogeno,
-              Group.anfigenos,
-              Group.nitrogeniodes,
-              Group.carbonoides,
-            ],
-          ),
+          GroupsChips(groups: noMetalGroup),
           Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
@@ -625,13 +587,7 @@ class AcidoOxacidoInstruction extends StatelessWidget {
       child: Column(
         children: [
           GroupsChips(
-            groups: [
-              Group.halogeno,
-              Group.anfigenos,
-              Group.nitrogeniodes,
-              Group.carbonoides,
-              Group.anfotero,
-            ],
+            groups: noMetalGroup,
           ),
           Wrap(
             alignment: WrapAlignment.center,
