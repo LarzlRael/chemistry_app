@@ -2,6 +2,7 @@ part of '../pages.dart';
 
 class CompoundsPage extends StatelessWidget {
   const CompoundsPage({super.key});
+  static const routeName = '/compounds_page';
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +33,24 @@ class CompoundsPage extends StatelessWidget {
                       return CompoundsOption(
                         compoundCard: element,
                         onTap: (option, type) {
-                          type == TypeCompound.sal_neutra
-                              ? context.push('/compounds_page/sales_neutras')
-                              : context
+                          switch (type) {
+                            case TypeCompound.sal_neutra:
+                              context
+                                  .push('$routeName/${SalesNeutras.routeName}');
+                              break;
+                            case TypeCompound.sal_doble:
+                              context
+                                  .push('$routeName/${SalesDobles.routeName}');
+                              break;
+                            case TypeCompound.sal_basicas:
+                              context
+                                  .push('$routeName/${SalesBasicas.routeName}');
+                              break;
+                            default:
+                              context
                                   .push('/compounds_by_type_page/${type.name}');
+                              break;
+                          }
                         },
                       );
                     },

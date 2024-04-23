@@ -53,6 +53,11 @@ final compoundMetalList = <CompoundListElement>[
     type: TypeCompound.acido_polihidratado,
   ),
   CompoundListElement(
+    name: 'Acidos hidracidos',
+    pathImage: 'assets/chemestry/acidos_pol.png',
+    type: TypeCompound.acido_hidracido,
+  ),
+  CompoundListElement(
     name: 'Iones',
     pathImage: 'assets/chemestry/ion.png',
     type: TypeCompound.ion,
@@ -61,6 +66,16 @@ final compoundMetalList = <CompoundListElement>[
     name: 'Sales neutras',
     pathImage: 'assets/chemestry/sales_neu.png',
     type: TypeCompound.sal_neutra,
+  ),
+  CompoundListElement(
+    name: 'Sales dobles',
+    pathImage: 'assets/chemestry/sales_neu.png',
+    type: TypeCompound.sal_doble,
+  ),
+  CompoundListElement(
+    name: 'Sales basicas',
+    pathImage: 'assets/chemestry/sales_neu.png',
+    type: TypeCompound.sal_basicas,
   ),
 ];
 

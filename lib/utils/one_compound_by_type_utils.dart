@@ -443,6 +443,35 @@ List<Compound> generateAcidosOxacidosByOneElement(
   return compounds;
 }
 
+List<Compound> generateAcidosHidracidosByOneElement(
+  PeriodicTableElement element,
+) {
+  final elementNameFilter = {
+    'F': 'fluor',
+    'Cl': 'clor',
+    'Br': 'brom',
+    'I': 'yod',
+    'S': 'sulf',
+    'Se': 'selen',
+    'Te': 'telur',
+  };
+  final groupValue = noMetalesNegativeValue[element.group];
+  return [
+    Compound(
+        periodicTableElement: element,
+        name: "Acido " + elementNameFilter[element.symbol]! + "hídrico",
+        formula: [
+          ValenceCompound(
+              suffix: "H", value: groupValue!.abs(), color: hidrogeno),
+          ValenceCompound(
+            suffix: element.symbol,
+            value: 1,
+          ),
+        ],
+        type: TypeCompound.acido_hidracido),
+  ];
+}
+
 List<Compound> generateAcidosPolihidratadosByOneElement() {
   final getElements = getElementsBySimbols(allListPeriodic, exceptions);
   final filteredElements = getElements.map((e) {
@@ -532,29 +561,33 @@ List<Compound> generateIonesByOneElement(PeriodicTableElement element) {
   return convertIon;
 }
 
-Compound generateSalNeutra(
-  PeriodicTableElement periodicTableElement,
-  Valencia valence,
-  Compound compound,
-) {
-  List<ValenceCompound> newFormula = List.from(compound.formula);
-  newFormula.removeLast();
-  newFormula.add(ValenceCompound(value: valence.value, suffix: ')'));
+List<Compound> generateSalesHidracidas(PeriodicTableElement element) {
+  /* change this */
+  final getAcidos = generateAcidosOxacidosByOneElement(element)
+      .map((e) => e.copyWith(name: remplazeOsoIco(e.name)))
+      .toList();
+  final getAcidosAux = generateAcidosOxacidosByOneElement(element);
 
-  Compound compoundAux = Compound(
-    periodicTableElement: periodicTableElement,
-    name: (compound.name.replaceAll(TypeCompound.ion.name, '').trim() +
-        salNeutraName(periodicTableElement, valence)),
-    type: TypeCompound.sal_neutra,
-    formula: [
-      ValenceCompound(
-        suffix: periodicTableElement.symbol,
-        value: compound.formula.last.value.abs(),
-        colorValue: hidrogeno,
-      ),
-      ...newFormula
-    ],
-  );
-
-  return compoundAux;
+  final convertIon = getAcidos.mapIndexed((index, acido) {
+    final ion = acido.copyWith(
+      compound: getAcidosAux[index],
+      name: acido.name.replaceFirst("Acido", TypeCompound.ion.name),
+      type: TypeCompound.ion,
+      formula: moveFirstElementToLastPosition(acido.formula.map(
+        (e) {
+          if (e.suffix == "H") {
+            return e.copyWith(
+              value: makeNegative(e.value),
+              suffix: ')',
+              color: Colors.white,
+              isSuperIndex: true,
+            );
+          }
+          return e;
+        },
+      ).toList()),
+    );
+    return ion;
+  }).toList();
+  return convertIon;
 }

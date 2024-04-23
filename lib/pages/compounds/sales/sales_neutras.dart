@@ -1,4 +1,4 @@
-part of '../pages.dart';
+part of '../../pages.dart';
 
 class SalesNeutras extends HookWidget {
   const SalesNeutras({super.key});
@@ -193,6 +193,30 @@ void bottomSheetMetals(
       });
 }
 
+void bottomSheetHidroxidos(
+  BuildContext context,
+  ValueNotifier<Compound?> compoundSelected,
+) {
+  /* fix metal group */
+  final elements = generateHidroxidosByGroupsElements(hidroxidoGroup);
+  showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: Container(
+              child: CompundListTile(
+            compounds: elements,
+            onSelected: (element) {
+              compoundSelected.value = element;
+              context.pop();
+            },
+          )),
+        );
+      });
+}
+
 void bottomSheetIones(
   BuildContext context,
   ValueNotifier<Compound?> ionSelected,
@@ -220,13 +244,15 @@ void bottomSheetIones(
 class SelecteCardForSal extends StatelessWidget {
   final Function()? onTap;
   final Widget child;
-  final double? width;
+  final double width;
   final String title;
   final Color? color;
+  final double height;
   const SelecteCardForSal({
     super.key,
     this.onTap,
-    this.width,
+    this.width = 125,
+    this.height = 150,
     required this.child,
     required this.title,
     this.color,
@@ -259,8 +285,8 @@ class SelecteCardForSal extends StatelessWidget {
                       ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              width: width ?? 125,
-              height: 150,
+              width: width,
+              height: height,
               child: Center(
                 child: child,
               ),

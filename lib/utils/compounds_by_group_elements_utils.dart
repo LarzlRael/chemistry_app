@@ -72,6 +72,15 @@ List<Compound> generateAcidosOxacidosByGroupElements(Group group) {
   return compound;
 }
 
+List<Compound> generateAcidosHidracidosByGroupElements(Group group) {
+  final elements = filterByGroup(group);
+  final compound = <Compound>[];
+  elements.forEach((element) {
+    compound.addAll(generateAcidosHidracidosByOneElement(element));
+  });
+  return compound;
+}
+
 List<Compound> generateIonessByGroupElements(Group group) {
   final elements = filterByGroup(group);
   final compound = <Compound>[];

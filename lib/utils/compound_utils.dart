@@ -293,7 +293,9 @@ String remplazeOsoIco(String texto) {
 }
 
 String salNeutraName(
-    PeriodicTableElement periodicTableElement, Valencia valence) {
+  PeriodicTableElement periodicTableElement,
+  Valencia valence,
+) {
   final name = periodicTableElement.name.toLowerCase();
   final valenceSuffix = valence.suffix.name;
 
@@ -304,6 +306,34 @@ String salNeutraName(
     return " ${specialNamesCases[periodicTableElement.symbol]}$valenceSuffix";
   }
   return " ${name.substring(0, name.length - 1)}$valenceSuffix";
+}
+
+String setSalNeutralName(
+  Compound compound,
+  PeriodicTableElement periodicTableElement,
+  Valencia valence,
+) {
+  return (compound.name.replaceAll(TypeCompound.ion.name, '').trim() +
+      salNeutraName(periodicTableElement, valence));
+}
+
+String setSalBasicaName(
+  Compound compoundHidroxido,
+  Compound compoundIon,
+) {
+  return compoundIon.name.replaceAll(TypeCompound.ion.name, '').trim() +
+      " basico " +
+      compoundHidroxido.name.replaceAll(TypeCompound.hidroxido.name, '').trim();
+}
+
+String salDobleName(
+  PeriodicTableElement periodicTableElement,
+  PeriodicTableElement secondPeriodicTableElement,
+  Valencia firstValence,
+  Valencia secondValence,
+) {
+  return '${salNeutraName(periodicTableElement, firstValence)} y ${salNeutraName(secondPeriodicTableElement, secondValence)}'
+      .replaceAll("de", '');
 }
 
 String getValueOrSame(String key, String defaultValue) {

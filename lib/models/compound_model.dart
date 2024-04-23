@@ -9,10 +9,13 @@ enum TypeCompound {
   oxido_doble,
   acido_oxacido,
   acido_polihidratado,
+  acido_hidracido,
   oxoacido,
   anhidrido,
   ion,
   sal_neutra,
+  sal_doble,
+  sal_basicas,
 }
 
 extension TypeCompoundExtension on TypeCompound {
@@ -40,6 +43,13 @@ extension TypeCompoundExtension on TypeCompound {
         return 'Ion';
       case TypeCompound.sal_neutra:
         return 'Sal Neutra';
+      case TypeCompound.sal_doble:
+        return 'Sal Doble';
+      case TypeCompound.sal_basicas:
+        return 'Sal Básica';
+      case TypeCompound.acido_hidracido:
+        return 'Ácido Hidrácidos';
+
       default:
         return '';
     }

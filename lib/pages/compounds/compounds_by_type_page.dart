@@ -40,6 +40,10 @@ class CompoundsByTypePage extends HookConsumerWidget {
           listCompounds.value =
               generateAcidosOxacidosByGroupsElements(acidoOxacidoGroup);
           break;
+        case TypeCompound.acido_hidracido:
+          listCompounds.value =
+              generateAcidosHidracidosByGroupsElements(salesHidracidas);
+          break;
         case TypeCompound.acido_polihidratado:
           listCompounds.value = generateAcidosPolihidratadosByOneElement();
           break;

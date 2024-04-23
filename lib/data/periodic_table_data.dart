@@ -902,6 +902,7 @@ Color colorByCompoundType(TypeCompound typeCompound) {
     TypeCompound.acido_polihidratado: Color(0xff00C8E4),
     TypeCompound.ion: Color(0xff00ACEE),
     TypeCompound.oxoacido: Color(0xff348AE4),
+    TypeCompound.sal_basicas: Color(0xff348AE4),
   };
   return compoundColors[typeCompound] ?? Colors.blue;
 }

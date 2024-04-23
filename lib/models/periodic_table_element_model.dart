@@ -111,6 +111,10 @@ final anhidridoGroup = noMetalGroup;
 final acidoOxacidoGroup = noMetalGroup;
 final acidoPolihidratadoGroup = noMetalGroup;
 final ionGroup = noMetalGroup;
+final salesHidracidas = [
+  Group.halogeno,
+  Group.anfigenos,
+];
 
 List<TypeCompound> generatePossibleCombinations(Group group) {
   var combinations = <TypeCompound>[];
@@ -200,3 +204,10 @@ class CompoundGuessGame {
     required this.correctElement,
   });
 }
+
+final Map<Group, int> noMetalesNegativeValue = {
+  Group.halogeno: -1,
+  Group.anfigenos: -2,
+  Group.nitrogeniodes: -3,
+  Group.carbonoides: -4,
+};

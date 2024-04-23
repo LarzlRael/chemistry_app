@@ -42,6 +42,18 @@ final appRouter = GoRouter(
             return SalesNeutras();
           },
         ),
+        GoRoute(
+          path: 'sales_dobles',
+          builder: (_, state) {
+            return SalesDobles();
+          },
+        ),
+        GoRoute(
+          path: 'sales_basicas',
+          builder: (_, state) {
+            return SalesBasicas();
+          },
+        ),
       ],
     ),
 
