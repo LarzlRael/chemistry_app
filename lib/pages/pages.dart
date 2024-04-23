@@ -36,6 +36,7 @@ part 'compounds/compounds_page.dart';
 part 'compounds/sales/sales_neutras.dart';
 part 'compounds/sales/sales_dobles.dart';
 part 'compounds/sales/sales_basicas.dart';
+part 'compounds/sales/sales_hidracidas.dart';
 
 part 'compounds/compound_detail_page.dart';
 part 'compounds/compounds_by_type_page.dart';

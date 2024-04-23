@@ -61,3 +61,205 @@ class CardSales extends StatelessWidget {
     );
   }
 }
+
+class MetalSelectedCard extends StatelessWidget {
+  const MetalSelectedCard({
+    super.key,
+    required this.metalSelected,
+    required this.currentValencia,
+  });
+
+  final ValueNotifier<PeriodicTableElement?> metalSelected;
+  final ValueNotifier<Valencia?> currentValencia;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          metalSelected.value!.symbol,
+          style: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          metalSelected.value!.name,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        Text(
+          currentValencia.value?.value.toString() ?? '',
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+void bottomSheetMetals(
+  BuildContext context,
+  ValueNotifier<PeriodicTableElement?> metalSelected,
+  ValueNotifier<Valencia?> valenciaSeleted,
+  List<PeriodicTableElement> elementsToSearch,
+) {
+  /* fix metal group */
+
+  showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: Container(
+            child: ListTileElementsValences(
+              elements: elementsToSearch,
+              onSelected: (element, valence) {
+                valenciaSeleted.value = valence;
+                metalSelected.value = element;
+                context.pop();
+              },
+            ),
+          ),
+        );
+      });
+}
+
+void bottomNegativeElementValue(
+  BuildContext context,
+  ValueNotifier<PeriodicTableElement?> metalSelected,
+  ValueNotifier<Valencia?> valenciaSeleted,
+) {
+  /* fix metal group */
+
+  showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: Container(
+            child: ListTileElementsNegativesValences(
+              elements: filterByGroups(salesHidracidas),
+              onSelected: (element, valence) {
+                valenciaSeleted.value = valence;
+                metalSelected.value = element;
+                context.pop();
+              },
+            ),
+          ),
+        );
+      });
+}
+
+void bottomSheetByCompounds(
+  BuildContext context,
+  ValueNotifier<Compound?> compoundSelected,
+  List<Compound> elementsToFind,
+) {
+  /* fix metal group */
+  /* final elements = generateHidroxidosByGroupsElements(hidroxidoGroup); */
+  showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: Container(
+              child: CompundListTile(
+            compounds: elementsToFind,
+            onSelected: (element) {
+              compoundSelected.value = element;
+              context.pop();
+            },
+          )),
+        );
+      });
+}
+
+void bottomSheetIones(
+  BuildContext context,
+  ValueNotifier<Compound?> ionSelected,
+) {
+  final elements = generateIonesByGroupsElements(noMetalGroup);
+  showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: Container(
+            child: CompundListTile(
+              compounds: elements,
+              onSelected: (element) {
+                ionSelected.value = element.copyWith();
+                context.pop();
+              },
+            ),
+          ),
+        );
+      });
+}
+
+class SelecteCardForSal extends StatelessWidget {
+  final Function()? onTap;
+  final Widget child;
+  final double width;
+  final String title;
+  final Color? color;
+  final double height;
+  const SelecteCardForSal({
+    super.key,
+    this.onTap,
+    this.width = 125,
+    this.height = 150,
+    required this.child,
+    required this.title,
+    this.color,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        InkWell(
+          customBorder:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          onTap: onTap,
+          child: Card(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: color == null
+                    ? null
+                    : LinearGradient(
+                        colors: [
+                          color!,
+                          color!.withOpacity(0.8),
+                        ],
+                      ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              width: width,
+              height: height,
+              child: Center(
+                child: child,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

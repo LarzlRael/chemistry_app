@@ -48,9 +48,10 @@ class SalesBasicas extends HookWidget {
                                   hidroxidoSelected.value!.type),
                           title: 'Metal',
                           /* height: mediaQuery.height * 0.15, */
-                          onTap: () => bottomSheetHidroxidos(
+                          onTap: () => bottomSheetByCompounds(
                             context,
                             hidroxidoSelected,
+                            generateHidroxidosByGroupsElements(hidroxidoGroup),
                           ),
                           width: mediaQuery.width * 0.4,
                           child: hidroxidoSelected.value == null

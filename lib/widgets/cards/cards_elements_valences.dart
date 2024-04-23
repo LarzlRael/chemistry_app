@@ -31,6 +31,37 @@ class ListTileElementsValences extends StatelessWidget {
   }
 }
 
+class ListTileElementsNegativesValences extends StatelessWidget {
+  final List<PeriodicTableElement> elements;
+  final Function(PeriodicTableElement element, Valencia valence)? onSelected;
+  const ListTileElementsNegativesValences({
+    super.key,
+    this.onSelected,
+    required this.elements,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      child: ListView.builder(
+        itemCount: elements.length,
+        itemBuilder: (context, index) {
+          final element = elements[index];
+
+          return Hero(
+            tag: element.symbol,
+            child: ListTileElementNegativeValue(
+              element: element,
+              key: ValueKey<String>(element.symbol),
+              onTap: onSelected,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
 class ListTileElementValences extends StatelessWidget {
   const ListTileElementValences({
     super.key,
@@ -110,6 +141,61 @@ class ListTileElementValences extends StatelessWidget {
                               onPressed: () => onTap?.call(element, valence)),
                         );
                 }).toList()),
+          leading: CircleAvatar(child: Text(element.symbol)),
+        ),
+      ),
+    );
+  }
+}
+
+class ListTileElementNegativeValue extends StatelessWidget {
+  const ListTileElementNegativeValue({
+    super.key,
+    required this.element,
+    this.onTap,
+  });
+
+  final PeriodicTableElement element;
+  final Function(PeriodicTableElement element, Valencia valence)? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              colorByGroup(element.group),
+              colorByGroup(element.group).withOpacity(0.5),
+            ],
+          ),
+        ),
+        child: ListTile(
+          key: key,
+          title: SimpleText(
+            element.name + " (" + element.symbol + ")",
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.w500,
+          ),
+          subtitle: InkWell(
+            onTap: () => onTap?.call(element, element.valencias.first),
+            child: FilledButton(
+              child: Text(
+                getNegative(element.valencias.first.value).toString(),
+                style: TextStyle(
+                  /* color: Colors.white, */
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              onPressed: () => onTap?.call(element, element.valencias.first),
+            ),
+          ),
           leading: CircleAvatar(child: Text(element.symbol)),
         ),
       ),

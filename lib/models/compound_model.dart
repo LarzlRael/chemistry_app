@@ -16,6 +16,7 @@ enum TypeCompound {
   sal_neutra,
   sal_doble,
   sal_basicas,
+  sal_hidracida
 }
 
 extension TypeCompoundExtension on TypeCompound {

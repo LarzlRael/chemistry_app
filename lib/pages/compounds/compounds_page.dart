@@ -46,6 +46,10 @@ class CompoundsPage extends StatelessWidget {
                               context
                                   .push('$routeName/${SalesBasicas.routeName}');
                               break;
+                            case TypeCompound.sal_hidracida:
+                              context.push(
+                                  '$routeName/${SalesHidracidas.routeName}');
+                              break;
                             default:
                               context
                                   .push('/compounds_by_type_page/${type.name}');

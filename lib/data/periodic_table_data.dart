@@ -869,6 +869,15 @@ List<PeriodicTableElement> filterByGroup(Group group) {
   return allListPeriodic.where((element) => element.group == group).toList();
 }
 
+List<PeriodicTableElement> filterByGroups(List<Group> groups) {
+  if (groups.contains(Group.todo)) {
+    return allListPeriodic;
+  }
+  return allListPeriodic
+      .where((element) => groups.contains(element.group))
+      .toList();
+}
+
 Color colorByGroup(Group group) {
   final Map<Group, Color> groupColors = {
     Group.monovalente: Colors.red,

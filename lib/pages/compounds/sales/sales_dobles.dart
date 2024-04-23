@@ -56,10 +56,10 @@ class SalesDobles extends HookWidget {
                               : colorByGroup(firstMetalSelected.value!.group),
                           title: '1er Metal',
                           onTap: () => bottomSheetMetals(
-                            context,
-                            firstMetalSelected,
-                            currenFirstValencia,
-                          ),
+                              context,
+                              firstMetalSelected,
+                              currenFirstValencia,
+                              generateMetals(metalGroup)),
                           width: mediaQuery.width * 0.4,
                           height: mediaQuery.height * 0.15,
                           child: firstMetalSelected.value == null
@@ -68,24 +68,9 @@ class SalesDobles extends HookWidget {
                                   textAlign: TextAlign.center,
                                   style: textTheme.labelMedium,
                                 )
-                              : Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      firstMetalSelected.value!.name,
-                                      style: styleMetalCard,
-                                    ),
-                                    Text(
-                                      currenFirstValencia.value?.value
-                                              .toString() ??
-                                          '',
-                                      style: styleMetalCard,
-                                    ),
-                                    Text(
-                                      firstMetalSelected.value?.symbol ?? '',
-                                      style: styleMetalCard,
-                                    ),
-                                  ],
+                              : MetalSelectedCard(
+                                  metalSelected: firstMetalSelected,
+                                  currentValencia: currenFirstValencia,
                                 ),
                         ),
                         SelecteCardForSal(
@@ -95,10 +80,10 @@ class SalesDobles extends HookWidget {
                           title: '2do Metal',
                           height: mediaQuery.height * 0.15,
                           onTap: () => bottomSheetMetals(
-                            context,
-                            secondMetalSelected,
-                            currentSecondValencia,
-                          ),
+                              context,
+                              secondMetalSelected,
+                              currentSecondValencia,
+                              generateMetals(metalGroup)),
                           width: mediaQuery.width * 0.4,
                           child: secondMetalSelected.value == null
                               ? Text(
@@ -106,24 +91,9 @@ class SalesDobles extends HookWidget {
                                   textAlign: TextAlign.center,
                                   style: textTheme.labelMedium,
                                 )
-                              : Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      secondMetalSelected.value!.name,
-                                      style: styleMetalCard,
-                                    ),
-                                    Text(
-                                      currentSecondValencia.value?.value
-                                              .toString() ??
-                                          '',
-                                      style: styleMetalCard,
-                                    ),
-                                    Text(
-                                      secondMetalSelected.value?.symbol ?? '',
-                                      style: styleMetalCard,
-                                    ),
-                                  ],
+                              : MetalSelectedCard(
+                                  metalSelected: secondMetalSelected,
+                                  currentValencia: currentSecondValencia,
                                 ),
                         ),
                       ],

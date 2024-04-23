@@ -5,16 +5,12 @@ class SalesNeutras extends HookWidget {
   static const routeName = 'sales_neutras';
   @override
   Widget build(BuildContext context) {
-    final metalSelected = useState<PeriodicTableElement?>(null);
     final ionSelected = useState<Compound?>(null);
     final result = useState<Compound?>(null);
+    final metalSelected = useState<PeriodicTableElement?>(null);
     final currentValencia = useState<Valencia?>(null);
     final mediaQuery = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
-
-    final styleMetalCard = textTheme.titleLarge!.copyWith(
-      color: Colors.white,
-    );
 
     useEffect(() {
       if (metalSelected.value != null && ionSelected.value != null) {
@@ -42,11 +38,8 @@ class SalesNeutras extends HookWidget {
                         ? null
                         : colorByGroup(metalSelected.value!.group),
                     title: 'Metal',
-                    onTap: () => bottomSheetMetals(
-                      context,
-                      metalSelected,
-                      currentValencia,
-                    ),
+                    onTap: () => bottomSheetMetals(context, metalSelected,
+                        currentValencia, generateMetals(metalGroup)),
                     width: mediaQuery.width * 0.4,
                     child: metalSelected.value == null
                         ? Text(
@@ -54,22 +47,9 @@ class SalesNeutras extends HookWidget {
                             textAlign: TextAlign.center,
                             style: textTheme.labelMedium,
                           )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                metalSelected.value!.name,
-                                style: styleMetalCard,
-                              ),
-                              Text(
-                                currentValencia.value?.value.toString() ?? '',
-                                style: styleMetalCard,
-                              ),
-                              Text(
-                                metalSelected.value?.symbol ?? '',
-                                style: styleMetalCard,
-                              ),
-                            ],
+                        : MetalSelectedCard(
+                            metalSelected: metalSelected,
+                            currentValencia: currentValencia,
                           ),
                   ),
                   Container(
@@ -162,138 +142,6 @@ class SalesNeutras extends HookWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-void bottomSheetMetals(
-  BuildContext context,
-  ValueNotifier<PeriodicTableElement?> metalSelected,
-  ValueNotifier<Valencia?> valenciaSeleted,
-) {
-  /* fix metal group */
-  final elements = generateMetals(metalGroup);
-  showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.9,
-          child: Container(
-            child: ListTileElementsValences(
-              elements: elements,
-              onSelected: (element, valence) {
-                valenciaSeleted.value = valence;
-                metalSelected.value = element;
-                context.pop();
-              },
-            ),
-          ),
-        );
-      });
-}
-
-void bottomSheetHidroxidos(
-  BuildContext context,
-  ValueNotifier<Compound?> compoundSelected,
-) {
-  /* fix metal group */
-  final elements = generateHidroxidosByGroupsElements(hidroxidoGroup);
-  showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.9,
-          child: Container(
-              child: CompundListTile(
-            compounds: elements,
-            onSelected: (element) {
-              compoundSelected.value = element;
-              context.pop();
-            },
-          )),
-        );
-      });
-}
-
-void bottomSheetIones(
-  BuildContext context,
-  ValueNotifier<Compound?> ionSelected,
-) {
-  final elements = generateIonesByGroupsElements(noMetalGroup);
-  showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.9,
-          child: Container(
-            child: CompundListTile(
-              compounds: elements,
-              onSelected: (element) {
-                ionSelected.value = element.copyWith();
-                context.pop();
-              },
-            ),
-          ),
-        );
-      });
-}
-
-class SelecteCardForSal extends StatelessWidget {
-  final Function()? onTap;
-  final Widget child;
-  final double width;
-  final String title;
-  final Color? color;
-  final double height;
-  const SelecteCardForSal({
-    super.key,
-    this.onTap,
-    this.width = 125,
-    this.height = 150,
-    required this.child,
-    required this.title,
-    this.color,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        InkWell(
-          customBorder:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          onTap: onTap,
-          child: Card(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: color == null
-                    ? null
-                    : LinearGradient(
-                        colors: [
-                          color!,
-                          color!.withOpacity(0.8),
-                        ],
-                      ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              width: width,
-              height: height,
-              child: Center(
-                child: child,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

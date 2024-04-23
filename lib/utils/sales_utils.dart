@@ -43,6 +43,23 @@ Compound generateSalBasica(
   return compoundAux;
 }
 
+Compound generateAcidoHidracido(
+  Compound hidroxido,
+  Compound ion,
+) {
+  Compound compoundAux = Compound(
+    periodicTableElement: getOneELement(allListPeriodic, 'Li'),
+    name: setSalBasicaName(hidroxido, ion),
+    type: TypeCompound.sal_neutra,
+    formula: [
+      ...hidroxido.formula,
+      ...ion.formula,
+    ],
+  );
+
+  return compoundAux;
+}
+
 class SalDoble {
   Compound firstSalNeutra;
   Compound secondSalNeutra;
@@ -103,3 +120,34 @@ SalDoble generateSalDoble(
         ],
       ));
 }
+
+Compound generateSalHidracida(
+  PeriodicTableElement firstMetal,
+  PeriodicTableElement secondMetal,
+  Valencia firstValencia,
+  Valencia secondValencia,
+) {
+  final elementNameFilter = {
+    'F': 'fluor',
+    'Cl': 'clor',
+    'Br': 'brom',
+    'I': 'yod',
+    'S': 'sulf',
+    'Se': 'selen',
+    'Te': 'telur',
+  };
+  Compound compoundAux = Compound(
+    periodicTableElement: getOneELement(allListPeriodic, 'Li'),
+    /* TODO fix thos */
+    name: elementNameFilter[firstMetal.symbol]! + 'uro ' + secondMetal.name,
+    type: TypeCompound.sal_neutra,
+    formula: [
+      ValenceCompound(value: secondValencia.value, suffix: firstMetal.symbol),
+      ValenceCompound(value: firstValencia.value, suffix: secondMetal.symbol),
+    ],
+  );
+
+  return compoundAux;
+}
+
+int getNegative(int number) => number < 0 ? number : -number;

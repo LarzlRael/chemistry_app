@@ -33,25 +33,31 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/compounds_page',
+      path: CompoundsPage.routeName,
       builder: (_, __) => const CompoundsPage(),
       routes: [
         GoRoute(
-          path: 'sales_neutras',
+          path: SalesNeutras.routeName,
           builder: (_, state) {
             return SalesNeutras();
           },
         ),
         GoRoute(
-          path: 'sales_dobles',
+          path: SalesDobles.routeName,
           builder: (_, state) {
             return SalesDobles();
           },
         ),
         GoRoute(
-          path: 'sales_basicas',
+          path: SalesBasicas.routeName,
           builder: (_, state) {
             return SalesBasicas();
+          },
+        ),
+        GoRoute(
+          path: SalesHidracidas.routeName,
+          builder: (_, state) {
+            return SalesHidracidas();
           },
         ),
       ],

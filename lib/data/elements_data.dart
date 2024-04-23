@@ -77,6 +77,11 @@ final compoundMetalList = <CompoundListElement>[
     pathImage: 'assets/chemestry/sales_neu.png',
     type: TypeCompound.sal_basicas,
   ),
+  CompoundListElement(
+    name: 'Sales hidracidas',
+    pathImage: 'assets/chemestry/sales_neu.png',
+    type: TypeCompound.sal_hidracida,
+  ),
 ];
 
 CompoundListElement findCompoundCardByName(TypeCompound name) {
