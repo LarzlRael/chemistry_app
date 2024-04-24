@@ -853,7 +853,7 @@ List<PeriodicTableElement> getElementsBySimbols(
       .toList();
 }
 
-PeriodicTableElement getOneELement(
+PeriodicTableElement getOneELementBySimbol(
   List<PeriodicTableElement> list,
   String symbol,
 ) {

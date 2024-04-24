@@ -591,3 +591,92 @@ List<Compound> generateSalesHidracidas(PeriodicTableElement element) {
   }).toList();
   return convertIon;
 }
+
+List<Compound> hidrurosNoMetalicos() {
+  return [
+    Compound(
+      periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+      name: "Amoniaco",
+      formula: [
+        ValenceCompound(
+          suffix: "Nh3",
+          value: 1,
+          color: hidrogeno,
+        ),
+      ],
+      type: TypeCompound.hidruro,
+    ),
+    Compound(
+      periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+      name: "Fosfano",
+      formula: [
+        ValenceCompound(
+          suffix: "Ph",
+          value: 3,
+          color: hidrogeno,
+        ),
+      ],
+      type: TypeCompound.hidruro,
+    ),
+    Compound(
+      periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+      name: "Estibano",
+      formula: [
+        ValenceCompound(
+          suffix: "SbH",
+          value: 3,
+          color: hidrogeno,
+        ),
+      ],
+      type: TypeCompound.hidruro,
+    ),
+    Compound(
+      periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+      name: "Arsano",
+      formula: [
+        ValenceCompound(
+          suffix: "AsH",
+          value: 3,
+          color: hidrogeno,
+        ),
+      ],
+      type: TypeCompound.hidruro,
+    ),
+    Compound(
+      periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+      name: "Borano",
+      formula: [
+        ValenceCompound(
+          suffix: "Bh",
+          value: 3,
+          color: hidrogeno,
+        ),
+      ],
+      type: TypeCompound.hidruro,
+    ),
+    Compound(
+      periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+      name: "Carbono",
+      formula: [
+        ValenceCompound(
+          suffix: "Ch",
+          value: 4,
+          color: hidrogeno,
+        ),
+      ],
+      type: TypeCompound.hidruro,
+    ),
+    Compound(
+      periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+      name: "Silano",
+      formula: [
+        ValenceCompound(
+          suffix: "Sih",
+          value: 4,
+          color: hidrogeno,
+        ),
+      ],
+      type: TypeCompound.hidruro,
+    ),
+  ];
+}

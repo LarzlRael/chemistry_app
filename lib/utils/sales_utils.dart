@@ -30,17 +30,33 @@ Compound generateSalBasica(
   Compound hidroxido,
   Compound ion,
 ) {
-  Compound compoundAux = Compound(
-    periodicTableElement: getOneELement(allListPeriodic, 'Li'),
-    name: setSalBasicaName(hidroxido, ion),
-    type: TypeCompound.sal_neutra,
-    formula: [
-      ...hidroxido.formula,
-      ...ion.formula,
-    ],
+  final diff = hidroxido.formula.last.value - ion.formula.last.value.abs();
+  final auxHidroxido = hidroxido;
+  final auxIon = ion;
+  final Map<int, String> termination = {
+    1: '',
+    2: 'di',
+    3: 'tri',
+    4: 'tetra',
+    5: 'penta',
+  };
+  auxHidroxido.formula[auxHidroxido.formula.length - 1] =
+      hidroxido.formula.last.copyWith(
+    value: diff,
+    suffix: '(OH)',
   );
 
-  return compoundAux;
+  auxIon.formula[auxIon.formula.length - 1] = ion.formula.last.copyWith(
+    value: 0,
+    suffix: ')',
+  );
+
+  return Compound(
+    periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+    name: setSalBasicaName(hidroxido, ion, termination[diff] ?? ''),
+    type: TypeCompound.sal_neutra,
+    formula: [...auxHidroxido.formula, ...auxIon.formula],
+  );
 }
 
 Compound generateAcidoHidracido(
@@ -48,9 +64,9 @@ Compound generateAcidoHidracido(
   Compound ion,
 ) {
   Compound compoundAux = Compound(
-    periodicTableElement: getOneELement(allListPeriodic, 'Li'),
-    name: setSalBasicaName(hidroxido, ion),
-    type: TypeCompound.sal_neutra,
+    periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
+    name: setSalBasicaName(hidroxido, ion, ''),
+    type: TypeCompound.acido_hidracido,
     formula: [
       ...hidroxido.formula,
       ...ion.formula,
@@ -135,22 +151,8 @@ Compound generateSalHidracida(
     'Se': 'selen',
     'Te': 'telur',
   };
-  String secondName = '';
-  if (secondMetal.valencias.length == 1) {
-    secondName = "de ${secondMetal.name.toLowerCase()}";
-  } else {
-    secondName = "${secondMetal.name.toLowerCase().substring(
-          0,
-          secondMetal.name.length - 1,
-        )}${secondValencia.suffix.name}";
-    secondName = fixIcoWord(secondName);
-  }
-  /* Special names cases */
 
-  if (specialNamesCases.containsKey(secondMetal.symbol)) {
-    secondName =
-        "${specialNamesCases[secondMetal.symbol]}${secondValencia.suffix.name}";
-  }
+  final secondName = osoIcoName(secondMetal, secondValencia);
   Compound compoundAux = Compound(
     periodicTableElement: firstMetal,
     name: elementNameFilter[firstMetal.symbol]! + 'uro ' + secondName,

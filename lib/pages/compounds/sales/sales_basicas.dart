@@ -9,7 +9,6 @@ class SalesBasicas extends HookWidget {
 
     final ionSelected = useState<Compound?>(null);
     final result = useState<Compound?>(null);
-    final currenFirstValencia = useState<Valencia?>(null);
 
     final mediaQuery = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
@@ -46,7 +45,7 @@ class SalesBasicas extends HookWidget {
                               ? null
                               : colorByCompoundType(
                                   hidroxidoSelected.value!.type),
-                          title: 'Metal',
+                          title: 'Hidroxido',
                           /* height: mediaQuery.height * 0.15, */
                           onTap: () => bottomSheetByCompounds(
                             context,
@@ -103,13 +102,6 @@ class SalesBasicas extends HookWidget {
                           : Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  ionSelected.value!.name,
-                                  style: textTheme.titleLarge!.copyWith(
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
                                 FormulaInText(
                                   compoundFormula: ionSelected.value!.formula,
                                   typeCompound: ionSelected.value!.type,
@@ -118,6 +110,13 @@ class SalesBasicas extends HookWidget {
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                   ),
+                                ),
+                                Text(
+                                  ionSelected.value!.name,
+                                  style: textTheme.titleLarge!.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ],
                             ),

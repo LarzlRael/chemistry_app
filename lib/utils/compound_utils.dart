@@ -320,9 +320,10 @@ String setSalNeutralName(
 String setSalBasicaName(
   Compound compoundHidroxido,
   Compound compoundIon,
+  String termination,
 ) {
   return compoundIon.name.replaceAll(TypeCompound.ion.name, '').trim() +
-      " basico " +
+      " ${termination}basico " +
       compoundHidroxido.name.replaceAll(TypeCompound.hidroxido.name, '').trim();
 }
 
