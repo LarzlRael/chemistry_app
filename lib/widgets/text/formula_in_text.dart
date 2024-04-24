@@ -43,12 +43,14 @@ class FormulaInText extends StatelessWidget {
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 150),
                 opacity: isOneOrCero ? 0.0 : 1.0,
-                child: Text(
-                  e.value.toString(),
-                  style: textStyle?.copyWith(
-                    fontSize: isOneOrCero ? fontSize! * 0.25 : fontSize! * 0.50,
-                    fontWeight: FontWeight.bold,
-                    color: isOneOrCero ? Colors.transparent : e.colorValue,
+                child: Container(
+                  child: Text(
+                    e.value.toString(),
+                    style: textStyle?.copyWith(
+                      fontSize: isOneOrCero ? fontSize * 0.25 : fontSize * 0.50,
+                      fontWeight: FontWeight.bold,
+                      color: isOneOrCero ? Colors.transparent : e.colorValue,
+                    ),
                   ),
                 ),
               ),

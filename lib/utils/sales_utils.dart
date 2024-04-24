@@ -94,7 +94,11 @@ SalDoble generateSalDoble(
   newFormula.add(ValenceCompound(
       value: firstValenceSelected.value + secondValenceSelected.value,
       suffix: ')'));
-
+  final simplifyFormula = simplify([
+    generateSalNeutraAux.formula[0],
+    generateSalNeutraAux2.formula[0],
+    newFormula.last
+  ]);
   return SalDoble(
       firstSalNeutra: generateSalNeutraAux,
       secondSalNeutra: generateSalNeutraAux2,
@@ -105,19 +109,7 @@ SalDoble generateSalDoble(
             salDobleName(firstPeriodicTableElement, secondPeriodicTableElement,
                 firstValenceSelected, secondValenceSelected)),
         type: TypeCompound.sal_doble,
-        formula: [
-          ValenceCompound(
-            suffix: firstPeriodicTableElement.symbol,
-            value: firstValenceSelected.value,
-            colorValue: hidrogeno,
-          ),
-          ValenceCompound(
-            suffix: secondPeriodicTableElement.symbol,
-            value: secondValenceSelected.value,
-            colorValue: hidrogeno,
-          ),
-          ...newFormula
-        ],
+        formula: [simplifyFormula[0], simplifyFormula[1], ...newFormula],
       ));
 }
 

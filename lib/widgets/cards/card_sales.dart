@@ -49,6 +49,7 @@ class CardSales extends StatelessWidget {
               ),
             ),
             SimpleText(
+              padding: EdgeInsets.symmetric(horizontal: 2.5),
               compound!.name.toCapitalize(),
               style: textTheme.headlineMedium!.copyWith(
                 color: Colors.white,
@@ -163,8 +164,6 @@ void bottomSheetByCompounds(
   ValueNotifier<Compound?> compoundSelected,
   List<Compound> elementsToFind,
 ) {
-  /* fix metal group */
-  /* final elements = generateHidroxidosByGroupsElements(hidroxidoGroup); */
   showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -196,6 +195,7 @@ void bottomSheetIones(
           heightFactor: 0.9,
           child: Container(
             child: CompundListTile(
+              /* isSelected: ionSelected.value != null, */
               compounds: elements,
               onSelected: (element) {
                 ionSelected.value = element.copyWith();

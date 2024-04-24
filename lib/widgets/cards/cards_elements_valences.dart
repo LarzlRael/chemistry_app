@@ -1,6 +1,8 @@
 part of '../widgets.dart';
 
-class ListTileElementsValences extends StatelessWidget {
+final pageBucket = PageStorageBucket();
+
+class ListTileElementsValences extends HookWidget {
   final List<PeriodicTableElement> elements;
   final Function(PeriodicTableElement element, Valencia valence)? onSelected;
   const ListTileElementsValences({
@@ -12,20 +14,23 @@ class ListTileElementsValences extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 500),
-      child: ListView.builder(
-        itemCount: elements.length,
-        itemBuilder: (context, index) {
-          final element = elements[index];
-
-          return Hero(
-            tag: element.symbol,
-            child: ListTileElementValences(
-              element: element,
-              key: ValueKey<String>(element.symbol),
-              onTap: onSelected,
-            ),
-          );
-        },
+      child: PageStorage(
+        bucket: pageBucket,
+        child: ListView.builder(
+          key: PageStorageKey<String>('pageOne'),
+          itemCount: elements.length,
+          itemBuilder: (context, index) {
+            final element = elements[index];
+            return Hero(
+              tag: element.symbol,
+              child: ListTileElementValences(
+                element: element,
+                key: ValueKey<String>(element.symbol),
+                onTap: onSelected,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -90,31 +95,24 @@ class ListTileElementValences extends StatelessWidget {
         ),
         child: ListTile(
           key: key,
-          title: SimpleText(
-            element.name + " (" + element.symbol + ")",
-            color: Colors.white,
-            fontSize: 17,
-            fontWeight: FontWeight.w500,
+          title: Row(
+            children: [
+              SimpleText(
+                element.name,
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ],
           ),
           subtitle: element.valencias.length == 1
               ? InkWell(
                   onTap: () => onTap?.call(element, element.valencias.first),
-                  child: FilledButton(
-                    /* style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ), */
-                    child: Text(
-                      "+" + element.valencias.first.value.toString(),
-                      style: TextStyle(
-                        /* color: Colors.white, */
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    onPressed: () =>
-                        onTap?.call(element, element.valencias.first),
+                  child: SimpleText(
+                    element.valencias.first.value.toString(),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 )
               : Wrap(
@@ -125,18 +123,29 @@ class ListTileElementValences extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(horizontal: 2.5),
                           child: FilledButton(
                               style: TextButton.styleFrom(
-                                /* backgroundColor: Colors.blue, */
+                                backgroundColor: secondaryColor,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
-                              child: Text(
-                                "+" + valence.value.toString(),
-                                style: TextStyle(
-                                  /* color: Colors.white, */
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SimpleText(
+                                    valence.value.toString(),
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  SimpleText(
+                                    valence.suffix.name
+                                        .toCamelCase()
+                                        .toCapitalize(),
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ],
                               ),
                               onPressed: () => onTap?.call(element, valence)),
                         );

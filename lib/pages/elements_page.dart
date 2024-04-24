@@ -2,6 +2,7 @@ part of 'pages.dart';
 
 class ElementsPage extends HookConsumerWidget {
   const ElementsPage({super.key});
+  static const routeName = '/elements_page';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /* final selectedGroup = useState<Group>(Group.nullGroup);
@@ -24,7 +25,7 @@ class ElementsPage extends HookConsumerWidget {
                   );
                 },
               ),
-             /*  IconButton(
+              /*  IconButton(
                 icon: Icon(FontAwesomeIcons.download),
                 onPressed: () {
                   downloadAndSavePDF(context);

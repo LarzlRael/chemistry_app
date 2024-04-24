@@ -43,3 +43,4 @@ part 'compounds/compounds_by_type_page.dart';
 part 'animation_test.dart';
 part 'games/guess_periodic_element.dart';
 part 'games/guess_compound_game.dart';
+part 'test/test_page.dart';

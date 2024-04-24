@@ -15,11 +15,15 @@ final appRouter = GoRouter(
       builder: (context, state) => HomePage(),
     ),
     GoRoute(
-      path: '/games_page',
+      path: TestPage.routeName,
+      builder: (context, state) => TestPage(),
+    ),
+    GoRoute(
+      path: GamesPage.routeName,
       builder: (_, __) => const GamesPage(),
     ),
     GoRoute(
-      path: '/elements_page',
+      path: ElementsPage.routeName,
       builder: (_, __) => const ElementsPage(),
     ),
     GoRoute(

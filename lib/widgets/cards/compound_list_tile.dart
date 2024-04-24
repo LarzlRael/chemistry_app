@@ -1,30 +1,39 @@
 part of '../widgets.dart';
 
+final pageBuckeCompunds = PageStorageBucket();
+
 class CompundListTile extends StatelessWidget {
   final List<Compound> compounds;
   final Function(Compound element)? onSelected;
+  final bool isSelected;
   const CompundListTile({
     super.key,
     this.onSelected,
+    this.isSelected = false,
     required this.compounds,
   });
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 500),
-      child: ListView.builder(
-        itemCount: compounds.length,
-        itemBuilder: (context, index) {
-          final element = compounds[index];
-          return Hero(
-            tag: element.name,
-            child: ListTileCompound(
-              element: element,
-              key: ValueKey<String>(element.name),
-              onTap: onSelected,
-            ),
-          );
-        },
+      child: PageStorage(
+        bucket: pageBuckeCompunds,
+        child: ListView.builder(
+          key: PageStorageKey<String>('pageCompund'),
+          itemCount: compounds.length,
+          itemBuilder: (context, index) {
+            final element = compounds[index];
+            return Hero(
+              tag: element.name,
+              child: ListTileCompound(
+                isSelected: isSelected,
+                element: element,
+                key: ValueKey<String>(element.name),
+                onTap: onSelected,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -33,10 +42,12 @@ class CompundListTile extends StatelessWidget {
 class ListTileCompound extends StatelessWidget {
   const ListTileCompound({
     super.key,
-    required this.element,
     this.onTap,
+    required this.element,
+    this.isSelected = false,
   });
 
+  final bool isSelected;
   final Compound element;
   final Function(Compound element)? onTap;
 
@@ -53,6 +64,12 @@ class ListTileCompound extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
+            border: isSelected
+                ? Border.all(
+                    color: Colors.green,
+                    width: 1,
+                  )
+                : null,
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -70,15 +87,6 @@ class ListTileCompound extends StatelessWidget {
               fontSize: 17,
               fontWeight: FontWeight.w500,
             ),
-            /*  subtitle: Row(
-              children: element.valencias
-                  .map((e) => SimpleText(
-                        text: e.value.toString(),
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        color: Colors.white,
-                      ))
-                  .toList(),
-            ), */
             leading: Card(
               child: Container(
                 padding:
@@ -88,7 +96,7 @@ class ListTileCompound extends StatelessWidget {
                   typeCompound: element.type,
                   textStyle: TextStyle(
                     /* color: Colors.black, */
-                    fontSize: 15,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

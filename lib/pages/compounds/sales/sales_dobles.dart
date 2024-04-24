@@ -41,7 +41,7 @@ class SalesDobles extends HookWidget {
       ),
       body: ScaffoldBackground(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -63,8 +63,9 @@ class SalesDobles extends HookWidget {
                           width: mediaQuery.width * 0.4,
                           height: mediaQuery.height * 0.15,
                           child: firstMetalSelected.value == null
-                              ? Text(
-                                  'Seleccione el primer metal',
+                              ? SimpleText(
+                                  padding: EdgeInsets.symmetric(horizontal: 2),
+                                  'Seleccione primer metal',
                                   textAlign: TextAlign.center,
                                   style: textTheme.labelMedium,
                                 )
@@ -80,10 +81,13 @@ class SalesDobles extends HookWidget {
                           title: '2do Metal',
                           height: mediaQuery.height * 0.15,
                           onTap: () => bottomSheetMetals(
-                              context,
-                              secondMetalSelected,
-                              currentSecondValencia,
-                              generateMetals(metalGroup)),
+                            context,
+                            secondMetalSelected,
+                            currentSecondValencia,
+                            generateMetals(
+                              metalGroup,
+                            ),
+                          ),
                           width: mediaQuery.width * 0.4,
                           child: secondMetalSelected.value == null
                               ? Text(
@@ -140,21 +144,28 @@ class SalesDobles extends HookWidget {
                 ),
                 result.value == null
                     ? SimpleText(
-                        'Seleccione 2 metales y un ion para ver el formar una sal doble.',
+                        'Seleccione 2 metales y un Ion para formar una sal doble.',
                         padding: EdgeInsets.symmetric(vertical: 20),
                         textAlign: TextAlign.center,
                       )
                     : Column(
                         children: [
-                          CardSales(
-                            compound: result.value!.firstSalNeutra,
-                            height: 0.13,
+                          Plus2Elements(
+                            iconSize: 30,
+                            element1: CardSales(
+                              width: 0.7,
+                              compound: result.value!.firstSalNeutra,
+                              height: 0.18,
+                            ),
+                            element2: CardSales(
+                              width: 0.7,
+                              compound: result.value!.secondSalNeutra,
+                              height: 0.18,
+                            ),
                           ),
                           CardSales(
-                            compound: result.value!.secondSalNeutra,
-                            height: 0.13,
-                          ),
-                          CardSales(
+                            fontSize: 40,
+                            margin: EdgeInsets.symmetric(vertical: 10),
                             compound: result.value!.compoundResult,
                             height: 0.20,
                           ),

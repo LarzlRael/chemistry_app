@@ -333,7 +333,8 @@ String salDobleName(
   Valencia secondValence,
 ) {
   return '${salNeutraName(periodicTableElement, firstValence)} y ${salNeutraName(secondPeriodicTableElement, secondValence)}'
-      .replaceAll("de", '');
+      .replaceAll("de", '')
+      .replaceAll('  ', ' ');
 }
 
 String getValueOrSame(String key, String defaultValue) {

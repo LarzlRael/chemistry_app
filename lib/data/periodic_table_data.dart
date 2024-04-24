@@ -912,6 +912,8 @@ Color colorByCompoundType(TypeCompound typeCompound) {
     TypeCompound.ion: Color(0xff00ACEE),
     TypeCompound.oxoacido: Color(0xff348AE4),
     TypeCompound.sal_basicas: Color(0xff348AE4),
+    TypeCompound.sal_neutra: Color(0xff545479),
+    TypeCompound.sal_doble: Color(0xff89B59F),
   };
   return compoundColors[typeCompound] ?? Colors.blue;
 }
