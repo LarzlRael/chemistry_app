@@ -12,25 +12,86 @@ class ListTileElementsValences extends HookWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final searchedPeriodicTable =
+        useState<List<PeriodicTableElement>>(elements);
+    final textController = useTextEditingController();
+    useEffect(() {
+      textController.addListener(() {
+        final text = textController.text.toLowerCase();
+        if (text.isEmpty) {
+          searchedPeriodicTable.value = elements;
+          return;
+        }
+        searchedPeriodicTable.value = elements
+            .where((element) =>
+                element.name.toLowerCase().contains(text) ||
+                element.symbol.toLowerCase().contains(text))
+            .toList();
+      });
+      /* return textController.dispose; */
+    }, []);
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 500),
-      child: PageStorage(
-        bucket: pageBucket,
-        child: ListView.builder(
-          key: PageStorageKey<String>('pageOne'),
-          itemCount: elements.length,
-          itemBuilder: (context, index) {
-            final element = elements[index];
-            return Hero(
-              tag: element.symbol,
-              child: ListTileElementValences(
-                element: element,
-                key: ValueKey<String>(element.symbol),
-                onTap: onSelected,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: textController,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                  ),
+                ),
+                labelText: 'Buscar metal',
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                ),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                suffixIcon: textController.text.isNotEmpty
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          textController.clear();
+                          searchedPeriodicTable.value = elements;
+                        },
+                      )
+                    : null,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-            );
-          },
-        ),
+            ),
+          ),
+          PageStorage(
+            bucket: pageBucket,
+            child: Expanded(
+              child: ListView.builder(
+                key: PageStorageKey<String>('pageOne'),
+                itemCount: searchedPeriodicTable.value.length,
+                itemBuilder: (context, index) {
+                  final element = searchedPeriodicTable.value[index];
+                  return Hero(
+                    tag: element.symbol,
+                    child: ListTileElementValences(
+                      element: element,
+                      key: ValueKey<String>(element.symbol),
+                      onTap: onSelected,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -150,7 +211,15 @@ class ListTileElementValences extends StatelessWidget {
                               onPressed: () => onTap?.call(element, valence)),
                         );
                 }).toList()),
-          leading: CircleAvatar(child: Text(element.symbol)),
+          leading: CircleAvatar(
+            child: SimpleText(
+              element.symbol,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+            backgroundColor: Colors.transparent,
+          ),
         ),
       ),
     );

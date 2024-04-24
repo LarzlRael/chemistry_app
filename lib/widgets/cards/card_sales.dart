@@ -78,26 +78,23 @@ class MetalSelectedCard extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        SimpleText(
           metalSelected.value!.symbol,
-          style: TextStyle(
-            fontSize: 35,
-            fontWeight: FontWeight.bold,
-          ),
+          fontSize: 35,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
         ),
-        Text(
+        SimpleText(
           metalSelected.value!.name,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-          ),
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
         ),
-        Text(
-          currentValencia.value?.value.toString() ?? '',
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w400,
-          ),
+        SimpleText(
+          currentValencia.value!.value.toString(),
+          fontSize: 17,
+          color: Colors.white,
+          fontWeight: FontWeight.w400,
         ),
       ],
     );

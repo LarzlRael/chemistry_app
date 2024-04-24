@@ -94,11 +94,14 @@ SalDoble generateSalDoble(
   newFormula.add(ValenceCompound(
       value: firstValenceSelected.value + secondValenceSelected.value,
       suffix: ')'));
+  /* TODO fix simplify */
   final simplifyFormula = simplify([
     generateSalNeutraAux.formula[0],
     generateSalNeutraAux2.formula[0],
     newFormula.last
   ]);
+  final lastNewNformula = newFormula
+    ..last.copyWith(value: simplifyFormula[2].value.abs());
   return SalDoble(
       firstSalNeutra: generateSalNeutraAux,
       secondSalNeutra: generateSalNeutraAux2,
@@ -109,7 +112,11 @@ SalDoble generateSalDoble(
             salDobleName(firstPeriodicTableElement, secondPeriodicTableElement,
                 firstValenceSelected, secondValenceSelected)),
         type: TypeCompound.sal_doble,
-        formula: [simplifyFormula[0], simplifyFormula[1], ...newFormula],
+        formula: [
+          generateSalNeutraAux.formula[0],
+          generateSalNeutraAux2.formula[0],
+          ...newFormula
+        ],
       ));
 }
 
@@ -128,11 +135,26 @@ Compound generateSalHidracida(
     'Se': 'selen',
     'Te': 'telur',
   };
+  String secondName = '';
+  if (secondMetal.valencias.length == 1) {
+    secondName = "de ${secondMetal.name.toLowerCase()}";
+  } else {
+    secondName = "${secondMetal.name.toLowerCase().substring(
+          0,
+          secondMetal.name.length - 1,
+        )}${secondValencia.suffix.name}";
+    secondName = fixIcoWord(secondName);
+  }
+  /* Special names cases */
+
+  if (specialNamesCases.containsKey(secondMetal.symbol)) {
+    secondName =
+        "${specialNamesCases[secondMetal.symbol]}${secondValencia.suffix.name}";
+  }
   Compound compoundAux = Compound(
-    periodicTableElement: getOneELement(allListPeriodic, 'Li'),
-    /* TODO fix thos */
-    name: elementNameFilter[firstMetal.symbol]! + 'uro ' + secondMetal.name,
-    type: TypeCompound.sal_neutra,
+    periodicTableElement: firstMetal,
+    name: elementNameFilter[firstMetal.symbol]! + 'uro ' + secondName,
+    type: TypeCompound.sal_hidracida,
     formula: [
       ValenceCompound(value: secondValencia.value, suffix: firstMetal.symbol),
       ValenceCompound(value: firstValencia.value, suffix: secondMetal.symbol),

@@ -56,7 +56,7 @@ class SalesBasicas extends HookWidget {
                           width: mediaQuery.width * 0.4,
                           child: hidroxidoSelected.value == null
                               ? Text(
-                                  'Seleccione segundo metal',
+                                  'Seleccione',
                                   textAlign: TextAlign.center,
                                   style: textTheme.labelMedium,
                                 )

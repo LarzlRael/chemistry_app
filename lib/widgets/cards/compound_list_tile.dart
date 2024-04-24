@@ -2,7 +2,7 @@ part of '../widgets.dart';
 
 final pageBuckeCompunds = PageStorageBucket();
 
-class CompundListTile extends StatelessWidget {
+class CompundListTile extends HookWidget {
   final List<Compound> compounds;
   final Function(Compound element)? onSelected;
   final bool isSelected;
@@ -14,26 +14,83 @@ class CompundListTile extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final searchedCompound = useState<List<Compound>>(compounds);
+    final textController = useTextEditingController();
+    useEffect(() {
+      textController.addListener(() {
+        final text = textController.text.toLowerCase();
+        if (text.isEmpty) {
+          searchedCompound.value = compounds;
+          return;
+        }
+        searchedCompound.value = compounds
+            .where((element) => element.name.toLowerCase().contains(text))
+            .toList();
+      });
+    }, []);
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 500),
-      child: PageStorage(
-        bucket: pageBuckeCompunds,
-        child: ListView.builder(
-          key: PageStorageKey<String>('pageCompund'),
-          itemCount: compounds.length,
-          itemBuilder: (context, index) {
-            final element = compounds[index];
-            return Hero(
-              tag: element.name,
-              child: ListTileCompound(
-                isSelected: isSelected,
-                element: element,
-                key: ValueKey<String>(element.name),
-                onTap: onSelected,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: textController,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                  ),
+                ),
+                labelText: 'Buscar compuesto',
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                ),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                suffixIcon: textController.text.isNotEmpty
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          textController.clear();
+                          searchedCompound.value = compounds;
+                        },
+                      )
+                    : null,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-            );
-          },
-        ),
+            ),
+          ),
+          PageStorage(
+            bucket: pageBuckeCompunds,
+            child: Expanded(
+              child: ListView.builder(
+                key: PageStorageKey<String>('pageCompund'),
+                itemCount: searchedCompound.value.length,
+                itemBuilder: (context, index) {
+                  final element = searchedCompound.value[index];
+                  return Hero(
+                    tag: element.name,
+                    child: ListTileCompound(
+                      isSelected: isSelected,
+                      element: element,
+                      key: ValueKey<String>(element.name),
+                      onTap: onSelected,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

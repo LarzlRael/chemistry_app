@@ -14,10 +14,6 @@ class SalesDobles extends HookWidget {
     final mediaQuery = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
 
-    final styleMetalCard = textTheme.titleLarge!.copyWith(
-      color: Colors.white,
-    );
-
     useEffect(() {
       if (firstMetalSelected.value != null &&
           secondMetalSelected.value != null &&
