@@ -10,7 +10,8 @@ class GuessCompoundGame extends HookWidget {
 
     final isCorrect = useState(false);
     final showCorrectOptionName = useState(true);
-    final selectedCardIndex = useState(-1);
+    final isSelectedAux = useState<bool?>(null);
+    final selectedCardIndex = useState<int>(-1);
     final isBlock = useState(false);
     final compoundGuessGame = useState<CompoundGuessGame>(
       generateCompoundGuessGame(),
@@ -19,8 +20,10 @@ class GuessCompoundGame extends HookWidget {
     useEffect(() {
       if (isCorrect.value) {
         isBlock.value = true;
+        isSelectedAux.value = true;
         Future.delayed(Duration(milliseconds: 1500), () {
           isBlock.value = true;
+          isSelectedAux.value = null;
           compoundGuessGame.value = generateCompoundGuessGame();
           selectedCardIndex.value = -1;
           isCorrect.value = false;
@@ -114,7 +117,12 @@ class GuessCompoundGame extends HookWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
                               color: selectedCardIndex.value == index
-                                  ? primaryColor
+                                  ? selectedCardIndex.value == index &&
+                                          isSelectedAux.value != null
+                                      ? isSelectedAux.value!
+                                          ? Colors.green
+                                          : Colors.red
+                                      : primaryColor
                                   : Colors.white,
                             ),
                             padding: EdgeInsets.all(10),
@@ -138,14 +146,18 @@ class GuessCompoundGame extends HookWidget {
                                   alignment: Alignment.centerRight,
                                   child: Visibility(
                                     visible: selectedCardIndex.value == index &&
-                                        isCorrect.value,
+                                        isSelectedAux.value != null,
                                     child: FadeIn(
                                       duration: Duration(milliseconds: 250),
-                                      child: Icon(
-                                        Icons.check_circle,
-                                        /* color: Colors.w, */
-                                        size: 40,
-                                      ),
+                                      child: isSelectedAux.value != null
+                                          ? Icon(
+                                              isSelectedAux.value!
+                                                  ? Icons.check_circle
+                                                  : Icons.cancel,
+                                              size: 40,
+                                            )
+                                          : Container(
+                                              child: Text("por defecnto")),
                                     ),
                                   ),
                                 ),
@@ -164,20 +176,28 @@ class GuessCompoundGame extends HookWidget {
                     style: FilledButton.styleFrom(
                       backgroundColor: secondaryColor,
                     ),
-                    onPressed: selectedCardIndex.value != -1
+                    onPressed: selectedCardIndex.value != -1 && !isBlock.value
                         ? () {
                             if (isBlock.value) return;
+
                             if (compoundGuessGame.value
                                     .elements[selectedCardIndex.value].name ==
                                 compoundGuessGame.value.correctElement.name) {
                               isCorrect.value = true;
                               return;
                             }
-                            GlobalSnackBar.showSnackBar(
+                            isSelectedAux.value = false;
+                            isBlock.value = true;
+                            Future.delayed(Duration(milliseconds: 1500), () {
+                              isSelectedAux.value = null;
+                              isBlock.value = false;
+                              selectedCardIndex.value = -1;
+                            });
+                            /*  GlobalSnackBar.showSnackBar(
                               context,
                               'Respuesta incorrecta',
                               backgroundColor: Colors.red,
-                            );
+                            ); */
                           }
                         : null,
                     child: SimpleText(
