@@ -31,6 +31,7 @@ part 'cards/element_card.dart';
 part 'cards/compound_card.dart';
 part 'cards/elements_list_tile.dart';
 part 'cards/compound_list_tile.dart';
+part 'cards/compound_list_simple.dart';
 part 'cards/card_detail_compound.dart';
 part 'cards/cards_elements_valences.dart';
 part 'cards/card_instruction_container.dart';

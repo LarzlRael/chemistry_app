@@ -50,6 +50,9 @@ class CompoundsByTypePage extends HookConsumerWidget {
         case TypeCompound.ion:
           listCompounds.value = generateIonesByGroupsElements(ionGroup);
           break;
+        case TypeCompound.hidruro_no_metalico:
+          listCompounds.value = hidrurosNoMetalicos();
+          break;
         /*
         default:
           listCompounds.value = generateOxidosByGroupsElements(

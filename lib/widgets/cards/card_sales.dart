@@ -78,26 +78,49 @@ class MetalSelectedCard extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SimpleText(
-          metalSelected.value!.symbol,
-          fontSize: 35,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
+        Container(
+          child: SimpleText(
+            lineHeight: 0,
+            metalSelected.value!.symbol,
+            fontSize: 45,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SimpleText(
+          lineHeight: 0,
           metalSelected.value!.name,
           color: Colors.white,
-          fontSize: 20,
+          fontSize: 30,
           fontWeight: FontWeight.w600,
         ),
-        SimpleText(
-          currentValencia.value!.value.toString(),
-          fontSize: 17,
-          color: Colors.white,
-          fontWeight: FontWeight.w400,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SimpleText(
+              lineHeight: 0,
+              currentValencia.value!.value.toString(),
+              fontSize: 25,
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+            ),
+            SizedBox(width: 5),
+            if (metalSelected.value!.valencias.length > 1)
+              SimpleText(
+                "(${currentValencia.value!.suffix.name.toCapitalize()})",
+                fontSize: 15,
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+              ),
+          ],
         ),
       ],
     );
+    /* return CardElement(
+      element: metalSelected.value!,
+      valencias: [currentValencia.value!],
+      group: '',
+    ); */
   }
 }
 
@@ -160,6 +183,7 @@ void bottomSheetByCompounds(
   BuildContext context,
   ValueNotifier<Compound?> compoundSelected,
   List<Compound> elementsToFind,
+  String inputLabel,
 ) {
   showModalBottomSheet(
       context: context,
@@ -169,6 +193,7 @@ void bottomSheetByCompounds(
           heightFactor: 0.9,
           child: Container(
               child: CompundListTile(
+            inputLabel: inputLabel,
             compounds: elementsToFind,
             onSelected: (element) {
               compoundSelected.value = element;
@@ -182,6 +207,7 @@ void bottomSheetByCompounds(
 void bottomSheetIones(
   BuildContext context,
   ValueNotifier<Compound?> ionSelected,
+  String inputLabel,
 ) {
   final elements = generateIonesByGroupsElements(noMetalGroup);
   showModalBottomSheet(
@@ -192,6 +218,7 @@ void bottomSheetIones(
           heightFactor: 0.9,
           child: Container(
             child: CompundListTile(
+              inputLabel: inputLabel,
               /* isSelected: ionSelected.value != null, */
               compounds: elements,
               onSelected: (element) {

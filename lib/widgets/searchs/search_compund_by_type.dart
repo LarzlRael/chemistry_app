@@ -69,7 +69,7 @@ class CompoundsResultAndSuggestion extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final compoundsS = ref.watch(compoundProvider).compoundSearched;
-    return CompundListTile(
+    return CompoundListSimple(
       compounds: compoundsS,
       onSelected: (Compound element) {
         context.push(

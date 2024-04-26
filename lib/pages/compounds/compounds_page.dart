@@ -29,9 +29,9 @@ class CompoundsPage extends StatelessWidget {
                     mainAxisSpacing: 5,
                     crossAxisSpacing: 5,
                     itemBuilder: (context, index) {
-                      final element = compoundMetalList[index];
+                      final compoundOption = compoundMetalList[index];
                       return CompoundsOption(
-                        compoundCard: element,
+                        compoundCard: compoundOption,
                         onTap: (option, type) {
                           switch (type) {
                             case TypeCompound.sal_neutra:
@@ -125,12 +125,10 @@ class CompoundsOption extends StatelessWidget {
               ),
               SimpleText(
                 compoundCard.name,
-                padding: const EdgeInsets.only(top: 5),
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  /* color: Colors.white, */
-                ),
+                padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                textAlign: TextAlign.center,
               ),
             ],
           ),

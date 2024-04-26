@@ -16,44 +16,32 @@ enum TypeCompound {
   sal_neutra,
   sal_doble,
   sal_basicas,
-  sal_hidracida
+  sal_hidracida,
+  hidruro_no_metalico,
 }
 
 extension TypeCompoundExtension on TypeCompound {
   String get name {
-    switch (this) {
-      case TypeCompound.oxido:
-        return 'Óxido';
-      case TypeCompound.peroxido:
-        return 'Peroxido';
-      case TypeCompound.hidroxido:
-        return 'Hidróxido';
-      case TypeCompound.hidruro:
-        return 'Hidruro';
-      case TypeCompound.oxido_doble:
-        return 'Óxido doble';
-      case TypeCompound.acido_oxacido:
-        return 'Ácido oxácido';
-      case TypeCompound.acido_polihidratado:
-        return 'Ácido polihidratado';
-      case TypeCompound.oxoacido:
-        return 'Oxácido';
-      case TypeCompound.anhidrido:
-        return 'Anhídrido';
-      case TypeCompound.ion:
-        return 'Ion';
-      case TypeCompound.sal_neutra:
-        return 'Sal Neutra';
-      case TypeCompound.sal_doble:
-        return 'Sal Doble';
-      case TypeCompound.sal_basicas:
-        return 'Sal Básica';
-      case TypeCompound.acido_hidracido:
-        return 'Ácido Hidrácidos';
+    final compoundNames = {
+      TypeCompound.oxido: 'Óxido',
+      TypeCompound.peroxido: 'Peroxido',
+      TypeCompound.hidroxido: 'Hidróxido',
+      TypeCompound.hidruro: 'Hidruro',
+      TypeCompound.oxido_doble: 'Óxido doble',
+      TypeCompound.acido_oxacido: 'Ácido oxácido',
+      TypeCompound.acido_polihidratado: 'Ácido polihidratado',
+      TypeCompound.oxoacido: 'Oxácido',
+      TypeCompound.anhidrido: 'Anhídrido',
+      TypeCompound.ion: 'Ion',
+      TypeCompound.sal_neutra: 'Sal Neutra',
+      TypeCompound.sal_doble: 'Sal Doble',
+      TypeCompound.sal_basicas: 'Sal Básica',
+      TypeCompound.acido_hidracido: 'Ácido Hidrácidos',
+      TypeCompound.hidruro_no_metalico: 'Hidruro no metálico',
+      TypeCompound.sal_hidracida: 'Sal Hidrácida',
+    };
 
-      default:
-        return '';
-    }
+    return compoundNames[this] ?? '';
   }
 }
 
@@ -103,8 +91,8 @@ class ValenceCompound {
     );
   }
 
-  List<String> concatValenceCompound() {
-    return suffix.isNotEmpty ? [suffix, value.toString()] : [value.toString()];
+  String concatValenceCompound() {
+    return '$value$suffix';
   }
 }
 
@@ -127,6 +115,7 @@ class Compound {
   final TypeCompound type;
   final bool isSpecialCase;
   final Compound? compound;
+  final String compoundString;
 
   Compound({
     required this.periodicTableElement,
@@ -135,6 +124,7 @@ class Compound {
     required this.type,
     this.isSpecialCase = false,
     this.compound,
+    this.compoundString = '',
   });
 
   Compound copyWith({
@@ -143,6 +133,7 @@ class Compound {
     List<ValenceCompound>? formula,
     TypeCompound? type,
     Compound? compound,
+    String? formulaString,
   }) {
     return Compound(
       periodicTableElement: element ?? this.periodicTableElement,
@@ -150,6 +141,7 @@ class Compound {
       formula: formula ?? this.formula,
       type: type ?? this.type,
       compound: compound ?? this.compound,
+      compoundString: formulaString ?? this.compoundString,
     );
   }
 }

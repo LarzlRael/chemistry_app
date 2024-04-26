@@ -62,7 +62,8 @@ class SalesNeutras extends HookWidget {
                         : colorByCompoundType(ionSelected.value!.type),
                     title: 'Ion',
                     width: mediaQuery.width * 0.4,
-                    onTap: () => bottomSheetIones(context, ionSelected),
+                    onTap: () =>
+                        bottomSheetIones(context, ionSelected, "Buscar ion"),
                     child: ionSelected.value == null
                         ? Text(
                             'Seleccione un ion',

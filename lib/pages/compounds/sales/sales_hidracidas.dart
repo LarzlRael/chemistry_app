@@ -97,7 +97,7 @@ class SalesHidracidas extends HookWidget {
                 ),
                 result.value == null
                     ? SimpleText(
-                        'Seleccione 2 metales y un ion para ver el formar una sal doble.',
+                        'Seleccione un acido hidracido y un metal para formar una sal hidracida',
                         padding: EdgeInsets.symmetric(vertical: 20),
                         textAlign: TextAlign.center,
                       )

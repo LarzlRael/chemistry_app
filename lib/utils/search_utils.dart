@@ -21,7 +21,8 @@ List<Compound> searchCompound(
 ) {
   // Filtrar por nombre o símbolo que coincida con la consulta
   return compounds
-      .where(
-          (element) => element.name.toLowerCase().contains(query.toLowerCase()))
+      .where((element) =>
+          element.name.toLowerCase().contains(query.toLowerCase()) ||
+          element.compoundString.toLowerCase().contains(query.toLowerCase()))
       .toList();
 }

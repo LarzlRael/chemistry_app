@@ -6,10 +6,14 @@ class CompundListTile extends HookWidget {
   final List<Compound> compounds;
   final Function(Compound element)? onSelected;
   final bool isSelected;
+  final String inputLabel;
+  final bool showSearch;
   const CompundListTile({
     super.key,
     this.onSelected,
     this.isSelected = false,
+    this.showSearch = true,
+    this.inputLabel = 'Buscar compuesto',
     required this.compounds,
   });
   @override
@@ -32,43 +36,44 @@ class CompundListTile extends HookWidget {
       duration: const Duration(milliseconds: 500),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: textController,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: primaryColor,
+          if (showSearch)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: textController,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: primaryColor,
+                    ),
                   ),
-                ),
-                labelText: 'Buscar compuesto',
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                suffixIcon: textController.text.isNotEmpty
-                    ? IconButton(
-                        icon: Icon(
-                          Icons.cancel,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          textController.clear();
-                          searchedCompound.value = compounds;
-                        },
-                      )
-                    : null,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  labelText: inputLabel,
+                  labelStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  suffixIcon: textController.text.isNotEmpty
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.cancel,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            textController.clear();
+                            searchedCompound.value = compounds;
+                          },
+                        )
+                      : null,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
             ),
-          ),
           PageStorage(
             bucket: pageBuckeCompunds,
             child: Expanded(

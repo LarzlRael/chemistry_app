@@ -51,11 +51,12 @@ class SalesBasicas extends HookWidget {
                             context,
                             hidroxidoSelected,
                             generateHidroxidosByGroupsElements(hidroxidoGroup),
+                            'Buscar hidroxido',
                           ),
                           width: mediaQuery.width * 0.4,
                           child: hidroxidoSelected.value == null
                               ? Text(
-                                  'Seleccione',
+                                  'Seleccione hidroxido',
                                   textAlign: TextAlign.center,
                                   style: textTheme.labelMedium,
                                 )
@@ -93,10 +94,11 @@ class SalesBasicas extends HookWidget {
                           : colorByCompoundType(ionSelected.value!.type),
                       title: 'Ion',
                       width: mediaQuery.width * 0.4,
-                      onTap: () => bottomSheetIones(context, ionSelected),
+                      onTap: () =>
+                          bottomSheetIones(context, ionSelected, "Buscar ion"),
                       child: ionSelected.value == null
                           ? Text(
-                              'Seleccione un ion',
+                              'Seleccione ion',
                               style: textTheme.labelMedium,
                             )
                           : Column(
@@ -125,7 +127,7 @@ class SalesBasicas extends HookWidget {
                 ),
                 result.value == null
                     ? SimpleText(
-                        'Seleccione 2 metales y un ion para ver el formar una sal doble.',
+                        'Seleccione un hidroxido y un ion para obtener el resultado',
                         padding: EdgeInsets.symmetric(vertical: 20),
                         textAlign: TextAlign.center,
                       )
