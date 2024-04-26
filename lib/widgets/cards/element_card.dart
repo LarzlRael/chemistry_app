@@ -43,11 +43,13 @@ class ElementCard extends StatelessWidget {
     this.showName = true,
     this.fontSize = 55,
     this.borderRadius = 0,
+    this.showOnlyName = false,
   });
   final double? size;
   final bool showName;
   final double fontSize;
   final double borderRadius;
+  final bool showOnlyName;
   final PeriodicTableElement element;
   final Function(PeriodicTableElement element)? onTap;
 
@@ -71,6 +73,7 @@ class ElementCard extends StatelessWidget {
         },
         child: !isBothTypes
             ? CardElement(
+                showOnlyName: showOnlyName,
                 element: element,
                 valencias: element.valencias,
                 size: size,
@@ -81,6 +84,7 @@ class ElementCard extends StatelessWidget {
             : FlipCard(
                 key: key,
                 front: CardElement(
+                  showOnlyName: showOnlyName,
                   fontSize: fontSize,
                   size: size,
                   borderRadius: borderRadius,
@@ -95,6 +99,7 @@ class ElementCard extends StatelessWidget {
                   ),
                 ),
                 back: CardElement(
+                  showOnlyName: showOnlyName,
                   fontSize: fontSize,
                   size: size,
                   color: Colors.purple,
@@ -216,6 +221,8 @@ class CardElement extends StatelessWidget {
   final double fontSize;
   final double borderRadius;
   final bool showName;
+  final bool showOnlyName;
+
   const CardElement({
     super.key,
     required this.element,
@@ -223,6 +230,7 @@ class CardElement extends StatelessWidget {
     required this.group,
     this.extraWidget,
     this.showName = true,
+    this.showOnlyName = false,
     this.color,
     this.size = 200,
     this.fontSize = 55,
@@ -266,13 +274,21 @@ fontSize: 16, */
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SimpleText(
-                      element.symbol,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      lineHeight: 1,
-                    ),
+                    showOnlyName
+                        ? SimpleText(
+                            element.symbol,
+                            fontSize: fontSize,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            lineHeight: 1,
+                          )
+                        : SimpleText(
+                            element.name,
+                            fontSize: fontSize * 0.5,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            lineHeight: 1,
+                          ),
                     if (showName)
                       SimpleText(
                         element.name,

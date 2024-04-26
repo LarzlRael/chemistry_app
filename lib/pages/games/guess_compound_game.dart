@@ -9,10 +9,10 @@ class GuessCompoundGame extends HookWidget {
     final size = MediaQuery.of(context).size;
 
     final isCorrect = useState(false);
-    final showCorrectOptionName = useState(true);
+
     final isSelectedAux = useState<bool?>(null);
-    final selectedCardIndex = useState<int>(-1);
     final isBlock = useState(false);
+    final selectedCardIndex = useState<int>(-1);
     final compoundGuessGame = useState<CompoundGuessGame>(
       generateCompoundGuessGame(),
     );
@@ -22,12 +22,11 @@ class GuessCompoundGame extends HookWidget {
         isBlock.value = true;
         isSelectedAux.value = true;
         Future.delayed(Duration(milliseconds: 1500), () {
-          isBlock.value = true;
           isSelectedAux.value = null;
+          isBlock.value = false;
           compoundGuessGame.value = generateCompoundGuessGame();
           selectedCardIndex.value = -1;
           isCorrect.value = false;
-          isBlock.value = false;
         });
 
         /* isCorrect.value = false; */
@@ -71,10 +70,11 @@ class GuessCompoundGame extends HookWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SimpleText(
-                              "Cual es el compuesto químico de: ",
+                              "Cual es el compuesto químico de",
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               textAlign: TextAlign.center,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
                             ),
                             FormulaInText(
                               compoundFormula: compoundGuessGame
@@ -172,10 +172,7 @@ class GuessCompoundGame extends HookWidget {
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 150),
                   width: double.infinity,
-                  child: FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: secondaryColor,
-                    ),
+                  child: VerifyButton(
                     onPressed: selectedCardIndex.value != -1 && !isBlock.value
                         ? () {
                             if (isBlock.value) return;
@@ -193,19 +190,8 @@ class GuessCompoundGame extends HookWidget {
                               isBlock.value = false;
                               selectedCardIndex.value = -1;
                             });
-                            /*  GlobalSnackBar.showSnackBar(
-                              context,
-                              'Respuesta incorrecta',
-                              backgroundColor: Colors.red,
-                            ); */
                           }
                         : null,
-                    child: SimpleText(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      'Comprobar',
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
                   ),
                 ),
                 SizedBox(height: 15),

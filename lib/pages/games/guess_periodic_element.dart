@@ -10,15 +10,22 @@ class GuessPeriodicElement extends HookWidget {
       generatePeriodicElementOptions(allListPeriodic, 9),
     );
     final isCorrect = useState(false);
-    final showCorrectOptionName = useState(true);
+    final showCorrectOptionName = useState<bool>(generateRandomBoolean());
     final selectedCardIndex = useState(-1);
+    final isSelectedAux = useState<bool?>(null);
+    final isBlock = useState(false);
 
     useEffect(() {
-      if (isCorrect.value) {
+      isBlock.value = true;
+      isSelectedAux.value = true;
+      Future.delayed(Duration(milliseconds: 1500), () {
+        isSelectedAux.value = null;
+        isBlock.value = false;
         optionsGame.value = generatePeriodicElementOptions(allListPeriodic, 9);
         selectedCardIndex.value = -1;
         isCorrect.value = false;
-      }
+        showCorrectOptionName.value = generateRandomBoolean();
+      });
     }, [isCorrect.value]);
     return Scaffold(
       body: ScaffoldBackground(
@@ -34,7 +41,7 @@ class GuessPeriodicElement extends HookWidget {
                   onTimerFinish: () {},
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 30),
+                  margin: EdgeInsets.symmetric(vertical: 10),
                   child: Card(
                     /* color: colorByGroup(optionsGame.value.correctAnswer.group), */
                     child: Column(
@@ -47,30 +54,18 @@ class GuessPeriodicElement extends HookWidget {
                           padding: EdgeInsets.symmetric(vertical: 10),
                         ),
                         Container(
-                          /* width: 300,
-                          height: 200, */
-                          /* padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ), */
                           child: Center(
-                            child: /* SimpleText(
-                              showCorrectOptionName.value
-                                  ? optionsGame.value.correctAnswer.symbol
-                                  : optionsGame.value.correctAnswer.name,
-                              fontSize: 45,
-                              fontWeight: FontWeight.bold,
-                            ) */
-                                ElementCard(
+                            child: ElementCard(
+                              showOnlyName: showCorrectOptionName.value,
                               element: optionsGame.value.correctAnswer,
                               fontSize: 60,
                               showName: false,
                               borderRadius: 10,
-                              size: 150,
+                              size: 175,
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 5),
                       ],
                     ),
                   ),
@@ -91,6 +86,7 @@ class GuessPeriodicElement extends HookWidget {
                           selectedCardIndex.value = index;
                         },
                         child: Card(
+                          color: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
@@ -99,22 +95,55 @@ class GuessPeriodicElement extends HookWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: selectedCardIndex.value == index
-                                  ? primaryColor
-                                  : Colors.transparent,
+                                  ? selectedCardIndex.value == index &&
+                                          isSelectedAux.value != null
+                                      ? isSelectedAux.value!
+                                          ? Colors.green
+                                          : Colors.red
+                                      : primaryColor
+                                  : Colors.white,
                             ),
-                            padding: EdgeInsets.all(10),
                             width: 100,
                             height: 100,
-                            child: Center(
-                              child: SimpleText(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                showCorrectOptionName.value
-                                    ? optionsGame.value.listSuffle[index].name
-                                    : optionsGame
-                                        .value.listSuffle[index].symbol,
-                                textAlign: TextAlign.center,
-                              ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: 2,
+                                  right: 2,
+                                  child: Visibility(
+                                    visible: selectedCardIndex.value == index &&
+                                        isSelectedAux.value != null,
+                                    child: FadeIn(
+                                      duration: Duration(milliseconds: 250),
+                                      child: isSelectedAux.value != null
+                                          ? Icon(
+                                              isSelectedAux.value!
+                                                  ? Icons.check_circle
+                                                  : Icons.cancel,
+                                              size: 30,
+                                            )
+                                          : SizedBox(),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: SimpleText(
+                                    fontSize:
+                                        !showCorrectOptionName.value ? 30 : 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: selectedCardIndex.value == index
+                                        ? Colors.white
+                                        : Colors.black,
+                                    showCorrectOptionName.value
+                                        ? optionsGame
+                                            .value.listSuffle[index].name
+                                        : optionsGame
+                                            .value.listSuffle[index].symbol,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -124,30 +153,32 @@ class GuessPeriodicElement extends HookWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  child: FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: secondaryColor,
-                    ),
-                    onPressed: selectedCardIndex.value != -1
+                  child: VerifyButton(
+                    onPressed: selectedCardIndex.value != -1 && !isBlock.value
                         ? () {
+                            if (isBlock.value) return;
+
                             if (optionsGame.value
-                                    .listSuffle[selectedCardIndex.value] ==
-                                optionsGame.value.correctAnswer) {
+                                    .listSuffle[selectedCardIndex.value].name ==
+                                optionsGame.value.correctAnswer.name) {
                               isCorrect.value = true;
                               return;
                             }
-                            GlobalSnackBar.showSnackBar(
-                              context,
-                              'Respuesta incorrecta',
-                            );
+                            isSelectedAux.value = false;
+                            isBlock.value = true;
+                            Future.delayed(Duration(milliseconds: 1000), () {
+                              isSelectedAux.value = null;
+                              isBlock.value = false;
+                              selectedCardIndex.value = -1;
+                            });
+                            /*  GlobalSnackBar.showSnackBar(
+                            context,
+                            'Respuesta incorrecta',
+                            backgroundColor: Colors.red,
+                          ); */
                           }
                         : null,
-                    child: SimpleText(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      'Comprobar',
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
+                    titleButton: 'Comprobar',
                   ),
                 ),
                 SizedBox(height: 15),
