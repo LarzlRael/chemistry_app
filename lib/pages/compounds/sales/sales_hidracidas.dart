@@ -107,6 +107,7 @@ class SalesHidracidas extends HookWidget {
                           CardSales(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             compound: result.value!,
+                            fontSize: 60,
                             height: 0.20,
                           ),
                         ],
