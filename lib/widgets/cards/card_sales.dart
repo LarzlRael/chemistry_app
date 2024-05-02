@@ -241,15 +241,16 @@ class SelecteCardForSal extends StatelessWidget {
   final double height;
   final EdgeInsetsGeometry? padding;
 
-  const SelecteCardForSal(
-      {super.key,
-      this.onTap,
-      this.width = 125,
-      this.height = 150,
-      this.color,
-      required this.child,
-      required this.title,
-      this.padding});
+  const SelecteCardForSal({
+    super.key,
+    this.onTap,
+    this.width = 125,
+    this.height = 150,
+    this.color,
+    this.padding,
+    required this.child,
+    required this.title,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -307,8 +308,8 @@ class SelectableCardSal extends HookWidget {
   });
   @override
   Widget build(BuildContext context) {
-    final showAcid = useState(false);
     final textTheme = Theme.of(context).textTheme;
+    GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
     return Column(
       children: [
         Row(
@@ -322,7 +323,7 @@ class SelectableCardSal extends HookWidget {
               Container(
                 margin: EdgeInsets.only(left: 5),
                 child: GestureDetector(
-                  onTap: () => showAcid.value = !showAcid.value,
+                  onTap: () => cardKey.currentState!.toggleCard(),
                   child: Icon(
                     Icons.change_circle,
                     /* color: Colors.blue, */
@@ -335,63 +336,112 @@ class SelectableCardSal extends HookWidget {
           customBorder:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           onTap: onTap,
-          child: Card(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: compound == null
-                    ? null
-                    : LinearGradient(
-                        colors: [
-                          colorByCompoundType(showAcid.value
-                              ? compound!.compound!.type
-                              : compound!.type),
-                          colorByCompoundType(showAcid.value
-                                  ? compound!.compound!.type
-                                  : compound!.type)
-                              .withOpacity(0.8),
-                        ],
-                      ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              width: width,
-              height: height,
-              child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 350),
-                child: Center(
-                  child: compound == null
-                      ? Text(
-                          'Seleccione un ion',
-                          style: textTheme.labelMedium,
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FormulaInText(
-                              compoundFormula: showAcid.value
-                                  ? compound!.compound!.formula
-                                  : compound!.formula,
-                              typeCompound: compound!.type,
-                              fontSize: 30,
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SimpleText(
-                              showAcid.value
-                                  ? compound!.compound!.name.toCapitalize()
-                                  : compound!.name.toCapitalize(),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 2.5, vertical: 2.5),
-                              style: textTheme.headlineMedium!.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+          child: FlipCard(
+            key: cardKey,
+            flipOnTouch: false,
+            front: Card(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: compound == null
+                      ? null
+                      : LinearGradient(
+                          colors: [
+                            colorByCompoundType(compound!.type),
+                            colorByCompoundType(compound!.type)
+                                .withOpacity(0.8),
                           ],
                         ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: width,
+                height: height,
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 350),
+                  child: Center(
+                    child: compound == null
+                        ? Text(
+                            'Seleccione un ion',
+                            style: textTheme.labelMedium,
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FormulaInText(
+                                compoundFormula: compound!.formula,
+                                typeCompound: compound!.type,
+                                fontSize: 30,
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SimpleText(
+                                compound!.name.toCapitalize(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 2.5, vertical: 2.5),
+                                style: textTheme.headlineMedium!.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                  ),
+                ),
+              ),
+            ),
+            back: Card(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: compound == null
+                      ? null
+                      : LinearGradient(
+                          colors: [
+                            colorByCompoundType(compound!.compound!.type),
+                            colorByCompoundType(compound!.compound!.type)
+                                .withOpacity(0.8),
+                          ],
+                        ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: width,
+                height: height,
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 350),
+                  child: Center(
+                    child: compound == null
+                        ? Text(
+                            'Seleccione un ion',
+                            style: textTheme.labelMedium,
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FormulaInText(
+                                compoundFormula: compound!.compound!.formula,
+                                typeCompound: compound!.compound!.type,
+                                fontSize: 30,
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SimpleText(
+                                compound!.compound!.name.toCapitalize(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 2.5, vertical: 2.5),
+                                style: textTheme.headlineMedium!.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                  ),
                 ),
               ),
             ),
