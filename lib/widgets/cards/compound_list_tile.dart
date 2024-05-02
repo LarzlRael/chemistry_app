@@ -1,7 +1,5 @@
 part of '../widgets.dart';
 
-final pageBuckeCompunds = PageStorageBucket();
-
 class CompundListTile extends HookWidget {
   final List<Compound> compounds;
   final Function(Compound element)? onSelected;
@@ -74,25 +72,21 @@ class CompundListTile extends HookWidget {
                 ),
               ),
             ),
-          PageStorage(
-            bucket: pageBuckeCompunds,
-            child: Expanded(
-              child: ListView.builder(
-                key: PageStorageKey<String>('pageCompund'),
-                itemCount: searchedCompound.value.length,
-                itemBuilder: (context, index) {
-                  final element = searchedCompound.value[index];
-                  return Hero(
-                    tag: element.name,
-                    child: ListTileCompound(
-                      isSelected: isSelected,
-                      element: element,
-                      key: ValueKey<String>(element.name),
-                      onTap: onSelected,
-                    ),
-                  );
-                },
-              ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: searchedCompound.value.length,
+              itemBuilder: (context, index) {
+                final element = searchedCompound.value[index];
+                return Hero(
+                  tag: element.name,
+                  child: ListTileCompound(
+                    isSelected: isSelected,
+                    element: element,
+                    key: ValueKey<String>(element.name),
+                    onTap: onSelected,
+                  ),
+                );
+              },
             ),
           ),
         ],

@@ -91,6 +91,7 @@ class SalesHidracidas extends HookWidget {
                           : MetalSelectedCard(
                               metalSelected: secondMetalSelected,
                               currentValencia: secondCurrentValencia,
+                              sizeReduce: 0.85,
                             ),
                     ),
                   ],

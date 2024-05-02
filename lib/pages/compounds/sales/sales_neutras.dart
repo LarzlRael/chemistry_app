@@ -48,6 +48,7 @@ class SalesNeutras extends HookWidget {
                             style: textTheme.labelMedium,
                           )
                         : MetalSelectedCard(
+                            sizeReduce: 0.85,
                             metalSelected: metalSelected,
                             currentValencia: currentValencia,
                           ),

@@ -7,7 +7,10 @@ Compound generateSalNeutra(
 ) {
   List<ValenceCompound> newFormula = List.from(compound.formula);
   newFormula.removeLast();
-  newFormula.add(ValenceCompound(value: valence.value, suffix: ')'));
+  newFormula.add(ValenceCompound(
+      value: valence.value,
+      suffix: ')',
+      colorValue: colorByGroup(periodicTableElement.group)));
 
   return Compound(
     periodicTableElement: periodicTableElement,
@@ -18,6 +21,7 @@ Compound generateSalNeutra(
       ValenceCompound(
         suffix: periodicTableElement.symbol,
         value: compound.formula.last.value.abs(),
+        color: colorByGroup(periodicTableElement.group),
         colorValue: hidrogeno,
       ),
       ...newFormula
@@ -157,8 +161,18 @@ Compound generateSalHidracida(
     name: elementNameFilter[firstMetal.symbol]! + 'uro ' + secondName,
     type: TypeCompound.sal_hidracida,
     formula: [
-      ValenceCompound(value: secondValencia.value, suffix: firstMetal.symbol),
-      ValenceCompound(value: firstValencia.value, suffix: secondMetal.symbol),
+      ValenceCompound(
+        value: secondValencia.value,
+        suffix: firstMetal.symbol,
+        color: colorByGroup(firstMetal.group),
+        colorValue: colorByGroup(secondMetal.group),
+      ),
+      ValenceCompound(
+        value: firstValencia.value,
+        suffix: secondMetal.symbol,
+        color: colorByGroup(secondMetal.group),
+        colorValue: colorByGroup(firstMetal.group),
+      ),
     ],
   );
 

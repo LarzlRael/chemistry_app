@@ -1,7 +1,5 @@
 part of '../widgets.dart';
 
-final pageBucket = PageStorageBucket();
-
 class ListTileElementsValences extends HookWidget {
   final List<PeriodicTableElement> elements;
   final Function(PeriodicTableElement element, Valencia valence)? onSelected;
@@ -71,24 +69,20 @@ class ListTileElementsValences extends HookWidget {
               ),
             ),
           ),
-          PageStorage(
-            bucket: pageBucket,
-            child: Expanded(
-              child: ListView.builder(
-                key: PageStorageKey<String>('pageOne'),
-                itemCount: searchedPeriodicTable.value.length,
-                itemBuilder: (context, index) {
-                  final element = searchedPeriodicTable.value[index];
-                  return Hero(
-                    tag: element.symbol,
-                    child: ListTileElementValences(
-                      element: element,
-                      key: ValueKey<String>(element.symbol),
-                      onTap: onSelected,
-                    ),
-                  );
-                },
-              ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: searchedPeriodicTable.value.length,
+              itemBuilder: (context, index) {
+                final element = searchedPeriodicTable.value[index];
+                return Hero(
+                  tag: element.symbol,
+                  child: ListTileElementValences(
+                    element: element,
+                    key: ValueKey<String>(element.symbol),
+                    onTap: onSelected,
+                  ),
+                );
+              },
             ),
           ),
         ],
