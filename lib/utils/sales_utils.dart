@@ -9,9 +9,10 @@ Compound generateSalNeutra(
   newFormula.removeLast();
   newFormula.add(ValenceCompound(value: valence.value, suffix: ')'));
 
-  Compound compoundAux = Compound(
+  return Compound(
     periodicTableElement: periodicTableElement,
     name: setSalNeutralName(compound, periodicTableElement, valence),
+    compound: compound,
     type: TypeCompound.sal_neutra,
     formula: [
       ValenceCompound(
@@ -22,8 +23,6 @@ Compound generateSalNeutra(
       ...newFormula
     ],
   );
-
-  return compoundAux;
 }
 
 Compound generateSalBasica(

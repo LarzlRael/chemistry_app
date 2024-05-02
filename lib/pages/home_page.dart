@@ -17,8 +17,17 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: [
                 ButtonCategory(
-                  icon: FontAwesomeIcons.flask,
-                  text: 'Compuestos',
+                  icon: Custom.ic_perodic_table,
+                  text: 'Elementos químicos',
+                  onPress: () {
+                    context.push('/elements_page');
+                  },
+                  color1: Color(0xff8061C0),
+                  color2: Color(0xff8061C0),
+                ),
+                ButtonCategory(
+                  icon: Custom.ic_compound,
+                  text: 'Compuestos químicos',
                   onPress: () {
                     context.push('/compounds_page');
                   },
@@ -26,22 +35,13 @@ class HomePage extends StatelessWidget {
                   color2: Color(0xff8D0074),
                 ),
                 ButtonCategory(
-                  icon: FontAwesomeIcons.fantasyFlightGames,
+                  icon: Custom.ic_trivia,
                   text: 'Juegos',
                   onPress: () {
                     context.push('/games_page');
                   },
                   color1: Colors.blue,
                   color2: Colors.blueAccent,
-                ),
-                ButtonCategory(
-                  icon: FontAwesomeIcons.atom,
-                  text: 'Elementos',
-                  onPress: () {
-                    context.push('/elements_page');
-                  },
-                  color1: Color(0xff8061C0),
-                  color2: Color(0xff8061C0),
                 ),
               ],
             ),

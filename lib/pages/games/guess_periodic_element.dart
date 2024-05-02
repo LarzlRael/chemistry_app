@@ -16,16 +16,19 @@ class GuessPeriodicElement extends HookWidget {
     final isBlock = useState(false);
 
     useEffect(() {
-      isBlock.value = true;
-      isSelectedAux.value = true;
-      Future.delayed(Duration(milliseconds: 1500), () {
-        isSelectedAux.value = null;
-        isBlock.value = false;
-        optionsGame.value = generatePeriodicElementOptions(allListPeriodic, 9);
-        selectedCardIndex.value = -1;
-        isCorrect.value = false;
-        showCorrectOptionName.value = generateRandomBoolean();
-      });
+      if (isCorrect.value) {
+        isBlock.value = true;
+        isSelectedAux.value = true;
+        Future.delayed(Duration(milliseconds: 1500), () {
+          isSelectedAux.value = null;
+          isBlock.value = false;
+          optionsGame.value =
+              generatePeriodicElementOptions(allListPeriodic, 9);
+          selectedCardIndex.value = -1;
+          isCorrect.value = false;
+          showCorrectOptionName.value = generateRandomBoolean();
+        });
+      }
     }, [isCorrect.value]);
     return Scaffold(
       body: ScaffoldBackground(
@@ -56,7 +59,7 @@ class GuessPeriodicElement extends HookWidget {
                         Container(
                           child: Center(
                             child: ElementCard(
-                              showOnlyName: showCorrectOptionName.value,
+                              showOnlyName: !showCorrectOptionName.value,
                               element: optionsGame.value.correctAnswer,
                               fontSize: 60,
                               showName: false,

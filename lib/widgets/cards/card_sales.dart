@@ -68,8 +68,9 @@ class MetalSelectedCard extends StatelessWidget {
     super.key,
     required this.metalSelected,
     required this.currentValencia,
+    this.sizeReduce = 1,
   });
-
+  final double sizeReduce;
   final ValueNotifier<PeriodicTableElement?> metalSelected;
   final ValueNotifier<Valencia?> currentValencia;
 
@@ -82,7 +83,7 @@ class MetalSelectedCard extends StatelessWidget {
           child: SimpleText(
             lineHeight: 0,
             metalSelected.value!.symbol,
-            fontSize: 45,
+            fontSize: 45 * sizeReduce,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -91,7 +92,7 @@ class MetalSelectedCard extends StatelessWidget {
           lineHeight: 0,
           metalSelected.value!.name,
           color: Colors.white,
-          fontSize: 30,
+          fontSize: 30 * sizeReduce,
           fontWeight: FontWeight.w600,
         ),
         Row(
@@ -100,15 +101,15 @@ class MetalSelectedCard extends StatelessWidget {
             SimpleText(
               lineHeight: 0,
               currentValencia.value!.value.toString(),
-              fontSize: 25,
+              fontSize: 25 * sizeReduce,
               color: Colors.white,
               fontWeight: FontWeight.w400,
             ),
             SizedBox(width: 5),
             if (metalSelected.value!.valencias.length > 1)
               SimpleText(
-                "(${currentValencia.value!.suffix.name.toCapitalize()})",
-                fontSize: 15,
+                "(${currentValencia.value!.suffix.name.snakeCaseToWords().toCapitalize()})",
+                fontSize: 15 * sizeReduce,
                 color: Colors.white,
                 fontWeight: FontWeight.w400,
               ),
@@ -238,25 +239,97 @@ class SelecteCardForSal extends StatelessWidget {
   final String title;
   final Color? color;
   final double height;
-  const SelecteCardForSal({
+  final EdgeInsetsGeometry? padding;
+
+  const SelecteCardForSal(
+      {super.key,
+      this.onTap,
+      this.width = 125,
+      this.height = 150,
+      this.color,
+      required this.child,
+      required this.title,
+      this.padding});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding,
+      child: Column(
+        children: [
+          SimpleText(
+            title,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+          InkWell(
+            customBorder:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            onTap: onTap,
+            child: Card(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: color == null
+                      ? null
+                      : LinearGradient(
+                          colors: [
+                            color!,
+                            color!.withOpacity(0.8),
+                          ],
+                        ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: width,
+                height: height,
+                child: Center(
+                  child: child,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SelectableCardSal extends HookWidget {
+  final Function()? onTap;
+  final Compound? compound;
+  final double width;
+  final double height;
+
+  const SelectableCardSal({
     super.key,
     this.onTap,
     this.width = 125,
     this.height = 150,
-    required this.child,
-    required this.title,
-    this.color,
+    required this.compound,
   });
   @override
   Widget build(BuildContext context) {
+    final showAcid = useState(false);
+    final textTheme = Theme.of(context).textTheme;
     return Column(
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
+        Row(
+          children: [
+            SimpleText(
+              "Ion",
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+            if (compound != null)
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: GestureDetector(
+                  onTap: () => showAcid.value = !showAcid.value,
+                  child: Icon(
+                    Icons.change_circle,
+                    /* color: Colors.blue, */
+                  ),
+                ),
+              ),
+          ],
         ),
         InkWell(
           customBorder:
@@ -265,20 +338,61 @@ class SelecteCardForSal extends StatelessWidget {
           child: Card(
             child: Container(
               decoration: BoxDecoration(
-                gradient: color == null
+                gradient: compound == null
                     ? null
                     : LinearGradient(
                         colors: [
-                          color!,
-                          color!.withOpacity(0.8),
+                          colorByCompoundType(showAcid.value
+                              ? compound!.compound!.type
+                              : compound!.type),
+                          colorByCompoundType(showAcid.value
+                                  ? compound!.compound!.type
+                                  : compound!.type)
+                              .withOpacity(0.8),
                         ],
                       ),
                 borderRadius: BorderRadius.circular(10),
               ),
               width: width,
               height: height,
-              child: Center(
-                child: child,
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 350),
+                child: Center(
+                  child: compound == null
+                      ? Text(
+                          'Seleccione un ion',
+                          style: textTheme.labelMedium,
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FormulaInText(
+                              compoundFormula: showAcid.value
+                                  ? compound!.compound!.formula
+                                  : compound!.formula,
+                              typeCompound: compound!.type,
+                              fontSize: 30,
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SimpleText(
+                              showAcid.value
+                                  ? compound!.compound!.name.toCapitalize()
+                                  : compound!.name.toCapitalize(),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 2.5, vertical: 2.5),
+                              style: textTheme.headlineMedium!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                ),
               ),
             ),
           ),

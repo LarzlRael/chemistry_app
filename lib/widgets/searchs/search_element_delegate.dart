@@ -1,18 +1,15 @@
 part of '../widgets.dart';
 
 class SearchElementDelegate extends SearchDelegate {
-  /* final CompoundNotifier compoundsNotifier;
-  final CompoundState compoundsState; */
   final CompoundNotifier compoundsProvider;
 
+  @override
+  String get searchFieldLabel => 'Buscar elemento';
   Timer? debouncerTimer;
 
   SearchElementDelegate({
-    /* required this.compoundsNotifier,
-    required this.compoundsState, */
     required this.compoundsProvider,
   }) {
-    /* this.compoundsNotifier.setSearched(listPeriodic); */
     this.compoundsProvider.setSearched(allListPeriodic);
   }
   @override
@@ -34,7 +31,7 @@ class SearchElementDelegate extends SearchDelegate {
   Widget? buildLeading(BuildContext context) {
     return IconButton(
       onPressed: context.pop,
-      icon: Icon(Icons.chevron_left, color: Colors.black),
+      icon: Icon(Icons.chevron_left, size: 30),
     );
   }
 

@@ -56,40 +56,10 @@ class SalesNeutras extends HookWidget {
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Icon(FontAwesomeIcons.circlePlus),
                   ),
-                  SelecteCardForSal(
-                    color: ionSelected.value == null
-                        ? null
-                        : colorByCompoundType(ionSelected.value!.type),
-                    title: 'Ion',
-                    width: mediaQuery.width * 0.4,
+                  SelectableCardSal(
+                    compound: ionSelected.value,
                     onTap: () =>
                         bottomSheetIones(context, ionSelected, "Buscar ion"),
-                    child: ionSelected.value == null
-                        ? Text(
-                            'Seleccione un ion',
-                            style: textTheme.labelMedium,
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                ionSelected.value!.name,
-                                style: textTheme.titleLarge!.copyWith(
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              FormulaInText(
-                                compoundFormula: ionSelected.value!.formula,
-                                typeCompound: ionSelected.value!.type,
-                                fontSize: 30,
-                                textStyle: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
                   ),
                 ],
               ),

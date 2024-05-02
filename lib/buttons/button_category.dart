@@ -31,27 +31,25 @@ class ButtonCategory extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(width: 40),
-                    FaIcon(
+                    Icon(
                       icon,
                       color: Colors.white,
-                      size: 40,
+                      size: 75,
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
+                    const SizedBox(width: 20),
                     Expanded(
                       child: SimpleText(
                         text,
                         color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    const FaIcon(
+                    /* const Icon(
                       FontAwesomeIcons.chevronRight,
                       color: Colors.white,
-                    ),
-                    const SizedBox(width: 40),
+                    ), */
+                    /* const SizedBox(width: 40), */
                   ],
                 ),
               ),

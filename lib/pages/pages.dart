@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shake/shake.dart';
+import 'package:templat_project/anim/custom_icons/custom_icons.dart';
 
 import 'package:templat_project/buttons/buttons.dart';
 import 'package:templat_project/constants/compund_colors.dart';

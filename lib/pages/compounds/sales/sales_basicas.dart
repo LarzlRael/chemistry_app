@@ -88,41 +88,10 @@ class SalesBasicas extends HookWidget {
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: Icon(FontAwesomeIcons.circlePlus),
                     ),
-                    SelecteCardForSal(
-                      color: ionSelected.value == null
-                          ? null
-                          : colorByCompoundType(ionSelected.value!.type),
-                      title: 'Ion',
-                      width: mediaQuery.width * 0.4,
-                      onTap: () =>
-                          bottomSheetIones(context, ionSelected, "Buscar ion"),
-                      child: ionSelected.value == null
-                          ? Text(
-                              'Seleccione ion',
-                              style: textTheme.labelMedium,
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FormulaInText(
-                                  compoundFormula: ionSelected.value!.formula,
-                                  typeCompound: ionSelected.value!.type,
-                                  fontSize: 30,
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  ionSelected.value!.name,
-                                  style: textTheme.titleLarge!.copyWith(
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                    ),
+                    SelectableCardSal(
+                        onTap: () => bottomSheetIones(
+                            context, ionSelected, "Buscar ion"),
+                        compound: ionSelected.value)
                   ],
                 ),
                 result.value == null

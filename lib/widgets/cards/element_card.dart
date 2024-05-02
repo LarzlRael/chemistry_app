@@ -276,15 +276,15 @@ fontSize: 16, */
                   children: [
                     showOnlyName
                         ? SimpleText(
-                            element.symbol,
-                            fontSize: fontSize,
+                            element.name,
+                            fontSize: fontSize * 0.5,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             lineHeight: 1,
                           )
                         : SimpleText(
-                            element.name,
-                            fontSize: fontSize * 0.5,
+                            element.symbol,
+                            fontSize: fontSize,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             lineHeight: 1,

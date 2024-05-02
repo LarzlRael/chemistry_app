@@ -137,3 +137,54 @@ class CompoundsOption extends StatelessWidget {
     );
   }
 }
+
+class GameOption extends StatelessWidget {
+  const GameOption({
+    super.key,
+    required this.title,
+    required this.assetImage,
+    required this.routeName,
+    this.onTap,
+  });
+  final String title;
+  final String assetImage;
+  final String routeName;
+  final Function(String gameRoute)? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      customBorder:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      onTap: () {
+        if (onTap != null) {
+          onTap!(routeName);
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        height: 125,
+        margin: const EdgeInsets.all(2),
+        child: Card(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                assetImage,
+                width: 50,
+                height: 50,
+              ),
+              SimpleText(
+                title,
+                padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
