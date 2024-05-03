@@ -38,6 +38,12 @@ class GamesPage extends StatelessWidget {
         title: "Shake",
         assetImage: "assets/chemestry/periodic_table_2.png",
       ),
+      MenunItemGame(
+        icon: Icons.access_alarm_outlined,
+        routeName: '$routeName/${GuessTypeCompoundGame.routeName}',
+        title: "Adivian el tipo de compuesto",
+        assetImage: "assets/chemestry/periodic_table_2.png",
+      ),
     ];
     return Scaffold(
       appBar: AppBar(

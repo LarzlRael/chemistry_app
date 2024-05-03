@@ -836,11 +836,6 @@ List<PeriodicTableElement> shuffleList(
   return shuffledList;
 }
 
-PeriodicTableElement getOneRandomElement(
-    List<PeriodicTableElement> originalList) {
-  return originalList[Random().nextInt(originalList.length)];
-}
-
 List<PeriodicTableElement> getElementsBySimbols(
   List<PeriodicTableElement> list,
   List<String> symbols,
@@ -910,7 +905,7 @@ Color colorByCompoundType(TypeCompound typeCompound) {
     TypeCompound.acido_oxacido: Color(0xff40E0D0),
     TypeCompound.acido_polihidratado: Color(0xff00C8E4),
     TypeCompound.ion: Color(0xff00ACEE),
-    TypeCompound.oxoacido: Color(0xff348AE4),
+    TypeCompound.oxacido: Color(0xff348AE4),
     TypeCompound.sal_basicas: Color(0xff348AE4),
     TypeCompound.sal_neutra: Color(0xff545479),
     TypeCompound.sal_doble: Color(0xff89B59F),

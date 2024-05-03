@@ -641,7 +641,7 @@ List<Compound> hidrurosNoMetalicos() {
           color: hidrogeno,
         ),
       ],
-      type: TypeCompound.hidruro,
+      type: TypeCompound.hidruro_no_metalico,
     ),
     Compound(
       periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
@@ -657,7 +657,7 @@ List<Compound> hidrurosNoMetalicos() {
           color: hidrogeno,
         ),
       ],
-      type: TypeCompound.hidruro,
+      type: TypeCompound.hidruro_no_metalico,
     ),
     Compound(
       periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
@@ -673,7 +673,7 @@ List<Compound> hidrurosNoMetalicos() {
           color: hidrogeno,
         ),
       ],
-      type: TypeCompound.hidruro,
+      type: TypeCompound.hidruro_no_metalico,
     ),
     Compound(
       periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
@@ -689,7 +689,7 @@ List<Compound> hidrurosNoMetalicos() {
           color: hidrogeno,
         ),
       ],
-      type: TypeCompound.hidruro,
+      type: TypeCompound.hidruro_no_metalico,
     ),
     Compound(
       periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
@@ -705,7 +705,7 @@ List<Compound> hidrurosNoMetalicos() {
           color: hidrogeno,
         ),
       ],
-      type: TypeCompound.hidruro,
+      type: TypeCompound.hidruro_no_metalico,
     ),
     Compound(
       periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
@@ -721,7 +721,7 @@ List<Compound> hidrurosNoMetalicos() {
           color: hidrogeno,
         ),
       ],
-      type: TypeCompound.hidruro,
+      type: TypeCompound.hidruro_no_metalico,
     ),
     Compound(
       periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
@@ -737,7 +737,7 @@ List<Compound> hidrurosNoMetalicos() {
           color: hidrogeno,
         ),
       ],
-      type: TypeCompound.hidruro,
+      type: TypeCompound.hidruro_no_metalico,
     ),
   ];
 }

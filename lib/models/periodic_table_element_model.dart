@@ -179,7 +179,7 @@ List<Compound> genereateOptions(
 }
 
 CompoundGuessGame generateCompoundGuessGame() {
-  final element = getOneRandomElement(allListPeriodic);
+  final element = getTOneRandomElement(allListPeriodic);
   /* final element = getOneELement(allListPeriodic, "Sb"); */
 
   final options = genereateOptions(
@@ -193,6 +193,13 @@ CompoundGuessGame generateCompoundGuessGame() {
   return CompoundGuessGame(
     elements: sufleElements,
     correctElement: correctElement,
+  );
+}
+
+CompoundGuessGame generateCompoundTypeGame(List<Compound> compounds) {
+  return CompoundGuessGame(
+    elements: List<Compound>.from(compounds)..shuffle(),
+    correctElement: compounds[Random().nextInt(compounds.length)],
   );
 }
 

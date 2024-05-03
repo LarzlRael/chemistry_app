@@ -110,8 +110,8 @@ final appRouter = GoRouter(
           builder: (_, __) => const GuessPeriodicElement(),
         ),
         GoRoute(
-          path: GuessCompoundGame.routeName,
-          builder: (_, __) => const GuessCompoundGame(),
+          path: GuessTypeCompoundGame.routeName,
+          builder: (_, __) => const GuessTypeCompoundGame(),
         ),
       ],
     ),

@@ -13,7 +13,12 @@ class HomePage extends StatelessWidget {
       body: ScaffoldBackground(
         child: SafeArea(
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            margin: const EdgeInsets.only(
+              top: 20,
+              left: 20,
+              right: 20,
+              bottom: 1,
+            ),
             child: Column(
               children: [
                 ButtonCategory(
@@ -36,12 +41,19 @@ class HomePage extends StatelessWidget {
                 ),
                 ButtonCategory(
                   icon: Custom.ic_trivia,
-                  text: 'Juegos',
+                  text: 'Trivia',
                   onPress: () {
                     context.push('/games_page');
                   },
                   color1: Colors.blue,
                   color2: Colors.blueAccent,
+                ),
+                Spacer(),
+                TextButton(
+                  onPressed: () async {
+                    await launchUrlFromString(privacyPolicy);
+                  },
+                  child: Text('Politicas de privacidad'),
                 ),
               ],
             ),

@@ -57,7 +57,7 @@ Compound generateSalBasica(
   return Compound(
     periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
     name: setSalBasicaName(hidroxido, ion, termination[diff] ?? ''),
-    type: TypeCompound.sal_neutra,
+    type: TypeCompound.sal_basicas,
     formula: [...auxHidroxido.formula, ...auxIon.formula],
   );
 }
