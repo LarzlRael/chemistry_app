@@ -1,3 +1,3 @@
 const appName = "Química académica";
 const privacyPolicy =
-    "https://sites.google.com/view/quimica-academica/privacy-policy";
+    "https://6637dd794120731af4b09295--silver-bombolone-8dee64.netlify.app/privacy_policy.html";

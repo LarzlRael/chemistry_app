@@ -78,10 +78,12 @@ class GuessTypeCompoundGame extends HookWidget {
               oneIon)
           .compoundResult);
       listCompounds.add(generateSalBasica(oneHidruro, oneIon));
+      final firstMetalSalHidracida =
+          getTRandomElement(filterByGroups(salesHidracidas));
       listCompounds.add(generateSalHidracida(
-        firstMetal,
+        firstMetalSalHidracida,
         secondMetal,
-        getTRandomElement(firstMetal.valencias),
+        getTRandomElement(firstMetalSalHidracida.valencias),
         getTRandomElement(secondMetal.valencias),
       ));
       listCompounds.add(generateSalBasica(oneHidruro, oneIon));
@@ -110,9 +112,6 @@ class GuessTypeCompoundGame extends HookWidget {
     }, []);
 
     return Scaffold(
-      /*  appBar: AppBar(
-        title: Text('Adivina el compuesto químico'),
-      ), */
       body: ScaffoldBackground(
         child: SafeArea(
           child: Container(
@@ -137,7 +136,7 @@ class GuessTypeCompoundGame extends HookWidget {
                     /* color: colorByGroup(optionsGame.value.correctAnswer.group), */
                     child: Container(
                       width: size.width * 0.90,
-                      height: size.height * 0.20,
+                      height: size.height * 0.15,
                       /* padding: EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 10,
@@ -147,8 +146,8 @@ class GuessTypeCompoundGame extends HookWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SimpleText(
-                              "Que tipo de compuesto químico es",
-                              fontSize: 20,
+                              "Cual es tipo de compuesto de:",
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               textAlign: TextAlign.center,
                               padding: EdgeInsets.symmetric(horizontal: 10),
@@ -202,7 +201,7 @@ class GuessTypeCompoundGame extends HookWidget {
                                       : primaryColor
                                   : Colors.white,
                             ),
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(2.5),
                             width: 100,
                             height: 60,
                             child: Stack(
@@ -211,16 +210,17 @@ class GuessTypeCompoundGame extends HookWidget {
                                   alignment: Alignment.center,
                                   child: SimpleText(
                                     compound.type.name,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                    /* fontWeight: FontWeight.w500, */
                                     textAlign: TextAlign.center,
                                     color: selectedCardIndex.value == index
                                         ? Colors.white
                                         : Colors.black,
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
+                                Positioned(
+                                  right: 2.5,
+                                  top: 2.5,
                                   child: Visibility(
                                     visible: selectedCardIndex.value == index &&
                                         isSelectedAux.value != null,
@@ -231,7 +231,7 @@ class GuessTypeCompoundGame extends HookWidget {
                                               isSelectedAux.value!
                                                   ? Icons.check_circle
                                                   : Icons.cancel,
-                                              size: 40,
+                                              size: 30,
                                             )
                                           : Container(
                                               child: Text("por defecto")),
