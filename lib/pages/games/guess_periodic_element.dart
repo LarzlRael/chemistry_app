@@ -50,7 +50,7 @@ class GuessPeriodicElement extends HookWidget {
                     child: Column(
                       children: [
                         SimpleText(
-                          "¿Cual es el nombre de este elemento?",
+                          "¿Cual es el ${showCorrectOptionName.value ? 'nombre' : 'simbolo'} de este elemento?",
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           textAlign: TextAlign.center,

@@ -198,7 +198,8 @@ CompoundGuessGame generateCompoundGuessGame() {
 
 CompoundGuessGame generateCompoundTypeGame(List<Compound> compounds) {
   return CompoundGuessGame(
-    elements: List<Compound>.from(compounds)..shuffle(),
+    /* elements: List<Compound>.from(compounds)..shuffle(), */
+    elements: compounds,
     correctElement: compounds[Random().nextInt(compounds.length)],
   );
 }

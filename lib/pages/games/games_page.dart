@@ -41,7 +41,7 @@ class GamesPage extends StatelessWidget {
       MenunItemGame(
         icon: Icons.access_alarm_outlined,
         routeName: '$routeName/${GuessTypeCompoundGame.routeName}',
-        title: "Adivian el tipo de compuesto",
+        title: "Adivina el tipo de compuesto",
         assetImage: "assets/chemestry/periodic_table_2.png",
       ),
     ];

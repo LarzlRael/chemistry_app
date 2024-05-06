@@ -136,7 +136,7 @@ class GuessTypeCompoundGame extends HookWidget {
                     /* color: colorByGroup(optionsGame.value.correctAnswer.group), */
                     child: Container(
                       width: size.width * 0.90,
-                      height: size.height * 0.15,
+                      height: size.height * 0.22,
                       /* padding: EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 10,
@@ -162,6 +162,15 @@ class GuessTypeCompoundGame extends HookWidget {
                                 color: primaryColor,
                               ),
                             ),
+                            if (isSelectedAux.value != null &&
+                                isSelectedAux.value!)
+                              SimpleText(
+                                compoundGuessGame.value!.correctElement.name,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                textAlign: TextAlign.center,
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                              ),
                           ],
                         ),
                       ),
