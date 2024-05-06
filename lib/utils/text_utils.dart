@@ -22,6 +22,17 @@ extension StringCasingExtension on String {
 
     return words.join(' ');
   }
+
+  String toJoinWords() {
+    List<String> parts = split('_');
+    List<String> words = [];
+
+    for (String part in parts) {
+      words.add(part);
+    }
+
+    return words.join('');
+  }
 }
 
 String removeAllHtmlTags(String htmlText) {

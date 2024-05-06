@@ -285,17 +285,17 @@ class CardsElementsValences extends StatelessWidget {
   final bool isShowWithOutSimplify;
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      tooltip: !isShowWithOutSimplify
+    return InkWell(
+      onTap: onPressed,
+      /* tooltip: !isShowWithOutSimplify
           ? "Mostrar formula sin simplificar"
-          : "Mostrar formula simplificada",
-      icon: Icon(
+          : "Mostrar formula simplificada", */
+      child: Icon(
         color: Colors.white,
-        size: 25,
+        size: 30,
         isShowWithOutSimplify
-            ? Icons.remove_red_eye_outlined
-            : Icons.remove_red_eye,
+            ? FontAwesomeIcons.eye
+            : FontAwesomeIcons.eyeSlash,
       ),
     );
   }

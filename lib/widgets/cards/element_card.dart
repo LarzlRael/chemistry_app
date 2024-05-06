@@ -14,7 +14,7 @@ class ElementListCards extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       child: AlignedGridView.count(
         itemCount: elements.length,
-        crossAxisCount: 2,
+        crossAxisCount: 3,
         mainAxisSpacing: 1,
         crossAxisSpacing: 1,
         itemBuilder: (context, index) {
@@ -23,6 +23,7 @@ class ElementListCards extends StatelessWidget {
           return Hero(
             tag: element.symbol,
             child: ElementCard(
+              fontSize: 48.0,
               element: element,
               key: ValueKey<String>(element.symbol),
               onTap: onSelected,
@@ -277,6 +278,7 @@ fontSize: 16, */
                     showOnlyName
                         ? SimpleText(
                             element.name,
+                            textAlign: TextAlign.center,
                             fontSize: fontSize * 0.5,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -291,6 +293,7 @@ fontSize: 16, */
                           ),
                     if (showName)
                       SimpleText(
+                        textAlign: TextAlign.center,
                         element.name,
                         fontSize: fontSize * 0.55,
                         fontWeight: FontWeight.w400,
@@ -322,7 +325,7 @@ fontSize: 16, */
                               e.suffix.name.snakeCaseToWords().toCapitalize(),
                               color: Colors.white,
                               fontWeight: FontWeight.w300,
-                              fontSize: fontSize * 0.25,
+                              fontSize: fontSize * 0.2,
                               lineHeight: 1,
                             ),
                           ],

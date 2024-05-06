@@ -239,76 +239,69 @@ class ElementDetailCardWithPeriodicElement extends HookWidget {
               ),
             ),
             Positioned(
-                top: 0,
-                right: 0,
-                child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 250),
-                  child: showValences.value
-                      ? ElementCard(
-                          element: periodicTableElement,
-                          size: 180,
-                          onTap: (el) =>
-                              showValences.value = !showValences.value)
-                      : InkWell(
-                          onTap: () => showValences.value = true,
-                          child: Card(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    colorByGroup(periodicTableElement.group),
-                                    colorByGroup(periodicTableElement.group)
-                                        .withOpacity(0.8),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    periodicTableElement.symbol,
-                                    style: TextStyle(
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    periodicTableElement.name,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      /* color: Colors.white, */
-                                    ),
-                                  ),
-                                  Row(
-                                    children: periodicTableElement.valencias
-                                        .map(
-                                          (e) => Text(
-                                            e.value.toString() + " ",
-                                            style: TextStyle(
-                                              /* color: Colors.white, */
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )
-                                        .toList(),
-                                  )
+              top: 0,
+              right: 0,
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 250),
+                child: showValences.value
+                    ? ElementCard(
+                        element: periodicTableElement,
+                        size: 180,
+                        onTap: (el) => showValences.value = !showValences.value)
+                    : InkWell(
+                        onTap: () => showValences.value = true,
+                        child: Card(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  colorByGroup(periodicTableElement.group),
+                                  colorByGroup(periodicTableElement.group)
+                                      .withOpacity(0.8),
                                 ],
                               ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            /* color: Colors.white, */
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Text(
+                                  periodicTableElement.symbol,
+                                  style: TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  periodicTableElement.name,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    /* color: Colors.white, */
+                                  ),
+                                ),
+                                Row(
+                                  children: periodicTableElement.valencias
+                                      .map(
+                                        (e) => Text(
+                                          e.value.toString() + " ",
+                                          style: TextStyle(
+                                            /* color: Colors.white, */
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
+                                )
+                              ],
+                            ),
                           ),
+                          /* color: Colors.white, */
                         ),
-                )
-
-                /* onTap: (element) => context.push(
-                  ElementsDetail.routeName,
-                  extra: element,
-                ), */
-
-                ),
+                      ),
+              ),
+            ),
           ],
         ),
       ),

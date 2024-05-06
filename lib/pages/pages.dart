@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:collection/collection.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:roulette/roulette.dart' as roulette2;
 import 'package:shake/shake.dart';
 import 'package:templat_project/anim/custom_icons/custom_icons.dart';
 
@@ -45,4 +47,5 @@ part 'animation_test.dart';
 part 'games/guess_periodic_element.dart';
 part 'games/guess_compound_game.dart';
 part 'games/guess_type_compound_game.dart';
+part 'games/routelle_example.dart';
 part 'test/test_page.dart';

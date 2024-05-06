@@ -407,9 +407,6 @@ List<Compound> generateAcidosOxacidosByOneElement(
   for (var anhidrido in getAnhidrido) {
     String name = "$nameType";
 
-    /*  if (noMetalspecialameCases.containsKey(element.symbol)) {
-      name = "$nameType ${noMetalspecialameCases[element.symbol]}$suffix";
-    } */
     if (anhidrido.name.contains("hiponitroso")) {
       final formula = [
         ValenceCompound(
@@ -443,7 +440,7 @@ List<Compound> generateAcidosOxacidosByOneElement(
       final formula = simplify([
         ValenceCompound(
           suffix: "H",
-          value: 1,
+          value: 2,
           color: hidrogeno,
         ),
         ...anhidrido.formula.map(
@@ -531,24 +528,31 @@ List<Compound> generateAcidosPolihidratadosByOneElement() {
   filteredElements.forEach((element) {
     final getAnhidrido = generateAnhidridosByOneElement(element!);
     getAnhidrido.forEachIndexed((index, anhidrido) {
-      final formula = simplify([
-        ValenceCompound(
-          suffix: "H",
-          value: 2,
-          color: hidrogeno,
-        ),
-        ...anhidrido.formula.map((e) => (e.suffix == "O")
-            ? e.copyWith(
-                value: 2 + anhidrido.formula.last.value,
-              )
-            : e),
-      ]);
       [1, 2, 3].forEach((i) {
+        final formula = simplify([
+          ValenceCompound(
+            suffix: "H",
+            value: 2 * i,
+            color: hidrogeno,
+          ),
+          ...anhidrido.formula.map((e) {
+            if (e.suffix == "O") {
+              return e.copyWith(
+                value: i + anhidrido.formula.last.value,
+              );
+            }
+            return e;
+          }),
+        ]);
         // Generar cada compuesto original tres veces
         final modifiedAcido = anhidrido.copyWith(
           compound: anhidrido,
           formula: formula,
           formulaString: formula.map((e) => e.concatValenceCompound()).join(''),
+          name: acidoPolihidracidoName(
+            changeAcidoName(anhidrido.name, element.symbol),
+            i,
+          ),
           type: TypeCompound.acido_polihidratado,
         );
         compounds.add(modifiedAcido);
@@ -601,31 +605,34 @@ List<Compound> generateSalesHidracidas(PeriodicTableElement element) {
   final getAcidosAux = generateAcidosOxacidosByOneElement(element);
 
   final convertIon = getAcidos.mapIndexed((index, acido) {
+    final formula = moveFirstElementToLastPosition(acido.formula.map(
+      (e) {
+        if (e.suffix == "H") {
+          return e.copyWith(
+            value: makeNegative(e.value),
+            suffix: ')',
+            color: Colors.white,
+            isSuperIndex: true,
+          );
+        }
+        return e;
+      },
+    ).toList());
     final ion = acido.copyWith(
       compound: getAcidosAux[index],
       name: acido.name.replaceFirst("Acido", TypeCompound.ion.name),
       type: TypeCompound.ion,
-      formula: moveFirstElementToLastPosition(acido.formula.map(
-        (e) {
-          if (e.suffix == "H") {
-            return e.copyWith(
-              value: makeNegative(e.value),
-              suffix: ')',
-              color: Colors.white,
-              isSuperIndex: true,
-            );
-          }
-          return e;
-        },
-      ).toList()),
+      formula: formula,
+      formulaString: formula.map((e) => e.concatValenceCompound()).join(''),
     );
+
     return ion;
   }).toList();
   return convertIon;
 }
 
 List<Compound> hidrurosNoMetalicos() {
-  return [
+  final elements = [
     Compound(
       periodicTableElement: getOneELementBySimbol(allListPeriodic, 'Li'),
       name: "Amoniaco",
@@ -740,4 +747,10 @@ List<Compound> hidrurosNoMetalicos() {
       type: TypeCompound.hidruro_no_metalico,
     ),
   ];
+  return elements
+      .map((e) => e.copyWith(
+            formulaString:
+                e.formula.map((e) => e.concatValenceCompound()).join(''),
+          ))
+      .toList();
 }

@@ -5,8 +5,8 @@ import 'package:templat_project/models/models.dart';
 import '../pages/pages.dart';
 
 final appRouter = GoRouter(
-  /* initialLocation: GuessPeriodicElement.routeName, */
   initialLocation: HomePage.routeName,
+  /* initialLocation: GamesPage.routeName + '/' + RoulleExample.routeName, */
   /* refreshListenable: goRouterNotifier, */
   routes: [
     ///* Primera pantalla
@@ -112,6 +112,10 @@ final appRouter = GoRouter(
         GoRoute(
           path: GuessTypeCompoundGame.routeName,
           builder: (_, __) => const GuessTypeCompoundGame(),
+        ),
+        GoRoute(
+          path: RoulleExample.routeName,
+          builder: (_, __) => const RoulleExample(),
         ),
       ],
     ),
