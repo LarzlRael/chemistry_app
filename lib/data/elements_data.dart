@@ -74,17 +74,17 @@ final compoundMetalList = <CompoundListElement>[
   ),
   CompoundListElement(
     name: 'Sales basicas',
-    pathImage: 'assets/chemestry/sales_neu.png',
+    pathImage: 'assets/chemestry/sales_basicas.png',
     type: TypeCompound.sal_basicas,
   ),
   CompoundListElement(
     name: 'Sales hidracidas',
-    pathImage: 'assets/chemestry/sales_neu.png',
+    pathImage: 'assets/chemestry/sales_hidracidas.png',
     type: TypeCompound.sal_hidracida,
   ),
   CompoundListElement(
     name: 'Hidruros no metalicos',
-    pathImage: 'assets/chemestry/sales_neu.png',
+    pathImage: 'assets/chemestry/hidruros_no_metalicos.png',
     type: TypeCompound.sal_hidracida,
   ),
 ];

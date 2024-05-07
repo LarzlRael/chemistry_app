@@ -1,11 +1,11 @@
 part of '../pages.dart';
 
-class GuessCompoundGame extends HookWidget {
+class GuessCompoundGame extends HookConsumerWidget {
   const GuessCompoundGame({super.key});
   static const routeName = 'guess_compund_element';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     final size = MediaQuery.of(context).size;
 
     final isCorrect = useState(false);
@@ -13,13 +13,20 @@ class GuessCompoundGame extends HookWidget {
     final isSelectedAux = useState<bool?>(null);
     final isBlock = useState(false);
     final selectedCardIndex = useState<int>(-1);
+    final correctAnswerAmount = useState<int>(0);
     final compoundGuessGame = useState<CompoundGuessGame>(
       generateCompoundGuessGame(),
     );
 
     useEffect(() {
+      ref.read(interstiatAdProvider.notifier).loadAd();
+      return null;
+    }, []);
+
+    useEffect(() {
       if (isCorrect.value) {
         isBlock.value = true;
+        correctAnswerAmount.value++;
         isSelectedAux.value = true;
         Future.delayed(Duration(milliseconds: 1500), () {
           isSelectedAux.value = null;
@@ -44,12 +51,18 @@ class GuessCompoundGame extends HookWidget {
               children: [
                 ProgresLinearTimer(
                   height: 15,
-                  durationMiliseconds: 100000,
+                  durationMiliseconds: 80000,
                   onTimerFinish: () {
-                    GlobalSnackBar.showSnackBar(
+                    addCounterIntersitialAd(
+                        () => ref.read(interstiatAdProvider.notifier).showAd());
+                    Navigator.push(
                       context,
-                      'Se acabo el tiempo',
-                      backgroundColor: Colors.red,
+                      MaterialPageRoute(
+                        builder: (context) => ResultPage(
+                          gameTitle: 'Adivina el compuesto',
+                          aciertos: correctAnswerAmount.value,
+                        ),
+                      ),
                     );
                   },
                 ),

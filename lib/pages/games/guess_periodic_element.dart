@@ -1,11 +1,11 @@
 part of '../pages.dart';
 
-class GuessPeriodicElement extends HookWidget {
+class GuessPeriodicElement extends HookConsumerWidget {
   const GuessPeriodicElement({super.key});
   static const routeName = 'guess_periodic_element';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     final optionsGame = useState<GuessPeriodicHelper>(
       generatePeriodicElementOptions(allListPeriodic, 9),
     );
@@ -15,6 +15,11 @@ class GuessPeriodicElement extends HookWidget {
     final isSelectedAux = useState<bool?>(null);
     final isBlock = useState(false);
     final correctAnswerAmount = useState(0);
+
+    useEffect(() {
+      ref.read(interstiatAdProvider.notifier).loadAd();
+      return null;
+    }, []);
 
     useEffect(() {
       if (isCorrect.value) {
@@ -45,30 +50,36 @@ class GuessPeriodicElement extends HookWidget {
                       child: ProgresLinearTimer(
                         height: 15,
                         durationMiliseconds: 60000,
-                        onTimerFinish: () {},
+                        onTimerFinish: () {
+                          addCounterIntersitialAd(() =>
+                              ref.read(interstiatAdProvider.notifier).showAd());
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultPage(
+                                gameTitle: 'Adivina el elemento',
+                                aciertos: correctAnswerAmount.value,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    /*  SizedBox(width: 10),
                     Column(
                       children: [
                         SimpleText(
                           'Aciertos',
-                          style: TextStyle(
-                            /* color: Colors.white, */
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                         SimpleText(
                           correctAnswerAmount.value.toString(),
-                          style: TextStyle(
-                            /* color: Colors.white, */
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
                         ),
                       ],
-                    ),
+                    ), */
                   ],
                 ),
                 Container(

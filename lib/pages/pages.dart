@@ -7,8 +7,7 @@ import 'package:collection/collection.dart';
 import 'dart:math' as math;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,6 +25,7 @@ import 'package:templat_project/data/elements_data.dart';
 import 'package:templat_project/data/periodic_table_data.dart';
 import 'package:templat_project/models/models.dart';
 import 'package:templat_project/notifications/snackbar.dart';
+import 'package:templat_project/provider/ad_provider.dart';
 import 'package:templat_project/provider/providers.dart';
 import 'package:templat_project/theme/colors.dart';
 import 'package:templat_project/widgets/widgets.dart';
@@ -51,3 +51,5 @@ part 'games/guess_compound_game.dart';
 part 'games/guess_type_compound_game.dart';
 part 'games/routelle_example.dart';
 part 'test/test_page.dart';
+
+part 'games/result_page.dart';

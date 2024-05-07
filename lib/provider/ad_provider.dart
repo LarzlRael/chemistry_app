@@ -1,12 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:templat_project/constants/enviroments.dart';
+import 'package:templat_project/plugin/admob_plugin.dart';
 import 'package:templat_project/services/services.dart';
 
 const COUNTER_ADD = 'COUNTER_ADD';
 
+final adBannerProvider = FutureProvider<BannerAd>((ref) async {
+  /* Todo validar si se muestran o no las ads */
+  final ad = await AdmobPlugin.loadBannerAd();
+  return ad;
+});
+
 void addCounterIntersitialAd(Function callBack) async {
-  const MAXCOUNT = 5;
+  const MAXCOUNT = 2;
   final keyValueStorageServiceImpl = KeyValueStorageServiceImpl();
   final getCurrentCounterAdd =
       await keyValueStorageServiceImpl.getValue<int>(COUNTER_ADD) ?? 0;

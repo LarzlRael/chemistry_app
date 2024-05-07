@@ -1,11 +1,11 @@
 part of '../pages.dart';
 
-class GuessTypeCompoundGame extends HookWidget {
+class GuessTypeCompoundGame extends HookConsumerWidget {
   const GuessTypeCompoundGame({super.key});
   static const routeName = 'guess_type_compound';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     final size = MediaQuery.of(context).size;
 
     final isCorrect = useState(false);
@@ -13,6 +13,7 @@ class GuessTypeCompoundGame extends HookWidget {
     final isSelectedAux = useState<bool?>(null);
     final isBlock = useState(false);
     final selectedCardIndex = useState<int>(-1);
+    final correctAnswerAmount = useState<int>(0);
     final compoundGuessGame = useState<CompoundGuessGame?>(null);
 
     List<Compound> compoundsByType() {
@@ -92,7 +93,13 @@ class GuessTypeCompoundGame extends HookWidget {
     }
 
     useEffect(() {
+      ref.read(interstiatAdProvider.notifier).loadAd();
+      return null;
+    }, []);
+
+    useEffect(() {
       if (isCorrect.value) {
+        correctAnswerAmount.value++;
         isBlock.value = true;
         isSelectedAux.value = true;
         Future.delayed(Duration(milliseconds: 1500), () {
@@ -120,12 +127,18 @@ class GuessTypeCompoundGame extends HookWidget {
               children: [
                 ProgresLinearTimer(
                   height: 15,
-                  durationMiliseconds: 100000,
+                  durationMiliseconds: 80000,
                   onTimerFinish: () {
-                    GlobalSnackBar.showSnackBar(
+                    addCounterIntersitialAd(
+                        () => ref.read(interstiatAdProvider.notifier).showAd());
+                    Navigator.push(
                       context,
-                      'Se acabo el tiempo',
-                      backgroundColor: Colors.red,
+                      MaterialPageRoute(
+                        builder: (context) => ResultPage(
+                          gameTitle: 'Adivina el tipo de compuesto',
+                          aciertos: correctAnswerAmount.value,
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -156,7 +169,7 @@ class GuessTypeCompoundGame extends HookWidget {
                               compoundFormula: compoundGuessGame
                                   .value!.correctElement.formula,
                               gap: 2.5,
-                              fontSize: 50,
+                              fontSize: 45,
                               textStyle: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: primaryColor,
@@ -197,73 +210,6 @@ class GuessTypeCompoundGame extends HookWidget {
 
                         /* isCorrect: isCorrect.value, */
                       );
-                      /* InkWell(
-                        customBorder: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        onTap: () {
-                          if (isBlock.value) return;
-                          selectedCardIndex.value = index;
-                        },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 150),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: selectedCardIndex.value == index
-                                  ? selectedCardIndex.value == index &&
-                                          isSelectedAux.value != null
-                                      ? isSelectedAux.value!
-                                          ? Colors.green
-                                          : Colors.red
-                                      : primaryColor
-                                  : Colors.white,
-                            ),
-                            padding: EdgeInsets.all(2.5),
-                            width: 100,
-                            height: 60,
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: SimpleText(
-                                    compound.type.name,
-                                    fontSize: 15,
-                                    /* fontWeight: FontWeight.w500, */
-                                    textAlign: TextAlign.center,
-                                    color: selectedCardIndex.value == index
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 2.5,
-                                  top: 2.5,
-                                  child: Visibility(
-                                    visible: selectedCardIndex.value == index &&
-                                        isSelectedAux.value != null,
-                                    child: FadeIn(
-                                      duration: Duration(milliseconds: 250),
-                                      child: isSelectedAux.value != null
-                                          ? Icon(
-                                              isSelectedAux.value!
-                                                  ? Icons.check_circle
-                                                  : Icons.cancel,
-                                              size: 30,
-                                            )
-                                          : Container(
-                                              child: Text("por defecto")),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ); */
                     },
                   ),
                 ),

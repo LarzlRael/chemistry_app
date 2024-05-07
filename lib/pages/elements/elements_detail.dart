@@ -15,14 +15,28 @@ class ElementsDetail extends StatelessWidget {
         title: Text(periodicTableElement.name),
       ),
       body: ScaffoldBackground(
-        child: Center(
-          child: Hero(
-            tag: periodicTableElement.symbol,
-            child: ElementCard(
-              size: size.width * 0.90,
-              fontSize: 100,
-              element: periodicTableElement,
-            ),
+        child: SizedBox.expand(
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Hero(
+                  tag: periodicTableElement.symbol,
+                  child: ElementCard(
+                    size: size.width * 0.90,
+                    fontSize: 100,
+                    element: periodicTableElement,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: BannerAd(),
+                ),
+              ),
+            ],
           ),
         ),
       ),
