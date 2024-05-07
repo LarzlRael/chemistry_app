@@ -14,9 +14,11 @@ class GuessPeriodicElement extends HookWidget {
     final selectedCardIndex = useState(-1);
     final isSelectedAux = useState<bool?>(null);
     final isBlock = useState(false);
+    final correctAnswerAmount = useState(0);
 
     useEffect(() {
       if (isCorrect.value) {
+        correctAnswerAmount.value++;
         isBlock.value = true;
         isSelectedAux.value = true;
         Future.delayed(Duration(milliseconds: 1500), () {
@@ -37,11 +39,37 @@ class GuessPeriodicElement extends HookWidget {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
-                /* Text('Selecciona el elemento correcto'), */
-                ProgresLinearTimer(
-                  height: 15,
-                  durationMiliseconds: 20000,
-                  onTimerFinish: () {},
+                Row(
+                  children: [
+                    Expanded(
+                      child: ProgresLinearTimer(
+                        height: 15,
+                        durationMiliseconds: 60000,
+                        onTimerFinish: () {},
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Column(
+                      children: [
+                        SimpleText(
+                          'Aciertos',
+                          style: TextStyle(
+                            /* color: Colors.white, */
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SimpleText(
+                          correctAnswerAmount.value.toString(),
+                          style: TextStyle(
+                            /* color: Colors.white, */
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
@@ -64,7 +92,7 @@ class GuessPeriodicElement extends HookWidget {
                               fontSize: 60,
                               showName: false,
                               borderRadius: 10,
-                              size: 175,
+                              size: 160,
                             ),
                           ),
                         ),

@@ -697,14 +697,14 @@ class IonInstruction extends StatelessWidget {
                 children: [
                   SimpleText(
                     "Para formar un Ion tienes que eliminar el hidrogeno",
-                    fontSize: 20,
+                    fontSize: 18,
                     textAlign: TextAlign.center,
+                    fontWeight: FontWeight.w500,
                   ),
                   SimpleText(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     "Se cambia la terminacion de oso a convierte en 'ito' e ico se convierte en 'ato'",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
                   ),
                 ],
               ),

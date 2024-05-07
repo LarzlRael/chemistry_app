@@ -164,14 +164,14 @@ Compound generateSalHidracida(
       ValenceCompound(
         value: secondValencia.value,
         suffix: firstMetal.symbol,
-        color: colorByGroup(firstMetal.group),
-        colorValue: colorByGroup(secondMetal.group),
+        /* color: colorByGroup(firstMetal.group),
+        colorValue: colorByGroup(secondMetal.group), */
       ),
       ValenceCompound(
         value: firstValencia.value,
         suffix: secondMetal.symbol,
-        color: colorByGroup(secondMetal.group),
-        colorValue: colorByGroup(firstMetal.group),
+        /* color: colorByGroup(secondMetal.group),
+        colorValue: colorByGroup(firstMetal.group), */
       ),
     ],
   );

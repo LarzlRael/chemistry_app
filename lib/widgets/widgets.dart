@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:collection/collection.dart';
 import 'package:flip_card/flip_card.dart';
 
@@ -36,6 +37,8 @@ part 'cards/card_detail_compound.dart';
 part 'cards/cards_elements_valences.dart';
 part 'cards/card_instruction_container.dart';
 part 'cards/card_sales.dart';
+part 'cards/circle_presentation.dart';
+part 'cards/card_select_option.dart';
 part 'instruccions/compound_instruction.dart';
 part 'instruccions/plus_2_elements.dart';
 part 'instruccions/groups_chips.dart';

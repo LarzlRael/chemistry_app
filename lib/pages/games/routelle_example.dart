@@ -1,5 +1,7 @@
 part of '../pages.dart';
 
+final elements = getTNRandomElement(compoundMetalList, 6);
+
 class RoulleExample extends StatefulWidget {
   static const String routeName = 'roulle-example';
   const RoulleExample({Key? key}) : super(key: key);
@@ -15,37 +17,16 @@ class _RoulleExampleState extends State<RoulleExample>
   late roulette2.RouletteController _controller;
   bool _clockwise = true;
 
-  final colors = <Color>[
-    Colors.red.withAlpha(50),
-    Colors.green.withAlpha(30),
-    Colors.blue.withAlpha(70),
-    Colors.yellow.withAlpha(90),
-    Colors.amber.withAlpha(50),
-    Colors.indigo.withAlpha(70),
-  ];
+  final icons = elements.map((e) => e.name).toList();
 
-  final icons = <IconData>[
-    Icons.ac_unit,
-    Icons.access_alarm,
-    Icons.access_time,
-    Icons.accessibility,
-    Icons.account_balance,
-    Icons.account_balance_wallet,
-  ];
-
-  /* final images = <ImageProvider>[
-    // Use [AssetImage] if you have 2.0x, 3.0x images,
-    // We only have 1 exact image here
-    const ExactAssetImage("asset/gradient.jpg"),
-    const NetworkImage("https://picsum.photos/seed/example1/400"),
-    const ExactAssetImage("asset/gradient.jpg"),
-    const NetworkImage("https://bad.link.to.image"),
-    const ExactAssetImage("asset/gradient.jpg"),
-    const NetworkImage("https://picsum.photos/seed/example5/400"),
-    // MemoryImage(...)
-    // FileImage(...)
-    // ResizeImage(...)
-  ]; */
+  final List<ImageProvider> images = compoundMetalList
+      .take(6)
+      .map((e) => ExactAssetImage(e.pathImage))
+      .toList();
+  final colors = compoundMetalList
+      .take(6)
+      .map((e) => colorByCompoundType(e.type))
+      .toList();
 
   @override
   void initState() {
@@ -56,14 +37,17 @@ class _RoulleExampleState extends State<RoulleExample>
 
     _controller = roulette2.RouletteController(
       vsync: this,
-      group: roulette2.RouletteGroup.uniformIcons(
+      group: roulette2.RouletteGroup.uniform(
+        /* imageBuilder: (index) => images[index], */
         colors.length,
         colorBuilder: (index) => colors[index],
         /* imageBuilder: (index) => images[index], */
-        iconBuilder: (index) => icons[index],
-        styleBuilder: (index) {
-          return const TextStyle(color: Colors.black);
-        },
+        textBuilder: (index) => icons[index].toString(),
+        textStyleBuilder: (index) => TextStyle(
+          color: Colors.grey[900],
+          fontSize: 17,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }
@@ -115,14 +99,14 @@ class _RoulleExampleState extends State<RoulleExample>
       floatingActionButton: FloatingActionButton(
         // Use the controller to run the animation with rollTo method
         onPressed: () async {
+          final randomValue = _random.nextInt(colors.length);
           await _controller.rollTo(
-            _random.nextInt(colors.length),
+            randomValue,
             clockwise: _clockwise,
             offset: _random.nextDouble(),
           );
-          print(
-            _random.nextInt(colors.length),
-          );
+          print(randomValue);
+          print(icons[randomValue]);
         },
         child: const Icon(Icons.refresh_rounded),
       ),
@@ -151,8 +135,8 @@ class MyRoulette extends StatelessWidget {
       alignment: Alignment.topCenter,
       children: [
         SizedBox(
-          width: 260,
-          height: 260,
+          width: 300,
+          height: 300,
           child: Padding(
             padding: const EdgeInsets.only(top: 30),
             child: roulette2.Roulette(

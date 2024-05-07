@@ -59,6 +59,20 @@ class _ProgresLinearTimerState extends State<ProgresLinearTimer> {
 
   @override
   Widget build(BuildContext context) {
+    Color getColorByTimeLeft() {
+      final double percentage =
+          _milisecondsRemaining / widget.durationMiliseconds;
+
+      if (percentage > 0.6) {
+        return Colors.green; // Color verde si queda más del 60% del tiempo
+      }
+      if (percentage > 0.3) {
+        // Color amarillo si queda entre el 30% y el 60% del tiempo
+        return Colors.yellow;
+      }
+      return Colors.red; // Color rojo si queda menos del 30% del tiempo
+    }
+
     return Stack(
       children: [
         Container(
@@ -74,47 +88,16 @@ class _ProgresLinearTimerState extends State<ProgresLinearTimer> {
             widthFactor: _barWidth,
             child: Padding(
               padding: const EdgeInsets.all(2.0),
-              child: Container(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 100),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
-                  color: secondaryColor,
+                  color: getColorByTimeLeft(),
                 ),
               ),
             ),
           ),
         ),
-        /* SizedBox(
-          height: 30,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Text(
-                      _milisecondsRemaining <= 0
-                          ? "finished"
-                          : ("${(_milisecondsRemaining / 1000).toStringAsFixed(0)}s left"),
-                      style: TextStyle(
-                        color: _milisecondsRemaining <= 0
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.timer_sharp,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-            ),
-          ),
-        ) */
       ],
     );
   }

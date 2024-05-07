@@ -26,20 +26,7 @@ GuessPeriodicHelper generatePeriodicElementOptions(
   final correctOption = randomOptions.take(amountOptions).toList();
 
   return GuessPeriodicHelper(
-    listSuffle: correctOption,
     correctAnswer: correctOption[Random().nextInt(amountOptions)],
+    listSuffle: correctOption,
   );
 }
-
-/* GuessCompoundHelper generateOptionsxd(
-  List<PeriodicTableElement> options,
-  int amountOptions,
-) {
-  final randomOptions = List<PeriodicTableElement>.from(options)..shuffle();
-  final correctOption = randomOptions.take(amountOptions).toList();
-
-  return GuessCompoundHelper(
-    listSuffle: correctOption,
-    correctAnswer: correctOption[Random().nextInt(amountOptions)],
-  );
-} */

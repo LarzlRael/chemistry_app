@@ -185,7 +185,19 @@ class GuessTypeCompoundGame extends HookWidget {
                     itemCount: compoundGuessGame.value!.elements.length,
                     itemBuilder: (context, int index) {
                       final compound = compoundGuessGame.value!.elements[index];
-                      return InkWell(
+                      return CardSelectOption(
+                        index: index,
+                        selectedCardIndex: selectedCardIndex.value,
+                        isSelectedAux: isSelectedAux.value,
+                        onTap: () {
+                          if (isBlock.value) return;
+                          selectedCardIndex.value = index;
+                        },
+                        compound: compound,
+
+                        /* isCorrect: isCorrect.value, */
+                      );
+                      /* InkWell(
                         customBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -251,7 +263,7 @@ class GuessTypeCompoundGame extends HookWidget {
                             ),
                           ),
                         ),
-                      );
+                      ); */
                     },
                   ),
                 ),

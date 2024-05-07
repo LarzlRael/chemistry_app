@@ -70,7 +70,7 @@ class GuessCompoundGame extends HookWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SimpleText(
-                              "Cual es el compuesto químico de",
+                              "Cual es el nombre del compuesto químico de",
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               textAlign: TextAlign.center,

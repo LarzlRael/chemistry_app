@@ -70,45 +70,10 @@ class SalesNeutras extends HookWidget {
                       padding: EdgeInsets.symmetric(vertical: 20),
                       textAlign: TextAlign.center,
                     )
-                  : Card(
+                  : CardSales(
                       margin: EdgeInsets.symmetric(vertical: 20),
-                      child: Container(
-                        /* margin: EdgeInsets.symmetric(vertical: 20), */
-                        width: mediaQuery.width * 0.90,
-                        height: mediaQuery.height * 0.25,
-                        /* padding: const EdgeInsets.symmetric(
-                            vertical: 20.0, horizontal: 10.0), */
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              colorByCompoundType(result.value!.type),
-                              colorByCompoundType(result.value!.type)
-                                  .withOpacity(0.5),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FormulaInText(
-                              compoundFormula: result.value!.formula,
-                              typeCompound: result.value!.type,
-                              fontSize: 55,
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SimpleText(
-                              result.value!.name.toCapitalize(),
-                              style: textTheme.headlineMedium!.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      compound: result.value!,
+                      fontSize: 70,
                     ),
             ],
           ),

@@ -104,6 +104,15 @@ class SalesHidracidas extends HookWidget {
                       )
                     : Column(
                         children: [
+                          CirclePresentation(
+                            margin: EdgeInsets.symmetric(vertical: 20),
+                            color1:
+                                colorByGroup(firstMetalSelected.value!.group),
+                            color2:
+                                colorByGroup(secondMetalSelected.value!.group),
+                            symbol1: firstMetalSelected.value!.symbol,
+                            symbol2: secondMetalSelected.value!.symbol,
+                          ),
                           CardSales(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             compound: result.value!,

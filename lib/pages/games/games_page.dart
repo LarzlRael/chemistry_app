@@ -21,28 +21,28 @@ class GamesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = [
       MenunItemGame(
-        icon: Icons.abc,
-        routeName: '$routeName/${GuessCompoundGame.routeName}',
-        title: "Adivina el compuesto",
-        assetImage: "assets/chemestry/game_compund.png",
-      ),
-      MenunItemGame(
         icon: Icons.access_alarms,
         routeName: '$routeName/${GuessPeriodicElement.routeName}',
         title: "Adivina el elemento de la tabla periodica",
         assetImage: "assets/chemestry/periodic_table_2.png",
       ),
       MenunItemGame(
+        icon: Icons.abc,
+        routeName: '$routeName/${GuessCompoundGame.routeName}',
+        title: "Adivina el compuesto",
+        assetImage: "assets/chemestry/game_compund.png",
+      ),
+      /* MenunItemGame(
         icon: Icons.access_alarm_outlined,
         routeName: '$routeName/${ElementsShake.routeName}',
         title: "Shake",
         assetImage: "assets/chemestry/periodic_table_2.png",
-      ),
+      ), */
       MenunItemGame(
         icon: Icons.access_alarm_outlined,
         routeName: '$routeName/${GuessTypeCompoundGame.routeName}',
         title: "Adivina el tipo de compuesto",
-        assetImage: "assets/chemestry/periodic_table_2.png",
+        assetImage: "assets/chemestry/acidos_hidracidos.png",
       ),
     ];
     return Scaffold(
