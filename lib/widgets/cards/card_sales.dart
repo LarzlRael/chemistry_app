@@ -8,6 +8,8 @@ class CardSales extends StatelessWidget {
     this.margin,
     this.compound,
     this.fontSize = 35,
+    this.color1,
+    this.color2,
   });
   static const routeName = 'card_sales';
   final double width;
@@ -15,6 +17,8 @@ class CardSales extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final Compound? compound;
   final double fontSize;
+  final Color? color1;
+  final Color? color2;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -30,8 +34,8 @@ class CardSales extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              colorByCompoundType(compound!.type),
-              colorByCompoundType(compound!.type).withOpacity(0.5),
+              color1 ?? colorByCompoundType(compound!.type),
+              color2 ?? colorByCompoundType(compound!.type).withOpacity(0.5),
             ],
           ),
           borderRadius: BorderRadius.circular(10),
@@ -68,9 +72,11 @@ class MetalSelectedCard extends StatelessWidget {
     super.key,
     required this.metalSelected,
     required this.currentValencia,
+    this.showPrefix = true,
     this.sizeReduce = 1,
   });
   final double sizeReduce;
+  final bool showPrefix;
   final ValueNotifier<PeriodicTableElement?> metalSelected;
   final ValueNotifier<Valencia?> currentValencia;
 
@@ -106,7 +112,7 @@ class MetalSelectedCard extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             SizedBox(width: 5),
-            if (metalSelected.value!.valencias.length > 1)
+            if (metalSelected.value!.valencias.length > 1 && showPrefix)
               SimpleText(
                 "(${currentValencia.value!.suffix.name.snakeCaseToWords().toCapitalize()})",
                 fontSize: 15 * sizeReduce,

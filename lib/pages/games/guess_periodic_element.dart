@@ -41,7 +41,7 @@ class GuessPeriodicElement extends HookConsumerWidget {
       }
     }, [isCorrect.value]);
     return ScaffoldBackground(
-      child: SafeArea(
+      body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
@@ -51,7 +51,7 @@ class GuessPeriodicElement extends HookConsumerWidget {
                   Expanded(
                     child: ProgresLinearTimer(
                       height: 15,
-                      durationMiliseconds: 60000,
+                      durationMiliseconds: periodicTimeMiliseconds,
                       onTimerFinish: () {
                         interstiatAdProviderN.addCounterIntersitialAdAndShow();
                         Navigator.push(

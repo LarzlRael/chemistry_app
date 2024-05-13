@@ -3,10 +3,10 @@ part of '../widgets.dart';
 class ScaffoldBackground extends StatelessWidget {
   const ScaffoldBackground({
     super.key,
-    required this.child,
+    required this.body,
     this.appBar,
   });
-  final Widget child;
+  final Widget body;
 
   final PreferredSizeWidget? appBar;
   @override
@@ -34,7 +34,7 @@ class ScaffoldBackground extends StatelessWidget {
                 ), */
                 ),
               ),
-              child,
+              body,
             ],
           ),
         ));

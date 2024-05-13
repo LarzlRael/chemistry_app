@@ -36,7 +36,7 @@ class SalesDobles extends HookWidget {
         title: Text('Sales dobles'),
       ),
       body: ScaffoldBackground(
-        child: Container(
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Column(

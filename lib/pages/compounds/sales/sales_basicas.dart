@@ -30,7 +30,7 @@ class SalesBasicas extends HookWidget {
         title: Text('Sales basicas'),
       ),
       body: ScaffoldBackground(
-        child: Container(
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: SingleChildScrollView(
             child: Column(

@@ -32,7 +32,7 @@ class SalesHidracidas extends HookWidget {
         title: Text('Sales hidracidas'),
       ),
       body: ScaffoldBackground(
-        child: Container(
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: SingleChildScrollView(
             child: Column(
@@ -63,6 +63,7 @@ class SalesHidracidas extends HookWidget {
                               : MetalSelectedCard(
                                   metalSelected: firstMetalSelected,
                                   currentValencia: firstCurrentValencia,
+                                  showPrefix: false,
                                 ),
                         ),
                       ],
@@ -118,6 +119,10 @@ class SalesHidracidas extends HookWidget {
                             compound: result.value!,
                             fontSize: 60,
                             height: 0.20,
+                            color1:
+                                colorByGroup(firstMetalSelected.value!.group),
+                            color2:
+                                colorByGroup(secondMetalSelected.value!.group),
                           ),
                         ],
                       ),

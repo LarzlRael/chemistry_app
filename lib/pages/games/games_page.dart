@@ -49,7 +49,7 @@ class GamesPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Selecciona un juego"),
       ),
-      child: AlignedGridView.count(
+      body: AlignedGridView.count(
         itemCount: list.length,
         crossAxisCount: 2,
         mainAxisSpacing: 5,

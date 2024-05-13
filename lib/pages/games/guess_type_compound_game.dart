@@ -121,128 +121,126 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
       compoundGuessGame.value = generateCompoundTypeGame(compoundsByType());
     }, []);
 
-    return Scaffold(
-      body: ScaffoldBackground(
-        child: SafeArea(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              children: [
-                ProgresLinearTimer(
-                  height: 15,
-                  durationMiliseconds: 80000,
-                  onTimerFinish: () {
-                    interstiatAdProviderN.addCounterIntersitialAdAndShow();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ResultPage(
-                          gameTitle: 'Adivina el tipo de compuesto',
-                          aciertos: correctAnswerAmount.value,
-                        ),
+    return ScaffoldBackground(
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              ProgresLinearTimer(
+                height: 15,
+                durationMiliseconds: compoundTimeMiliseconds,
+                onTimerFinish: () {
+                  interstiatAdProviderN.addCounterIntersitialAdAndShow();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResultPage(
+                        gameTitle: 'Adivina el tipo de compuesto',
+                        aciertos: correctAnswerAmount.value,
                       ),
-                    );
-                  },
-                ),
-                /* Text('Selecciona el elemento correcto'), */
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 30),
-                  child: Card(
-                    /* color: colorByGroup(optionsGame.value.correctAnswer.group), */
-                    child: Container(
-                      width: size.width * 0.90,
-                      height: size.height * 0.22,
-                      /* padding: EdgeInsets.symmetric(
+                    ),
+                  );
+                },
+              ),
+              /* Text('Selecciona el elemento correcto'), */
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 30),
+                child: Card(
+                  /* color: colorByGroup(optionsGame.value.correctAnswer.group), */
+                  child: Container(
+                    width: size.width * 0.90,
+                    height: size.height * 0.22,
+                    /* padding: EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 10,
                       ), */
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SimpleText(
+                            "Cual es tipo de compuesto de:",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            textAlign: TextAlign.center,
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                          ),
+                          FormulaInText(
+                            compoundFormula:
+                                compoundGuessGame.value!.correctElement.formula,
+                            gap: 2.5,
+                            fontSize: 45,
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: primaryColor,
+                            ),
+                          ),
+                          if (isSelectedAux.value != null &&
+                              isSelectedAux.value!)
                             SimpleText(
-                              "Cual es tipo de compuesto de:",
-                              fontSize: 18,
+                              compoundGuessGame.value!.correctElement.name,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
                               textAlign: TextAlign.center,
                               padding: EdgeInsets.symmetric(horizontal: 10),
                             ),
-                            FormulaInText(
-                              compoundFormula: compoundGuessGame
-                                  .value!.correctElement.formula,
-                              gap: 2.5,
-                              fontSize: 45,
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: primaryColor,
-                              ),
-                            ),
-                            if (isSelectedAux.value != null &&
-                                isSelectedAux.value!)
-                              SimpleText(
-                                compoundGuessGame.value!.correctElement.name,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                textAlign: TextAlign.center,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                              ),
-                          ],
-                        ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-                Expanded(
-                  child: AlignedGridView.count(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                    itemCount: compoundGuessGame.value!.elements.length,
-                    itemBuilder: (context, int index) {
-                      final compound = compoundGuessGame.value!.elements[index];
-                      return CardSelectOption(
-                        index: index,
-                        selectedCardIndex: selectedCardIndex.value,
-                        isSelectedAux: isSelectedAux.value,
-                        onTap: () {
+              ),
+              Expanded(
+                child: AlignedGridView.count(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5,
+                  itemCount: compoundGuessGame.value!.elements.length,
+                  itemBuilder: (context, int index) {
+                    final compound = compoundGuessGame.value!.elements[index];
+                    return CardSelectOption(
+                      index: index,
+                      selectedCardIndex: selectedCardIndex.value,
+                      isSelectedAux: isSelectedAux.value,
+                      onTap: () {
+                        if (isBlock.value) return;
+                        selectedCardIndex.value = index;
+                      },
+                      compound: compound,
+
+                      /* isCorrect: isCorrect.value, */
+                    );
+                  },
+                ),
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                width: double.infinity,
+                child: VerifyButton(
+                  onPressed: selectedCardIndex.value != -1 && !isBlock.value
+                      ? () {
                           if (isBlock.value) return;
-                          selectedCardIndex.value = index;
-                        },
-                        compound: compound,
 
-                        /* isCorrect: isCorrect.value, */
-                      );
-                    },
-                  ),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 150),
-                  width: double.infinity,
-                  child: VerifyButton(
-                    onPressed: selectedCardIndex.value != -1 && !isBlock.value
-                        ? () {
-                            if (isBlock.value) return;
-
-                            if (compoundGuessGame.value!
-                                    .elements[selectedCardIndex.value].name ==
-                                compoundGuessGame.value!.correctElement.name) {
-                              isCorrect.value = true;
-                              return;
-                            }
-                            isSelectedAux.value = false;
-                            isBlock.value = true;
-                            Future.delayed(Duration(milliseconds: 1500), () {
-                              isSelectedAux.value = null;
-                              isBlock.value = false;
-                              selectedCardIndex.value = -1;
-                            });
+                          if (compoundGuessGame.value!
+                                  .elements[selectedCardIndex.value].name ==
+                              compoundGuessGame.value!.correctElement.name) {
+                            isCorrect.value = true;
+                            return;
                           }
-                        : null,
-                  ),
+                          isSelectedAux.value = false;
+                          isBlock.value = true;
+                          Future.delayed(Duration(milliseconds: 1500), () {
+                            isSelectedAux.value = null;
+                            isBlock.value = false;
+                            selectedCardIndex.value = -1;
+                          });
+                        }
+                      : null,
                 ),
-                SizedBox(height: 15),
-              ],
-            ),
+              ),
+              SizedBox(height: 15),
+            ],
           ),
         ),
       ),

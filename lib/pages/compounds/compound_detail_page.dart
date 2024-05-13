@@ -39,7 +39,7 @@ class CompoundDetailPage extends StatelessWidget {
         ],
       ),
       body: ScaffoldBackground(
-        child: Center(
+        body: Center(
           child: CompoundByType(compound: compound),
         ),
       ),

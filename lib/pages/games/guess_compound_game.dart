@@ -53,14 +53,14 @@ class GuessCompoundGame extends HookConsumerWidget {
         title: Text('Adivina el compuesto químico'),
       ), */
       body: ScaffoldBackground(
-        child: SafeArea(
+        body: SafeArea(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
                 ProgresLinearTimer(
                   height: 15,
-                  durationMiliseconds: 80000,
+                  durationMiliseconds: compoundTimeMiliseconds,
                   onTimerFinish: () {
                     interstiatAdProviderN.addCounterIntersitialAdAndShow();
                     Navigator.push(

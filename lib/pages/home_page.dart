@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: ScaffoldBackground(
-        child: SafeArea(
+        body: SafeArea(
           child: Container(
             margin: const EdgeInsets.only(
               top: 20,

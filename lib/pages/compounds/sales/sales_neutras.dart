@@ -26,7 +26,7 @@ class SalesNeutras extends HookWidget {
         title: Text('Sales neutras'),
       ),
       body: ScaffoldBackground(
-        child: Container(
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Column(
             children: [

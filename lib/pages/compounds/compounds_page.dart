@@ -12,7 +12,7 @@ class CompoundsPage extends StatelessWidget {
           title: Text('Compuestos'),
         ),
         body: ScaffoldBackground(
-          child: Container(
+          body: Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

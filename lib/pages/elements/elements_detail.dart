@@ -15,7 +15,7 @@ class ElementsDetail extends StatelessWidget {
         title: Text(periodicTableElement.name),
       ),
       body: ScaffoldBackground(
-        child: SizedBox.expand(
+        body: SizedBox.expand(
           child: Stack(
             children: [
               Align(
