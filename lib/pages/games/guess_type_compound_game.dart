@@ -15,6 +15,8 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
     final selectedCardIndex = useState<int>(-1);
     final correctAnswerAmount = useState<int>(0);
     final compoundGuessGame = useState<CompoundGuessGame?>(null);
+    final interstiatAdProviderS = ref.watch(interstiatAdProvider);
+    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
 
     List<Compound> compoundsByType() {
       List<Compound> listCompounds = [];
@@ -93,9 +95,10 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
     }
 
     useEffect(() {
-      ref.read(interstiatAdProvider.notifier).loadAd();
-      return null;
-    }, []);
+      if (!interstiatAdProviderS.isAdLoaded) {
+        interstiatAdProviderN.loadAd();
+      }
+    }, [interstiatAdProviderS.isAdLoaded]);
 
     useEffect(() {
       if (isCorrect.value) {
@@ -129,8 +132,7 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
                   height: 15,
                   durationMiliseconds: 80000,
                   onTimerFinish: () {
-                    addCounterIntersitialAd(
-                        () => ref.read(interstiatAdProvider.notifier).showAd());
+                    interstiatAdProviderN.addCounterIntersitialAdAndShow();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

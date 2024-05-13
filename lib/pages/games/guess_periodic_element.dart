@@ -15,11 +15,14 @@ class GuessPeriodicElement extends HookConsumerWidget {
     final isSelectedAux = useState<bool?>(null);
     final isBlock = useState(false);
     final correctAnswerAmount = useState(0);
+    final interstiatAdProviderS = ref.watch(interstiatAdProvider);
+    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
 
     useEffect(() {
-      ref.read(interstiatAdProvider.notifier).loadAd();
-      return null;
-    }, []);
+      if (!interstiatAdProviderS.isAdLoaded) {
+        interstiatAdProviderN.loadAd();
+      }
+    }, [interstiatAdProviderS.isAdLoaded]);
 
     useEffect(() {
       if (isCorrect.value) {
@@ -37,35 +40,33 @@ class GuessPeriodicElement extends HookConsumerWidget {
         });
       }
     }, [isCorrect.value]);
-    return Scaffold(
-      body: ScaffoldBackground(
-        child: SafeArea(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: ProgresLinearTimer(
-                        height: 15,
-                        durationMiliseconds: 60000,
-                        onTimerFinish: () {
-                          addCounterIntersitialAd(() =>
-                              ref.read(interstiatAdProvider.notifier).showAd());
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ResultPage(
-                                gameTitle: 'Adivina el elemento',
-                                aciertos: correctAnswerAmount.value,
-                              ),
+    return ScaffoldBackground(
+      child: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: ProgresLinearTimer(
+                      height: 15,
+                      durationMiliseconds: 60000,
+                      onTimerFinish: () {
+                        interstiatAdProviderN.addCounterIntersitialAdAndShow();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResultPage(
+                              gameTitle: 'Adivina el elemento',
+                              aciertos: correctAnswerAmount.value,
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
-                    /*  SizedBox(width: 10),
+                  ),
+                  /*  SizedBox(width: 10),
                     Column(
                       children: [
                         SimpleText(
@@ -80,152 +81,150 @@ class GuessPeriodicElement extends HookConsumerWidget {
                         ),
                       ],
                     ), */
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Card(
-                    /* color: colorByGroup(optionsGame.value.correctAnswer.group), */
-                    child: Column(
-                      children: [
-                        SimpleText(
-                          "¿Cual es el ${showCorrectOptionName.value ? 'nombre' : 'simbolo'} de este elemento?",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          textAlign: TextAlign.center,
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                        ),
-                        Container(
-                          child: Center(
-                            child: ElementCard(
-                              showOnlyName: !showCorrectOptionName.value,
-                              element: optionsGame.value.correctAnswer,
-                              fontSize: 60,
-                              showName: false,
-                              borderRadius: 10,
-                              size: 160,
-                            ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: Card(
+                  /* color: colorByGroup(optionsGame.value.correctAnswer.group), */
+                  child: Column(
+                    children: [
+                      SimpleText(
+                        "¿Cual es el ${showCorrectOptionName.value ? 'nombre' : 'simbolo'} de este elemento?",
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        textAlign: TextAlign.center,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                      ),
+                      Container(
+                        child: Center(
+                          child: ElementCard(
+                            showOnlyName: !showCorrectOptionName.value,
+                            element: optionsGame.value.correctAnswer,
+                            fontSize: 60,
+                            showName: false,
+                            borderRadius: 10,
+                            size: 160,
                           ),
                         ),
-                        SizedBox(height: 5),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 5),
+                    ],
                   ),
                 ),
-                /* SizedBox(height: 15), */
-                Expanded(
-                  child: AlignedGridView.count(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                    itemCount: optionsGame.value.listSuffle.length,
-                    itemBuilder: (context, int index) {
-                      return InkWell(
-                        customBorder: RoundedRectangleBorder(
+              ),
+              /* SizedBox(height: 15), */
+              Expanded(
+                child: AlignedGridView.count(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5,
+                  itemCount: optionsGame.value.listSuffle.length,
+                  itemBuilder: (context, int index) {
+                    return InkWell(
+                      customBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      onTap: () {
+                        selectedCardIndex.value = index;
+                      },
+                      child: Card(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        onTap: () {
-                          selectedCardIndex.value = index;
-                        },
-                        child: Card(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
+                            color: selectedCardIndex.value == index
+                                ? selectedCardIndex.value == index &&
+                                        isSelectedAux.value != null
+                                    ? isSelectedAux.value!
+                                        ? Colors.green
+                                        : Colors.red
+                                    : primaryColor
+                                : Colors.white,
                           ),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: selectedCardIndex.value == index
-                                  ? selectedCardIndex.value == index &&
-                                          isSelectedAux.value != null
-                                      ? isSelectedAux.value!
-                                          ? Colors.green
-                                          : Colors.red
-                                      : primaryColor
-                                  : Colors.white,
-                            ),
-                            width: 100,
-                            height: 100,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: 2,
-                                  right: 2,
-                                  child: Visibility(
-                                    visible: selectedCardIndex.value == index &&
-                                        isSelectedAux.value != null,
-                                    child: FadeIn(
-                                      duration: Duration(milliseconds: 250),
-                                      child: isSelectedAux.value != null
-                                          ? Icon(
-                                              isSelectedAux.value!
-                                                  ? Icons.check_circle
-                                                  : Icons.cancel,
-                                              size: 30,
-                                            )
-                                          : SizedBox(),
-                                    ),
+                          width: 100,
+                          height: 100,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: 2,
+                                right: 2,
+                                child: Visibility(
+                                  visible: selectedCardIndex.value == index &&
+                                      isSelectedAux.value != null,
+                                  child: FadeIn(
+                                    duration: Duration(milliseconds: 250),
+                                    child: isSelectedAux.value != null
+                                        ? Icon(
+                                            isSelectedAux.value!
+                                                ? Icons.check_circle
+                                                : Icons.cancel,
+                                            size: 30,
+                                          )
+                                        : SizedBox(),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: SimpleText(
-                                    fontSize:
-                                        !showCorrectOptionName.value ? 30 : 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: selectedCardIndex.value == index
-                                        ? Colors.white
-                                        : Colors.black,
-                                    showCorrectOptionName.value
-                                        ? optionsGame
-                                            .value.listSuffle[index].name
-                                        : optionsGame
-                                            .value.listSuffle[index].symbol,
-                                    textAlign: TextAlign.center,
-                                  ),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: SimpleText(
+                                  fontSize:
+                                      !showCorrectOptionName.value ? 30 : 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: selectedCardIndex.value == index
+                                      ? Colors.white
+                                      : Colors.black,
+                                  showCorrectOptionName.value
+                                      ? optionsGame.value.listSuffle[index].name
+                                      : optionsGame
+                                          .value.listSuffle[index].symbol,
+                                  textAlign: TextAlign.center,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
-                Container(
-                  width: double.infinity,
-                  child: VerifyButton(
-                    onPressed: selectedCardIndex.value != -1 && !isBlock.value
-                        ? () {
-                            if (isBlock.value) return;
+              ),
+              Container(
+                width: double.infinity,
+                child: VerifyButton(
+                  onPressed: selectedCardIndex.value != -1 && !isBlock.value
+                      ? () {
+                          if (isBlock.value) return;
 
-                            if (optionsGame.value
-                                    .listSuffle[selectedCardIndex.value].name ==
-                                optionsGame.value.correctAnswer.name) {
-                              isCorrect.value = true;
-                              return;
-                            }
-                            isSelectedAux.value = false;
-                            isBlock.value = true;
-                            Future.delayed(Duration(milliseconds: 1000), () {
-                              isSelectedAux.value = null;
-                              isBlock.value = false;
-                              selectedCardIndex.value = -1;
-                            });
-                            /*  GlobalSnackBar.showSnackBar(
+                          if (optionsGame.value
+                                  .listSuffle[selectedCardIndex.value].name ==
+                              optionsGame.value.correctAnswer.name) {
+                            isCorrect.value = true;
+                            return;
+                          }
+                          isSelectedAux.value = false;
+                          isBlock.value = true;
+                          Future.delayed(Duration(milliseconds: 1000), () {
+                            isSelectedAux.value = null;
+                            isBlock.value = false;
+                            selectedCardIndex.value = -1;
+                          });
+                          /*  GlobalSnackBar.showSnackBar(
                             context,
                             'Respuesta incorrecta',
                             backgroundColor: Colors.red,
                           ); */
-                          }
-                        : null,
-                    titleButton: 'Comprobar',
-                  ),
+                        }
+                      : null,
+                  titleButton: 'Comprobar',
                 ),
-                SizedBox(height: 15),
-              ],
-            ),
+              ),
+              SizedBox(height: 15),
+            ],
           ),
         ),
       ),

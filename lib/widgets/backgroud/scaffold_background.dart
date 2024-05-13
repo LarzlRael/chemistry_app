@@ -1,21 +1,28 @@
 part of '../widgets.dart';
 
 class ScaffoldBackground extends StatelessWidget {
-  const ScaffoldBackground({super.key, required this.child});
+  const ScaffoldBackground({
+    super.key,
+    required this.child,
+    this.appBar,
+  });
   final Widget child;
+
+  final PreferredSizeWidget? appBar;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: appBar,
         body: SizedBox.expand(
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/fondo.png'),
-                fit: BoxFit.cover,
-              ),
-              /* gradient: LinearGradient(
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/fondo.png'),
+                    fit: BoxFit.cover,
+                  ),
+                  /* gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
@@ -25,11 +32,11 @@ class ScaffoldBackground extends StatelessWidget {
                     Color(0xff3949AB),
                   ],
                 ), */
-            ),
+                ),
+              ),
+              child,
+            ],
           ),
-          child,
-        ],
-      ),
-    ));
+        ));
   }
 }

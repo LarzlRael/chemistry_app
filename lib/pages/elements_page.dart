@@ -5,9 +5,14 @@ class ElementsPage extends HookConsumerWidget {
   static const routeName = '/elements_page';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /* final selectedGroup = useState<Group>(Group.nullGroup);
-    final elements = filterByGroup(selectedGroup.value);
-    final compoundsProvider = ref.watch(compoundProvider.notifier); */
+    final interstiatAdProviderS = ref.watch(interstiatAdProvider);
+    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
+    final remoteConfig = FirebaseRemoteConfigService();
+    useEffect(() {
+      if (!interstiatAdProviderS.isAdLoaded) {
+        interstiatAdProviderN.loadAd();
+      }
+    }, [interstiatAdProviderS.isAdLoaded]);
     return DefaultTabController(
       length: Group.values.length,
       child: Scaffold(
@@ -23,6 +28,14 @@ class ElementsPage extends HookConsumerWidget {
                       /* compoundsState: ref.watch(compoundProvider), */
                     ),
                   );
+                },
+              ),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.download),
+                tooltip: 'Descargar tabla periódica',
+                onPressed: () async {
+                  interstiatAdProviderN.addCounterIntersitialAdAndShow();
+                  await launchUrlFromString(remoteConfig.periodicTablePdf);
                 },
               ),
               /*  IconButton(

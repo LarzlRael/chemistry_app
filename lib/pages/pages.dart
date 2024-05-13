@@ -27,6 +27,7 @@ import 'package:templat_project/models/models.dart';
 import 'package:templat_project/notifications/snackbar.dart';
 import 'package:templat_project/provider/ad_provider.dart';
 import 'package:templat_project/provider/providers.dart';
+import 'package:templat_project/services/firebase/remote_config.dart';
 import 'package:templat_project/theme/colors.dart';
 import 'package:templat_project/widgets/widgets.dart';
 import 'package:templat_project/utils/utils.dart';
@@ -36,6 +37,7 @@ part 'games/elements_shake.dart';
 
 part 'elements_page.dart';
 part 'elements/elements_detail.dart';
+part 'introduction/introduction_page.dart';
 
 part 'compounds/compounds_page.dart';
 part 'compounds/sales/sales_neutras.dart';

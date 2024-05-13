@@ -7,31 +7,8 @@ import 'package:templat_project/services/services.dart';
 const COUNTER_ADD = 'COUNTER_ADD';
 
 final adBannerProvider = FutureProvider<BannerAd>((ref) async {
-  /* Todo validar si se muestran o no las ads */
   final ad = await AdmobPlugin.loadBannerAd();
   return ad;
-});
-
-void addCounterIntersitialAd(Function callBack) async {
-  const MAXCOUNT = 2;
-  final keyValueStorageServiceImpl = KeyValueStorageServiceImpl();
-  final getCurrentCounterAdd =
-      await keyValueStorageServiceImpl.getValue<int>(COUNTER_ADD) ?? 0;
-
-  await keyValueStorageServiceImpl.setKeyValue<int>(
-      COUNTER_ADD, getCurrentCounterAdd + 1);
-
-  if (getCurrentCounterAdd == MAXCOUNT) {
-    callBack();
-    await keyValueStorageServiceImpl.setKeyValue<int>(COUNTER_ADD, 0);
-  }
-}
-
-final counterAdProvider = FutureProvider<int>((ref) async {
-  final keyValueStorageServiceImpl = KeyValueStorageServiceImpl();
-  final getCurrentCounterAdd =
-      await keyValueStorageServiceImpl.getValue<int>(COUNTER_ADD);
-  return getCurrentCounterAdd ?? 0;
 });
 
 final interstiatAdProvider =
@@ -41,7 +18,26 @@ final interstiatAdProvider =
 
 class IntersitialAdNotifier extends StateNotifier<InterstialState> {
   IntersitialAdNotifier()
-      : super(InterstialState(isAdLoaded: false, interstitialAd: null));
+      : super(InterstialState(
+            isAdLoaded: false, interstitialAd: null, counter: 0)) {
+    loadAd();
+  }
+
+  void addCounterIntersitialAdAndShow() async {
+    const MAXCOUNT = 2;
+    final keyValueStorageServiceImpl = KeyValueStorageServiceImpl();
+    final getCurrentCounterAdd =
+        await keyValueStorageServiceImpl.getValue<int>(COUNTER_ADD) ?? 0;
+
+    await keyValueStorageServiceImpl.setKeyValue<int>(
+        COUNTER_ADD, getCurrentCounterAdd + 1);
+    print('getCurrentCounterAdd: $getCurrentCounterAdd');
+    print('MAXCOUNT: $MAXCOUNT');
+    if (getCurrentCounterAdd == MAXCOUNT) {
+      showAd();
+      await keyValueStorageServiceImpl.setKeyValue<int>(COUNTER_ADD, 0);
+    }
+  }
 
   void loadAd() {
     if (!state.isAdLoaded) {
@@ -74,8 +70,10 @@ class IntersitialAdNotifier extends StateNotifier<InterstialState> {
   }
 
   void showAd() {
+    print('showAd');
     if (state.interstitialAd != null && state.isAdLoaded) {
       state.interstitialAd!.show();
+      /* loadAd(); */
     } else {
       loadAd();
       state.interstitialAd?.fullScreenContentCallback =
@@ -97,17 +95,26 @@ class IntersitialAdNotifier extends StateNotifier<InterstialState> {
 class InterstialState {
   final InterstitialAd? interstitialAd;
   final bool isAdLoaded;
+  final int counter;
   InterstialState({
     required this.interstitialAd,
     required this.isAdLoaded,
+    required this.counter,
   });
 
+  factory InterstialState.initial() => InterstialState(
+        interstitialAd: null,
+        isAdLoaded: false,
+        counter: 0,
+      );
   InterstialState copyWith({
     InterstitialAd? interstitialAd,
     bool? isAdLoaded,
+    int? counter,
   }) =>
       InterstialState(
         interstitialAd: interstitialAd ?? this.interstitialAd,
         isAdLoaded: isAdLoaded ?? this.isAdLoaded,
+        counter: counter ?? this.counter,
       );
 }

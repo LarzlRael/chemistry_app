@@ -18,6 +18,15 @@ class GuessCompoundGame extends HookConsumerWidget {
       generateCompoundGuessGame(),
     );
 
+    final interstiatAdProviderS = ref.watch(interstiatAdProvider);
+    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
+
+    useEffect(() {
+      if (!interstiatAdProviderS.isAdLoaded) {
+        interstiatAdProviderN.loadAd();
+      }
+    }, [interstiatAdProviderS.isAdLoaded]);
+
     useEffect(() {
       ref.read(interstiatAdProvider.notifier).loadAd();
       return null;
@@ -53,8 +62,7 @@ class GuessCompoundGame extends HookConsumerWidget {
                   height: 15,
                   durationMiliseconds: 80000,
                   onTimerFinish: () {
-                    addCounterIntersitialAd(
-                        () => ref.read(interstiatAdProvider.notifier).showAd());
+                    interstiatAdProviderN.addCounterIntersitialAdAndShow();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
