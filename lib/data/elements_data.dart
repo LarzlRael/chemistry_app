@@ -85,7 +85,7 @@ final compoundMetalList = <CompoundListElement>[
   CompoundListElement(
     name: 'Hidruros no metalicos',
     pathImage: 'assets/chemestry/hidruros_no_metalicos.png',
-    type: TypeCompound.sal_hidracida,
+    type: TypeCompound.hidruro_no_metalico,
   ),
 ];
 

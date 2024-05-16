@@ -6,12 +6,13 @@ final notificationNotifierProvider =
 );
 
 class NotificationNotifier extends StateNotifier<NotificationState> {
-  NotificationNotifier()
-      : super(NotificationState(message: 'no_message', tokenDevice: '')) {
+  NotificationNotifier() : super(NotificationState(message: 'no_message')) {
     _getAndSaveFCMToken();
     _onForegroundMessage();
   }
 
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseFirestore firebaseDatabase = FirebaseFirestore.instance;
   void setNotification(String message) {
     state = state.copyWith(message: message);
   }
@@ -20,18 +21,14 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
     state = state.copyWith(message: '');
   }
 
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  late String? token;
   Future initializeApp() async {
+    late String? token;
     // Push Notifications
     await Firebase.initializeApp();
     /* await requestPermission(); */
 
     token = (await messaging.getToken());
 
-    print('Token: $token');
-
-    state = state.copyWith(tokenDevice: token!);
     // Handlers
     /* FirebaseMessaging.onBackgroundMessage(_backgroundHandler);
     FirebaseMessaging.onMessage.listen(_onMessageHandler);
@@ -40,22 +37,33 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
     // Local Notifications
   }
 
+  Future<String?> getToken() async {
+    return await messaging.getToken();
+  }
+
   void initialStatusCheck() async {
     final settings = await messaging.getNotificationSettings();
   }
 
   void _getAndSaveFCMToken() async {
-    token = (await messaging.getToken())!;
-    /*  if (token == UserPreferences.getFCMToken) {
-      return;
-    } */
-    print('FCM Token: $token');
-    state = state.copyWith(tokenDevice: token!);
-    /*  UserPreferences.setFCMToken = token!;
-    await Request.sendRequest(
-      RequestType.get,
-      '/notifications/saveDeviceId/$token/$packageName',
-    ); */
+    await saveTokenInFirestore();
+    final token = await getToken();
+
+    await KeyValueStorageServiceImpl()
+        .setKeyValue<String>('id_device_token', token!);
+  }
+
+  Future<void> saveTokenInFirestore() async {
+    final isThereToken =
+        await KeyValueStorageServiceImpl().getValue<String>('id_device_token');
+
+    if (isThereToken == null) {
+      await firebaseDatabase.collection('devices_tokens').add({
+        'token': await getToken(),
+        'createdAt': FieldValue.serverTimestamp(),
+        'platform': Platform.operatingSystem
+      });
+    }
   }
 
   void _onForegroundMessage() {
@@ -87,19 +95,16 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
 
 class NotificationState {
   final String message;
-  final String tokenDevice;
+
   NotificationState({
     required this.message,
-    required this.tokenDevice,
   });
 
   NotificationState copyWith({
     String? message,
-    String? tokenDevice,
   }) {
     return NotificationState(
       message: message ?? this.message,
-      tokenDevice: tokenDevice ?? this.tokenDevice,
     );
   }
 }

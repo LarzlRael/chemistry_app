@@ -34,100 +34,95 @@ class SalesHidracidas extends HookWidget {
       body: ScaffoldBackground(
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        SelecteCardForSal(
-                          color: firstMetalSelected.value == null
-                              ? null
-                              : colorByGroup(firstMetalSelected.value!.group),
-                          title: 'Acido Hidracido',
-                          /* height: mediaQuery.height * 0.15, */
-                          onTap: () => bottomNegativeElementValue(
-                            context,
-                            firstMetalSelected,
-                            firstCurrentValencia,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      SelecteCardForSal(
+                        color: firstMetalSelected.value == null
+                            ? null
+                            : colorByGroup(firstMetalSelected.value!.group),
+                        title: 'Acido Hidracido',
+                        /* height: mediaQuery.height * 0.15, */
+                        onTap: () => bottomNegativeElementValue(
+                          context,
+                          firstMetalSelected,
+                          firstCurrentValencia,
+                        ),
+                        width: mediaQuery.width * 0.4,
+                        child: firstMetalSelected.value == null
+                            ? Text(
+                                'Selecciona un acido hidracido',
+                                textAlign: TextAlign.center,
+                                style: textTheme.labelMedium,
+                              )
+                            : MetalSelectedCard(
+                                metalSelected: firstMetalSelected,
+                                currentValencia: firstCurrentValencia,
+                                showPrefix: false,
+                              ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Icon(FontAwesomeIcons.circlePlus),
+                  ),
+                  SelecteCardForSal(
+                    color: secondMetalSelected.value == null
+                        ? null
+                        : colorByGroup(secondMetalSelected.value!.group),
+                    title: 'Metal',
+                    onTap: () => bottomSheetMetals(context, secondMetalSelected,
+                        secondCurrentValencia, generateMetals(metalGroup)),
+                    width: mediaQuery.width * 0.4,
+                    child: secondMetalSelected.value == null
+                        ? Text(
+                            'Seleccione un metal',
+                            textAlign: TextAlign.center,
+                            style: textTheme.labelMedium,
+                          )
+                        : MetalSelectedCard(
+                            metalSelected: secondMetalSelected,
+                            currentValencia: secondCurrentValencia,
+                            sizeReduce: 0.85,
                           ),
-                          width: mediaQuery.width * 0.4,
-                          child: firstMetalSelected.value == null
-                              ? Text(
-                                  'Selecciona un acido hidracido',
-                                  textAlign: TextAlign.center,
-                                  style: textTheme.labelMedium,
-                                )
-                              : MetalSelectedCard(
-                                  metalSelected: firstMetalSelected,
-                                  currentValencia: firstCurrentValencia,
-                                  showPrefix: false,
-                                ),
+                  ),
+                ],
+              ),
+              result.value == null
+                  ? SimpleText(
+                      'Seleccione un acido hidracido y un metal para formar una sal hidracida',
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      textAlign: TextAlign.center,
+                    )
+                  : Column(
+                      children: [
+                        CirclePresentation(
+                          margin: EdgeInsets.symmetric(vertical: 20),
+                          color1: colorByGroup(firstMetalSelected.value!.group),
+                          color2:
+                              colorByGroup(secondMetalSelected.value!.group),
+                          symbol1: firstMetalSelected.value!.symbol,
+                          symbol2: secondMetalSelected.value!.symbol,
+                        ),
+                        CardSales(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          compound: result.value!,
+                          fontSize: 60,
+                          height: 0.20,
+                          color1: colorByGroup(firstMetalSelected.value!.group),
+                          color2:
+                              colorByGroup(secondMetalSelected.value!.group),
                         ),
                       ],
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: Icon(FontAwesomeIcons.circlePlus),
-                    ),
-                    SelecteCardForSal(
-                      color: secondMetalSelected.value == null
-                          ? null
-                          : colorByGroup(secondMetalSelected.value!.group),
-                      title: 'Metal',
-                      onTap: () => bottomSheetMetals(
-                          context,
-                          secondMetalSelected,
-                          secondCurrentValencia,
-                          generateMetals(metalGroup)),
-                      width: mediaQuery.width * 0.4,
-                      child: secondMetalSelected.value == null
-                          ? Text(
-                              'Seleccione un metal',
-                              textAlign: TextAlign.center,
-                              style: textTheme.labelMedium,
-                            )
-                          : MetalSelectedCard(
-                              metalSelected: secondMetalSelected,
-                              currentValencia: secondCurrentValencia,
-                              sizeReduce: 0.85,
-                            ),
-                    ),
-                  ],
-                ),
-                result.value == null
-                    ? SimpleText(
-                        'Seleccione un acido hidracido y un metal para formar una sal hidracida',
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        textAlign: TextAlign.center,
-                      )
-                    : Column(
-                        children: [
-                          CirclePresentation(
-                            margin: EdgeInsets.symmetric(vertical: 20),
-                            color1:
-                                colorByGroup(firstMetalSelected.value!.group),
-                            color2:
-                                colorByGroup(secondMetalSelected.value!.group),
-                            symbol1: firstMetalSelected.value!.symbol,
-                            symbol2: secondMetalSelected.value!.symbol,
-                          ),
-                          CardSales(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            compound: result.value!,
-                            fontSize: 60,
-                            height: 0.20,
-                            color1:
-                                colorByGroup(firstMetalSelected.value!.group),
-                            color2:
-                                colorByGroup(secondMetalSelected.value!.group),
-                          ),
-                        ],
-                      ),
-              ],
-            ),
+              Spacer(),
+              BannerAd(),
+            ],
           ),
         ),
       ),

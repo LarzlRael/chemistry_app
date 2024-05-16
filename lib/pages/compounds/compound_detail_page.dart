@@ -6,7 +6,7 @@ class CompoundDetailPage extends StatelessWidget {
   static const routeName = '/compound_detail_page';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScaffoldBackground(
       appBar: AppBar(
         title: Text(compound.name),
         actions: [
@@ -39,8 +39,18 @@ class CompoundDetailPage extends StatelessWidget {
         ],
       ),
       body: ScaffoldBackground(
-        body: Center(
-          child: CompoundByType(compound: compound),
+        body: SizedBox.expand(
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: CompoundByType(
+                  compound: compound,
+                ),
+              ),
+              Align(alignment: Alignment.bottomCenter, child: BannerAd()),
+            ],
+          ),
         ),
       ),
     );

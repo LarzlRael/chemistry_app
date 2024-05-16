@@ -31,9 +31,8 @@ class ElementsDetail extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: BannerAd(),
+                child: BannerAd(
+                  margin: const EdgeInsets.all(8.0),
                 ),
               ),
             ],
