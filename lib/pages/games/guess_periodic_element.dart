@@ -15,14 +15,8 @@ class GuessPeriodicElement extends HookConsumerWidget {
     final isSelectedAux = useState<bool?>(null);
     final isBlock = useState(false);
     final correctAnswerAmount = useState(0);
-    final interstiatAdProviderS = ref.watch(interstiatAdProvider);
-    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
 
-    useEffect(() {
-      if (!interstiatAdProviderS.isAdLoaded) {
-        interstiatAdProviderN.loadAd();
-      }
-    }, [interstiatAdProviderS.isAdLoaded]);
+    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
 
     useEffect(() {
       if (isCorrect.value) {

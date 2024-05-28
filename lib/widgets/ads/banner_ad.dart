@@ -11,9 +11,7 @@ class BannerAd extends ConsumerWidget {
         margin: margin,
         width: bannerAd.size.width.toDouble(),
         height: bannerAd.size.height.toDouble(),
-        child: AdWidget(
-          ad: bannerAd,
-        ),
+        child: AdWidget(ad: bannerAd),
       ),
       loading: () => Container(height: 50, child: SizedBox()),
       error: (error, stack) => SizedBox(),

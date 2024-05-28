@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animate_do: ^3.3.4
+  auto_size_text: ^3.0.0
   cloud_firestore: ^4.17.3
   collection: ^1.18.0
   cupertino_icons: ^1.0.2
@@ -42,6 +43,7 @@ dependencies:
   flutter_downloader: ^1.11.7
   flutter_fortune_wheel: ^1.3.1
   flutter_hooks: ^0.18.6
+  flutter_local_notifications: ^17.1.2
   flutter_native_splash: ^2.1.6
   flutter_pdfview: ^1.3.2
   flutter_riverpod: ^2.4.9
@@ -53,6 +55,7 @@ dependencies:
   hooks_riverpod: ^2.4.9
   http: ^1.2.1
   image_picker: ^0.8.7+5
+  package_info_plus: ^8.0.0
   path_provider: ^2.1.3
   permission_handler: ^11.3.1
   roulette: ^0.1.5
@@ -109,6 +112,7 @@ flutter:
     - assets/
     - assets/chemestry/
     - assets/files/
+    - assets/data/periodic_table.json
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

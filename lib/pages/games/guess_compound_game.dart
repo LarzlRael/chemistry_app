@@ -18,19 +18,7 @@ class GuessCompoundGame extends HookConsumerWidget {
       generateCompoundGuessGame(),
     );
 
-    final interstiatAdProviderS = ref.watch(interstiatAdProvider);
     final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
-
-    useEffect(() {
-      if (!interstiatAdProviderS.isAdLoaded) {
-        interstiatAdProviderN.loadAd();
-      }
-    }, [interstiatAdProviderS.isAdLoaded]);
-
-    useEffect(() {
-      ref.read(interstiatAdProvider.notifier).loadAd();
-      return null;
-    }, []);
 
     useEffect(() {
       if (isCorrect.value) {

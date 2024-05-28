@@ -54,7 +54,8 @@ class IntersitialAdNotifier extends StateNotifier<InterstialState> {
               },
               onAdDismissedFullScreenContent: (ad) {
                 ad.dispose();
-                state = state.copyWith(isAdLoaded: false);
+                state = state.copyWith(isAdLoaded: false, interstitialAd: null);
+                loadAd(); // Load a new ad
               },
               onAdClicked: (ad) {},
             );
@@ -70,20 +71,11 @@ class IntersitialAdNotifier extends StateNotifier<InterstialState> {
   }
 
   void showAd() {
-    print('showAd');
     if (state.interstitialAd != null && state.isAdLoaded) {
       state.interstitialAd!.show();
-      /* loadAd(); */
-    } else {
-      loadAd();
-      state.interstitialAd?.fullScreenContentCallback =
-          FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (ad) {
-          state.interstitialAd?.dispose();
-          state = state.copyWith(interstitialAd: null);
-        },
-      );
+      return;
     }
+    loadAd();
   }
 
   void disposeAd() {

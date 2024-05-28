@@ -45,12 +45,15 @@ class ElementCard extends StatelessWidget {
     this.fontSize = 55,
     this.borderRadius = 0,
     this.showOnlyName = false,
+    this.showGroup = true,
   });
   final double? size;
+  final bool showGroup;
   final bool showName;
   final double fontSize;
   final double borderRadius;
   final bool showOnlyName;
+
   final PeriodicTableElement element;
   final Function(PeriodicTableElement element)? onTap;
 
@@ -81,10 +84,13 @@ class ElementCard extends StatelessWidget {
                 showName: showName,
                 fontSize: fontSize,
                 borderRadius: borderRadius,
-                group: elementType)
+                group: elementType,
+                showGroup: showGroup,
+              )
             : FlipCard(
                 key: key,
                 front: CardElement(
+                  showGroup: showGroup,
                   showOnlyName: showOnlyName,
                   fontSize: fontSize,
                   size: size,
@@ -223,6 +229,7 @@ class CardElement extends StatelessWidget {
   final double borderRadius;
   final bool showName;
   final bool showOnlyName;
+  final bool showGroup;
 
   const CardElement({
     super.key,
@@ -236,6 +243,7 @@ class CardElement extends StatelessWidget {
     this.size = 200,
     this.fontSize = 55,
     this.borderRadius = 0,
+    this.showGroup = true,
   });
 
   @override
@@ -352,16 +360,17 @@ fontSize: 16, */
                 ),
               ),
             ),
-            Positioned(
-              top: 5,
-              left: 5,
-              child: SimpleText(
-                group,
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: fontSize * 0.3,
+            if (showGroup)
+              Positioned(
+                top: 5,
+                left: 5,
+                child: SimpleText(
+                  group,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontSize: fontSize * 0.3,
+                ),
               ),
-            ),
             extraWidget != null
                 ? Positioned(
                     right: 5,

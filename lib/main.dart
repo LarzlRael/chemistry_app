@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:templat_project/plugin/admob_plugin.dart';
+import 'package:templat_project/plugin/local_notification.dart';
 import 'package:templat_project/provider/providers.dart';
 import 'package:templat_project/theme/theme.dart';
 import 'firebase_options.dart';
@@ -12,6 +13,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   await Enviroment.initEnviroment();
+  await LocalNotification.initializeLocalNotification();
   await AdmobPlugin.initialize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

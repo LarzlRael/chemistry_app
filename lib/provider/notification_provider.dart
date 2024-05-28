@@ -46,24 +46,30 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
   }
 
   void _getAndSaveFCMToken() async {
-    await saveTokenInFirestore();
-    final token = await getToken();
-
-    await KeyValueStorageServiceImpl()
-        .setKeyValue<String>('id_device_token', token!);
+    final lastToken = await getToken();
+    final localToken =
+        await KeyValueStorageServiceImpl().getValue<String>('id_device_token');
+    if (localToken != lastToken) {
+      await KeyValueStorageServiceImpl()
+          .setKeyValue<String>('id_device_token', lastToken!);
+      await saveTokenInFirestore();
+    }
   }
 
   Future<void> saveTokenInFirestore() async {
     final isThereToken =
         await KeyValueStorageServiceImpl().getValue<String>('id_device_token');
+    final packageInfo = await PackageInfo.fromPlatform();
 
-    if (isThereToken == null) {
-      await firebaseDatabase.collection('devices_tokens').add({
-        'token': await getToken(),
-        'createdAt': FieldValue.serverTimestamp(),
-        'platform': Platform.operatingSystem
-      });
-    }
+    final request = await Request.sendRequest(RequestType.post,
+        '${Enviroment.serverToken}/notifications/saveDeviceId',
+        body: {
+          'token': isThereToken!,
+          'packageName': packageInfo.packageName,
+          'platform': Platform.operatingSystem
+        });
+
+    print(request); /*  */
   }
 
   void _onForegroundMessage() {
@@ -82,14 +88,14 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
       imageUrl: Platform.isAndroid
           ? message.notification!.android?.imageUrl
           : message.notification!.apple?.imageUrl,
-    );
+    ); */
     LocalNotification.showLocalNotification(
-      id: notification.messageId.hashCode,
-      body: notification.body,
-      data: notification.messageId,
-      title: notification.title,
+      id: message.hashCode,
+      title: message.notification!.title ?? '',
+      body: message.notification!.body ?? '',
+      /* data: message.notification.messageId, */
     );
-    add(NotificationsReceived(notification)); */
+    /* add(NotificationsReceived(notification)); */
   }
 }
 

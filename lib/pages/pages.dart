@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
 import 'dart:math' as math;
 import 'package:flip_card/flip_card.dart';
@@ -29,6 +30,7 @@ import 'package:templat_project/notifications/snackbar.dart';
 import 'package:templat_project/provider/ad_provider.dart';
 import 'package:templat_project/provider/providers.dart';
 import 'package:templat_project/services/firebase/remote_config.dart';
+import 'package:templat_project/services/services.dart';
 import 'package:templat_project/theme/colors.dart';
 import 'package:templat_project/widgets/widgets.dart';
 import 'package:templat_project/utils/utils.dart';
@@ -53,6 +55,7 @@ part 'games/guess_periodic_element.dart';
 part 'games/guess_compound_game.dart';
 part 'games/guess_type_compound_game.dart';
 part 'games/routelle_example.dart';
+part 'perodice_table/periodic_table_page.dart';
 part 'test/test_page.dart';
 
 part 'games/result_page.dart';

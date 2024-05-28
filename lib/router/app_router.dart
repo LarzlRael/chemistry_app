@@ -5,6 +5,7 @@ import 'package:templat_project/models/models.dart';
 import '../pages/pages.dart';
 
 final appRouter = GoRouter(
+  /* initialLocation: PeriodicTablePage.routeName, */
   initialLocation: HomePage.routeName,
   /* initialLocation: GamesPage.routeName + '/' + RoulleExample.routeName, */
   /* refreshListenable: goRouterNotifier, */
@@ -17,6 +18,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: TestPage.routeName,
       builder: (context, state) => TestPage(),
+    ),
+    GoRoute(
+      path: PeriodicTablePage.routeName,
+      builder: (context, state) => PeriodicTablePage(),
     ),
     GoRoute(
       path: GamesPage.routeName,
