@@ -384,3 +384,81 @@ fontSize: 16, */
     );
   }
 }
+
+class CardPeriodicElementComplete extends StatelessWidget {
+  const CardPeriodicElementComplete({
+    super.key,
+    required this.atomicNumer,
+    required this.atomicMass,
+    required this.symbol,
+    required this.name,
+    required this.chemicalGruop,
+    this.color,
+    this.size = 200,
+    this.padding = const EdgeInsets.all(8),
+  });
+
+  final String atomicNumer;
+  final String atomicMass;
+  final String symbol;
+  final String name;
+  final String chemicalGruop;
+  final String? color;
+  final double size;
+  final EdgeInsetsGeometry padding;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            HexColor(color ?? '#FFFFFF'),
+            HexColor(color ?? '#FFFFFF').withOpacity(0.5),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        /* borderRadius: BorderRadius.circular(10), */
+      ),
+      width: size,
+      height: size,
+      padding: padding,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: SimpleText(
+              atomicNumer,
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SimpleText(
+                    symbol,
+                    fontSize: 70,
+                    fontWeight: FontWeight.bold,
+                    lineHeight: 0,
+                  ),
+                  SimpleText(
+                    name,
+                    fontSize: 35,
+                  )
+                ],
+              )),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SimpleText(
+              chemicalGruop,
+              fontSize: 24,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

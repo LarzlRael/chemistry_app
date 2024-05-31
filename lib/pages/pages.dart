@@ -14,6 +14,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:roulette/roulette.dart' as roulette2;
 import 'package:shake/shake.dart';
 import 'package:templat_project/anim/custom_icons/custom_icons.dart';
@@ -40,6 +41,7 @@ part 'games/elements_shake.dart';
 
 part 'elements_page.dart';
 part 'elements/elements_detail.dart';
+part 'elements/elements_complete_detail.dart';
 part 'introduction/introduction_page.dart';
 
 part 'compounds/compounds_page.dart';

@@ -38,57 +38,9 @@ class ElementsDetail extends HookWidget {
                 )
               : getPeriodicElement.hasError
                   ? SizedBox()
-                  : Card(
-                      child: DataTable(
-                      rows: [
-                        buildDataRow('Simbolo',
-                            getPeriodicElement.data?.symbol.toString()),
-                        buildDataRow('Número atómico',
-                            getPeriodicElement.data?.atomicNumber.toString()),
-                        buildDataRow('Masa Atómica',
-                            getPeriodicElement.data?.atomicMass.toString()),
-                        buildDataRow('Configuración Electrónica',
-                            getPeriodicElement.data?.electronConfiguration),
-                        buildDataRow('Estado estandar',
-                            getPeriodicElement.data?.standardState.name),
-                        buildDataRow('Punto de ebullición',
-                            getPeriodicElement.data?.boilingPoint,
-                            valueProcessor: (value) =>
-                                convertKelvinToCelsius(value)
-                                    .toStringAsFixed(2),
-                            unit: '°C'),
-                        buildDataRow(
-                          'Punto de fusión',
-                          getPeriodicElement.data?.meltingPoint,
-                          valueProcessor: (value) =>
-                              convertKelvinToCelsius(value).toStringAsFixed(2),
-                          unit: '°C',
-                        ),
-                        buildDataRow('Densidad',
-                            getPeriodicElement.data?.density?.toString() ?? ''),
-                        buildDataRow(
-                            'Electronegatividad',
-                            getPeriodicElement.data?.electronegativity
-                                .toString()),
-                        buildDataRow(
-                          'Estados de oxidación',
-                          getPeriodicElement.data?.oxidationStates.toString(),
-                          type: TypeTable.arrayText,
-                        ),
-                        buildDataRow('Energía de ionización',
-                            getPeriodicElement.data?.ionizationEnergy,
-                            unit: 'eV'),
-                        buildDataRow('Afinidad electronica',
-                            getPeriodicElement.data?.electronAffinity,
-                            unit: 'eV'),
-                        buildDataRow('Año de Descubrimiento',
-                            getPeriodicElement.data?.yearDiscovered.toString()),
-                      ],
-                      columns: [
-                        DataColumn(label: Text('Propiedad ')),
-                        DataColumn(label: Text('Valor'))
-                      ],
-                    )),
+                  : CardDetailComplete(
+                      getPeriodicElement: getPeriodicElement.data,
+                    ),
         ),
       ],
     );
@@ -109,7 +61,7 @@ DataRow buildDataRow(
     content = (value as String)
         .split(',')
         .map((e) => int.parse(e.trim()))
-        .sorted((a, b) => b.compareTo(a));
+        .sorted((a, b) => a.compareTo(b));
   }
   if (valueProcessor != null) {
     content = valueProcessor(value);

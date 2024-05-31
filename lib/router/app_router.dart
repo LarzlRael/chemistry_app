@@ -82,6 +82,13 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: ElementsCompleteDetail.routeName + '/:symbol',
+      builder: (_, state) {
+        final symbol = state.params['symbol']!;
+        return ElementsCompleteDetail(symbol: symbol);
+      },
+    ),
+    GoRoute(
       path: CompoundDetailPage.routeName,
       pageBuilder: (_, state) {
         Compound element = state.extra as Compound;

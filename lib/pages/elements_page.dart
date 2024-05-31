@@ -26,6 +26,13 @@ class ElementsPage extends HookConsumerWidget {
                 },
               ),
               IconButton(
+                icon: Icon(FontAwesomeIcons.flask),
+                tooltip: 'Ir a tabla periódica completa',
+                onPressed: () {
+                  context.push(PeriodicTablePage.routeName);
+                },
+              ),
+              IconButton(
                 icon: Icon(FontAwesomeIcons.download),
                 tooltip: 'Descargar tabla periódica',
                 onPressed: () async {
@@ -33,12 +40,6 @@ class ElementsPage extends HookConsumerWidget {
                   await launchUrlFromString(remoteConfig.periodicTablePdf);
                 },
               ),
-              /*  IconButton(
-                icon: Icon(FontAwesomeIcons.download),
-                onPressed: () {
-                  downloadAndSavePDF(context);
-                },
-              ), */
             ],
             bottom: TabBar(
                 isScrollable: true,

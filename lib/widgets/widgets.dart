@@ -46,3 +46,4 @@ part 'instruccions/compound_instruction.dart';
 part 'instruccions/plus_2_elements.dart';
 part 'instruccions/groups_chips.dart';
 part 'games_widgets/progres_linear_timer.dart';
+part 'cards/card_detail_complete.dart';
