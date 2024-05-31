@@ -197,10 +197,10 @@ CompoundGuessGame generateCompoundGuessGame() {
 }
 
 CompoundGuessGame generateCompoundTypeGame(List<Compound> compounds) {
+  final getNelements = getTNRandomElement(compounds, 6);
   return CompoundGuessGame(
-    /* elements: List<Compound>.from(compounds)..shuffle(), */
-    elements: compounds,
-    correctElement: compounds[Random().nextInt(compounds.length)],
+    elements: getNelements,
+    correctElement: getNelements[Random().nextInt(getNelements.length)],
   );
 }
 

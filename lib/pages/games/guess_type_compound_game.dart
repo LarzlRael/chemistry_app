@@ -187,7 +187,7 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
               ),
               Expanded(
                 child: AlignedGridView.count(
-                  crossAxisCount: 3,
+                  crossAxisCount: 2,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
                   itemCount: compoundGuessGame.value!.elements.length,

@@ -165,7 +165,23 @@ class GuessPeriodicElement extends HookConsumerWidget {
                               ),
                               Align(
                                 alignment: Alignment.center,
-                                child: SimpleText(
+                                child: AutoSizeText(
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: selectedCardIndex.value == index
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                  maxFontSize: 30,
+                                  minFontSize: 20,
+                                  showCorrectOptionName.value
+                                      ? optionsGame.value.listSuffle[index].name
+                                      : optionsGame
+                                          .value.listSuffle[index].symbol,
+                                  textAlign: TextAlign.center,
+                                ),
+                                /* child: SimpleText(
                                   fontSize:
                                       !showCorrectOptionName.value ? 30 : 16,
                                   fontWeight: FontWeight.w500,
@@ -177,7 +193,7 @@ class GuessPeriodicElement extends HookConsumerWidget {
                                       : optionsGame
                                           .value.listSuffle[index].symbol,
                                   textAlign: TextAlign.center,
-                                ),
+                                ), */
                               ),
                             ],
                           ),

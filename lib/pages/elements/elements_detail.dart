@@ -21,8 +21,8 @@ class ElementsDetail extends HookWidget {
           pinned: true,
           expandedHeight: 250,
           flexibleSpace: FlexibleSpaceBar(
-            /* title: Text('Mi Título'),
-            collapseMode: CollapseMode.pin, */
+            /* title: Text('Mi Título'), */
+            /* collapseMode: CollapseMode.pin, */
             background: ElementCard(
               showGroup: false,
               size: size.width * 0.75,
@@ -41,113 +41,48 @@ class ElementsDetail extends HookWidget {
                   : Card(
                       child: DataTable(
                       rows: [
-                        DataRow(cells: [
-                          DataCell(Text('Simbolo')),
-                          DataCell(Text(
-                              getPeriodicElement.data?.symbol.toString() ??
-                                  '')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Número Atomico')),
-                          DataCell(
-                            Text(
-                              getPeriodicElement.data?.atomicNumber
-                                      .toString() ??
-                                  '',
-                            ),
-                          ),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Masa Atomica')),
-                          DataCell(
-                            Text(
-                              getPeriodicElement.data?.atomicMass.toString() ??
-                                  '',
-                            ),
-                          ),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Configuración Electrónica')),
-                          DataCell(Text(
-                              getPeriodicElement.data?.electronConfiguration ??
-                                  '')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Estado estandar')),
-                          DataCell(Text(
-                              getPeriodicElement.data?.standardState.name ??
-                                  '')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(
-                            Text('Punto de ebullición'),
-                          ),
-                          DataCell(
-                            Text(
-                              getPeriodicElement.data?.boilingPoint != null
-                                  ? converKelvinToCelsius(getPeriodicElement
-                                              .data!.boilingPoint)
-                                          .toStringAsFixed(2) +
-                                      ' °C'
-                                  : '',
-                            ),
-                          ),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Densidad')),
-                          DataCell(Text(
-                              (getPeriodicElement.data?.density?.toString() ??
-                                      '') +
-                                  " g/cm³")),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Electronegatividad')),
-                          DataCell(Text(getPeriodicElement
-                                  .data?.electronegativity
-                                  .toString() ??
-                              '')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Punto de funsión')),
-                          DataCell(
-                            Text(
-                              getPeriodicElement.data?.meltingPoint != null
-                                  ? converKelvinToCelsius(getPeriodicElement
-                                              .data!.meltingPoint)
-                                          .toStringAsFixed(2) +
-                                      ' °C'
-                                  : '',
-                            ),
-                          ),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Estados de oxidación')),
-                          DataCell(Text(getPeriodicElement.data?.oxidationStates
-                                  .toString() ??
-                              '')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Energía de ionización')),
-                          DataCell(Text((getPeriodicElement
-                                      .data?.ionizationEnergy
-                                      .toString() ??
-                                  '') +
-                              ' eV')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Afinidad electronica')),
-                          DataCell(Text((getPeriodicElement
-                                      .data?.electronAffinity
-                                      .toString() ??
-                                  '') +
-                              ' eV')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('Año de Descubrimiento')),
-                          DataCell(Text(getPeriodicElement.data?.yearDiscovered
-                                  .toString() ??
-                              '')),
-                        ]),
+                        buildDataRow('Simbolo',
+                            getPeriodicElement.data?.symbol.toString()),
+                        buildDataRow('Número atómico',
+                            getPeriodicElement.data?.atomicNumber.toString()),
+                        buildDataRow('Masa Atómica',
+                            getPeriodicElement.data?.atomicMass.toString()),
+                        buildDataRow('Configuración Electrónica',
+                            getPeriodicElement.data?.electronConfiguration),
+                        buildDataRow('Estado estandar',
+                            getPeriodicElement.data?.standardState.name),
+                        buildDataRow('Punto de ebullición',
+                            getPeriodicElement.data?.boilingPoint,
+                            valueProcessor: (value) =>
+                                convertKelvinToCelsius(value)
+                                    .toStringAsFixed(2),
+                            unit: '°C'),
+                        buildDataRow(
+                          'Punto de fusión',
+                          getPeriodicElement.data?.meltingPoint,
+                          valueProcessor: (value) =>
+                              convertKelvinToCelsius(value).toStringAsFixed(2),
+                          unit: '°C',
+                        ),
+                        buildDataRow('Densidad',
+                            getPeriodicElement.data?.density?.toString() ?? ''),
+                        buildDataRow(
+                            'Electronegatividad',
+                            getPeriodicElement.data?.electronegativity
+                                .toString()),
+                        buildDataRow(
+                          'Estados de oxidación',
+                          getPeriodicElement.data?.oxidationStates.toString(),
+                          type: TypeTable.arrayText,
+                        ),
+                        buildDataRow('Energía de ionización',
+                            getPeriodicElement.data?.ionizationEnergy,
+                            unit: 'eV'),
+                        buildDataRow('Afinidad electronica',
+                            getPeriodicElement.data?.electronAffinity,
+                            unit: 'eV'),
+                        buildDataRow('Año de Descubrimiento',
+                            getPeriodicElement.data?.yearDiscovered.toString()),
                       ],
                       columns: [
                         DataColumn(label: Text('Propiedad ')),
@@ -158,4 +93,57 @@ class ElementsDetail extends HookWidget {
       ],
     );
   }
+}
+
+enum TypeTable { text, arrayText }
+
+DataRow buildDataRow(
+  String label,
+  dynamic value, {
+  String unit = '',
+  String Function(dynamic)? valueProcessor,
+  TypeTable type = TypeTable.text,
+}) {
+  dynamic content = value;
+  if (type == TypeTable.arrayText) {
+    content = (value as String)
+        .split(',')
+        .map((e) => int.parse(e.trim()))
+        .sorted((a, b) => b.compareTo(a));
+  }
+  if (valueProcessor != null) {
+    content = valueProcessor(value);
+  }
+  return DataRow(cells: [
+    /* titleTable(label), */
+    DataCell(SimpleText(label, fontSize: 15, fontWeight: FontWeight.w500)),
+    /* Content */
+    DataCell(type == TypeTable.arrayText
+        ? Wrap(
+            /* crossAxisAlignment: CrossAxisAlignment.start, */
+            children: (content as Iterable<int>)
+                .map(
+                  (e) => Container(
+                    margin: EdgeInsets.all(2.5),
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 1.5),
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.blue,
+                    ),
+                    child: Center(
+                      child: SimpleText(
+                        e.toString(),
+                        /* color: Colors.black, */
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          )
+        : Text(content != null ? content.toString() + ' $unit' : '')),
+  ]);
 }

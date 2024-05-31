@@ -38,19 +38,17 @@ class CompoundDetailPage extends StatelessWidget {
           ),
         ],
       ),
-      body: ScaffoldBackground(
-        body: SizedBox.expand(
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: CompoundByType(
-                  compound: compound,
-                ),
+      body: SizedBox.expand(
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: CompoundByType(
+                compound: compound,
               ),
-              Align(alignment: Alignment.bottomCenter, child: BannerAd()),
-            ],
-          ),
+            ),
+            /* Align(alignment: Alignment.bottomCenter, child: BannerAd()), */
+          ],
         ),
       ),
     );
@@ -231,85 +229,69 @@ class ElementDetailCardWithPeriodicElement extends HookWidget {
   final Widget compoundWidget;
   @override
   Widget build(BuildContext context) {
-    final showValences = useState(false);
     return SizedBox.expand(
       child: InkWell(
         splashFactory: NoSplash.splashFactory,
         highlightColor: Colors.transparent,
-        onTap: () => showValences.value ? showValences.value = false : null,
-        splashColor: null,
+        onTap: () =>
+            context.push(ElementsDetail.routeName, extra: periodicTableElement),
         child: Stack(
           children: [
-            AnimatedOpacity(
-              duration: Duration(milliseconds: 250),
-              opacity: showValences.value ? 0.35 : 1,
-              child: Align(
-                alignment: Alignment.center,
-                child: compoundWidget,
-              ),
+            Align(
+              alignment: Alignment.center,
+              child: compoundWidget,
             ),
             Positioned(
               top: 0,
               right: 0,
-              child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 250),
-                child: showValences.value
-                    ? ElementCard(
-                        element: periodicTableElement,
-                        size: 180,
-                        onTap: (el) => showValences.value = !showValences.value)
-                    : InkWell(
-                        onTap: () => showValences.value = true,
-                        child: Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  colorByGroup(periodicTableElement.group),
-                                  colorByGroup(periodicTableElement.group)
-                                      .withOpacity(0.8),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                Text(
-                                  periodicTableElement.symbol,
-                                  style: TextStyle(
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  periodicTableElement.name,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    /* color: Colors.white, */
-                                  ),
-                                ),
-                                Row(
-                                  children: periodicTableElement.valencias
-                                      .map(
-                                        (e) => Text(
-                                          e.value.toString() + " ",
-                                          style: TextStyle(
-                                            /* color: Colors.white, */
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                )
-                              ],
-                            ),
-                          ),
+              child: Card(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        colorByGroup(periodicTableElement.group),
+                        colorByGroup(periodicTableElement.group)
+                            .withOpacity(0.8),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Text(
+                        periodicTableElement.symbol,
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        periodicTableElement.name,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
                           /* color: Colors.white, */
                         ),
                       ),
+                      Row(
+                        children: periodicTableElement.valencias
+                            .map(
+                              (e) => Text(
+                                e.value.toString() + " ",
+                                style: TextStyle(
+                                  /* color: Colors.white, */
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      )
+                    ],
+                  ),
+                ),
+                /* color: Colors.white, */
               ),
             ),
           ],

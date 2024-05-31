@@ -46,7 +46,15 @@ class ResultPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SimpleText(
-                  '$aciertos aciertos',
+                  lineHeight: 0,
+                  '$aciertos',
+                  fontSize: 140,
+                  textAlign: TextAlign.center,
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor,
+                ),
+                SimpleText(
+                  'aciertos',
                   fontSize: 25,
                   textAlign: TextAlign.center,
                   fontWeight: FontWeight.bold,
