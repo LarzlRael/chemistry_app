@@ -27,12 +27,15 @@ class SalesHidracidas extends HookWidget {
         );
       }
     }, [firstMetalSelected.value, secondMetalSelected.value]);
-    return Scaffold(
+    return ScaffoldBackground(
       appBar: AppBar(
         title: Text('Sales hidracidas'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
       ),
-      body: ScaffoldBackground(
-        body: Container(
+      body: SafeArea(
+        child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Column(
             children: [

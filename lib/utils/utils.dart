@@ -28,3 +28,4 @@ part 'sales_utils.dart';
 part 'dowloads_utils.dart';
 part 'periodic_utils.dart';
 part 'math_utils.dart';
+part 'custom_tab_bar.dart';

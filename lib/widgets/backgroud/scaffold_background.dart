@@ -12,6 +12,7 @@ class ScaffoldBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: appBar,
         body: SizedBox.expand(
           child: Stack(

@@ -12,9 +12,9 @@ enum Group {
   monoBivalente,
   anfotero,
   halogeno,
-  anfigenos,
-  nitrogeniodes,
-  carbonoides,
+  anfigeno,
+  nitrogeniode,
+  carbonoide,
 }
 
 enum TypeValencia {
@@ -96,9 +96,9 @@ final oxidosDoble = <Group>[
 ];
 final noMetalGroup = <Group>[
   Group.halogeno,
-  Group.anfigenos,
-  Group.nitrogeniodes,
-  Group.carbonoides,
+  Group.anfigeno,
+  Group.nitrogeniode,
+  Group.carbonoide,
   Group.anfotero,
 ];
 
@@ -113,7 +113,7 @@ final acidoPolihidratadoGroup = noMetalGroup;
 final ionGroup = noMetalGroup;
 final salesHidracidas = [
   Group.halogeno,
-  Group.anfigenos,
+  Group.anfigeno,
 ];
 
 List<TypeCompound> generatePossibleCombinations(Group group) {
@@ -215,7 +215,7 @@ class CompoundGuessGame {
 
 final Map<Group, int> noMetalesNegativeValue = {
   Group.halogeno: -1,
-  Group.anfigenos: -2,
-  Group.nitrogeniodes: -3,
-  Group.carbonoides: -4,
+  Group.anfigeno: -2,
+  Group.nitrogeniode: -3,
+  Group.carbonoide: -4,
 };

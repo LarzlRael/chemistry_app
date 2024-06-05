@@ -28,83 +28,89 @@ class SalesBasicas extends HookWidget {
 
     return ScaffoldBackground(
       appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         title: Text('Sales basicas'),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    SelecteCardForSal(
-                      color: hidroxidoSelected.value == null
-                          ? null
-                          : colorByCompoundType(hidroxidoSelected.value!.type),
-                      title: 'Hidroxido',
-                      /* height: mediaQuery.height * 0.15, */
-                      onTap: () => bottomSheetByCompounds(
-                        context,
-                        hidroxidoSelected,
-                        generateHidroxidosByGroupsElements(hidroxidoGroup),
-                        'Buscar hidroxido',
-                      ),
-                      width: mediaQuery.width * 0.4,
-                      child: hidroxidoSelected.value == null
-                          ? Text(
-                              'Seleccione hidroxido',
-                              textAlign: TextAlign.center,
-                              style: textTheme.labelMedium,
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FormulaInText(
-                                  compoundFormula:
-                                      hidroxidoSelected.value!.formula,
-                                  typeCompound: hidroxidoSelected.value!.type,
-                                  fontSize: 30,
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      SelecteCardForSal(
+                        color: hidroxidoSelected.value == null
+                            ? null
+                            : colorByCompoundType(
+                                hidroxidoSelected.value!.type),
+                        title: 'Hidroxido',
+                        /* height: mediaQuery.height * 0.15, */
+                        onTap: () => bottomSheetByCompounds(
+                          context,
+                          hidroxidoSelected,
+                          generateHidroxidosByGroupsElements(hidroxidoGroup),
+                          'Buscar hidroxido',
+                        ),
+                        width: mediaQuery.width * 0.4,
+                        child: hidroxidoSelected.value == null
+                            ? Text(
+                                'Seleccione hidroxido',
+                                textAlign: TextAlign.center,
+                                style: textTheme.labelMedium,
+                              )
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  FormulaInText(
+                                    compoundFormula:
+                                        hidroxidoSelected.value!.formula,
+                                    typeCompound: hidroxidoSelected.value!.type,
+                                    fontSize: 30,
+                                    textStyle: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                SimpleText(
-                                  hidroxidoSelected.value!.name,
-                                  style: styleMetalCard,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Icon(FontAwesomeIcons.circlePlus),
-                ),
-                SelectableCardSal(
-                    onTap: () =>
-                        bottomSheetIones(context, ionSelected, "Buscar ion"),
-                    compound: ionSelected.value)
-              ],
-            ),
-            result.value == null
-                ? SimpleText(
-                    'Seleccione un hidroxido y un ion para obtener el resultado',
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    textAlign: TextAlign.center,
-                  )
-                : CardSales(
-                    margin: EdgeInsets.only(top: 20),
-                    compound: result.value!,
-                    height: 0.20,
+                                  SimpleText(
+                                    hidroxidoSelected.value!.name,
+                                    style: styleMetalCard,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                      ),
+                    ],
                   ),
-            Spacer(),
-            BannerAd(),
-          ],
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Icon(FontAwesomeIcons.circlePlus),
+                  ),
+                  SelectableCardSal(
+                      onTap: () =>
+                          bottomSheetIones(context, ionSelected, "Buscar ion"),
+                      compound: ionSelected.value)
+                ],
+              ),
+              result.value == null
+                  ? SimpleText(
+                      'Seleccione un hidroxido y un ion para obtener el resultado',
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      textAlign: TextAlign.center,
+                    )
+                  : CardSales(
+                      margin: EdgeInsets.only(top: 20),
+                      compound: result.value!,
+                      height: 0.20,
+                    ),
+              Spacer(),
+              BannerAd(),
+            ],
+          ),
         ),
       ),
     );

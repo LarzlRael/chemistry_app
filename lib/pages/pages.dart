@@ -4,10 +4,13 @@ import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:collection/collection.dart';
 import 'dart:math' as math;
 import 'package:flip_card/flip_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -58,6 +61,9 @@ part 'games/guess_compound_game.dart';
 part 'games/guess_type_compound_game.dart';
 part 'games/routelle_example.dart';
 part 'perodice_table/periodic_table_page.dart';
+part 'test/tab_view_custom.dart';
 part 'test/test_page.dart';
+part 'test/login_page.dart';
+part 'test/test_home_page.dart';
 
 part 'games/result_page.dart';

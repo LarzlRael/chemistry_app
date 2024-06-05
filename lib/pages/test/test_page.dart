@@ -1,40 +1,144 @@
 part of '../pages.dart';
 
+final redColor = HexColor('#FF4B3A');
+
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
   static const routeName = '/test_page';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          width: 200,
-          height: 200,
-          color: Colors.red,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: SimpleText(
-                  '4',
-                  fontSize: 20,
-                  color: Colors.white,
+      body: SizedBox.expand(
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/data/hamburguer_image.jpg"),
+                  fit: BoxFit.cover,
                 ),
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Transform.rotate(
-                  angle: -math.pi / 4,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Colors.black.withOpacity(0.7),
+                    redColor.withOpacity(0.8),
+                  ],
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                SizedBox(height: 50),
+                Align(
+                  alignment: Alignment.topCenter,
                   child: Container(
-                    width: 20 + 10,
-                    height: 2.5,
-                    color: Colors.blue,
+                    width: 150,
+                    height: 150,
+                    color: redColor,
                   ),
                 ),
-              ),
-            ],
-          ),
+                Spacer(),
+                ButtonLogin(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.google,
+                        color: redColor,
+                        size: 35,
+                      ),
+                      SizedBox(width: 20),
+                      SimpleText(
+                        'Sign up with google',
+                        color: redColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                      ),
+                    ],
+                  ),
+                  backgroundColor: Colors.white,
+                ),
+                ButtonLogin(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  child: SimpleText(
+                    'Log in',
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                    );
+                  },
+                  backgroundColor: redColor,
+                ),
+                RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(text: 'Don\'t have an account?'),
+                      TextSpan(text: '  '),
+                      TextSpan(
+                          text: 'Sign up',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: redColor)),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ) /*
+             add child content here */
+            ,
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class ButtonLogin extends StatelessWidget {
+  const ButtonLogin({
+    super.key,
+    required this.child,
+    required this.backgroundColor,
+    this.onPressed,
+    this.margin,
+  });
+  final Widget child;
+  final Color backgroundColor;
+  final Function()? onPressed;
+  final EdgeInsetsGeometry? margin;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: margin,
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: FilledButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(backgroundColor),
+        ),
+        child: child,
+        onPressed: () {
+          if (onPressed != null) {
+            onPressed!();
+          }
+        },
       ),
     );
   }

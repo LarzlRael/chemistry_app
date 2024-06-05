@@ -47,6 +47,8 @@ class GamesPage extends StatelessWidget {
     ];
     return ScaffoldBackground(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text("Selecciona un juego"),
       ),
       body: AlignedGridView.count(

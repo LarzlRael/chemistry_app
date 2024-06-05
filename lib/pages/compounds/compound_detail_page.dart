@@ -8,6 +8,8 @@ class CompoundDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldBackground(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text(compound.name),
         actions: [
           IconButton(
@@ -39,16 +41,18 @@ class CompoundDetailPage extends StatelessWidget {
         ],
       ),
       body: SizedBox.expand(
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: CompoundByType(
-                compound: compound,
+        child: SafeArea(
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: CompoundByType(
+                  compound: compound,
+                ),
               ),
-            ),
-            /* Align(alignment: Alignment.bottomCenter, child: BannerAd()), */
-          ],
+              /* Align(alignment: Alignment.bottomCenter, child: BannerAd()), */
+            ],
+          ),
         ),
       ),
     );

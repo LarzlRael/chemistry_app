@@ -626,7 +626,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Azufre',
     symbol: 'S',
     atomicNumber: '',
-    group: Group.anfigenos,
+    group: Group.anfigeno,
     valencias: [
       Valencia(
         value: 2,
@@ -649,7 +649,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Selenio',
     symbol: 'Se',
     atomicNumber: '',
-    group: Group.anfigenos,
+    group: Group.anfigeno,
     valencias: [
       Valencia(
         value: 2,
@@ -672,7 +672,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Teluro',
     symbol: 'Te',
     atomicNumber: '',
-    group: Group.anfigenos,
+    group: Group.anfigeno,
     valencias: [
       Valencia(
         value: 2,
@@ -695,7 +695,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Nitrogéno',
     symbol: 'N',
     atomicNumber: '',
-    group: Group.nitrogeniodes,
+    group: Group.nitrogeniode,
     valencias: [
       Valencia(
         value: 1,
@@ -718,7 +718,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Fósforo',
     symbol: 'P',
     atomicNumber: '',
-    group: Group.nitrogeniodes,
+    group: Group.nitrogeniode,
     valencias: [
       Valencia(
         value: 1,
@@ -741,7 +741,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Arsénico',
     symbol: 'As',
     atomicNumber: '',
-    group: Group.nitrogeniodes,
+    group: Group.nitrogeniode,
     valencias: [
       Valencia(
         value: 3,
@@ -759,7 +759,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Antimonio',
     symbol: 'Sb',
     atomicNumber: '',
-    group: Group.nitrogeniodes,
+    group: Group.nitrogeniode,
     valencias: [
       Valencia(
         value: 3,
@@ -777,7 +777,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Boro',
     symbol: 'B',
     atomicNumber: '',
-    group: Group.nitrogeniodes,
+    group: Group.nitrogeniode,
     valencias: [
       Valencia(
         value: 3,
@@ -790,7 +790,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Carbono',
     symbol: 'C',
     atomicNumber: '',
-    group: Group.carbonoides,
+    group: Group.carbonoide,
     valencias: [
       Valencia(
         value: 2,
@@ -808,7 +808,7 @@ final List<PeriodicTableElement> allListPeriodic = [
     name: 'Silicio',
     symbol: 'Si',
     atomicNumber: '',
-    group: Group.carbonoides,
+    group: Group.carbonoide,
     valencias: [
       Valencia(
         value: 4,
@@ -884,9 +884,9 @@ Color colorByGroup(Group group) {
     Group.monoBivalente: Colors.green,
     Group.anfotero: Colors.teal,
     Group.halogeno: Colors.pinkAccent,
-    Group.anfigenos: Colors.lightGreen,
-    Group.nitrogeniodes: Colors.indigo,
-    Group.carbonoides: Colors.pinkAccent,
+    Group.anfigeno: Colors.lightGreen,
+    Group.nitrogeniode: Colors.indigo,
+    Group.carbonoide: Colors.pinkAccent,
     Group.todo: Colors.grey,
   };
 

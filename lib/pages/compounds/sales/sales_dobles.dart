@@ -31,12 +31,15 @@ class SalesDobles extends HookWidget {
       secondMetalSelected.value,
       ionSelected.value
     ]);
-    return Scaffold(
+    return ScaffoldBackground(
       appBar: AppBar(
         title: Text('Sales dobles'),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
-      body: ScaffoldBackground(
-        body: Container(
+      body: SafeArea(
+        child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: SingleChildScrollView(
             child: Column(

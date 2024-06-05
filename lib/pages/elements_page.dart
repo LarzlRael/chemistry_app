@@ -41,9 +41,19 @@ class ElementsPage extends HookConsumerWidget {
                 },
               ),
             ],
-            bottom: TabBar(
-                isScrollable: true,
-                /* Tab(icon: Icon(Icons.directions_car)), */
+            bottom: ButtonsTabBar(
+                backgroundColor: primaryColor,
+                contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                buttonMargin: EdgeInsets.symmetric(horizontal: 10),
+                unselectedBackgroundColor: HexColor('#161A23'),
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
                 tabs: Group.values
                     .map((group) => Tab(
                           text: group.name.toCapitalize() + 's',
@@ -54,6 +64,7 @@ class ElementsPage extends HookConsumerWidget {
           body: TabBarView(
               children: Group.values.map((group) {
             return Container(
+              margin: const EdgeInsets.only(top: 15),
               child: Column(
                 children: [
                   /* SearchBarElement(), */

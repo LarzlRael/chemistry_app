@@ -78,9 +78,12 @@ class CompoundsByTypePage extends HookConsumerWidget {
       };
     }, []);
 
-    return Scaffold(
+    return ScaffoldBackground(
       appBar: AppBar(
         title: Text(currentType.value!.name),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         actions: [
           IconButton(
             icon: Icon(Icons.help),
@@ -122,19 +125,21 @@ class CompoundsByTypePage extends HookConsumerWidget {
           ),
         ],
       ),
-      body: CompoundtListCards(
-        color: colorByCompoundType(compoundType),
-        cardFontSize: 22,
-        formulaFontSize: formulaFontSize(compoundType),
-        formulaGap: 3,
-        cardSize: 160,
-        compoundsList: listCompounds.value,
-        onSelected: ((element) => {
-              context.push(
-                CompoundDetailPage.routeName,
-                extra: element,
-              )
-            }),
+      body: SafeArea(
+        child: CompoundtListCards(
+          color: colorByCompoundType(compoundType),
+          cardFontSize: 22,
+          formulaFontSize: formulaFontSize(compoundType),
+          formulaGap: 3,
+          cardSize: 160,
+          compoundsList: listCompounds.value,
+          onSelected: ((element) => {
+                context.push(
+                  CompoundDetailPage.routeName,
+                  extra: element,
+                )
+              }),
+        ),
       ),
     );
   }

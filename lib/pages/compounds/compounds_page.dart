@@ -6,22 +6,24 @@ class CompoundsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Scaffold(
+    return ScaffoldBackground(
         appBar: AppBar(
           title: Text('Compuestos'),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
         ),
-        body: ScaffoldBackground(
-          body: Container(
+        body: SafeArea(
+          child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /* SimpleText(
-                   'Metales',
-                  style: textTheme.titleMedium,
-                ),
-                SizedBox(height: 10), */
+                     'Metales',
+                    style: textTheme.titleMedium,
+                  ),
+                  SizedBox(height: 10), */
                 Expanded(
                   child: AlignedGridView.count(
                     itemCount: compoundMetalList.length,
@@ -62,28 +64,28 @@ class CompoundsPage extends StatelessWidget {
                 ),
 
                 /* SizedBox(
-                    height:
-                        20), // Espacio entre la rejilla de tarjetas y la siguiente lista
-                Expanded(
-                  child: AlignedGridView.count(
-                    itemCount: compoundNoMetalList.length,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 1,
-                    crossAxisSpacing: 1,
-                    itemBuilder: (context, index) {
-                      final element = compoundNoMetalList[index];
-                      return Hero(
-                        tag: element.name,
-                        child: CompoundsOption(
-                          compoundCard: element,
-                          onTap: (option) => context.push(
-                            '/compounds_by_type_page/$option',
+                      height:
+                          20), // Espacio entre la rejilla de tarjetas y la siguiente lista
+                  Expanded(
+                    child: AlignedGridView.count(
+                      itemCount: compoundNoMetalList.length,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 1,
+                      crossAxisSpacing: 1,
+                      itemBuilder: (context, index) {
+                        final element = compoundNoMetalList[index];
+                        return Hero(
+                          tag: element.name,
+                          child: CompoundsOption(
+                            compoundCard: element,
+                            onTap: (option) => context.push(
+                              '/compounds_by_type_page/$option',
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ), */
+                        );
+                      },
+                    ),
+                  ), */
               ],
             ),
           ),

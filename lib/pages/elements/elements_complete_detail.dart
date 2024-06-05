@@ -42,7 +42,7 @@ class ElementsCompleteDetail extends HookWidget {
                             .toCapitalize()
                         : '',
                     color: getPeriodicElement.data?.cpkHexColor.toString() == ""
-                        ? '#FFFFFF'
+                        ? '#03a9f4'
                         : getPeriodicElement.data?.cpkHexColor.toString(),
                   ),
                 ),
