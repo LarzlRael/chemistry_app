@@ -24,8 +24,11 @@ class PeriodicTablePage extends HookWidget {
       });
     }, []);
 
-    return Scaffold(
+    return ScaffoldBackground(
       appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         title: isSearch.value
             ? TextField(
                 autofocus: true,
@@ -37,9 +40,13 @@ class PeriodicTablePage extends HookWidget {
                 style: TextStyle(color: Colors.white),
                 onChanged: (value) {
                   final list = listPeriodiTable.value
-                      .where((element) => element.nombre
-                          .toLowerCase()
-                          .contains(value.toLowerCase()))
+                      .where((element) =>
+                          element.nombre
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) ||
+                          element.symbol
+                              .toLowerCase()
+                              .contains(value.toLowerCase()))
                       .toList();
                   searchedElements.value = list;
                 },
@@ -50,7 +57,7 @@ class PeriodicTablePage extends HookWidget {
               ),
         actions: [
           IconButton(
-            icon: Icon(Icons.info),
+            icon: Icon(FontAwesomeIcons.circleQuestion),
             onPressed: () {
               showDialog(
                 context: context,
@@ -104,36 +111,38 @@ class PeriodicTablePage extends HookWidget {
                 )
         ],
       ),
-      body: isLoadingFile.value
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Container(
-              child: AlignedGridView.count(
-              itemCount: searchedElements.value.length,
-              crossAxisCount: 3,
-              mainAxisSpacing: 1,
-              crossAxisSpacing: 1,
-              itemBuilder: (context, index) {
-                final data = searchedElements.value[index];
-                return CardPeriodicElement(
-                  onTap: (symbol) {
-                    context.push(
-                      ElementsCompleteDetail.routeName + '/$symbol',
-                    );
-                  },
-                  atomicNumer: data.atomicNumber.toString(),
-                  atomicMass: data.atomicMass.toString(),
-                  symbol: data.symbol,
-                  name: data.nombre,
-                  chemicalGruop:
-                      data.bloque.name.snakeCaseToWords().toCapitalize(),
-                  color: data.cpkHexColor.toString() == ""
-                      ? '#03a9f4'
-                      : data.cpkHexColor.toString(),
-                );
-              },
-            )),
+      body: SafeArea(
+        child: isLoadingFile.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                child: AlignedGridView.count(
+                itemCount: searchedElements.value.length,
+                crossAxisCount: 3,
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 1,
+                itemBuilder: (context, index) {
+                  final data = searchedElements.value[index];
+                  return CardPeriodicElement(
+                    onTap: (symbol) {
+                      context.push(
+                        ElementsCompleteDetail.routeName + '/$symbol',
+                      );
+                    },
+                    atomicNumer: data.atomicNumber.toString(),
+                    atomicMass: data.atomicMass.toString(),
+                    symbol: data.symbol,
+                    name: data.nombre,
+                    chemicalGruop:
+                        data.bloque.name.snakeCaseToWords().toCapitalize(),
+                    color: data.cpkHexColor.toString() == ""
+                        ? '#03a9f4'
+                        : data.cpkHexColor.toString(),
+                  );
+                },
+              )),
+      ),
     );
   }
 }

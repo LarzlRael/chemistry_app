@@ -1,11 +1,11 @@
 part of '../pages.dart';
 
-class MenunItemGame {
+class MenuItemGame {
   final String title;
   final String routeName;
   final IconData icon;
   final String assetImage;
-  MenunItemGame({
+  MenuItemGame({
     required this.title,
     required this.assetImage,
     required this.routeName,
@@ -20,13 +20,13 @@ class GamesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final list = [
-      MenunItemGame(
+      MenuItemGame(
         icon: Icons.access_alarms,
         routeName: '$routeName/${GuessPeriodicElement.routeName}',
         title: "Adivina el elemento de la tabla periodica",
         assetImage: "assets/chemestry/periodic_table_2.png",
       ),
-      MenunItemGame(
+      MenuItemGame(
         icon: Icons.abc,
         routeName: '$routeName/${GuessCompoundGame.routeName}',
         title: "Adivina el compuesto",
@@ -38,7 +38,7 @@ class GamesPage extends StatelessWidget {
         title: "Shake",
         assetImage: "assets/chemestry/periodic_table_2.png",
       ), */
-      MenunItemGame(
+      MenuItemGame(
         icon: Icons.access_alarm_outlined,
         routeName: '$routeName/${GuessTypeCompoundGame.routeName}',
         title: "Adivina el tipo de compuesto",

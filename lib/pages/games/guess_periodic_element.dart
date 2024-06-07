@@ -45,7 +45,7 @@ class GuessPeriodicElement extends HookConsumerWidget {
                   Expanded(
                     child: ProgresLinearTimer(
                       height: 15,
-                      durationMiliseconds: periodicTimeMiliseconds,
+                      durationMiliseconds: periodicTimeMilliseconds,
                       onTimerFinish: () {
                         interstiatAdProviderN.addCounterIntersitialAdAndShow();
                         Navigator.push(

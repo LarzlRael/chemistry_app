@@ -50,7 +50,7 @@ class CompoundDetailPage extends StatelessWidget {
                   compound: compound,
                 ),
               ),
-              /* Align(alignment: Alignment.bottomCenter, child: BannerAd()), */
+              Align(alignment: Alignment.bottomCenter, child: BannerAd()),
             ],
           ),
         ),

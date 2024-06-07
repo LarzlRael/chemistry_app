@@ -894,6 +894,17 @@ Color colorByGroup(Group group) {
       Colors.black; // Devuelve el color asignado o negro si no hay coincidencia
 }
 
+Color colorByGroupIndex(int index) {
+  final List<Group> groups = Group.values;
+
+  if (index < 0 || index >= groups.length) {
+    return Colors.black; // Manejo de índice fuera de rango
+  }
+
+  Group group = groups[index];
+  return colorByGroup(group);
+}
+
 Color colorByCompoundType(TypeCompound typeCompound) {
   Map<TypeCompound, Color> compoundColors = {
     TypeCompound.oxido: Color(0xff40E0D0),

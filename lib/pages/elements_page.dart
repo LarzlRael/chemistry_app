@@ -7,13 +7,16 @@ class ElementsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
     final remoteConfig = FirebaseRemoteConfigService();
+    final tabController = useTabController(initialLength: Group.values.length);
 
-    return DefaultTabController(
-      length: Group.values.length,
-      child: Scaffold(
-          appBar: AppBar(
-            actions: [
-              IconButton(
+    return ScaffoldBackground(
+        /* appBar: AppBar(
+          title: Text('Elementos'),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          actions: [
+            /* IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
                   showSearch(
@@ -24,7 +27,43 @@ class ElementsPage extends HookConsumerWidget {
                     ),
                   );
                 },
-              ),
+              ), */
+            IconButton(
+              icon: Icon(FontAwesomeIcons.flask),
+              tooltip: 'Ir a tabla periódica completa',
+              onPressed: () {
+                context.push(PeriodicTablePage.routeName);
+              },
+            ),
+            IconButton(
+              icon: Icon(FontAwesomeIcons.download),
+              tooltip: 'Descargar tabla periódica',
+              onPressed: () async {
+                interstiatAdProviderN.addCounterIntersitialAdAndShow();
+                await launchUrlFromString(remoteConfig.periodicTablePdf);
+              },
+            ),
+          ],
+        ), */
+        body: NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return [
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            title: Text("Elementos"),
+            actions: [
+              /* IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: SearchElementDelegate(
+                      compoundsProvider: ref.read(compoundProvider.notifier),
+                      /* compoundsState: ref.watch(compoundProvider), */
+                    ),
+                  );
+                },
+              ), */
               IconButton(
                 icon: Icon(FontAwesomeIcons.flask),
                 tooltip: 'Ir a tabla periódica completa',
@@ -41,43 +80,53 @@ class ElementsPage extends HookConsumerWidget {
                 },
               ),
             ],
-            bottom: ButtonsTabBar(
-                backgroundColor: primaryColor,
-                contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                buttonMargin: EdgeInsets.symmetric(horizontal: 10),
-                unselectedBackgroundColor: HexColor('#161A23'),
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-                unselectedLabelStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-                tabs: Group.values
-                    .map((group) => Tab(
-                          text: group.name.toCapitalize() + 's',
-                        ))
-                    .toList()),
-            title: Text('Elementos'),
-          ),
-          body: TabBarView(
-              children: Group.values.map((group) {
-            return Container(
-              margin: const EdgeInsets.only(top: 15),
-              child: Column(
-                children: [
-                  /* SearchBarElement(), */
-                  Expanded(
-                    child: ElementsByGroup(
-                      group: group,
-                    ),
+            elevation: 0,
+            /* automaticallyImplyLeading: false, */
+            expandedHeight: 15,
+            floating: true,
+            snap: true,
+          )
+        ];
+      },
+      body: SafeArea(
+        child: Column(
+          children: [
+            SearchBarElement(),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: ButtonsTabBar(
+                  controller: tabController,
+                  backgroundColor: primaryColor,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                  buttonMargin: EdgeInsets.symmetric(horizontal: 10),
+                  unselectedBackgroundColor: HexColor('#161A23'),
+                  labelStyle: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
-            );
-          }).toList())),
-    );
+                  unselectedLabelStyle: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  tabs: Group.values
+                      .map((group) => Tab(
+                            text: group.name.toCapitalize() + 's',
+                          ))
+                      .toList()),
+            ),
+            Expanded(
+              child: TabBarView(
+                  controller: tabController,
+                  children: Group.values
+                      .map((group) => ElementsByGroup(
+                            group: group,
+                          ))
+                      .toList()),
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 }
 
@@ -135,10 +184,13 @@ class SearchBarElement extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.only(
+          /* bottom: 10,
+        top: 5, */
+          ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        /* color: Colors.grey[200], */
+        color: HexColor('#242424'),
       ),
       height: 50,
       width: double.infinity,
@@ -148,33 +200,17 @@ class SearchBarElement extends ConsumerWidget {
           context: context,
           delegate: SearchElementDelegate(
             compoundsProvider: ref.read(compoundProvider.notifier),
-            /* compoundsState: ref.watch(compoundProvider), */
           ),
         ),
         child: Row(
-          /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.search,
-              color: Colors.grey[600],
-            ),
-            /* onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: SearchElementDelegate(
-                    compoundsNotifier: ref.read(compoundProvider.notifier),
-                    compoundsState: ref.watch(compoundProvider),
-                  ),
-                );
-              }, */
-
-            Text(
+            Icon(Icons.search, size: 20, color: HexColor('#636363')),
+            SizedBox(width: 10),
+            SimpleText(
               'Buscar elemento',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[600],
-              ),
+              fontSize: 15,
+              color: HexColor('#636363'),
             ),
           ],
         ),

@@ -123,7 +123,7 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
             children: [
               ProgresLinearTimer(
                 height: 15,
-                durationMiliseconds: compoundTimeMiliseconds,
+                durationMiliseconds: compoundTimeMilliseconds,
                 onTimerFinish: () {
                   interstiatAdProviderN.addCounterIntersitialAdAndShow();
                   Navigator.push(

@@ -12,10 +12,17 @@ class HomePage extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              logoApp,
-              width: 40,
-              height: 40,
+            Container(
+              decoration: BoxDecoration(
+                color: primaryColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              padding: const EdgeInsets.all(5),
+              child: Image.asset(
+                ghostLogo,
+                width: 40,
+                height: 40,
+              ),
             ),
             const SizedBox(width: 10),
             Text(appName),

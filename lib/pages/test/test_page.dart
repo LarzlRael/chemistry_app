@@ -36,11 +36,7 @@ class TestPage extends StatelessWidget {
                 SizedBox(height: 50),
                 Align(
                   alignment: Alignment.topCenter,
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    color: redColor,
-                  ),
+                  child: CardOveretedImage(),
                 ),
                 Spacer(),
                 ButtonLogin(
@@ -109,6 +105,46 @@ class TestPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class CardOveretedImage extends StatelessWidget {
+  const CardOveretedImage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final height = 250.0;
+    return Container(
+        width: 130,
+        height: height,
+        color: redColor,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: height * 0.6,
+                width: size.width,
+                child: Card(),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Image.asset(
+                  'assets/data/planta.png',
+                  fit: BoxFit.fill,
+                  width: 100,
+                  height: 150,
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }
 

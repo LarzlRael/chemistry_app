@@ -1,2 +1,2 @@
-const periodicTimeMiliseconds = 60000;
-const compoundTimeMiliseconds = 60000;
+const periodicTimeMilliseconds = 60000;
+const compoundTimeMilliseconds = 60000;

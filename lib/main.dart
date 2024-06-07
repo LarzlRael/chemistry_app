@@ -31,7 +31,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(notificationNotifierProvider);
+    /* ref.watch(notificationNotifierProvider); */
     return MaterialApp.router(
       title: appName,
       debugShowCheckedModeBanner: false,
