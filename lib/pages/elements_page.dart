@@ -8,8 +8,16 @@ class ElementsPage extends HookConsumerWidget {
     final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
     final remoteConfig = FirebaseRemoteConfigService();
     final tabController = useTabController(initialLength: Group.values.length);
-
-    return ScaffoldBackground(
+    final colorScheme = Theme.of(context).colorScheme;
+    final searchedText = useState('');
+    final searchedElements = useState<List<PeriodicTableElement>>([]);
+    /* useEffect(() {
+      searchElementController.addListener(() {
+        ;
+      });
+      return () {};
+    }, []); */
+    return Scaffold(
         /* appBar: AppBar(
           title: Text('Elementos'),
           centerTitle: true,
@@ -50,7 +58,7 @@ class ElementsPage extends HookConsumerWidget {
         return [
           SliverAppBar(
             backgroundColor: Colors.transparent,
-            title: Text("Elementos"),
+            /* title: Text("Elementos"), */
             actions: [
               /* IconButton(
                 icon: Icon(Icons.search),
@@ -64,7 +72,7 @@ class ElementsPage extends HookConsumerWidget {
                   );
                 },
               ), */
-              IconButton(
+              /* IconButton(
                 icon: Icon(FontAwesomeIcons.flask),
                 tooltip: 'Ir a tabla periódica completa',
                 onPressed: () {
@@ -78,7 +86,7 @@ class ElementsPage extends HookConsumerWidget {
                   interstiatAdProviderN.addCounterIntersitialAdAndShow();
                   await launchUrlFromString(remoteConfig.periodicTablePdf);
                 },
-              ),
+              ), */
             ],
             elevation: 0,
             /* automaticallyImplyLeading: false, */
@@ -88,43 +96,67 @@ class ElementsPage extends HookConsumerWidget {
           )
         ];
       },
-      body: SafeArea(
-        child: Column(
-          children: [
-            SearchBarElement(),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: ButtonsTabBar(
-                  controller: tabController,
-                  backgroundColor: primaryColor,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                  buttonMargin: EdgeInsets.symmetric(horizontal: 10),
-                  unselectedBackgroundColor: HexColor('#161A23'),
-                  labelStyle: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+      body: Column(
+        children: [
+          SearchBarElement(
+            onChanged: (value) {
+              searchedText.value = value;
+              final list = allListPeriodic
+                  .where((element) =>
+                      element.name
+                          .toLowerCase()
+                          .contains(value.toLowerCase()) ||
+                      element.symbol
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
+                  .toList();
+              searchedElements.value = list;
+            },
+          ),
+          searchedText.value.isNotEmpty
+              ? SizedBox()
+              : Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: ButtonsTabBar(
+                      controller: tabController,
+                      backgroundColor: colorScheme.primary,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                      buttonMargin: EdgeInsets.symmetric(horizontal: 10),
+                      unselectedBackgroundColor: HexColor('#161A23'),
+                      labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      unselectedLabelStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      tabs: Group.values
+                          .map((group) => Tab(
+                                text: group.name.toCapitalize() + 's',
+                              ))
+                          .toList()),
+                ),
+          Expanded(
+            child: searchedText.value.isNotEmpty
+                ? ElementListCards(
+                    elements: searchedElements.value,
+                    onSelected: ((element) => {
+                          context.push(
+                            ElementsDetail.routeName,
+                            extra: element,
+                          )
+                        }))
+                : TabBarView(
+                    controller: tabController,
+                    children: Group.values
+                        .map((group) => ElementsByGroup(
+                              group: group,
+                            ))
+                        .toList(),
                   ),
-                  unselectedLabelStyle: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  tabs: Group.values
-                      .map((group) => Tab(
-                            text: group.name.toCapitalize() + 's',
-                          ))
-                      .toList()),
-            ),
-            Expanded(
-              child: TabBarView(
-                  controller: tabController,
-                  children: Group.values
-                      .map((group) => ElementsByGroup(
-                            group: group,
-                          ))
-                      .toList()),
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     ));
   }
@@ -181,38 +213,51 @@ class CirclesRow extends StatelessWidget {
 }
 
 class SearchBarElement extends ConsumerWidget {
+  final Function(String value) onChanged;
+  const SearchBarElement({super.key, required this.onChanged});
   @override
   Widget build(BuildContext context, ref) {
-    return Container(
-      margin: const EdgeInsets.only(
-          /* bottom: 10,
-        top: 5, */
-          ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: HexColor('#242424'),
-      ),
-      height: 50,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: InkWell(
-        onTap: () => showSearch(
-          context: context,
-          delegate: SearchElementDelegate(
-            compoundsProvider: ref.read(compoundProvider.notifier),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.search, size: 20, color: HexColor('#636363')),
-            SizedBox(width: 10),
-            SimpleText(
-              'Buscar elemento',
-              fontSize: 15,
-              color: HexColor('#636363'),
+    final colorScheme = Theme.of(context).colorScheme;
+    return Card(
+      child: Container(
+        margin: const EdgeInsets.only(
+            /* bottom: 10,
+          top: 5, */
             ),
-          ],
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          /* color: colorScheme.surface, */
+        ),
+        height: 50,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: InkWell(
+          /* onTap: () => showSearch(
+            context: context,
+            delegate: SearchElementDelegate(
+              compoundsProvider: ref.read(compoundProvider.notifier),
+            ),
+          ), */
+          child: TextField(
+            onChanged: onChanged,
+            /* onTap: () => showSearch(
+              context: context,
+              delegate: SearchElementDelegate(
+                compoundsProvider: ref.read(compoundProvider.notifier),
+              ),
+            ), */
+            decoration: InputDecoration(
+              hintText: 'Buscar elemento',
+              hintStyle: TextStyle(
+                color: colorScheme.onSurface,
+              ),
+              prefixIcon: Icon(
+                Icons.search,
+                color: colorScheme.onSurface,
+              ),
+              border: InputBorder.none,
+            ),
+          ),
         ),
       ),
     );

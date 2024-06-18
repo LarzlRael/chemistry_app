@@ -16,6 +16,7 @@ class GuessPeriodicElement extends HookConsumerWidget {
     final isBlock = useState(false);
     final correctAnswerAmount = useState(0);
 
+    final colorSchema = Theme.of(context).colorScheme;
     final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
 
     useEffect(() {
@@ -137,7 +138,7 @@ class GuessPeriodicElement extends HookConsumerWidget {
                                     ? isSelectedAux.value!
                                         ? Colors.green
                                         : Colors.red
-                                    : primaryColor
+                                    : colorSchema.primary
                                 : Colors.white,
                           ),
                           width: 100,

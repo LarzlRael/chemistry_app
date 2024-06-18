@@ -6,90 +6,83 @@ class CompoundsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldBackground(
-        appBar: AppBar(
+    return Scaffold(
+        /* appBar: AppBar(
           title: Text('Compuestos'),
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.transparent,
-        ),
-        body: SafeArea(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /* SimpleText(
-                     'Metales',
-                    style: textTheme.titleMedium,
-                  ),
-                  SizedBox(height: 10), */
+        ), */
+        body: Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /* SimpleText(
+                   'Metales',
+                  style: textTheme.titleMedium,
+                ),
+                SizedBox(height: 10), */
+          Expanded(
+            child: AlignedGridView.count(
+              itemCount: compoundMetalList.length,
+              crossAxisCount: 2,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
+              itemBuilder: (context, index) {
+                final compoundOption = compoundMetalList[index];
+                return CompoundsOption(
+                  compoundCard: compoundOption,
+                  onTap: (option, type) {
+                    switch (type) {
+                      case TypeCompound.sal_neutra:
+                        context.push('$routeName/${SalesNeutras.routeName}');
+                        break;
+                      case TypeCompound.sal_doble:
+                        context.push('$routeName/${SalesDobles.routeName}');
+                        break;
+                      case TypeCompound.sal_basicas:
+                        context.push('$routeName/${SalesBasicas.routeName}');
+                        break;
+                      case TypeCompound.sal_hidracida:
+                        context.push('$routeName/${SalesHidracidas.routeName}');
+                        break;
+                      default:
+                        context.push('/compounds_by_type_page/${type.name}');
+                        break;
+                    }
+                  },
+                );
+              },
+            ),
+          ),
+
+          /* SizedBox(
+                    height:
+                        20), // Espacio entre la rejilla de tarjetas y la siguiente lista
                 Expanded(
                   child: AlignedGridView.count(
-                    itemCount: compoundMetalList.length,
+                    itemCount: compoundNoMetalList.length,
                     crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1,
                     itemBuilder: (context, index) {
-                      final compoundOption = compoundMetalList[index];
-                      return CompoundsOption(
-                        compoundCard: compoundOption,
-                        onTap: (option, type) {
-                          switch (type) {
-                            case TypeCompound.sal_neutra:
-                              context
-                                  .push('$routeName/${SalesNeutras.routeName}');
-                              break;
-                            case TypeCompound.sal_doble:
-                              context
-                                  .push('$routeName/${SalesDobles.routeName}');
-                              break;
-                            case TypeCompound.sal_basicas:
-                              context
-                                  .push('$routeName/${SalesBasicas.routeName}');
-                              break;
-                            case TypeCompound.sal_hidracida:
-                              context.push(
-                                  '$routeName/${SalesHidracidas.routeName}');
-                              break;
-                            default:
-                              context
-                                  .push('/compounds_by_type_page/${type.name}');
-                              break;
-                          }
-                        },
+                      final element = compoundNoMetalList[index];
+                      return Hero(
+                        tag: element.name,
+                        child: CompoundsOption(
+                          compoundCard: element,
+                          onTap: (option) => context.push(
+                            '/compounds_by_type_page/$option',
+                          ),
+                        ),
                       );
                     },
                   ),
-                ),
-
-                /* SizedBox(
-                      height:
-                          20), // Espacio entre la rejilla de tarjetas y la siguiente lista
-                  Expanded(
-                    child: AlignedGridView.count(
-                      itemCount: compoundNoMetalList.length,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 1,
-                      crossAxisSpacing: 1,
-                      itemBuilder: (context, index) {
-                        final element = compoundNoMetalList[index];
-                        return Hero(
-                          tag: element.name,
-                          child: CompoundsOption(
-                            compoundCard: element,
-                            onTap: (option) => context.push(
-                              '/compounds_by_type_page/$option',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ), */
-              ],
-            ),
-          ),
-        ));
+                ), */
+        ],
+      ),
+    ));
   }
 }
 

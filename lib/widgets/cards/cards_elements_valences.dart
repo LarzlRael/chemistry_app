@@ -10,6 +10,7 @@ class ListTileElementsValences extends HookWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final colorSchema = Theme.of(context).colorScheme;
     final searchedPeriodicTable =
         useState<List<PeriodicTableElement>>(elements);
     final textController = useTextEditingController();
@@ -40,7 +41,7 @@ class ListTileElementsValences extends HookWidget {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
-                    color: primaryColor,
+                    color: colorSchema.primary,
                   ),
                 ),
                 labelText: 'Buscar metal',

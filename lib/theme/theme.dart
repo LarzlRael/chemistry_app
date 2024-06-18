@@ -69,7 +69,7 @@ class AppTheme2 {
 
   ThemeData getTheme() => ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.purple,
+        colorSchemeSeed: Color(0xff40E0D0),
         brightness: isDarkmode ? Brightness.dark : Brightness.light,
         /* scaffoldBackgroundColor: isDarkmode ? Colors.black : Colors.white, */
         /* listTileTheme: const ListTileThemeData(

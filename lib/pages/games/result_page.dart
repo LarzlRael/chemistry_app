@@ -7,11 +7,13 @@ class ResultPage extends StatelessWidget {
     required this.aciertos,
   });
   static const routeName = 'result_page';
+
   final String gameTitle;
   final int aciertos;
 
   @override
   Widget build(BuildContext context) {
+    final colorSchema = Theme.of(context).colorScheme;
     return PopScope(
       canPop: false,
       /* onPopInvoked: (didpop) {
@@ -51,14 +53,14 @@ class ResultPage extends StatelessWidget {
                   fontSize: 140,
                   textAlign: TextAlign.center,
                   fontWeight: FontWeight.bold,
-                  color: primaryColor,
+                  color: colorSchema.primary,
                 ),
                 SimpleText(
                   'aciertos',
                   fontSize: 25,
                   textAlign: TextAlign.center,
                   fontWeight: FontWeight.bold,
-                  color: primaryColor,
+                  color: colorSchema.primary,
                 ),
                 SizedBox(height: 20),
                 FilledButton(

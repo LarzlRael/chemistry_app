@@ -1,11 +1,32 @@
 part of 'pages.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends HookWidget {
   static const routeName = '/';
   const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
-    return ScaffoldBackground(
+    final colorScheme = Theme.of(context).colorScheme;
+    final bodies = [
+      /* context.push('/elements_page');
+context.push('/compounds_page');
+context.push('/games_page'); */
+      ElementsPage(),
+      CompoundsPage(),
+      GamesPage(),
+    ];
+    final indexBottomNavbar = useState(0);
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: indexBottomNavbar.value,
+        onDestinationSelected: (index) => indexBottomNavbar.value = index,
+        destinations: [
+          NavigationDestination(
+              icon: Icon(Custom.ic_perodic_table), label: 'Tabla periódica'),
+          NavigationDestination(
+              icon: Icon(Custom.ic_compound), label: 'Compuesto'),
+          NavigationDestination(icon: Icon(Custom.ic_trivia), label: 'Trivia'),
+        ],
+      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -14,7 +35,7 @@ class HomePage extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: primaryColor,
+                color: colorScheme.primary,
                 borderRadius: BorderRadius.circular(5),
               ),
               padding: const EdgeInsets.all(5),
@@ -30,54 +51,7 @@ class HomePage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(
-            top: 20,
-            left: 20,
-            right: 20,
-            bottom: 1,
-          ),
-          child: Column(
-            children: [
-              ButtonCategory(
-                icon: Custom.ic_perodic_table,
-                text: 'Elementos químicos',
-                onPress: () {
-                  context.push('/elements_page');
-                },
-                color1: Color(0xff8061C0),
-                color2: Color(0xff8061C0),
-              ),
-              ButtonCategory(
-                icon: Custom.ic_compound,
-                text: 'Compuestos químicos',
-                onPress: () {
-                  context.push('/compounds_page');
-                },
-                color1: Color(0xff8D0074),
-                color2: Color(0xff8D0074),
-              ),
-              ButtonCategory(
-                icon: Custom.ic_trivia,
-                text: 'Trivia',
-                onPress: () {
-                  context.push('/games_page');
-                },
-                color1: Colors.blue,
-                color2: Colors.blueAccent,
-              ),
-              Spacer(),
-              TextButton(
-                onPressed: () async {
-                  await launchUrlFromString(privacyPolicy);
-                },
-                child: Text('Politicas de privacidad'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: bodies[indexBottomNavbar.value],
     );
   }
 }

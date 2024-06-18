@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'dart:math';
 
@@ -21,6 +22,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:roulette/roulette.dart' as roulette2;
 import 'package:shake/shake.dart';
+import 'dart:ui' as ui;
 import 'package:templat_project/anim/custom_icons/custom_icons.dart';
 
 import 'package:templat_project/buttons/buttons.dart';

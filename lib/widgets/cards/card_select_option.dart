@@ -18,6 +18,7 @@ class CardSelectOption extends StatelessWidget {
   final int selectedCardIndex;
   @override
   Widget build(BuildContext context) {
+    final colorSchema = Theme.of(context).colorScheme;
     return InkWell(
       customBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -36,7 +37,7 @@ class CardSelectOption extends StatelessWidget {
                     ? isSelectedAux!
                         ? Colors.green
                         : Colors.red
-                    : primaryColor
+                    : colorSchema.primary
                 : Colors.white,
           ),
           padding: EdgeInsets.all(2.5),

@@ -19,7 +19,7 @@ class GuessCompoundGame extends HookConsumerWidget {
     );
 
     final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
-
+    final colorSchema = Theme.of(context).colorScheme;
     useEffect(() {
       if (isCorrect.value) {
         isBlock.value = true;
@@ -92,7 +92,7 @@ class GuessCompoundGame extends HookConsumerWidget {
                               fontSize: 40,
                               textStyle: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: primaryColor,
+                                color: colorSchema.primary,
                               ),
                             ),
                           ],
@@ -131,7 +131,7 @@ class GuessCompoundGame extends HookConsumerWidget {
                                       ? isSelectedAux.value!
                                           ? Colors.green
                                           : Colors.red
-                                      : primaryColor
+                                      : colorSchema.primary
                                   : Colors.white,
                             ),
                             padding: EdgeInsets.all(10),

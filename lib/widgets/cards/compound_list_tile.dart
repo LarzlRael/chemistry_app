@@ -18,6 +18,7 @@ class CompundListTile extends HookWidget {
   Widget build(BuildContext context) {
     final searchedCompound = useState<List<Compound>>(compounds);
     final textController = useTextEditingController();
+    final colorSchema = Theme.of(context).colorScheme;
     useEffect(() {
       textController.addListener(() {
         final text = textController.text.toLowerCase();
@@ -43,7 +44,7 @@ class CompundListTile extends HookWidget {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: primaryColor,
+                      color: colorSchema.primary,
                     ),
                   ),
                   labelText: inputLabel,

@@ -15,7 +15,7 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
     final selectedCardIndex = useState<int>(-1);
     final correctAnswerAmount = useState<int>(0);
     final compoundGuessGame = useState<CompoundGuessGame?>(null);
-
+    final colorSchema = Theme.of(context).colorScheme;
     final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
 
     List<Compound> compoundsByType() {
@@ -167,7 +167,7 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
                             fontSize: 45,
                             textStyle: TextStyle(
                               fontWeight: FontWeight.w600,
-                              color: primaryColor,
+                              color: colorSchema.primary,
                             ),
                           ),
                           if (isSelectedAux.value != null &&

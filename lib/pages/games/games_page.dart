@@ -45,12 +45,12 @@ class GamesPage extends StatelessWidget {
         assetImage: "assets/chemestry/acidos_hidracidos.png",
       ),
     ];
-    return ScaffoldBackground(
-      appBar: AppBar(
+    return Scaffold(
+      /* appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text("Selecciona un juego"),
-      ),
+      ), */
       body: AlignedGridView.count(
         itemCount: list.length,
         crossAxisCount: 2,

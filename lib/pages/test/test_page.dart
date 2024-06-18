@@ -120,17 +120,9 @@ class CardOveretedImage extends StatelessWidget {
     return Container(
         width: 130,
         height: height,
-        color: redColor,
+        /* color: redColor, */
         child: Stack(
           children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: height * 0.6,
-                width: size.width,
-                child: Card(),
-              ),
-            ),
             Align(
               alignment: Alignment.center,
               child: Container(
@@ -140,6 +132,37 @@ class CardOveretedImage extends StatelessWidget {
                   fit: BoxFit.fill,
                   width: 100,
                   height: 150,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: height * 0.6,
+                width: size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ui.ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Stack(
+                          children: [
+                            Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SimpleText(
+                                  'Hola gente',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                )),
+                          ],
+                        )),
+                  ),
                 ),
               ),
             ),
@@ -158,7 +181,7 @@ class ButtonLogin extends StatelessWidget {
   });
   final Widget child;
   final Color backgroundColor;
-  final Function()? onPressed;
+  final void Function()? onPressed;
   final EdgeInsetsGeometry? margin;
   @override
   Widget build(BuildContext context) {
@@ -166,16 +189,11 @@ class ButtonLogin extends StatelessWidget {
       margin: margin,
       width: MediaQuery.of(context).size.width * 0.9,
       child: FilledButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(backgroundColor),
-        ),
-        child: child,
-        onPressed: () {
-          if (onPressed != null) {
-            onPressed!();
-          }
-        },
-      ),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(backgroundColor),
+          ),
+          child: child,
+          onPressed: onPressed),
     );
   }
 }

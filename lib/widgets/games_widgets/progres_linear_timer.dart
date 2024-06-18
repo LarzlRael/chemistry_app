@@ -59,6 +59,7 @@ class _ProgresLinearTimerState extends State<ProgresLinearTimer> {
 
   @override
   Widget build(BuildContext context) {
+    final colorSchema = Theme.of(context).colorScheme;
     Color getColorByTimeLeft() {
       final double percentage =
           _milisecondsRemaining / widget.durationMiliseconds;
@@ -81,7 +82,7 @@ class _ProgresLinearTimerState extends State<ProgresLinearTimer> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.0),
-            color: primaryColor,
+            color: colorSchema.primary,
           ),
           child: FractionallySizedBox(
             alignment: Alignment.centerLeft,
