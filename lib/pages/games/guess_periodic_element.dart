@@ -43,10 +43,15 @@ class GuessPeriodicElement extends HookConsumerWidget {
             children: [
               Row(
                 children: [
+                  BackIconButton(
+                    icon: Icons.close,
+                    size: 35,
+                  ),
+                  /* SizedBox(width: 5), */
                   Expanded(
-                    child: ProgresLinearTimer(
+                    child: ProgressLinearTimer(
                       height: 15,
-                      durationMiliseconds: periodicTimeMilliseconds,
+                      durationMilliseconds: periodicTimeMilliseconds,
                       onTimerFinish: () {
                         interstiatAdProviderN.addCounterIntersitialAdAndShow();
                         Navigator.push(
@@ -61,21 +66,6 @@ class GuessPeriodicElement extends HookConsumerWidget {
                       },
                     ),
                   ),
-                  /*  SizedBox(width: 10),
-                    Column(
-                      children: [
-                        SimpleText(
-                          'Aciertos',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        SimpleText(
-                          correctAnswerAmount.value.toString(),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ), */
                 ],
               ),
               Container(

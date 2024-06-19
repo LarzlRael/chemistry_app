@@ -121,21 +121,32 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
-              ProgresLinearTimer(
-                height: 15,
-                durationMiliseconds: compoundTimeMilliseconds,
-                onTimerFinish: () {
-                  interstiatAdProviderN.addCounterIntersitialAdAndShow();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResultPage(
-                        gameTitle: 'Adivina el tipo de compuesto',
-                        aciertos: correctAnswerAmount.value,
-                      ),
+              Row(
+                children: [
+                  BackIconButton(
+                    icon: Icons.close,
+                    size: 35,
+                  ),
+                  SizedBox(width: 5),
+                  Expanded(
+                    child: ProgressLinearTimer(
+                      height: 15,
+                      durationMilliseconds: compoundTimeMilliseconds,
+                      onTimerFinish: () {
+                        interstiatAdProviderN.addCounterIntersitialAdAndShow();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResultPage(
+                              gameTitle: 'Adivina el tipo de compuesto',
+                              aciertos: correctAnswerAmount.value,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
               /* Text('Selecciona el elemento correcto'), */
               Container(

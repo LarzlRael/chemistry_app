@@ -10,6 +10,9 @@ class CompoundsByTypePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentType = useState<CompoundListElement?>(null);
     final listCompounds = useState<List<Compound>>([]);
+    final isSearching = useState(false);
+    final compoundSearched = useState<List<Compound>>([]);
+
     useEffect(() {
       switch (compoundType) {
         case TypeCompound.oxido:
@@ -78,55 +81,91 @@ class CompoundsByTypePage extends HookConsumerWidget {
       };
     }, []);
 
-    return ScaffoldBackground(
-      appBar: AppBar(
-        title: Text(currentType.value!.name),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.help),
-            onPressed: () {
-              showModalBottomSheet<String>(
-                context: context,
-                isScrollControlled: true,
-                builder: (BuildContext context) => FractionallySizedBox(
-                  /* heightFactor: 0.9, */
-                  child: Container(
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          // Contenido del diálogo aquí
-                          Center(
-                              child: CompoundInstructionByType(
-                            typeCompound: compoundType,
-                          )),
-                        ],
+    return Scaffold(
+      appBar: isSearching.value
+          ? AppBar(
+              leading: BackIconButton(),
+              title: TextField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: 'Buscar compuesto',
+                  border: InputBorder.none,
+                ),
+                onChanged: (value) {
+                  /* if (value.isEmpty) {
+                    compoundSearch.value = '';
+                    return;
+                  } */
+                  compoundSearched.value = listCompounds.value
+                      .where((element) => element.name
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
+                      .toList();
+                },
+              ),
+              /* centerTitle: true, */
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              actions: [
+                TextButton(
+                  child: Text("Cancelar"),
+                  onPressed: () {
+                    isSearching.value = false;
+                    compoundSearched.value = [];
+                  },
+                )
+              ],
+            )
+          : AppBar(
+              leading: BackIconButton(),
+              title: Text(currentType.value!.name),
+              centerTitle: true,
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.help),
+                  onPressed: () {
+                    showModalBottomSheet<String>(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) => FractionallySizedBox(
+                        /* heightFactor: 0.9, */
+                        child: Container(
+                          width: double.infinity,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                // Contenido del diálogo aquí
+                                Center(
+                                    child: CompoundInstructionByType(
+                                  typeCompound: compoundType,
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: SearchCompundByType(
-                  listCompounds: listCompounds.value,
-                  compoundNotifier: ref.read(compoundProvider.notifier),
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    isSearching.value = true;
+                    /*  showSearch(
+                      context: context,
+                      delegate: SearchCompoundByType(
+                        listCompounds: listCompounds.value,
+                        compoundNotifier: ref.read(compoundProvider.notifier),
+                      ),
+                    ); */
+                  },
                 ),
-              );
-            },
-          ),
-        ],
-      ),
+              ],
+            ),
       body: SafeArea(
-        child: CompoundtListCards(
+          child: /* CompoundListCards(
           color: colorByCompoundType(compoundType),
           cardFontSize: 22,
           formulaFontSize: formulaFontSize(compoundType),
@@ -139,8 +178,20 @@ class CompoundsByTypePage extends HookConsumerWidget {
                   extra: element,
                 )
               }),
-        ),
-      ),
+        ), */
+              CompoundListSimple(
+        compounds: isSearching.value
+            ? compoundSearched.value.isEmpty
+                ? listCompounds.value
+                : compoundSearched.value
+            : listCompounds.value,
+        onSelected: (Compound element) {
+          context.push(
+            CompoundDetailPage.routeName,
+            extra: element,
+          );
+        },
+      )),
     );
   }
 }

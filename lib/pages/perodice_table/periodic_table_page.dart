@@ -7,15 +7,15 @@ class PeriodicTablePage extends HookWidget {
   Widget build(BuildContext context) {
     final isLoadingFile = useState(true);
     final isSearch = useState(false);
-    final listPeriodiTable = useState<List<LocalPeriodicElement>>([]);
+    final listPeriodicTable = useState<List<LocalPeriodicElement>>([]);
     final searchedElements = useState<List<LocalPeriodicElement>>([]);
 
     Future<void> parseFile() async {
       final data = await loadJsonFromAssets('assets/data/periodic_table.json');
       final converted = localPeriodicElementFromJson(data);
-      listPeriodiTable.value =
+      listPeriodicTable.value =
           converted.sorted((a, b) => a.bloque.index.compareTo(b.bloque.index));
-      searchedElements.value = listPeriodiTable.value;
+      searchedElements.value = listPeriodicTable.value;
     }
 
     useEffect(() {
@@ -24,22 +24,23 @@ class PeriodicTablePage extends HookWidget {
       });
     }, []);
 
-    return ScaffoldBackground(
+    return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        leading: BackIconButton(),
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: isSearch.value
             ? TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                  hintText: getTOneRandomElement(listPeriodiTable.value).nombre,
+                  hintText:
+                      getTOneRandomElement(listPeriodicTable.value).nombre,
                   border: InputBorder.none,
                   /* hintStyle: TextStyle(color: Colors.white), */
                 ),
                 style: TextStyle(color: Colors.white),
                 onChanged: (value) {
-                  final list = listPeriodiTable.value
+                  final list = listPeriodicTable.value
                       .where((element) =>
                           element.nombre
                               .toLowerCase()
@@ -100,7 +101,7 @@ class PeriodicTablePage extends HookWidget {
                   child: Text("Cancelar"),
                   onPressed: () {
                     isSearch.value = false;
-                    searchedElements.value = listPeriodiTable.value;
+                    searchedElements.value = listPeriodicTable.value;
                   },
                 )
               : IconButton(

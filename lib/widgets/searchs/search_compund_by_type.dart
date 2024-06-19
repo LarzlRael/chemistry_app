@@ -1,13 +1,13 @@
 part of '../widgets.dart';
 
-class SearchCompundByType extends SearchDelegate {
+class SearchCompoundByType extends SearchDelegate {
   final List<Compound> listCompounds;
   final CompoundNotifier compoundNotifier;
   @override
   String get searchFieldLabel => 'Buscar compuesto';
   Timer? debouncerTimer;
 
-  SearchCompundByType({
+  SearchCompoundByType({
     required this.listCompounds,
     required this.compoundNotifier,
   }) {

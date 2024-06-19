@@ -147,6 +147,7 @@ class GameOption extends StatelessWidget {
   final Function(String gameRoute)? onTap;
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return InkWell(
       customBorder:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -157,8 +158,8 @@ class GameOption extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        height: 125,
-        margin: const EdgeInsets.all(2),
+        height: 150,
+        margin: const EdgeInsets.only(bottom: 10),
         child: Card(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -166,15 +167,13 @@ class GameOption extends StatelessWidget {
             children: [
               Image.asset(
                 assetImage,
-                width: 50,
-                height: 50,
+                width: 80,
+                height: 80,
               ),
               SimpleText(
                 title,
-                padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                textAlign: TextAlign.center,
+                padding: const EdgeInsets.only(top: 10),
+                style: textTheme.titleMedium,
               ),
             ],
           ),

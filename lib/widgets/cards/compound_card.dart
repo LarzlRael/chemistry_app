@@ -1,6 +1,6 @@
 part of '../widgets.dart';
 
-class CompoundtListCards extends StatelessWidget {
+class CompoundListCards extends StatelessWidget {
   final List<Compound> compoundsList;
   final Color color;
   final Function(Compound compound)? onSelected;
@@ -8,7 +8,7 @@ class CompoundtListCards extends StatelessWidget {
   final double formulaFontSize;
   final double formulaGap;
   final double cardSize;
-  const CompoundtListCards({
+  const CompoundListCards({
     required this.compoundsList,
     required this.color,
     super.key,

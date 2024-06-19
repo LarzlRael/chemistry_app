@@ -30,8 +30,8 @@ class ResultPage extends StatelessWidget {
               children: [
                 SimpleText(
                   '¡Bien jugado!',
-                  fontSize: 40,
-                  color: secondaryColor,
+                  fontSize: 35,
+                  color: colorSchema.primary,
                   textAlign: TextAlign.center,
                   fontWeight: FontWeight.bold,
                 ),
@@ -40,12 +40,14 @@ class ResultPage extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.w300,
                   textAlign: TextAlign.center,
-                  padding: EdgeInsets.symmetric(vertical: 20),
                 ),
+                SizedBox(height: 30),
                 SimpleText(
                   'Tu resultado es de',
                   fontSize: 18,
                   textAlign: TextAlign.center,
+                  color: colorSchema.primary,
+                  fontWeight: FontWeight.w600,
                 ),
                 SimpleText(
                   lineHeight: 0,
@@ -59,11 +61,17 @@ class ResultPage extends StatelessWidget {
                   'aciertos',
                   fontSize: 25,
                   textAlign: TextAlign.center,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   color: colorSchema.primary,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 FilledButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: colorSchema.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.of(context)
                       ..pop()
@@ -77,6 +85,7 @@ class ResultPage extends StatelessWidget {
                         'Volver a jugar',
                         textAlign: TextAlign.center,
                         fontSize: 20,
+                        color: Colors.white,
                         /* color: Colors.white, */
                       ),
                     ),

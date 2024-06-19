@@ -1,31 +1,31 @@
 part of '../widgets.dart';
 
-class ProgresLinearTimer extends StatefulWidget {
-  final int durationMiliseconds;
+class ProgressLinearTimer extends StatefulWidget {
+  final int durationMilliseconds;
   final Function onTimerFinish;
   final EdgeInsetsGeometry? margin;
   final double height;
-  const ProgresLinearTimer({
+  const ProgressLinearTimer({
     super.key,
-    required this.durationMiliseconds,
+    required this.durationMilliseconds,
     required this.onTimerFinish,
     this.margin,
     this.height = 10,
   });
 
   @override
-  _ProgresLinearTimerState createState() => _ProgresLinearTimerState();
+  _ProgressLinearTimerState createState() => _ProgressLinearTimerState();
 }
 
-class _ProgresLinearTimerState extends State<ProgresLinearTimer> {
-  late int _milisecondsRemaining;
+class _ProgressLinearTimerState extends State<ProgressLinearTimer> {
+  late int _millisecondsRemaining;
   late double _barWidth;
-  int durationMiliseconds = 17;
+  int durationMilliseconds = 17;
   late Timer timer;
   @override
   void initState() {
     super.initState();
-    _milisecondsRemaining = widget.durationMiliseconds;
+    _millisecondsRemaining = widget.durationMilliseconds;
     _barWidth = 1.0;
     startTimer();
   }
@@ -38,14 +38,14 @@ class _ProgresLinearTimerState extends State<ProgresLinearTimer> {
 
   void startTimer() {
     timer =
-        Timer.periodic(Duration(milliseconds: durationMiliseconds), (timer) {
+        Timer.periodic(Duration(milliseconds: durationMilliseconds), (timer) {
       if (mounted) {
         setState(() {
-          if (_milisecondsRemaining > 0) {
-            _milisecondsRemaining -= durationMiliseconds;
-            _barWidth = _milisecondsRemaining <= 0
+          if (_millisecondsRemaining > 0) {
+            _millisecondsRemaining -= durationMilliseconds;
+            _barWidth = _millisecondsRemaining <= 0
                 ? 0
-                : _milisecondsRemaining / widget.durationMiliseconds;
+                : _millisecondsRemaining / widget.durationMilliseconds;
           } else {
             widget.onTimerFinish();
             timer.cancel();
@@ -62,7 +62,7 @@ class _ProgresLinearTimerState extends State<ProgresLinearTimer> {
     final colorSchema = Theme.of(context).colorScheme;
     Color getColorByTimeLeft() {
       final double percentage =
-          _milisecondsRemaining / widget.durationMiliseconds;
+          _millisecondsRemaining / widget.durationMilliseconds;
 
       if (percentage > 0.6) {
         return Colors.green; // Color verde si queda más del 60% del tiempo

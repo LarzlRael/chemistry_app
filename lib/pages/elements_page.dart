@@ -18,84 +18,6 @@ class ElementsPage extends HookConsumerWidget {
       return () {};
     }, []); */
     return Scaffold(
-        /* appBar: AppBar(
-          title: Text('Elementos'),
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          actions: [
-            /* IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  showSearch(
-                    context: context,
-                    delegate: SearchElementDelegate(
-                      compoundsProvider: ref.read(compoundProvider.notifier),
-                      /* compoundsState: ref.watch(compoundProvider), */
-                    ),
-                  );
-                },
-              ), */
-            IconButton(
-              icon: Icon(FontAwesomeIcons.flask),
-              tooltip: 'Ir a tabla periódica completa',
-              onPressed: () {
-                context.push(PeriodicTablePage.routeName);
-              },
-            ),
-            IconButton(
-              icon: Icon(FontAwesomeIcons.download),
-              tooltip: 'Descargar tabla periódica',
-              onPressed: () async {
-                interstiatAdProviderN.addCounterIntersitialAdAndShow();
-                await launchUrlFromString(remoteConfig.periodicTablePdf);
-              },
-            ),
-          ],
-        ), */
-        body: NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return [
-          SliverAppBar(
-            backgroundColor: Colors.transparent,
-            /* title: Text("Elementos"), */
-            actions: [
-              /* IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  showSearch(
-                    context: context,
-                    delegate: SearchElementDelegate(
-                      compoundsProvider: ref.read(compoundProvider.notifier),
-                      /* compoundsState: ref.watch(compoundProvider), */
-                    ),
-                  );
-                },
-              ), */
-              /* IconButton(
-                icon: Icon(FontAwesomeIcons.flask),
-                tooltip: 'Ir a tabla periódica completa',
-                onPressed: () {
-                  context.push(PeriodicTablePage.routeName);
-                },
-              ),
-              IconButton(
-                icon: Icon(FontAwesomeIcons.download),
-                tooltip: 'Descargar tabla periódica',
-                onPressed: () async {
-                  interstiatAdProviderN.addCounterIntersitialAdAndShow();
-                  await launchUrlFromString(remoteConfig.periodicTablePdf);
-                },
-              ), */
-            ],
-            elevation: 0,
-            /* automaticallyImplyLeading: false, */
-            expandedHeight: 15,
-            floating: true,
-            snap: true,
-          )
-        ];
-      },
       body: Column(
         children: [
           SearchBarElement(
@@ -158,7 +80,7 @@ class ElementsPage extends HookConsumerWidget {
           )
         ],
       ),
-    ));
+    );
   }
 }
 
@@ -247,13 +169,13 @@ class SearchBarElement extends ConsumerWidget {
               ),
             ), */
             decoration: InputDecoration(
-              hintText: 'Buscar elemento',
-              hintStyle: TextStyle(
-                color: colorScheme.onSurface,
-              ),
+              hintText: getTOneRandomElement(allListPeriodic).name,
+              hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.grey,
+                  ),
               prefixIcon: Icon(
                 Icons.search,
-                color: colorScheme.onSurface,
+                color: Colors.grey,
               ),
               border: InputBorder.none,
             ),
@@ -282,3 +204,19 @@ class ElementsByGroup extends StatelessWidget {
     );
   }
 }
+
+/* IconButton(
+                icon: Icon(FontAwesomeIcons.flask),
+                tooltip: 'Ir a tabla periódica completa',
+                onPressed: () {
+                  context.push(PeriodicTablePage.routeName);
+                },
+              ),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.download),
+                tooltip: 'Descargar tabla periódica',
+                onPressed: () async {
+                  interstiatAdProviderN.addCounterIntersitialAdAndShow();
+                  await launchUrlFromString(remoteConfig.periodicTablePdf);
+                },
+              ), */

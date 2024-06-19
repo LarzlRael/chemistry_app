@@ -51,23 +51,26 @@ class GamesPage extends StatelessWidget {
         elevation: 0,
         title: Text("Selecciona un juego"),
       ), */
-      body: AlignedGridView.count(
-        itemCount: list.length,
-        crossAxisCount: 2,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
-        itemBuilder: (BuildContext context, int index) {
-          final element = list[index];
-          return InkWell(
-            onTap: () => context.push(element.routeName),
-            child: GameOption(
-              assetImage: element.assetImage,
-              title: element.title,
-              routeName: element.routeName,
-              onTap: (route) => context.push(route),
-            ),
-          );
-        },
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: ListView.builder(
+          itemCount: list.length,
+          /* crossAxisCount: 2,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 5, */
+          itemBuilder: (BuildContext context, int index) {
+            final element = list[index];
+            return InkWell(
+              onTap: () => context.push(element.routeName),
+              child: GameOption(
+                assetImage: element.assetImage,
+                title: element.title,
+                routeName: element.routeName,
+                onTap: (route) => context.push(route),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
