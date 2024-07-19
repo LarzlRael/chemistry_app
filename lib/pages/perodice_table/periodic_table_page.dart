@@ -33,8 +33,7 @@ class PeriodicTablePage extends HookWidget {
             ? TextField(
                 autofocus: true,
                 decoration: InputDecoration(
-                  hintText:
-                      getTOneRandomElement(listPeriodicTable.value).nombre,
+                  hintText: getTOneRandomElement(listPeriodicTable.value).name,
                   border: InputBorder.none,
                   /* hintStyle: TextStyle(color: Colors.white), */
                 ),

@@ -12,7 +12,7 @@ import 'package:templat_project/services/firebase/remote_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
-  await Enviroment.initEnviroment();
+  await Environment.initEnvironment();
   await LocalNotification.initializeLocalNotification();
   await AdmobPlugin.initialize();
   await Firebase.initializeApp(

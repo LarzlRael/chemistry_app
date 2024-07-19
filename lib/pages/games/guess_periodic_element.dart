@@ -17,7 +17,7 @@ class GuessPeriodicElement extends HookConsumerWidget {
     final correctAnswerAmount = useState(0);
 
     final colorSchema = Theme.of(context).colorScheme;
-    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
+    final interstiatAdProviderN = ref.read(interstitialAdProvider.notifier);
 
     useEffect(() {
       if (isCorrect.value) {
@@ -53,7 +53,7 @@ class GuessPeriodicElement extends HookConsumerWidget {
                       height: 15,
                       durationMilliseconds: periodicTimeMilliseconds,
                       onTimerFinish: () {
-                        interstiatAdProviderN.addCounterIntersitialAdAndShow();
+                        interstiatAdProviderN.addCounterInterstitialAdAndShow();
                         Navigator.push(
                           context,
                           MaterialPageRoute(

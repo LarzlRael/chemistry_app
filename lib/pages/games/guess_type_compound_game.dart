@@ -16,7 +16,7 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
     final correctAnswerAmount = useState<int>(0);
     final compoundGuessGame = useState<CompoundGuessGame?>(null);
     final colorSchema = Theme.of(context).colorScheme;
-    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
+    final interstiatAdProviderN = ref.read(interstitialAdProvider.notifier);
 
     List<Compound> compoundsByType() {
       List<Compound> listCompounds = [];
@@ -133,7 +133,7 @@ class GuessTypeCompoundGame extends HookConsumerWidget {
                       height: 15,
                       durationMilliseconds: compoundTimeMilliseconds,
                       onTimerFinish: () {
-                        interstiatAdProviderN.addCounterIntersitialAdAndShow();
+                        interstiatAdProviderN.addCounterInterstitialAdAndShow();
                         Navigator.push(
                           context,
                           MaterialPageRoute(

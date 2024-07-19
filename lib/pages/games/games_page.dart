@@ -46,11 +46,9 @@ class GamesPage extends StatelessWidget {
       ),
     ];
     return Scaffold(
-      /* appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text("Selecciona un juego"),
-      ), */
+      appBar: MainAppBar(
+        titlePage: "Trivia",
+      ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: ListView.builder(

@@ -5,12 +5,13 @@ class ElementsPage extends HookConsumerWidget {
   static const routeName = '/elements_page';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
+    final interstitialAdProviderN = ref.read(interstitialAdProvider.notifier);
     final remoteConfig = FirebaseRemoteConfigService();
     final tabController = useTabController(initialLength: Group.values.length);
     final colorScheme = Theme.of(context).colorScheme;
     final searchedText = useState('');
     final searchedElements = useState<List<PeriodicTableElement>>([]);
+
     /* useEffect(() {
       searchElementController.addListener(() {
         ;
@@ -18,6 +19,25 @@ class ElementsPage extends HookConsumerWidget {
       return () {};
     }, []); */
     return Scaffold(
+      appBar: MainAppBar(
+        actions: [
+          IconButton(
+            icon: Icon(FontAwesomeIcons.flask, size: 20),
+            tooltip: 'Ir a tabla periódica completa',
+            onPressed: () {
+              context.push(PeriodicTablePage.routeName);
+            },
+          ),
+          IconButton(
+            icon: Icon(FontAwesomeIcons.download, size: 20),
+            tooltip: 'Descargar tabla periódica',
+            onPressed: () async {
+              interstitialAdProviderN.addCounterInterstitialAdAndShow();
+              await launchUrlFromString(remoteConfig.periodicTablePdf);
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
           SearchBarElement(

@@ -18,7 +18,7 @@ class GuessCompoundGame extends HookConsumerWidget {
       generateCompoundGuessGame(),
     );
 
-    final interstiatAdProviderN = ref.read(interstiatAdProvider.notifier);
+    final interstiatAdProviderN = ref.read(interstitialAdProvider.notifier);
     final colorSchema = Theme.of(context).colorScheme;
     useEffect(() {
       if (isCorrect.value) {
@@ -58,7 +58,7 @@ class GuessCompoundGame extends HookConsumerWidget {
                         durationMilliseconds: compoundTimeMilliseconds,
                         onTimerFinish: () {
                           interstiatAdProviderN
-                              .addCounterIntersitialAdAndShow();
+                              .addCounterInterstitialAdAndShow();
                           Navigator.push(
                             context,
                             MaterialPageRoute(

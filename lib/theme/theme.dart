@@ -71,6 +71,5 @@ class AppTheme2 {
         useMaterial3: true,
         colorSchemeSeed: Color(0xff40E0D0),
         brightness: isDarkmode ? Brightness.dark : Brightness.light,
-        
       );
 }

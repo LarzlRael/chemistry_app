@@ -4,8 +4,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:templat_project/constants/enviroments.dart';
 
 /* change this for env   */
-final adBannerId = Enviroment.adBannerId;
-final adIntersitialId = Enviroment.adIntersitialId;
+final adBannerId = Environment.adBannerId;
+final adIntersitialId = Environment.adInterstitialId;
 
 class AdmobPlugin {
   static Future<void> initialize() async {

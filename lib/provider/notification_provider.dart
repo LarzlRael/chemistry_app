@@ -62,7 +62,7 @@ class NotificationNotifier extends StateNotifier<NotificationState> {
     final packageInfo = await PackageInfo.fromPlatform();
 
     final request = await Request.sendRequest(RequestType.post,
-        '${Enviroment.serverToken}/notifications/saveDeviceId',
+        '${Environment.serverToken}/notifications/saveDeviceId',
         body: {
           'token': isThereToken!,
           'packageName': packageInfo.packageName,

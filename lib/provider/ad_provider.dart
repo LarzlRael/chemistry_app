@@ -11,19 +11,19 @@ final adBannerProvider = FutureProvider<BannerAd>((ref) async {
   return ad;
 });
 
-final interstiatAdProvider =
-    StateNotifierProvider<IntersitialAdNotifier, InterstialState>((ref) {
-  return IntersitialAdNotifier();
+final interstitialAdProvider =
+    StateNotifierProvider<InterstitialAdNotifier, InterstitialState>((ref) {
+  return InterstitialAdNotifier();
 });
 
-class IntersitialAdNotifier extends StateNotifier<InterstialState> {
-  IntersitialAdNotifier()
-      : super(InterstialState(
+class InterstitialAdNotifier extends StateNotifier<InterstitialState> {
+  InterstitialAdNotifier()
+      : super(InterstitialState(
             isAdLoaded: false, interstitialAd: null, counter: 0)) {
     loadAd();
   }
 
-  void addCounterIntersitialAdAndShow() async {
+  void addCounterInterstitialAdAndShow() async {
     const MAXCOUNT = 2;
     final keyValueStorageServiceImpl = KeyValueStorageServiceImpl();
     final getCurrentCounterAdd =
@@ -42,7 +42,7 @@ class IntersitialAdNotifier extends StateNotifier<InterstialState> {
   void loadAd() {
     if (!state.isAdLoaded) {
       InterstitialAd.load(
-        adUnitId: Enviroment.adIntersitialId,
+        adUnitId: Environment.adInterstitialId,
         request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (ad) {
@@ -84,27 +84,27 @@ class IntersitialAdNotifier extends StateNotifier<InterstialState> {
   }
 }
 
-class InterstialState {
+class InterstitialState {
   final InterstitialAd? interstitialAd;
   final bool isAdLoaded;
   final int counter;
-  InterstialState({
+  InterstitialState({
     required this.interstitialAd,
     required this.isAdLoaded,
     required this.counter,
   });
 
-  factory InterstialState.initial() => InterstialState(
+  factory InterstitialState.initial() => InterstitialState(
         interstitialAd: null,
         isAdLoaded: false,
         counter: 0,
       );
-  InterstialState copyWith({
+  InterstitialState copyWith({
     InterstitialAd? interstitialAd,
     bool? isAdLoaded,
     int? counter,
   }) =>
-      InterstialState(
+      InterstitialState(
         interstitialAd: interstitialAd ?? this.interstitialAd,
         isAdLoaded: isAdLoaded ?? this.isAdLoaded,
         counter: counter ?? this.counter,

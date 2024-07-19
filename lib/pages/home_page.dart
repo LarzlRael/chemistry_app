@@ -11,31 +11,7 @@ class HomePage extends HookWidget {
       CompoundsPage(),
       GamesPage(),
     ];
-    final List<List<Widget>> actionsByPage = [
-      [
-        /* Switch(
-          value: true,
-          onChanged: (value) {},
-        ), */
-        IconButton(
-          icon: Icon(FontAwesomeIcons.flask, size: 20),
-          tooltip: 'Ir a tabla periódica completa',
-          onPressed: () {
-            context.push(PeriodicTablePage.routeName);
-          },
-        ),
-        IconButton(
-          icon: Icon(FontAwesomeIcons.download, size: 20),
-          tooltip: 'Descargar tabla periódica',
-          onPressed: () async {
-            /* interstiatAdProviderN.addCounterIntersitialAdAndShow();
-            await launchUrlFromString(remoteConfig.periodicTablePdf); */
-          },
-        ),
-      ],
-      [],
-      []
-    ];
+
     final indexBottomNavbar = useState(0);
     return Scaffold(
       bottomNavigationBar: NavigationBar(
@@ -48,34 +24,6 @@ class HomePage extends HookWidget {
               icon: Icon(Custom.ic_compound), label: 'Compuesto'),
           NavigationDestination(icon: Icon(Custom.ic_trivia), label: 'Trivia'),
         ],
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        actions: actionsByPage[indexBottomNavbar.value],
-        elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: colorScheme.primary,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              padding: const EdgeInsets.all(5),
-              child: Image.asset(
-                ghostLogo,
-                width: 25,
-                height: 25,
-              ),
-            ),
-            const SizedBox(width: 10),
-            SimpleText(
-              appName,
-              fontSize: 20,
-            ),
-          ],
-        ),
-        /* centerTitle: true, */
       ),
       body: bodies[indexBottomNavbar.value],
     );
